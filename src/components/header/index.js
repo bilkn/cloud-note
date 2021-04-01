@@ -4,6 +4,7 @@ import {
   Wrapper,
   Box,
   SearchBox,
+  Input,
   Profile,
   Icon,
 } from './styles/header';
@@ -24,8 +25,12 @@ Header.SearchBox = function HeaderSearchBox({ children, ...restProps }) {
   return <SearchBox {...restProps}>{children}</SearchBox>;
 };
 
-Header.Profile = function HeaderProfile({ children, ...restProps }) {
-  return <Profile {...restProps}>{children}</Profile>;
+Header.Input = function HeaderInput({ ...restProps }) {
+  return <Input {...restProps} />;
+};
+
+Header.Profile = function HeaderProfile({ ...restProps }) {
+  return <Profile {...restProps} />;
 };
 
 Header.Icon = function HeaderIcon({ children, ...restProps }) {
