@@ -2,7 +2,11 @@ import styled from 'styled-components/macro';
 
 export const Container = styled.header`
   background: #e9ecf5;
+  left: 0;
   padding: 1em;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 export const Wrapper = styled.div`

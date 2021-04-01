@@ -6,6 +6,14 @@ function MainContainer() {
     <Main>
       <Main.Wrapper>
         <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
+        <Main.Note>Hello guys</Main.Note>
       </Main.Wrapper>
     </Main>
   );
