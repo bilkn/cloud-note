@@ -35,6 +35,7 @@ export const Profile = styled.div`
   background: gray;
   border-radius: 5px;
   height: 40px;
+  position: relative;
   width: 40px;
 `;
 
