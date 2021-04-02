@@ -7,7 +7,8 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
 } 
 html, 
-body {
+body {  
+        background: #F3F5FB;
         color: #333;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 16px;
@@ -26,6 +27,10 @@ body {
     }
     button {
         cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
     }
 
 `;

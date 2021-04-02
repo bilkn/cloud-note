@@ -1,7 +1,18 @@
-import Home from "./pages/home";
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import SidebarContainer from './containers/sidebar';
+import Home from './pages/home';
 
 function App() {
-  return <Home />
+  return (
+    <>
+      <Router>
+        <SidebarContainer />
+        <Switch>
+          <Home exact path="/" />
+        </Switch>
+      </Router>
+    </>
+  );
 }
 
 export default App;

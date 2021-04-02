@@ -1,13 +1,14 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.main`
-  margin-top: 3em;
+  margin-top: 72px;
 `;
 
 export const Wrapper = styled.div`
   display: grid;
+  gap: 2em;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  padding: 0 2.5em;
+  padding: 2.5em;
 `;
 
 export const Note = styled.div`
