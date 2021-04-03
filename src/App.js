@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import SidebarContainer from './containers/sidebar';
-import Home from './pages/home';
+import {Home} from './pages';
 
 function App() {
   return (
