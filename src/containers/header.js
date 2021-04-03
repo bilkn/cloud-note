@@ -14,7 +14,7 @@ function HeaderContainer() {
           </Header.SearchBox>
         </Header.Box>
         <Header.Profile>
-          <Popover>
+          {/* <Popover>
             <Popover.List>
               <Popover.Item>
                 <Popover.ButtonLink>Edit Profile</Popover.ButtonLink>
@@ -32,7 +32,7 @@ function HeaderContainer() {
                 <Popover.ButtonLink>Sign Out</Popover.ButtonLink>
               </Popover.Item>
             </Popover.List>
-          </Popover>
+          </Popover> */}
         </Header.Profile>
       </Header.Wrapper>
     </Header>
