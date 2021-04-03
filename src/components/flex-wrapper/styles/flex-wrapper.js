@@ -5,6 +5,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: ${(props) => props.direction};
   margin-top: 4.5em;
-  padding: 2rem;
+  padding: 1.8em;
 `;
 

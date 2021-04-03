@@ -33,4 +33,8 @@ body {
         text-decoration: none;
     }
 
+    p {
+        line-height: 1.4em;
+    }
+
 `;
