@@ -4,13 +4,32 @@ export const Container = styled.div``;
 
 export const Breadcrumb = styled.nav``;
 
-export const Menu = styled.ul``;
+export const Menu = styled.ul`
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+`;
 
-export const MenuItem = styled.li``;
+export const MenuItem = styled.li`
+  border-bottom: 1px solid #eee;
+`;
 
 export const Link = styled(ReactRouterLink)`
   color: #f1554c;
   font-size: 2rem;
+`;
+
+export const MenuLink = styled(ReactRouterLink)`
+  align-items: center;
+  color: #000;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  padding: 0.875em 1.25em;
+  width: 100%;
 `;
 
 export const Text = styled.p`

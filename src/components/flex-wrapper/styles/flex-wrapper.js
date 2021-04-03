@@ -6,5 +6,9 @@ export const Container = styled.div`
   flex-direction: ${(props) => props.direction};
   margin-top: 4.5em;
   padding: 1.8em;
+
+  @media (min-width:30em) {
+    flex-direction: row;
+  }
 `;
 
