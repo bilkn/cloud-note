@@ -4,10 +4,12 @@ export const Container = styled.div``;
 
 export const Breadcrumb = styled.nav``;
 
-export const Link = styled(ReactRouterLink)``;
-
 export const Menu = styled.ul``;
 
 export const MenuItem = styled.li``;
 
+export const Link = styled(ReactRouterLink)``;
 
+export const Span = styled.span`
+  user-select: none;
+`;

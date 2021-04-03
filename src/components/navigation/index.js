@@ -5,6 +5,7 @@ import {
   Link,
   Menu,
   MenuItem,
+  Span
 } from './styles/navigation';
 
 function Navigation({ children, ...restProps }) {
@@ -28,6 +29,10 @@ Navigation.Menu = function NavigationMenu({ children, ...restProps }) {
 
 Navigation.MenuItem = function NavigationMenuItem({ children, ...restProps }) {
   return <MenuItem {...restProps}>{children}</MenuItem>;
+};
+
+Navigation.Span = function NavigationSpan({ children, ...restProps }) {
+  return <Span {...restProps}>{children}</Span>;
 };
 
 export default Navigation;
