@@ -41,6 +41,5 @@ export const ButtonLink = styled(ReactRouterLink)`
 export const Line = styled.hr`
   border: 0;
   background: #dededeba;
-  display: block;
   height: 1px;
 `;

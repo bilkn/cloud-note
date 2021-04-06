@@ -9,6 +9,7 @@ export default function Account() {
       direction="column"
       css={`
         padding: 1.8em;
+        padding-bottom: 5.75em;
       `}
     >
       <Navigation>
@@ -55,6 +56,13 @@ export default function Account() {
             </Form.Fieldset>
           </Form.Wrapper>
           <Form.Button>Save</Form.Button>
+          <Form.Line />
+
+          <Form.Wrapper>
+            <Form.Subtitle>danger zone</Form.Subtitle>
+            <Form.ButtonRed>Delete all notes</Form.ButtonRed>
+            <Form.ButtonRed>Delete account</Form.ButtonRed>
+          </Form.Wrapper>
         </Form>
       </FlexWrapper>
     </FlexWrapper>

@@ -6,8 +6,9 @@ import {
   Label,
   Fieldset,
   Button,
+  ButtonRed,
   Subtitle,
-  Line
+  Line,
 } from './styles/form';
 
 function Form({ children, ...restProps }) {
@@ -34,8 +35,16 @@ Form.Button = function FormButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
 
+Form.ButtonRed = function FormButtonRed({ children, ...restProps }) {
+  return <ButtonRed {...restProps}>{children}</ButtonRed>;
+};
+
 Form.Subtitle = function FormSubtitle({ children, ...restProps }) {
   return <Subtitle {...restProps}>{children}</Subtitle>;
+};
+
+Form.Line = function FormLine({ ...restProps }) {
+  return <Line {...restProps} />;
 };
 
 export default Form;
