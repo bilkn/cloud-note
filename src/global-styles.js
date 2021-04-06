@@ -26,6 +26,7 @@ body {
         list-style: none;
     }
     button {
+        border: none;
         cursor: pointer;
     }
 

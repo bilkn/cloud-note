@@ -1,11 +1,16 @@
 import React from 'react';
-import { FlexWrapper, Navigation } from '../components';
+import { FlexWrapper, Navigation, Form } from '../components';
 import { ChevronDown } from '@styled-icons/entypo/ChevronDown';
-
+import 'styled-components/macro';
 
 export default function Account() {
   return (
-    <FlexWrapper direction="column">
+    <FlexWrapper
+      direction="column"
+      css={`
+        padding: 1.8em;
+      `}
+    >
       <Navigation>
         <Navigation.Breadcrumb>
           <Navigation.Link>Codebee</Navigation.Link>
@@ -27,6 +32,31 @@ export default function Account() {
           <Navigation.MenuLink>Password</Navigation.MenuLink>
         </Navigation.MenuItem>
       </Navigation.Menu>
+      <FlexWrapper
+        direction="column"
+        css={`
+          margin-top: 1em;
+        `}
+      >
+        <Form>
+          <Form.Wrapper>
+            <Form.Fieldset
+              name=""
+              css={`
+                margin: 0;
+              `}
+            >
+              <Form.Label>Username</Form.Label>
+              <Form.Input type="text" value="Mr. Johnson" />
+            </Form.Fieldset>
+            <Form.Fieldset name="">
+              <Form.Label>Email</Form.Label>
+              <Form.Input type="text" />
+            </Form.Fieldset>
+          </Form.Wrapper>
+          <Form.Button>Save</Form.Button>
+        </Form>
+      </FlexWrapper>
     </FlexWrapper>
   );
 }
