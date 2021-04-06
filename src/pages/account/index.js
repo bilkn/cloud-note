@@ -1,7 +1,8 @@
 import React from 'react';
-import { FlexWrapper, Navigation, Form } from '../components';
+import { FlexWrapper, Navigation, Form } from '../../components';
 import { ChevronDown } from '@styled-icons/entypo/ChevronDown';
 import 'styled-components/macro';
+import { ProfileContainer } from '../../containers/profile-container';
 
 export default function Account() {
   return (
@@ -33,7 +34,8 @@ export default function Account() {
           <Navigation.MenuLink>Password</Navigation.MenuLink>
         </Navigation.MenuItem>
       </Navigation.Menu>
-      <FlexWrapper
+      <ProfileContainer />
+      {/* <FlexWrapper
         direction="column"
         css={`
           margin-top: 1em;
@@ -64,7 +66,7 @@ export default function Account() {
             <Form.ButtonRed>Delete account</Form.ButtonRed>
           </Form.Wrapper>
         </Form>
-      </FlexWrapper>
+      </FlexWrapper> */}
     </FlexWrapper>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Container,
   Wrapper,
+  Box,
   Input,
   Label,
   Fieldset,
@@ -17,6 +18,10 @@ function Form({ children, ...restProps }) {
 
 Form.Wrapper = function FormWrapper({ children, ...restProps }) {
   return <Wrapper {...restProps}>{children}</Wrapper>;
+};
+
+Form.Box = function FormBox({ children, ...restProps }) {
+  return <Box {...restProps}>{children}</Box>;
 };
 
 Form.Input = function FormInput({ children, ...restProps }) {

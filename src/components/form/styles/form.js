@@ -8,6 +8,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+export const Box = styled.div``
+
 export const Input = styled.input`
   background: #e5e5e5;
   border: none;
@@ -33,7 +35,7 @@ export const Button = styled.button`
   background: #dcdcdc;
   border-radius: 5px;
   margin-top: 1.5em;
-  padding: 0.7em 1.7em;
+  padding: 0.625em 1em;
 `;
 
 export const ButtonRed = styled(Button)`
