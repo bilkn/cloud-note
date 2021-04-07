@@ -31,14 +31,39 @@ export function ProfileContainer() {
       </FlexWrapper>
       <Form>
         <Form.Fieldset>
-          <Form.Label>
+          <Form.Label for="profile_name">
             Name<Form.Span>*</Form.Span>
           </Form.Label>
-          <Form.Input type="text" />
+          <Form.Input
+            type="text"
+            id="profile_name"
+            name="profile[name]"
+            autocomplete="name"
+          />
         </Form.Fieldset>
-        <Form.Fieldset maxlength="1200">
-          <Form.Label>Bio</Form.Label>
-          <Form.Textarea as="textarea" rows="10"/>
+        <Form.Fieldset
+          css={`
+            position: relative;
+          `}
+        >
+          <Form.Label for="profile_bio">Bio</Form.Label>
+          <Form.Span
+            css={`
+              color: #9e9ea7;
+              position: absolute;
+              right: 0;
+              top: 0;
+            `}
+          >
+            1200
+          </Form.Span>
+          <Form.Textarea
+            as="textarea"
+            id="profile_bio"
+            name="profile[bio]"
+            rows="10"
+            maxlength="1200"
+          />
         </Form.Fieldset>
       </Form>
     </FlexWrapper>

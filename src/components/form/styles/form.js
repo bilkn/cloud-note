@@ -59,8 +59,8 @@ export const Subtitle = styled.h3`
 `;
 
 export const Line = styled.hr`
-  border: 0;
   background: #dbdbde;
+  border: 0;
   height: 1px;
   margin-top: 1.5em;
 `;

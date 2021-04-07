@@ -6,12 +6,21 @@ export function PasswordContainer() {
     <Form>
       <Form.Wrapper>
         <Form.Fieldset>
-          <Form.Label>Old password</Form.Label>
-          <Form.Input type="password" />
+          <Form.Label for="user_old_password">Old password</Form.Label>
+          <Form.Input
+            type="password"
+            id="user_old_password"
+            name="user[old_password]"
+          />
         </Form.Fieldset>
         <Form.Fieldset>
-          <Form.Label>New Password</Form.Label>
-          <Form.Input type="password" />
+          <Form.Label for="user_password">New Password</Form.Label>
+          <Form.Input
+            type="password"
+            id="user_password"
+            name="user[password]"
+            autocomplete="new-password"
+          />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
         <Form.Box>
