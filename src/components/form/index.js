@@ -2,13 +2,17 @@ import React from 'react';
 import {
   Container,
   Wrapper,
+  Box,
   Input,
   Label,
   Fieldset,
+  Text,
+  Textarea,
   Button,
   ButtonRed,
   Subtitle,
   Line,
+  Span,
 } from './styles/form';
 
 function Form({ children, ...restProps }) {
@@ -17,6 +21,10 @@ function Form({ children, ...restProps }) {
 
 Form.Wrapper = function FormWrapper({ children, ...restProps }) {
   return <Wrapper {...restProps}>{children}</Wrapper>;
+};
+
+Form.Box = function FormBox({ children, ...restProps }) {
+  return <Box {...restProps}>{children}</Box>;
 };
 
 Form.Input = function FormInput({ children, ...restProps }) {
@@ -29,6 +37,14 @@ Form.Label = function FormLabel({ children, ...restProps }) {
 
 Form.Fieldset = function FormFieldset({ children, ...restProps }) {
   return <Fieldset {...restProps}>{children}</Fieldset>;
+};
+
+Form.Text = function FormText({ children, ...restProps }) {
+  return <Text {...restProps}>{children}</Text>;
+};
+
+Form.Textarea = function FormTextarea({ children, ...restProps }) {
+  return <Textarea {...restProps}>{children}</Textarea>;
 };
 
 Form.Button = function FormButton({ children, ...restProps }) {
@@ -45,6 +61,10 @@ Form.Subtitle = function FormSubtitle({ children, ...restProps }) {
 
 Form.Line = function FormLine({ ...restProps }) {
   return <Line {...restProps} />;
+};
+
+Form.Span = function FormSpan({ children, ...restProps }) {
+  return <Span {...restProps}>{children}</Span>;
 };
 
 export default Form;
