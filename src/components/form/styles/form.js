@@ -24,7 +24,7 @@ export const Input = styled.input`
 `;
 
 export const Label = styled.label`
-  font-size: 14px;
+  font-size: 0.875rem;
 `;
 
 export const Fieldset = styled.fieldset`
@@ -32,6 +32,11 @@ export const Fieldset = styled.fieldset`
   margin-top: 1.5em;
   padding: 0;
   width: 100%;
+`;
+
+export const Text = styled.p`
+  font-size: 0.625rem;
+  margin: 4px 0;
 `;
 
 export const Textarea = styled(Input)``;

@@ -6,6 +6,7 @@ import {
   Input,
   Label,
   Fieldset,
+  Text,
   Textarea,
   Button,
   ButtonRed,
@@ -36,6 +37,10 @@ Form.Label = function FormLabel({ children, ...restProps }) {
 
 Form.Fieldset = function FormFieldset({ children, ...restProps }) {
   return <Fieldset {...restProps}>{children}</Fieldset>;
+};
+
+Form.Text = function FormText({ children, ...restProps }) {
+  return <Text {...restProps}>{children}</Text>;
 };
 
 Form.Textarea = function FormTextarea({ children, ...restProps }) {

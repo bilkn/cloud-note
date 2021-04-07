@@ -3,6 +3,7 @@ import { FlexWrapper, Navigation, Form } from '../../components';
 import { ChevronDown } from '@styled-icons/entypo/ChevronDown';
 import 'styled-components/macro';
 import { ProfileContainer } from '../../containers/profile-container';
+import { PasswordContainer } from '../../containers/password-container';
 
 export default function Account() {
   return (
@@ -34,7 +35,8 @@ export default function Account() {
           <Navigation.MenuLink>Password</Navigation.MenuLink>
         </Navigation.MenuItem>
       </Navigation.Menu>
-      <ProfileContainer />
+   {/*    <ProfileContainer /> */}
+   <PasswordContainer />
       {/* <FlexWrapper
         direction="column"
         css={`

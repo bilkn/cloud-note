@@ -38,7 +38,7 @@ export function ProfileContainer() {
         </Form.Fieldset>
         <Form.Fieldset maxlength="1200">
           <Form.Label>Bio</Form.Label>
-          <Form.Textarea as="textarea" />
+          <Form.Textarea as="textarea" rows="10"/>
         </Form.Fieldset>
       </Form>
     </FlexWrapper>
