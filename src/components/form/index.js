@@ -6,10 +6,12 @@ import {
   Input,
   Label,
   Fieldset,
+  Textarea,
   Button,
   ButtonRed,
   Subtitle,
   Line,
+  Span,
 } from './styles/form';
 
 function Form({ children, ...restProps }) {
@@ -36,6 +38,10 @@ Form.Fieldset = function FormFieldset({ children, ...restProps }) {
   return <Fieldset {...restProps}>{children}</Fieldset>;
 };
 
+Form.Textarea = function FormTextarea({ children, ...restProps }) {
+  return <Textarea {...restProps}>{children}</Textarea>;
+};
+
 Form.Button = function FormButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
@@ -50,6 +56,10 @@ Form.Subtitle = function FormSubtitle({ children, ...restProps }) {
 
 Form.Line = function FormLine({ ...restProps }) {
   return <Line {...restProps} />;
+};
+
+Form.Span = function FormSpan({ children, ...restProps }) {
+  return <Span {...restProps}>{children}</Span>;
 };
 
 export default Form;

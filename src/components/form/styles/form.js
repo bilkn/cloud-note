@@ -1,14 +1,17 @@
 import styled from 'styled-components/macro';
 
-export const Container = styled.form``;
+export const Container = styled.form`
+  width: 100%;
+`;
 
 export const Wrapper = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
-export const Box = styled.div``
+export const Box = styled.div``;
 
 export const Input = styled.input`
   background: #e5e5e5;
@@ -30,6 +33,8 @@ export const Fieldset = styled.fieldset`
   padding: 0;
   width: 100%;
 `;
+
+export const Textarea = styled(Input)``;
 
 export const Button = styled.button`
   background: #dcdcdc;
@@ -53,4 +58,10 @@ export const Line = styled.hr`
   background: #dbdbde;
   height: 1px;
   margin-top: 1.5em;
+`;
+
+export const Span = styled.span`
+  color: #f1554c;
+  display: inline-block;
+  padding-left: 3px;
 `;
