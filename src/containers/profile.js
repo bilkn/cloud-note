@@ -3,7 +3,7 @@ import { FlexWrapper, Form } from '../components';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 
-export function ProfileContainer() {
+export default function ProfileContainer() {
   return (
     <FlexWrapper align="flex-start" direction="column">
       <FlexWrapper
