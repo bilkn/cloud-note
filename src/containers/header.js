@@ -1,6 +1,7 @@
 import React from 'react';
-import { Header, Popover } from '../components';
+import { Header } from '../components';
 import { Search } from '@styled-icons/evil/Search';
+import { PopoverContainer } from './popover';
 function HeaderContainer() {
   return (
     <Header>
@@ -14,25 +15,7 @@ function HeaderContainer() {
           </Header.SearchBox>
         </Header.Box>
         <Header.Profile>
-          {/* <Popover>
-            <Popover.List>
-              <Popover.Item>
-                <Popover.ButtonLink>Edit Profile</Popover.ButtonLink>
-              </Popover.Item>
-              <Popover.Line />
-              <Popover.Item>
-                <Popover.ButtonLink>Account Settings</Popover.ButtonLink>
-              </Popover.Item>
-              <Popover.Line />
-              <Popover.Item>
-                <Popover.ButtonLink>Help</Popover.ButtonLink>
-              </Popover.Item>
-              <Popover.Line />
-              <Popover.Item>
-                <Popover.ButtonLink>Sign Out</Popover.ButtonLink>
-              </Popover.Item>
-            </Popover.List>
-          </Popover> */}
+        <PopoverContainer />
         </Header.Profile>
       </Header.Wrapper>
     </Header>
