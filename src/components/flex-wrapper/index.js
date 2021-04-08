@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from './styles/flex-wrapper';
 
-function FlexWrapper({ children, ...restProps }) {
+export default function FlexWrapper({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -10,4 +10,4 @@ FlexWrapper.defaultProps = {
   direction: 'row',
 };
 
-export default FlexWrapper;
+

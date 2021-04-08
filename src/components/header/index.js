@@ -9,7 +9,7 @@ import {
   Icon,
 } from './styles/header';
 
-function Header({ children, ...restProps }) {
+export default function Header({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -37,4 +37,4 @@ Header.Icon = function HeaderIcon({ children, ...restProps }) {
   return <Icon {...restProps}>{children}</Icon>;
 };
 
-export default Header;
+

@@ -15,7 +15,7 @@ import {
   Span,
 } from './styles/form';
 
-function Form({ children, ...restProps }) {
+export default function Form({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -67,4 +67,3 @@ Form.Span = function FormSpan({ children, ...restProps }) {
   return <Span {...restProps}>{children}</Span>;
 };
 
-export default Form;

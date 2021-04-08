@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, List, Item, ButtonLink, Line } from './styles/popover';
 
-function Popover({ children, ...restProps }) {
+export default function Popover({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -21,4 +21,4 @@ Popover.Line = function PopoverLine({ ...restProps }) {
   return <Line {...restProps} />;
 };
 
-export default Popover;
+

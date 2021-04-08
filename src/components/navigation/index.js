@@ -10,7 +10,7 @@ import {
   Span
 } from './styles/navigation';
 
-function Navigation({ children, ...restProps }) {
+export default function Navigation({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -45,4 +45,3 @@ Navigation.Span = function NavigationSpan({ children, ...restProps }) {
   return <Span {...restProps}>{children}</Span>;
 };
 
-export default Navigation;
