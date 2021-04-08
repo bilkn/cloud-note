@@ -1,7 +1,7 @@
 import React from "react"
 import { Popover } from "../components"
 
-export function PopoverContainer({links}) {
+export default function PopoverContainer() {
     return (
       <Popover>
         <Popover.List>

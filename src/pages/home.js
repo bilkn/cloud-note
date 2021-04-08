@@ -1,10 +1,11 @@
 import React from 'react';
-import HeaderContainer from '../containers/header';
-import MainContainer from '../containers/main';
+import {HeaderContainer, MenuContainer, MainContainer} from '../containers';
+
 
 export default function Home() {
   return (
     <>
+      <MenuContainer />  
       <MainContainer />
     </>
   );

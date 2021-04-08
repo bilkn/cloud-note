@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from '../components';
 
-export function PasswordContainer() {
+export default function PasswordContainer() {
   return (
     <Form>
       <Form.Wrapper>

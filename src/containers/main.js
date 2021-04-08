@@ -1,7 +1,7 @@
 import React from 'react';
 import { Main } from '../components';
 
-function MainContainer() {
+export default function MainContainer() {
   return (
     <Main>
       <Main.Wrapper>
@@ -19,4 +19,4 @@ function MainContainer() {
   );
 }
 
-export default MainContainer;
+

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Header } from '../components';
 import { Search } from '@styled-icons/evil/Search';
-import { PopoverContainer } from './popover';
-function HeaderContainer() {
+import { PopoverContainer } from "./"
+
+export default function HeaderContainer() {
   return (
     <Header>
       <Header.Wrapper>
@@ -22,4 +23,3 @@ function HeaderContainer() {
   );
 }
 
-export default HeaderContainer;

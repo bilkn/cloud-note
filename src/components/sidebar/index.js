@@ -10,7 +10,7 @@ import {
   ButtonLink,
 } from './styles/sidebar';
 
-function Sidebar({ children, ...restProps }) {
+export default function Sidebar({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
@@ -48,4 +48,3 @@ Sidebar.ButtonLink = function SideBarButtonLink({ children, ...restProps }) {
   );
 };
 
-export default Sidebar;

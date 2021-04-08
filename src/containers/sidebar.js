@@ -4,7 +4,7 @@ import { Note } from '@styled-icons/fluentui-system-filled/Note';
 import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 
-function SidebarContainer() {
+export default function SidebarContainer() {
   return (
     <Sidebar>
       <Sidebar.Wrapper>
@@ -26,4 +26,4 @@ function SidebarContainer() {
   );
 }
 
-export default SidebarContainer;
+

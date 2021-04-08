@@ -2,8 +2,7 @@ import React from 'react';
 import { FlexWrapper, Navigation, Form } from '../../components';
 import { ChevronDown } from '@styled-icons/entypo/ChevronDown';
 import 'styled-components/macro';
-import { ProfileContainer } from '../../containers/profile-container';
-import { PasswordContainer } from '../../containers/password-container';
+import { ProfileContainer, PasswordContainer } from '../../containers';
 
 export default function Account() {
   return (
