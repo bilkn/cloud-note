@@ -26,7 +26,7 @@ export default function HeaderContainer() {
             position: relative;
           `}
         >
-          <PopoverContainer />
+        {/*   <PopoverContainer /> */}
           <Avatar.Picture src={Picture} />
         </Avatar>
       </Header.Wrapper>

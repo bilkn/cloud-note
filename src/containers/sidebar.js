@@ -10,13 +10,13 @@ export default function SidebarContainer() {
       <Sidebar.Wrapper>
         <Sidebar.Nav>
           <Sidebar.List>
-            <Sidebar.ButtonLink>
+            <Sidebar.ButtonLink aria-label="Notes">
               <Note size="35" />
             </Sidebar.ButtonLink>
-            <Sidebar.Button>
+            <Sidebar.Button aria-label="Add new note">
               <AddCircle size="60" />
             </Sidebar.Button>
-            <Sidebar.ButtonLink>
+            <Sidebar.ButtonLink aria-label="Deleted notes">
               <TrashAlt size="28" />
             </Sidebar.ButtonLink>
           </Sidebar.List>
@@ -25,5 +25,3 @@ export default function SidebarContainer() {
     </Sidebar>
   );
 }
-
-
