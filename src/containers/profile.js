@@ -2,6 +2,7 @@ import React from 'react';
 import { FlexWrapper, Form } from '../components';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
+import Picture from '../assets/man-1.png';
 
 export default function ProfileContainer() {
   return (
@@ -12,8 +13,9 @@ export default function ProfileContainer() {
         `}
         align="center"
       >
-        <Avatar>
-          <Avatar.Picture />
+        <Avatar size="120px">
+          {/* !!! Add username to the avatar */}
+          <Avatar.Picture src={Picture} alt={Avatar} />
         </Avatar>
         <Form>
           <Form.Box>

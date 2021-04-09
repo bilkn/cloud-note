@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import devices from '../../../devices';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -7,6 +8,12 @@ export const Container = styled.aside`
   left: 0;
   position: fixed;
   width: 100%;
+  z-index: 100;
+  @media ${devices.mobile} {
+    bottom: initial;
+    top: 0;
+    width: initial;
+  }
 `;
 
 export const Wrapper = styled.div``;
@@ -18,6 +25,11 @@ export const List = styled.ul`
   display: flex;
   justify-content: space-between;
   padding: 0 2em;
+  @media ${devices.mobile} {
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+  }
 `;
 
 export const Item = styled.li``;

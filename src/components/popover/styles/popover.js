@@ -9,26 +9,30 @@ export const Container = styled.div`
   right: 0;
   top: calc(100% + 10px);
   width: 170px;
-
-  &:before {
-    border-bottom: 6px solid white;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    content: '';
-    height: 0;
-    position: absolute;
-    right: 14px;
-    top: -5px;
-    width: 0;
-    z-index: 10;
-  }
 `;
 
 export const List = styled.ul``;
 
 export const Item = styled.li`
+  &:first-child {
+    &::before {
+      border-bottom: 6px solid white;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      content: '';
+      height: 0;
+      position: absolute;
+      right: 14px;
+      top: -5px;
+      width: 0;
+      z-index: 10;
+    }
+  }
   &:hover {
     background: rgba(13, 12, 34, 0.03);
+  }
+  &:hover&::before {
+    border-bottom-color: rgb(247, 247, 248);
   }
 `;
 

@@ -8,3 +8,7 @@ export default function Avatar({ children, ...restProps }) {
 Avatar.Picture = function AvatarPicture({ ...restProps }) {
   return <Picture {...restProps} />;
 };
+
+Avatar.defaultProps = {
+  size: '24px',
+};
