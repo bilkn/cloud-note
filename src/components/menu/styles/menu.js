@@ -18,7 +18,12 @@ export const Item = styled.li`
 export const Button = styled.button`
   background: inherit;
   border: none;
+  display: flex;
   font-size: 1.3rem;
   padding: 0.8em 1.5em;
   width: 100%;
+`;
+
+export const Icon = styled.i`
+  margin-right: 10px;
 `;
