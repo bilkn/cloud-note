@@ -7,6 +7,7 @@ export const Container = styled.aside`
   left: 0;
   position: fixed;
   width: 100%;
+  z-index: 100;
 `;
 
 export const Wrapper = styled.div``;

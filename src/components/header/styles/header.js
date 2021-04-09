@@ -7,6 +7,7 @@ export const Container = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 100;
 `;
 
 export const Wrapper = styled.div`
@@ -29,14 +30,6 @@ export const Input = styled.input`
   padding: 10px;
   padding-left: 40px;
   width: 100%;
-`;
-
-export const Profile = styled.div`
-  background: gray;
-  border-radius: 5px;
-  height: 40px;
-  position: relative;
-  width: 40px;
 `;
 
 export const Icon = styled.i`

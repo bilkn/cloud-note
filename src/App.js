@@ -10,8 +10,8 @@ function App() {
         <HeaderContainer />
         <SidebarContainer />
         <Switch>
-           <Home exact path="/" /> 
-         {/*  <Account  path="/account" /> */}
+          {/*  <Home exact path="/" />  */}
+         <Account  path="/account" /> 
         </Switch>
       </Router>
     </>

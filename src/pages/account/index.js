@@ -34,7 +34,7 @@ export default function Account() {
           <Navigation.MenuLink>Password</Navigation.MenuLink>
         </Navigation.MenuItem>
       </Navigation.Menu>
-      {/* <ProfileContainer />  */}
+      <ProfileContainer />  
       {/* <PasswordContainer />  */}
       <FlexWrapper
         direction="column"
@@ -42,7 +42,7 @@ export default function Account() {
           margin-top: 1em;
         `}
       >
-        <Form>
+        {/* <Form>
           <Form.Wrapper>
             <Form.Fieldset
               name=""
@@ -76,7 +76,7 @@ export default function Account() {
             <Form.ButtonRed>Delete all notes</Form.ButtonRed>
             <Form.ButtonRed>Delete account</Form.ButtonRed>
           </Form.Wrapper>
-        </Form>
+        </Form> */}
       </FlexWrapper>
     </FlexWrapper>
   );
