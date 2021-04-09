@@ -1,14 +1,13 @@
 import React from 'react';
-import {HeaderContainer, MenuContainer, MainContainer} from '../containers';
-
+import { Backdrop } from '../components';
+import { HeaderContainer, MenuContainer, MainContainer } from '../containers';
 
 export default function Home() {
   return (
     <>
-      <MenuContainer />  
+      <MenuContainer />
       <MainContainer />
+      <Backdrop />
     </>
   );
 }
-
-

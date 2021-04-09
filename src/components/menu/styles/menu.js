@@ -7,6 +7,7 @@ export const Container = styled.div`
   bottom: 0;
   position: fixed;
   width: 100%;
+  z-index: 10;
 `;
 
 export const List = styled.ul``;
