@@ -9,7 +9,12 @@ export default function MenuContainer() {
   return (
     <Menu>
       <Menu.List>
-        <Menu.Item>
+        <Menu.Item
+          css={`
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          `}
+        >
           <Menu.Button>
             <Menu.Icon>
               <Edit size="24" />

@@ -5,9 +5,9 @@ import { HeaderContainer, MenuContainer, MainContainer } from '../containers';
 export default function Home() {
   return (
     <>
-      <MenuContainer />
+     {/*  <MenuContainer />  */}
       <MainContainer />
-      <Backdrop />
+     {/*  <Backdrop /> */}
     </>
   );
 }
