@@ -3,6 +3,8 @@ import { Sidebar } from '../components';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
 import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
+import "styled-components/macro"
+import devices from '../devices';
 
 export default function SidebarContainer() {
   return (
@@ -10,15 +12,27 @@ export default function SidebarContainer() {
       <Sidebar.Wrapper>
         <Sidebar.Nav>
           <Sidebar.List>
-            <Sidebar.ButtonLink aria-label="Notes">
-              <Note size="35" />
-            </Sidebar.ButtonLink>
-            <Sidebar.Button aria-label="Add new note">
-              <AddCircle size="60" />
-            </Sidebar.Button>
-            <Sidebar.ButtonLink aria-label="Deleted notes">
-              <TrashAlt size="28" />
-            </Sidebar.ButtonLink>
+            <Sidebar.Item>
+              <Sidebar.ButtonLink aria-label="Notes">
+                <Note size="35" />
+              </Sidebar.ButtonLink>
+            </Sidebar.Item>
+            <Sidebar.Item
+              css={`
+                @media ${devices.mobile} {
+                  display: none;
+                }
+              `}
+            >
+              <Sidebar.Button aria-label="Add new note">
+                <AddCircle size="60" />
+              </Sidebar.Button>
+            </Sidebar.Item>
+            <Sidebar.Item>
+              <Sidebar.ButtonLink aria-label="Deleted notes">
+                <TrashAlt size="28" />
+              </Sidebar.ButtonLink>
+            </Sidebar.Item>
           </Sidebar.List>
         </Sidebar.Nav>
       </Sidebar.Wrapper>

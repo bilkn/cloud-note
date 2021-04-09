@@ -10,7 +10,6 @@ export const Menu = styled.ul`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
 `;
 
 export const MenuItem = styled.li`
