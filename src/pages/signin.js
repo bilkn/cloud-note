@@ -2,8 +2,8 @@ import React from 'react';
 import { FlexWrapper, Form } from '../components';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
-import { Nav } from '../components/sidebar/styles/sidebar';
-function Signin() {
+
+export default function Signin() {
   return (
     <FlexWrapper
       align="center"
@@ -24,7 +24,7 @@ function Signin() {
             font-weight: 600;
           `}
         >
-          Sign up to NoteCloud
+          Sign in to NoteCloud
         </Form.Text>
         <Form>
           <Form.Button
@@ -43,23 +43,14 @@ function Signin() {
                 margin-right: 5px;
               `}
             />
-            Sign up with Google
+            Sign in with Google
           </Form.Button>
         </Form>
         <Form.Divider />
         <Form>
           <Form.Fieldset>
-            <Form.Label for="user_login">Username</Form.Label>
+            <Form.Label for="user_login">Username or Email Address</Form.Label>
             <Form.Input id="user_login" type="text" />
-          </Form.Fieldset>
-          <Form.Fieldset>
-            <Form.Label for="user_email">Email</Form.Label>
-            <Form.Input
-              id="user_email"
-              name="user[email]"
-              type="email"
-              autocomplete="email"
-            />
           </Form.Fieldset>
           <Form.Fieldset>
             <Form.Label for="user_password">Password</Form.Label>
@@ -68,7 +59,6 @@ function Signin() {
               name="user[password]"
               type="password"
               autocomplete="new-password"
-              placeholder="6+ characters"
             />
           </Form.Fieldset>
           <Form.ButtonRed
@@ -76,7 +66,7 @@ function Signin() {
               width: 100%;
             `}
           >
-            Create Account
+            Sign In
           </Form.ButtonRed>
           <Form.Text
             css={`
@@ -85,12 +75,10 @@ function Signin() {
               text-align: center;
             `}
           >
-            Already a member? <Form.ButtonLink>Sign In</Form.ButtonLink>
+            Not a member? <Form.ButtonLink>Sign Up Now</Form.ButtonLink>
           </Form.Text>
         </Form>
       </Form.Wrapper>
     </FlexWrapper>
   );
 }
-
-export default Signin;
