@@ -5,3 +5,5 @@ export { default as PasswordContainer } from './password';
 export { default as PopoverContainer } from './popover';
 export { default as ProfileContainer } from './profile';
 export { default as SidebarContainer } from './sidebar';
+export { default as MobileNavMenuContainer } from './mobile-nav-menu';
+export { default as NavMenuContainer } from './nav-menu';

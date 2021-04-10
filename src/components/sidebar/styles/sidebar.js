@@ -12,7 +12,7 @@ export const Container = styled.aside`
   @media ${devices.mobile} {
     bottom: initial;
     top: 0;
-    width: initial;
+    width: 90px;
   }
 `;
 
@@ -24,7 +24,6 @@ export const List = styled.ul`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 0 2em;
   @media ${devices.mobile} {
     flex-direction: column;
     height: 100vh;
@@ -45,4 +44,5 @@ export const Button = styled.button`
 export const ButtonLink = styled(ReactRouterLink)`
   color: #f1554c;
   display: inline-block;
+  padding: 1em;
 `;
