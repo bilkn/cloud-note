@@ -1,13 +1,20 @@
 import React from 'react';
-import { Backdrop } from '../components';
+import { Backdrop, Wrapper } from '../components';
 import { HeaderContainer, MenuContainer, MainContainer } from '../containers';
+import devices from '../devices';
 
 export default function Home() {
   return (
-    <>
-     {/*  <MenuContainer />  */}
+    <Wrapper
+      css={`
+        @media ${devices.mobile} {
+          margin-left: 90px;
+        }
+      `}
+    >
       <MainContainer />
-     {/*  <Backdrop /> */}
-    </>
+      {/*  <MenuContainer />  */}
+      {/*  <Backdrop /> */}
+    </Wrapper>
   );
 }

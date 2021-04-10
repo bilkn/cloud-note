@@ -43,6 +43,7 @@ export const Link = styled(ReactRouterLink)`
 
 export const MenuLink = styled(ReactRouterLink)`
   color: black;
+  display: block;
 `;
 
 export const Text = styled.p`
