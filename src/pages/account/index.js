@@ -37,7 +37,7 @@ export default function Account() {
           }
         `}
       >
-        <NavMenuContainer />
+        <MobileNavMenuContainer />
 
         <FlexWrapper
           direction="column"

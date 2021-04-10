@@ -1,22 +1,22 @@
 import React from 'react';
-import { Navigation } from '../components';
+import { MobileNav } from '../components';
 import { ChevronDown } from '@styled-icons/entypo/ChevronDown';
 
 export default function MobileNavMenuContainer() {
   return (
-    <Navigation.Menu>
-      <Navigation.MenuItem>
-        <Navigation.MenuLink>
+    <MobileNav.Menu>
+      <MobileNav.MenuItem>
+        <MobileNav.MenuLink>
           Edit Profile
           <ChevronDown color="#CFCFCF" size="18" />
-        </Navigation.MenuLink>
-      </Navigation.MenuItem>
-      <Navigation.MenuItem>
-        <Navigation.MenuLink>Account Settings</Navigation.MenuLink>
-      </Navigation.MenuItem>
-      <Navigation.MenuItem>
-        <Navigation.MenuLink>Password</Navigation.MenuLink>
-      </Navigation.MenuItem>
-    </Navigation.Menu>
+        </MobileNav.MenuLink>
+      </MobileNav.MenuItem>
+      <MobileNav.MenuItem>
+        <MobileNav.MenuLink>Account Settings</MobileNav.MenuLink>
+      </MobileNav.MenuItem>
+      <MobileNav.MenuItem>
+        <MobileNav.MenuLink>Password</MobileNav.MenuLink>
+      </MobileNav.MenuItem>
+    </MobileNav.Menu>
   );
 }
