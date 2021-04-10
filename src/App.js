@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HeaderContainer from './containers/header';
 import SidebarContainer from './containers/sidebar';
-import { Home, Account, Signin, Signup } from './pages';
+import { Home, Account, Signin, Signup, PasswordReset } from './pages';
 
 function App() {
   return (
@@ -21,6 +21,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <Signup />
+          </Route>
+          <Route path="/password_reset">
+            <PasswordReset />
           </Route>
         </Switch>
       </Router>

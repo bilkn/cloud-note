@@ -18,14 +18,7 @@ export default function Signin() {
           padding: 1.3em;
         `}
       >
-        <Form.Text
-          css={`
-            font-size: 1.5rem;
-            font-weight: 600;
-          `}
-        >
-          Sign in to NoteCloud
-        </Form.Text>
+        <Form.Title>Sign in to NoteCloud</Form.Title>
         <Form>
           <Form.Button
             css={`
@@ -49,11 +42,31 @@ export default function Signin() {
         <Form.Divider />
         <Form>
           <Form.Fieldset>
-            <Form.Label for="user_login">Username or Email Address</Form.Label>
-            <Form.Input id="user_login" type="text" />
+            <Form.Label for="login">Username or Email Address</Form.Label>
+            <Form.Input
+              id="login"
+              type="text"
+              autocorrect="off"
+              autocapitalize="off"
+            />
           </Form.Fieldset>
           <Form.Fieldset>
-            <Form.Label for="user_password">Password</Form.Label>
+            <Form.Label
+              for="user_password"
+              css={`
+                display: flex;
+                justify-content: space-between;
+              `}
+            >
+              Password
+              <Form.ButtonLink
+                css={`
+                  margin: 0;
+                `}
+              >
+                Forgot password?
+              </Form.ButtonLink>
+            </Form.Label>
             <Form.Input
               id="user_password"
               name="user[password]"

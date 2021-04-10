@@ -11,6 +11,7 @@ import {
   Button,
   ButtonRed,
   ButtonLink,
+  Title,
   Subtitle,
   Line,
   Divider,
@@ -59,6 +60,10 @@ Form.ButtonRed = function FormButtonRed({ children, ...restProps }) {
 
 Form.ButtonLink = function FormButtonLink({ children, ...restProps }) {
   return <ButtonLink {...restProps}>{children}</ButtonLink>;
+};
+
+Form.Title = function FormTitle({ children, ...restProps }) {
+  return <Title {...restProps}>{children}</Title>;
 };
 
 Form.Subtitle = function FormSubtitle({ children, ...restProps }) {
