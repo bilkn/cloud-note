@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import devices from '../../../devices';
 
 export const Container = styled.header`
   background: #e9ecf5;
@@ -8,6 +9,11 @@ export const Container = styled.header`
   top: 0;
   width: 100%;
   z-index: 100;
+  @media ${devices.mobile} {
+    background: none;
+    margin-left: 90px;
+    width: calc(100% - 90px);
+  }
 `;
 
 export const Wrapper = styled.div`
