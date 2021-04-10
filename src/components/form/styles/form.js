@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 export const Container = styled.form`
   width: 100%;
@@ -53,6 +54,11 @@ export const ButtonRed = styled(Button)`
   color: white;
 `;
 
+export const ButtonLink = styled(ReactRouterLink)`
+  color: #4f3cc9;
+  margin-top: 1.5em;
+`;
+
 export const Subtitle = styled.h3`
   margin-top: 1.3em;
   text-transform: capitalize;
@@ -62,7 +68,23 @@ export const Line = styled.hr`
   background: #dbdbde;
   border: 0;
   height: 1px;
-  margin-top: 1.5em;
+`;
+
+export const Divider = styled.hr`
+  border-top: 1px solid #b6b6b6;
+  color: #6e6d7a;
+  display: block;
+  height: 0;
+  text-align: center;
+  margin-top: 2em;
+  ::after {
+    background: #f3f5fb;
+    content: 'Or';
+    padding: 0 1em;
+    position: relative;
+    top: -9px;
+  }
+  width: 100%;
 `;
 
 export const Span = styled.span`

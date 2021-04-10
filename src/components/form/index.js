@@ -10,8 +10,10 @@ import {
   Textarea,
   Button,
   ButtonRed,
+  ButtonLink,
   Subtitle,
   Line,
+  Divider,
   Span,
 } from './styles/form';
 
@@ -55,12 +57,20 @@ Form.ButtonRed = function FormButtonRed({ children, ...restProps }) {
   return <ButtonRed {...restProps}>{children}</ButtonRed>;
 };
 
+Form.ButtonLink = function FormButtonLink({ children, ...restProps }) {
+  return <ButtonLink {...restProps}>{children}</ButtonLink>;
+};
+
 Form.Subtitle = function FormSubtitle({ children, ...restProps }) {
   return <Subtitle {...restProps}>{children}</Subtitle>;
 };
 
 Form.Line = function FormLine({ ...restProps }) {
   return <Line {...restProps} />;
+};
+
+Form.Divider = function FormDivider({ ...restProps }) {
+  return <Divider {...restProps} />;
 };
 
 Form.Span = function FormSpan({ children, ...restProps }) {
