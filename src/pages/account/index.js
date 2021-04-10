@@ -37,7 +37,7 @@ export default function Account() {
           }
         `}
       >
-        <MobileNavMenuContainer />
+        <NavMenuContainer />
 
         <FlexWrapper
           direction="column"
@@ -49,7 +49,7 @@ export default function Account() {
             }
           `}
         >
-          <ProfileContainer />
+         {/*  <ProfileContainer /> */}
           {/*    <PasswordContainer /> */}
           {/* <Form>
               <Form.Wrapper>

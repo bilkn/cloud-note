@@ -6,15 +6,34 @@ export const Container = styled.div``;
 export const Breadcrumb = styled.nav``;
 
 export const Menu = styled.ul`
-  background: #fff;
+  background: #e9ecf5;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   display: flex;
+  flex-basis: 300px;
   flex-direction: column;
+  padding: 1em;
 `;
 
 export const MenuItem = styled.li`
-  border-bottom: 1px solid #eee;
+  background: ${(props) => (props.active ? 'white' : 'none')};
+  border-top-right-radius: ${(props) => (props.active ? '25px' : 'none')};
+  border-bottom-right-radius: ${(props) => (props.active ? '25px' : 'none')};
+  box-shadow: ${(props) => (props.active ? '3px 3px 30px #0000001a' : 'none')};
+  color: white;
+  padding: 0.8em 0;
+  padding-left: ${(props) => (props.active ? '0.8em' : '0')};
+  position: relative;
+  &::before {
+    background: #f1554c;
+    content: '';
+    display: ${(props) => (props.active ? 'initial' : 'none')};
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 5px;
+  }
 `;
 
 export const Link = styled(ReactRouterLink)`
@@ -23,13 +42,7 @@ export const Link = styled(ReactRouterLink)`
 `;
 
 export const MenuLink = styled(ReactRouterLink)`
-  align-items: center;
-  color: #000;
-  display: flex;
-  height: 100%;
-  justify-content: space-between;
-  padding: 0.875em 1.25em;
-  width: 100%;
+  color: black;
 `;
 
 export const Text = styled.p`

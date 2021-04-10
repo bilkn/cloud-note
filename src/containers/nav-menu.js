@@ -3,8 +3,16 @@ import { Navigation as Nav } from '../components';
 
 export default function NavMenuContainer() {
   return (
-   <Nav.Menu>
-
-   </Nav.Menu>
+    <Nav.Menu>
+      <Nav.MenuItem>
+        <Nav.MenuLink>Edit Profile</Nav.MenuLink>
+      </Nav.MenuItem>
+      <Nav.MenuItem active>
+        <Nav.MenuLink>Account Settings</Nav.MenuLink>
+      </Nav.MenuItem>
+      <Nav.MenuItem>
+        <Nav.MenuLink>Password</Nav.MenuLink>
+      </Nav.MenuItem>
+    </Nav.Menu>
   );
 }
