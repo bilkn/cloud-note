@@ -1,42 +1,44 @@
 import styled from 'styled-components/macro';
 
 export const Container = styled.div`
-  background: gray;
+  background: #f7f9fa;
   border-radius: 10px;
-  height: 130px;
+  height: ${(props) => props.height + 'px'};
   left: 50%;
-  margin-top: -65px;
-  margin-left: -115px;
-  padding: 0.9rem;
+  margin-top: ${(props) => -(+props.height / 2) + 'px'};
+  margin-left: ${(props) => -(+props.width / 2) + 'px'};
+  padding: 0.9em 1.5em;
   position: fixed;
   top: 50%;
-  width: 230px;
+  width: ${(props) => props.width + 'px'};
   z-index: 100;
 `;
 
 export const Box = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 2.5rem;
 `;
 
 export const Text = styled.p`
   color: black;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 1em;
   text-align: center;
 `;
 
 export const Button = styled.button`
-  background: #114b10c9;
-  border-radius: 5px;
-  color: #f3f3f3;
+  background: #f7f9fa;
+  border-radius: 20px;
+  box-shadow: 0 3px 6px rgba(241, 85, 76, 0.25);
+  color: #f1554c;
   font-size: 1.3rem;
-  padding: 0.3rem 0;
+  padding: 0.3em 0;
   text-align: center;
   transition: background 100ms ease;
-  width: 60px;
+  width: 100px;
   &:hover {
     background: none;
   }
 `;
+
+
