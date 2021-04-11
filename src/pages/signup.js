@@ -1,9 +1,9 @@
 import React from 'react';
-import { FlexWrapper, Form } from '../components';
-import 'styled-components/macro';
+import { Form, FlexWrapper } from '../components';
 import { Google } from '@styled-icons/boxicons-logos/Google';
+import 'styled-components/macro';
 
-export default function Signin() {
+export default function Signup() {
   return (
     <FlexWrapper
       align="center"
@@ -18,7 +18,7 @@ export default function Signin() {
           padding: 1.3em;
         `}
       >
-        <Form.Title>Sign in to NoteCloud</Form.Title>
+        <Form.Title>Sign up to NoteCloud</Form.Title>
         <Form>
           <Form.Button
             css={`
@@ -36,42 +36,32 @@ export default function Signin() {
                 margin-right: 5px;
               `}
             />
-            Sign in with Google
+            Sign In with Google
           </Form.Button>
         </Form>
         <Form.Divider />
         <Form>
           <Form.Fieldset>
-            <Form.Label for="login">Username or Email Address</Form.Label>
+            <Form.Label for="user_login">Username</Form.Label>
+            <Form.Input id="user_login" type="text" />
+          </Form.Fieldset>
+          <Form.Fieldset>
+            <Form.Label for="user_email">Email</Form.Label>
             <Form.Input
-              id="login"
-              type="text"
-              autocorrect="off"
-              autocapitalize="off"
+              id="user_email"
+              name="user[email]"
+              type="email"
+              autocomplete="email"
             />
           </Form.Fieldset>
           <Form.Fieldset>
-            <Form.Label
-              for="user_password"
-              css={`
-                display: flex;
-                justify-content: space-between;
-              `}
-            >
-              Password
-              <Form.ButtonLink
-                css={`
-                  margin: 0;
-                `}
-              >
-                Forgot password?
-              </Form.ButtonLink>
-            </Form.Label>
+            <Form.Label for="user_password">Password</Form.Label>
             <Form.Input
               id="user_password"
               name="user[password]"
               type="password"
               autocomplete="new-password"
+              placeholder="6+ characters"
             />
           </Form.Fieldset>
           <Form.ButtonRed
@@ -88,7 +78,7 @@ export default function Signin() {
               text-align: center;
             `}
           >
-            Not a member? <Form.ButtonLink>Sign Up Now</Form.ButtonLink>
+            Already a member? <Form.ButtonLink>Sign In</Form.ButtonLink>
           </Form.Text>
         </Form>
       </Form.Wrapper>

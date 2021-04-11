@@ -9,24 +9,32 @@ export const Container = styled.aside`
   position: fixed;
   width: 100%;
   z-index: 100;
-  @media ${devices.mobile} {
-    bottom: initial;
+  @media ${devices.tablet} {
     top: 0;
+    height: 100vh;
     width: 90px;
   }
 `;
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  display: flex;
+  height: 100%;
+`;
 
-export const Nav = styled.nav``;
+export const Nav = styled.nav`
+  width: 100%;
+  @media ${devices.tablet} {
+    height: min-content;
+    margin: auto;
+  }
+`;
 
 export const List = styled.ul`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     flex-direction: column;
-    height: 100vh;
     justify-content: center;
   }
 `;
@@ -36,9 +44,7 @@ export const Item = styled.li``;
 export const Button = styled.button`
   background: none;
   border: none;
-  bottom: 20px;
   color: #515255;
-  position: relative;
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`

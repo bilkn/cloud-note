@@ -5,53 +5,61 @@ import {
   ProfileContainer,
   PasswordContainer,
   MobileNavMenuContainer,
+  SidebarContainer,
+  HeaderContainer,
   NavMenuContainer,
 } from '../../containers';
 import devices from '../../devices';
 
 export default function Account() {
   return (
-    <FlexWrapper
-      direction="column"
-      css={`
-        margin: 0 auto;
-        margin-top: 4.5em;
-        max-width: 768px;
-        padding: 1em;
-        padding-bottom: 5.75em;
-      `}
-    >
-      <Navigation>
-        <Navigation.Breadcrumb>
-          <Navigation.Link>Codebee</Navigation.Link>
-          <Navigation.Span>/</Navigation.Span>
-          <Navigation.Text>Account Settings</Navigation.Text>
-        </Navigation.Breadcrumb>
-      </Navigation>
+    <>
+      <SidebarContainer />
+      <HeaderContainer />
       <FlexWrapper
         direction="column"
         css={`
-          margin-top: 1em;
-          @media ${devices.mobile} {
-            flex-direction: row;
+          margin: 0 auto;
+          margin-top: 4.5em;
+          max-width: 768px;
+          padding: 1em;
+          padding-bottom: 5.75em;
+          @media ${devices.tablet} {
+            margin-left: 90px;
           }
         `}
       >
-        <NavMenuContainer />
-
+        <Navigation>
+          <Navigation.Breadcrumb>
+            <Navigation.Link>Codebee</Navigation.Link>
+            <Navigation.Span>/</Navigation.Span>
+            <Navigation.Text>Account Settings</Navigation.Text>
+          </Navigation.Breadcrumb>
+        </Navigation>
         <FlexWrapper
           direction="column"
           css={`
-            flex: 1;
             margin-top: 1em;
-            @media ${devices.mobile} {
-              margin: 0;
+            @media ${devices.tablet} {
+              flex-direction: row;
             }
           `}
         >
-         {/*  <ProfileContainer /> */}
-          {/*    <PasswordContainer /> */}
-          {/* <Form>
+          <NavMenuContainer />
+
+          <FlexWrapper
+            direction="column"
+            css={`
+              flex: 1;
+              margin-top: 1em;
+              @media ${devices.tablet} {
+                margin: 0;
+              }
+            `}
+          >
+            {/* <ProfileContainer /> */}
+              {/*  <PasswordContainer />  */}
+            {/* <Form>
               <Form.Wrapper>
                 <Form.Fieldset
                   name=""
@@ -86,8 +94,9 @@ export default function Account() {
                 <Form.ButtonRed>Delete account</Form.ButtonRed>
               </Form.Wrapper>
             </Form> */}
+          </FlexWrapper>
         </FlexWrapper>
       </FlexWrapper>
-    </FlexWrapper>
+    </>
   );
 }

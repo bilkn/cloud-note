@@ -3,7 +3,7 @@ import { Sidebar } from '../components';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
 import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
-import "styled-components/macro"
+import 'styled-components/macro';
 import devices from '../devices';
 
 export default function SidebarContainer() {
@@ -19,7 +19,9 @@ export default function SidebarContainer() {
             </Sidebar.Item>
             <Sidebar.Item
               css={`
-                @media ${devices.mobile} {
+                bottom: 20px;
+                position: relative;
+                @media ${devices.tablet} {
                   display: none;
                 }
               `}

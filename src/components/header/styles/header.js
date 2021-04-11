@@ -9,7 +9,7 @@ export const Container = styled.header`
   top: 0;
   width: 100%;
   z-index: 100;
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     background: none;
     margin-left: 90px;
     width: calc(100% - 90px);

@@ -9,3 +9,4 @@ export { default as Form } from './form';
 export { default as Menu } from './menu';
 export { default as Backdrop } from './backdrop';
 export { default as Wrapper } from './wrapper';
+export { default as Dialog } from './dialog';

@@ -59,6 +59,8 @@ export const ButtonLink = styled(ReactRouterLink)`
   margin-top: 1.5em;
 `;
 
+export const Title = styled.h2``
+
 export const Subtitle = styled.h3`
   margin-top: 1.3em;
   text-transform: capitalize;
