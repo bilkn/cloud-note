@@ -57,8 +57,8 @@ export default function Account() {
               }
             `}
           >
-            <ProfileContainer />
-            {/*    <PasswordContainer /> */}
+            {/* <ProfileContainer /> */}
+              {/*  <PasswordContainer />  */}
             {/* <Form>
               <Form.Wrapper>
                 <Form.Fieldset

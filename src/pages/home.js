@@ -12,6 +12,7 @@ import "styled-components/macro"
 export default function Home() {
   return (
     <>
+    
       <SidebarContainer />
       <HeaderContainer />
       <Wrapper
