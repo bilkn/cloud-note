@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors } from '../../../styles/variables';
+import { colors, indexes } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -9,7 +9,7 @@ export const Container = styled.aside`
   left: 0;
   position: fixed;
   width: 100%;
-  z-index: 100;
+  z-index: ${indexes.nav};
   @media ${devices.tablet} {
     top: 0;
     height: 100vh;

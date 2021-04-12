@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import {colors} from "../../../styles/variables";
+import {colors, indexes} from "../../../styles/variables";
 
 export const Container = styled.div`
   background: #f7f9fa;
@@ -12,7 +12,7 @@ export const Container = styled.div`
   position: fixed;
   top: 50%;
   width: ${(props) => props.width + 'px'};
-  z-index: 100;
+  z-index: ${indexes.poppedUI}
 `;
 
 export const Box = styled.div`
@@ -28,7 +28,7 @@ export const Text = styled.p`
 `;
 
 export const Button = styled.button`
-  background: #f7f9fa;
+  background: ${colors.white_1};
   border-radius: 20px;
   box-shadow: 0 3px 6px rgba(241, 85, 76, 0.25);
   color: ${colors.red};
@@ -38,7 +38,7 @@ export const Button = styled.button`
   transition: background 100ms ease;
   width: 100px;
   &:hover {
-    background: #f4f3f3;
+    background: ${colors.white_1_hover};
   }
 `;
 

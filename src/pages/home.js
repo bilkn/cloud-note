@@ -25,7 +25,7 @@ export default function Home() {
       >
         <MainContainer />
         {/*  <MenuContainer />  */}
-        {/*  <Backdrop /> */}
+         <Backdrop /> 
       </Wrapper>
     </>
   );
