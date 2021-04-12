@@ -26,12 +26,14 @@ export const Loader = styled.div`
 
 export const Button = styled.button`
   background: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  color: white;
+  font-size: 0.8rem;
   height: 20px;
-  margin-left: -9px;
-  margin-top: -11px;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  position: absolute;
+  top: 50%;
   width: 20px;
 `;
 

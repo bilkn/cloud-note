@@ -10,7 +10,7 @@ import {
 import devices from '../styles/devices';
 import 'styled-components/macro';
 import { Cross } from '@styled-icons/entypo/Cross';
-
+import {ReactComponent as CrossIcon} from '../assets/cross-icon.svg';
 export default function Home() {
   return (
     <>
@@ -18,9 +18,10 @@ export default function Home() {
       <SidebarContainer />
       <Toast>
         <Toast.Text>Note has been added</Toast.Text>
-        <Toast.Loader start>
+        <Toast.Loader duration="2000">
           <Toast.Button>
-            <Cross size="20" color="white" />
+            <CrossIcon css={`width:17px; height:17px`} />
+            {/* <Cross size="20" color="white" /> */}
           </Toast.Button>
         </Toast.Loader>
       </Toast>
