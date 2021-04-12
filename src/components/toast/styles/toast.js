@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { indexes } from '../../../styles/variables';
+import devices from '../../../styles/devices';
 
 export const Container = styled.div`
   align-items: center;
@@ -17,6 +18,9 @@ export const Container = styled.div`
   top: 80px;
   width: 300px;
   z-index: ${indexes.poppedUI};
+  @media ${devices.tablet} {
+    margin-left: -120px; // !!! Fix this.
+  }
 `;
 
 export const Text = styled.p``;

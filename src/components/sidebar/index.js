@@ -31,20 +31,13 @@ Sidebar.Item = function SidebarItem({ children, ...restProps }) {
 };
 
 Sidebar.Button = function SidebarButton({ children, ...restProps }) {
-  return (
-    <Item>
-      <Button {...restProps}>{children}</Button>
-    </Item>
-  );
+  return <Button {...restProps}>{children}</Button>;
 };
 
 Sidebar.ButtonLink = function SideBarButtonLink({ children, ...restProps }) {
   return (
-    <Item>
-      <ButtonLink to="/" {...restProps}>
-        {children}
-      </ButtonLink>
-    </Item>
+    <ButtonLink to="/" {...restProps}>
+      {children}
+    </ButtonLink>
   );
 };
-

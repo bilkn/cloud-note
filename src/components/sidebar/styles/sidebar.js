@@ -35,12 +35,17 @@ export const List = styled.ul`
   display: flex;
   justify-content: space-between;
   @media ${devices.tablet} {
+    align-items: stretch;
     flex-direction: column;
-    justify-content: center;
   }
 `;
 
-export const Item = styled.li``;
+export const Item = styled.li`
+  @media ${devices.tablet} {
+    background: ${(props) => (props.active ? colors.gray_1_hover : 'none')};
+    height: 90px;
+  }
+`;
 
 export const Button = styled.button`
   background: none;
@@ -49,7 +54,11 @@ export const Button = styled.button`
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
+  align-items: center;
   color: ${colors.red};
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   padding: 1em;
+  height: 100%;
+  width: 100%;
 `;
