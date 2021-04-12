@@ -14,6 +14,7 @@ export const Container = styled.div`
   margin-left: -150px;
   padding: 0.5em 1em;
   position: fixed;
+  top: 80px;
   width: 300px;
   z-index: ${indexes.poppedUI};
 `;
@@ -24,17 +25,14 @@ export const Loader = styled.div`
   position: relative;
 `;
 
-export const Button = styled.button`
-  background: none;
-  color: white;
-  font-size: 0.8rem;
-  height: 20px;
-  left: 50%;
-  margin-left: -10px;
-  margin-top: -10px;
-  position: absolute;
-  top: 50%;
-  width: 20px;
+export const Circle = styled.circle`
+  fill: #ffffff17;
+  stroke: #000;
+  stroke-dasharray: 94;
+  stroke-dashoffset: 94;
+  stroke-width: 2;
+  transform: translate(5px, 5px);
+  transition: fill 100ms;
 `;
 
 export const SVG = styled.svg`
@@ -43,11 +41,25 @@ export const SVG = styled.svg`
   width: 40px;
 `;
 
-export const Circle = styled.circle`
-  fill: #ffffff17;
-  stroke: #000;
-  stroke-dasharray: 94;
-  stroke-dashoffset: 94;
-  stroke-width: 2;
-  transform: translate(5px, 5px);
+export const Button = styled.button`
+  background: none;
+  color: white;
+  font-size: 0.8rem;
+  height: 30px;
+  left: 50%;
+  margin-left: -14px;
+  margin-top: -15px;
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  z-index: ${indexes.toast_btn};
+  &:hover + SVG Circle {
+    fill: #ffffff33;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:focus + SVG Circle {
+    fill: #ffffff33;
+  }
 `;

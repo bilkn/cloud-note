@@ -10,4 +10,5 @@ export const indexes = {
   nav: 10,
   poppedUI: 100,
   popover: 50,
+  toast_btn: 1
 }
