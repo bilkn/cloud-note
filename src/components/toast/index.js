@@ -1,0 +1,43 @@
+import React from 'react';
+import { Container, Text, Button, Loader, SVG, Circle } from './styles/toast';
+import 'styled-components/macro';
+
+export default function Toast({ children, ...restProps }) {
+  return <Container {...restProps}>{children}</Container>;
+}
+
+Toast.Text = function ToastText({ children, ...restProps }) {
+  return <Text {...restProps}>{children}</Text>;
+};
+
+Toast.Button = function ToastButton({ children, ...restProps }) {
+  return <Button {...restProps}>{children}</Button>;
+};
+
+Toast.Loader = function ToastLoader({ children, start, ...restProps }) {
+  return (
+    <Loader {...restProps}>
+      {children}
+      <SVG>
+        <Circle
+          cx="15"
+          cy="15"
+          r="15"
+          css={`
+            stroke-dashoffset: 0;
+            stroke: transparent;
+          `}
+        />
+        <Circle
+          cx="15"
+          cy="15"
+          r="15"
+          css={`
+            stroke: #fff;
+            stroke-dashoffset: calc(94 - (94 * ${start ? 50 : 0}) / 100);
+          `}
+        />
+      </SVG>
+    </Loader>
+  );
+};
