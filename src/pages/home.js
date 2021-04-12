@@ -1,39 +1,22 @@
 import React from 'react';
-import { Backdrop, Wrapper, Dialog } from '../components';
+import { Backdrop, Wrapper, Dialog, Toast } from '../components';
 import {
   HeaderContainer,
   MenuContainer,
   MainContainer,
   SidebarContainer,
+  DialogContainer,
+  ToastContainer,
 } from '../containers';
-import devices from '../devices';
+import devices from '../styles/devices';
 import 'styled-components/macro';
 
 export default function Home() {
   return (
     <>
-      <Dialog height="150" width="300">
-        <Dialog.Text>Are you sure you want to remove this note?</Dialog.Text>
-        <Dialog.Box>
-          <Dialog.Button
-            css={`
-              background: #f1554c;
-              color: #f7f9fa;
-            `}
-          >
-            No
-          </Dialog.Button>
-          <Dialog.Button
-            css={`
-              box-shadow: 0 3px 6px rgba(30, 38, 56, 0.08);
-            `}
-          >
-            Yes
-          </Dialog.Button>
-        </Dialog.Box>
-      </Dialog>
-      <SidebarContainer />
       <HeaderContainer />
+      <SidebarContainer />
+
       <Wrapper
         css={`
           @media ${devices.tablet} {
@@ -41,9 +24,12 @@ export default function Home() {
           }
         `}
       >
+        <ToastContainer />
+        {/* <DialogContainer text="Are you sure you want to remove this note?" /> */}
+
         <MainContainer />
         {/*  <MenuContainer />  */}
-        {/*  <Backdrop /> */}
+        {/* <Backdrop />  */}
       </Wrapper>
     </>
   );

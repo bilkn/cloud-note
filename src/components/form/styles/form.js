@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
-
+import { colors } from '../../../styles/variables';
 export const Container = styled.form`
   width: 100%;
 `;
@@ -50,7 +50,7 @@ export const Button = styled.button`
 `;
 
 export const ButtonRed = styled(Button)`
-  background: #f1554c;
+  background: ${colors.red};
   color: white;
 `;
 
@@ -90,7 +90,7 @@ export const Divider = styled.hr`
 `;
 
 export const Span = styled.span`
-  color: #f1554c;
+  color: ${colors.red};
   display: inline-block;
   padding-left: 3px;
 `;

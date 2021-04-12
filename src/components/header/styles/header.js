@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
-import devices from '../../../devices';
+import devices from '../../../styles/devices';
+import {indexes} from '../../../styles/variables';
 
 export const Container = styled.header`
   background: #e9ecf5;
@@ -8,7 +9,7 @@ export const Container = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: ${indexes.nav};
   @media ${devices.tablet} {
     background: none;
     margin-left: 90px;

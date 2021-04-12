@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import devices from '../../../devices';
+import devices from '../../../styles/devices';
+import { colors, indexes } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -8,7 +9,7 @@ export const Container = styled.aside`
   left: 0;
   position: fixed;
   width: 100%;
-  z-index: 100;
+  z-index: ${indexes.nav};
   @media ${devices.tablet} {
     top: 0;
     height: 100vh;
@@ -48,7 +49,7 @@ export const Button = styled.button`
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
-  color: #f1554c;
+  color: ${colors.red};
   display: inline-block;
   padding: 1em;
 `;

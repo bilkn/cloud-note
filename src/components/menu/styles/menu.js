@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import {indexes } from '../../../styles/variables';
 
 export const Container = styled.div`
   background: whitesmoke;
@@ -7,7 +8,7 @@ export const Container = styled.div`
   bottom: 0;
   position: fixed;
   width: 100%;
-  z-index: 10;
+  z-index: ${indexes.poppedUI};
 `;
 
 export const List = styled.ul`
