@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import devices from '../../../devices';
+import devices from '../../../styles/devices';
 
 export const Container = styled.header`
   background: #e9ecf5;

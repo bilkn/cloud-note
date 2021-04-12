@@ -6,8 +6,9 @@ import {
   MainContainer,
   SidebarContainer,
 } from '../containers';
-import devices from '../devices';
+import devices from '../styles/devices';
 import 'styled-components/macro';
+import { colors } from '../styles/variables';
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
         <Dialog.Box>
           <Dialog.Button
             css={`
-              background: #f1554c;
+              background: ${colors.red};
               color: #f7f9fa;
             `}
           >

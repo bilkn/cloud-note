@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import devices from '../../../devices';
+import devices from '../../../styles/devices';
+import { colors } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -48,7 +49,7 @@ export const Button = styled.button`
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
-  color: #f1554c;
+  color: ${colors.red};
   display: inline-block;
   padding: 1em;
 `;

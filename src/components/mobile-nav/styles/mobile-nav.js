@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { colors } from '../../../styles/variables';
 
 export const Container = styled.div``;
 
@@ -16,7 +17,7 @@ export const MenuItem = styled.li`
 `;
 
 export const Link = styled(ReactRouterLink)`
-  color: #f1554c;
+  color: ${colors.red};
   font-size: 2rem;
 `;
 

@@ -4,7 +4,7 @@ import { Note } from '@styled-icons/fluentui-system-filled/Note';
 import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
-import devices from '../devices';
+import devices from '../styles/devices';
 
 export default function SidebarContainer() {
   return (

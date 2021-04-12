@@ -9,7 +9,7 @@ import {
   HeaderContainer,
   NavMenuContainer,
 } from '../../containers';
-import devices from '../../devices';
+import devices from '../../styles/devices';
 
 export default function Account() {
   return (

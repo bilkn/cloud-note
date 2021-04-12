@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { colors } from '../../../styles/variables';
 
 export const Container = styled.div``;
 
@@ -25,7 +26,7 @@ export const MenuItem = styled.li`
   padding-left: ${(props) => (props.active ? '0.8em' : '0')};
   position: relative;
   &::before {
-    background: #f1554c;
+    background: ${colors.red};
     content: '';
     display: ${(props) => (props.active ? 'initial' : 'none')};
     height: 100%;
@@ -37,7 +38,7 @@ export const MenuItem = styled.li`
 `;
 
 export const Link = styled(ReactRouterLink)`
-  color: #f1554c;
+  color: ${colors.red};
   font-size: 2rem;
 `;
 

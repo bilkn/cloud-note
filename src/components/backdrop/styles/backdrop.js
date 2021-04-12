@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { fadeIn } from '../../../animations';
+import { fadeIn } from '../../../styles/animations';
 export const Container = styled.div`
   animation: ${fadeIn} 0.2s ease;
   background-color: rgba(0, 0, 0, 0.8);
