@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors, indexes } from '../../../styles/variables';
+import { colors, indexes, sizes } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -13,7 +13,7 @@ export const Container = styled.aside`
   @media ${devices.tablet} {
     top: 0;
     height: 100vh;
-    width: 90px;
+    width: ${sizes.sidebar_width};
   }
 `;
 

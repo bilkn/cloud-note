@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { indexes } from '../../../styles/variables';
+import { indexes, sizes } from '../../../styles/variables';
 import devices from '../../../styles/devices';
 
 export const Container = styled.div`
@@ -15,11 +15,11 @@ export const Container = styled.div`
   margin-left: -150px;
   padding: 0.5em 1em;
   position: fixed;
-  top: 80px;
+  top: 60px;
   width: 300px;
   z-index: ${indexes.poppedUI};
   @media ${devices.tablet} {
-    margin-left: -120px; // !!! Fix this.
+    margin-left:  ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
   }
 `;
 
@@ -51,7 +51,7 @@ export const Button = styled.button`
   font-size: 0.8rem;
   height: 30px;
   left: 50%;
-  margin-left: -14px;
+  margin-left: -15px;
   margin-top: -15px;
   position: absolute;
   top: 50%;

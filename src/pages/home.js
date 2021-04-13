@@ -19,6 +19,7 @@ export default function Home() {
 
       <Wrapper
         css={`
+          position: relative;
           @media ${devices.tablet} {
             margin-left: 90px;
           }
