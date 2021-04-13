@@ -4,6 +4,7 @@ import { indexes, shadows } from '../../../styles/variables';
 
 export const Container = styled.header`
   background: #e9ecf5;
+  box-shadow: ${shadows.commonShadow};
   left: 0;
   padding: 1em;
   position: fixed;
@@ -12,7 +13,9 @@ export const Container = styled.header`
   z-index: ${indexes.nav};
   @media ${devices.tablet} {
     background: none;
+    box-shadow: none;
     margin-left: 90px;
+    padding: 1em 2em;
     width: calc(100% - 90px);
   }
 `;

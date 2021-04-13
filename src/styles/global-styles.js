@@ -39,4 +39,8 @@ body {
         line-height: 1.4em;
     }
 
+    img {
+        max-width: 100%;
+    }
+
 `;

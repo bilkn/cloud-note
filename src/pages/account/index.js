@@ -20,6 +20,7 @@ export default function Account() {
         css={`
           @media ${devices.tablet} {
             margin-left: 90px;
+            margin-top: 4.5em;
           }
         `}
       >
@@ -27,8 +28,7 @@ export default function Account() {
           direction="column"
           css={`
             margin: 0 auto;
-            margin-top: 4.5em;
-            max-width: 768px;
+            max-width: 878px;
             padding: 1em;
             padding-bottom: 5.75em;
           `}
