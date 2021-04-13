@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors, indexes } from '../../../styles/variables';
+import { colors, indexes, sizes, transitions } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -13,7 +13,7 @@ export const Container = styled.aside`
   @media ${devices.tablet} {
     top: 0;
     height: 100vh;
-    width: 90px;
+    width: ${sizes.sidebar_width};
   }
 `;
 
@@ -35,12 +35,21 @@ export const List = styled.ul`
   display: flex;
   justify-content: space-between;
   @media ${devices.tablet} {
+    align-items: stretch;
     flex-direction: column;
-    justify-content: center;
   }
 `;
 
-export const Item = styled.li``;
+export const Item = styled.li`
+  @media ${devices.tablet} {
+    background: ${(props) => (props.active ? colors.gray_1_active : 'none')};
+    height: 90px;
+    transition: ${transitions.btnBgHover};
+  }
+  &:hover {
+    background: ${colors.gray_1_hover};
+  }
+`;
 
 export const Button = styled.button`
   background: none;
@@ -49,7 +58,11 @@ export const Button = styled.button`
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
+  align-items: center;
   color: ${colors.red};
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   padding: 1em;
+  height: 100%;
+  width: 100%;
 `;
