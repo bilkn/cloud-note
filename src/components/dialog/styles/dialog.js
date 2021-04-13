@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import {colors, indexes} from "../../../styles/variables";
+import {colors, indexes,transitions} from "../../../styles/variables";
 
 export const Container = styled.div`
   background: #f7f9fa;
@@ -35,7 +35,7 @@ export const Button = styled.button`
   font-size: 1.3rem;
   padding: 0.3em 0;
   text-align: center;
-  transition: background 100ms ease;
+  transition: ${transitions.buttonBgHover};
   width: 100px;
   &:hover {
     background: ${colors.white_1_hover};

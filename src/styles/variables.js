@@ -1,5 +1,6 @@
 export const colors = {
-  gray_1_hover: '#d6d8dfc7',
+  gray_1_hover: '#d6d8df73',
+  gray_1_active: '#d6d8dfc7',
   red: '#f1554c',
   redHover: '#e7483f',
   white_1: '#f7f9fa',
@@ -17,3 +18,7 @@ export const indexes = {
 export const sizes = {
   sidebar_width: '90px',
 };
+
+export const transitions = {
+  btnBgHover: "background 100ms;"
+}

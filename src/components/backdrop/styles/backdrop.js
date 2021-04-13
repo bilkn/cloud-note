@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 100vh;
   left: 0;
   position: fixed;
-  transition: opacity 300ms ease;
+  transition: opacity 300ms;
   top: 0;
   width: 100vw;
   z-index: ${indexes.backdrop};

@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import {indexes } from '../../../styles/variables';
+import { indexes, transitions } from '../../../styles/variables';
 
 export const Container = styled.div`
   background: whitesmoke;
@@ -30,7 +30,7 @@ export const Button = styled.button`
   display: flex;
   font-size: 1.3rem;
   padding: 0.8em 1.5em;
-  transition: background 100ms;
+  transition: ${transitions.buttonBgHover};
   width: 100%;
 `;
 

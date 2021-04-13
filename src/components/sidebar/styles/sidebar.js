@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors, indexes, sizes } from '../../../styles/variables';
+import { colors, indexes, sizes, transitions } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -42,8 +42,12 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   @media ${devices.tablet} {
-    background: ${(props) => (props.active ? colors.gray_1_hover : 'none')};
+    background: ${(props) => (props.active ? colors.gray_1_active : 'none')};
     height: 90px;
+    transition: ${transitions.btnBgHover};
+  }
+  &:hover {
+    background: ${colors.gray_1_hover};
   }
 `;
 
