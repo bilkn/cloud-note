@@ -1,11 +1,12 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors, indexes, sizes, transitions } from '../../../styles/variables';
+import { colors, indexes, sizes, transitions, shadows } from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
   bottom: 0;
+  box-shadow: ${shadows.commonShadow};
   left: 0;
   position: fixed;
   width: 100%;
@@ -23,10 +24,22 @@ export const Wrapper = styled.div`
 `;
 
 export const Nav = styled.nav`
+  position: relative;
   width: 100%;
   @media ${devices.tablet} {
     height: min-content;
     margin: auto;
+
+    &::before {
+      background: ${colors.red};
+      content: '  ';
+      height: 90px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 5px;
+      transform: ${props => `translateY(${props.translateY}px)`};
+    }
   }
 `;
 

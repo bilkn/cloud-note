@@ -7,10 +7,11 @@ import 'styled-components/macro';
 import devices from '../styles/devices';
 
 export default function SidebarContainer() {
+  // !!! translateY values will be changed according to item order.
   return (
     <Sidebar>
       <Sidebar.Wrapper>
-        <Sidebar.Nav>
+        <Sidebar.Nav /* translateY="90" */>
           <Sidebar.List>
             <Sidebar.Item active>
               <Sidebar.ButtonLink aria-label="Notes">
@@ -32,9 +33,7 @@ export default function SidebarContainer() {
             </Sidebar.Item>
             <Sidebar.Item>
               <Sidebar.ButtonLink aria-label="Deleted notes">
-                <TrashAlt
-                  size="28"
-                />
+                <TrashAlt size="28" />
               </Sidebar.ButtonLink>
             </Sidebar.Item>
           </Sidebar.List>

@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import devices from '../../../styles/devices';
-import {indexes} from '../../../styles/variables';
+import { indexes, shadows } from '../../../styles/variables';
 
 export const Container = styled.header`
   background: #e9ecf5;
@@ -33,6 +33,7 @@ export const SearchBox = styled.div`
 export const Input = styled.input`
   border: none;
   border-radius: 20px;
+  box-shadow: ${shadows.commonShadow};
   display: inline-block;
   padding: 10px;
   padding-left: 40px;
