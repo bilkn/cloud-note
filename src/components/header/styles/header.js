@@ -1,9 +1,10 @@
 import styled from 'styled-components/macro';
 import devices from '../../../styles/devices';
-import {indexes} from '../../../styles/variables';
+import { indexes, shadows } from '../../../styles/variables';
 
 export const Container = styled.header`
   background: #e9ecf5;
+  box-shadow: ${shadows.commonShadow};
   left: 0;
   padding: 1em;
   position: fixed;
@@ -12,7 +13,9 @@ export const Container = styled.header`
   z-index: ${indexes.nav};
   @media ${devices.tablet} {
     background: none;
+    box-shadow: none;
     margin-left: 90px;
+    padding: 1em 2em;
     width: calc(100% - 90px);
   }
 `;
@@ -33,6 +36,7 @@ export const SearchBox = styled.div`
 export const Input = styled.input`
   border: none;
   border-radius: 20px;
+  box-shadow: ${shadows.commonShadow};
   display: inline-block;
   padding: 10px;
   padding-left: 40px;

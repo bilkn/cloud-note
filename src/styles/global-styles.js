@@ -15,6 +15,7 @@ body {
         height:100%;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
     }
    
     #root {
@@ -36,6 +37,10 @@ body {
 
     p {
         line-height: 1.4em;
+    }
+
+    img {
+        max-width: 100%;
     }
 
 `;

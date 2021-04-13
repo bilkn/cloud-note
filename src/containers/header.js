@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '../components';
+import { Header, Popover } from '../components';
 import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
 import Picture from '../assets/man-1.png';
@@ -18,17 +18,12 @@ export default function HeaderContainer() {
             </Header.Icon>
           </Header.SearchBox>
         </Header.Box>
-        <Avatar
-          size="40px"
-          css={`
-            border-radius: 5px;
-            margin: 0;
-            position: relative;
-          `}
-        >
+
         {/*   <PopoverContainer /> */}
+
+        <Avatar.ButtonLink size="40">
           <Avatar.Picture src={Picture} />
-        </Avatar>
+        </Avatar.ButtonLink>
       </Header.Wrapper>
     </Header>
   );

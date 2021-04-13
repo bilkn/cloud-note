@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Picture } from './styles/avatar';
+import { Container, Picture, ButtonLink } from './styles/avatar';
 
 export default function Avatar({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
@@ -7,6 +7,10 @@ export default function Avatar({ children, ...restProps }) {
 
 Avatar.Picture = function AvatarPicture({ ...restProps }) {
   return <Picture {...restProps} />;
+};
+
+Avatar.ButtonLink = function AvatarButtonLink({ children, ...restProps }) {
+  return <ButtonLink {...restProps}>{children}</ButtonLink>;
 };
 
 Avatar.defaultProps = {
