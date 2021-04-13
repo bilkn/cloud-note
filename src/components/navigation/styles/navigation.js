@@ -13,6 +13,7 @@ export const Menu = styled.ul`
   display: flex;
   flex-basis: 300px;
   flex-direction: column;
+  margin-right: 3em;
   padding: 1em;
 `;
 

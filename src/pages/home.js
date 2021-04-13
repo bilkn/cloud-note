@@ -26,11 +26,11 @@ export default function Home() {
         `}
       >
        {/*  <ToastContainer /> */}
-        {/* <DialogContainer text="Are you sure you want to remove this note?" /> */}
+      {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
 
-        <MainContainer />
-        {/*  <MenuContainer />  */}
-        {/* <Backdrop />  */}
+       {/*  <MainContainer /> */}
+         {/* <MenuContainer />   */}
+       {/*   <Backdrop />   */}
       </Wrapper>
     </>
   );

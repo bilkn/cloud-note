@@ -70,6 +70,8 @@ export const Line = styled.hr`
   background: #dbdbde;
   border: 0;
   height: 1px;
+  margin-top: 1em;
+  width: 100%;
 `;
 
 export const Divider = styled.hr`
