@@ -12,8 +12,6 @@ export const Container = styled.header`
   width: 100%;
   z-index: ${indexes.nav};
   @media ${devices.tablet} {
-    background: none;
-    box-shadow: none;
     margin-left: 90px;
     padding: 1em 2em;
     width: calc(100% - 90px);
@@ -36,7 +34,6 @@ export const SearchBox = styled.div`
 export const Input = styled.input`
   border: none;
   border-radius: 20px;
-  box-shadow: ${shadows.commonShadow};
   display: inline-block;
   padding: 10px;
   padding-left: 40px;

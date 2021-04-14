@@ -8,7 +8,7 @@ export default function NavMenuContainer() {
         <Nav.MenuLink>Edit Profile</Nav.MenuLink>
       </Nav.MenuItem>
       <Nav.MenuItem active>
-        <Nav.MenuLink>Account Settings</Nav.MenuLink>
+        <Nav.MenuLink active>Account Settings</Nav.MenuLink>
       </Nav.MenuItem>
       <Nav.MenuItem>
         <Nav.MenuLink>Password</Nav.MenuLink>

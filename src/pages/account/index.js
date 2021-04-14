@@ -18,9 +18,9 @@ export default function Account() {
       <HeaderContainer />
       <Wrapper
         css={`
+          margin-top: 4.5em;
           @media ${devices.tablet} {
             margin-left: 90px;
-            margin-top: 4.5em;
           }
         `}
       >
@@ -50,7 +50,7 @@ export default function Account() {
             `}
           >
             <NavMenuContainer />
-
+            <MobileNavMenuContainer />
             <FlexWrapper
               direction="column"
               css={`
@@ -63,7 +63,7 @@ export default function Account() {
             >
               {/* <ProfileContainer /> */}
               {/*  <PasswordContainer /> */}
-              <Form>
+              {/* <Form>
                 <Form.Wrapper>
                   <Form.Fieldset
                     name=""
@@ -97,7 +97,7 @@ export default function Account() {
                   <Form.ButtonRed>Delete all notes</Form.ButtonRed>
                   <Form.ButtonRed>Delete account</Form.ButtonRed>
                 </Form.Wrapper>
-              </Form>
+              </Form> */}
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>

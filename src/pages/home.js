@@ -28,7 +28,7 @@ export default function Home() {
        {/*  <ToastContainer /> */}
       {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
 
-       {/*  <MainContainer /> */}
+       <MainContainer /> 
          {/* <MenuContainer />   */}
        {/*   <Backdrop />   */}
       </Wrapper>
