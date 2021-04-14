@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { shadows } from '../../../styles/variables';
+import { shadows, colors } from '../../../styles/variables';
 
 export const Container = styled.main`
   margin-top: 72px;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Note = styled.div`
-  background: #fc9870;
+  background: ${props=> props.color || colors.orange};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
   height:0;

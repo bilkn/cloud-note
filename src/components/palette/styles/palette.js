@@ -47,4 +47,5 @@ export const Span = styled.span`
   left: 10px;
   position: absolute;
   transform: rotate(180deg);
+  user-select: none;
 `;

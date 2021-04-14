@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Sidebar } from '../components';
 import { PaletteContainer } from '.';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
@@ -7,15 +7,18 @@ import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
 import devices from '../styles/devices';
 
+
 export default function SidebarContainer() {
-  const [palette, setPalette] = useState({
-    active: false,
-    extraAnimation: false,
-  });
+ const [palette, setPalette] = useState({
+   active: false,
+   extraAnimation: false,
+ });
 
-  const handleAddClick = () =>
-    setPalette({ extraAnimation: false, active: !palette.active });
+ 
 
+ const handleAddClick = () => {
+   setPalette({ extraAnimation: false, active: !palette.active });
+ };
   // !!! translateY values will be changed according to item order.
   return (
     <>
