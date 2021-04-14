@@ -9,12 +9,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6px; // !!! add support
+  gap: 7px; // !!! add support
   height: 115px;
   left: 25px;
   padding: 0.5em;
   position: fixed;
-  top: 90px;
+  top: 86px;
   width: 115px;
   z-index: ${indexes.palette};
 `;
@@ -24,5 +24,10 @@ export const ColorButton = styled.button`
   border-radius: 50%;
   height: 12px;
   position: relative;
+  transition: transform 50ms;
   width: 12px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;

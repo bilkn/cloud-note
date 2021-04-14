@@ -59,6 +59,7 @@ export default function SidebarContainer() {
           color={colors.orange}
           css={`
             right: 22px;
+            top: 5px;
           `}
         />
         <Palette.ColorButton
@@ -78,6 +79,7 @@ export default function SidebarContainer() {
           color={colors.green}
           css={`
             right: 22px;
+            bottom: 5px;
           `}
         />
       </Palette>
