@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
 
 export const Note = styled.div`
   ${(props) => (props.date ? noteAnimation : '')}
-  background: ${(props) => props.color || colors.orange};
+  background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
   height: 0;

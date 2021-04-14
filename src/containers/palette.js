@@ -6,12 +6,13 @@ import { DataContext } from '../context';
 
 export default function PaletteContainer({ palette, setPalette }) {
   const [data, setData] = useContext(DataContext);
-  const addNewData = () => {
-    const results = [{ color: colors.yellow, date: true }, ...data.results];
+
+  const addNewData = (color) => {
+    const results = [{ color, date: true, text:"Hello" }, ...data.results];
     setData({ ...data, results });
   };
-  const handleColorClick = () => {
-    addNewData();
+  const handleColorClick = (color) => {
+    addNewData(color);
     setPalette({ active: false, extraAnimation: true });
   };
   const handleExtraAnimationEnd = () =>
@@ -25,25 +26,30 @@ export default function PaletteContainer({ palette, setPalette }) {
     >
       <Palette.Span>&#128578;</Palette.Span>
       <Palette.ColorButton
-        color={colors.orange}
+        color={colors.red_2}
         css={`
           right: 22px;
           top: 5px;
         `}
-        onClick={handleColorClick}
+        onClick={() => handleColorClick(colors.red_2)}
       />
       <Palette.ColorButton
-        color={colors.yellow}
+        color={colors.orange}
         css={`
           right: 8px;
         `}
+        onClick={() => handleColorClick(colors.orange)}
       />
-      <Palette.ColorButton color={colors.purple} />
+      <Palette.ColorButton
+        color={colors.purple}
+        onClick={() => handleColorClick(colors.purple)}
+      />
       <Palette.ColorButton
         color={colors.blue}
         css={`
           right: 8px;
         `}
+        onClick={() => handleColorClick(colors.blue)}
       />
       <Palette.ColorButton
         color={colors.green}
@@ -51,6 +57,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           right: 22px;
           bottom: 5px;
         `}
+        onClick={() => handleColorClick(colors.green)}
       />
     </Palette>
   );
