@@ -17,7 +17,7 @@ export const Picture = styled.img`
   width: inherit;
 `;
 
-export const ButtonLink = styled(ReactRouterLink)`
+export const Button = styled.button`
   border-radius: 5px;
   height: ${(props) => props.size + "px"};
   width: ${(props) => props.size + "px"};

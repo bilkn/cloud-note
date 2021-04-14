@@ -21,9 +21,9 @@ export default function HeaderContainer() {
 
         {/*   <PopoverContainer /> */}
 
-        <Avatar.ButtonLink size="40">
+        <Avatar.Button size="40">
           <Avatar.Picture src={Picture} />
-        </Avatar.ButtonLink>
+        </Avatar.Button>
       </Header.Wrapper>
     </Header>
   );

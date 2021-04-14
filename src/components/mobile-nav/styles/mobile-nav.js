@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { colors } from '../../../styles/variables';
+import devices from '../../../styles/devices';
 
 export const Container = styled.div``;
 
@@ -10,6 +11,9 @@ export const Menu = styled.ul`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  @media ${devices.tablet} {
+    display: none;
+  }
 `;
 
 export const MenuItem = styled.li`
