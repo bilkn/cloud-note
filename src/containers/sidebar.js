@@ -55,6 +55,7 @@ export default function SidebarContainer() {
         </Sidebar.Wrapper>
       </Sidebar>
       <Palette>
+        <Palette.Span>&#128578;</Palette.Span>
         <Palette.ColorButton
           color={colors.orange}
           css={`

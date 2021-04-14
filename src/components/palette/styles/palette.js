@@ -1,8 +1,10 @@
 import styled from 'styled-components/macro';
 import { colors, indexes, shadows } from '../../../styles/variables';
+import { paletteSlideout } from '../../../styles/animations';
 
 export const Container = styled.div`
   align-items: flex-end;
+  animation: ${paletteSlideout} 5s forwards;
   background: ${colors.white_1};
   box-shadow: ${shadows.commonShadow};
   border-radius: 50%;
@@ -30,4 +32,11 @@ export const ColorButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+`;
+
+export const Span = styled.span`
+  display: block;
+  left: 10px;
+  position: absolute;
+  transform: rotate(180deg);
 `;
