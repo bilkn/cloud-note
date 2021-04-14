@@ -26,6 +26,7 @@ export default function SidebarContainer() {
     setPalette({ active: false, extraAnimation: false });
   };
   // !!! translateY values will be changed according to item order.
+  // !!! create palette container an fixtures?
   return (
     <>
       <Sidebar>

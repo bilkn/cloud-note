@@ -4,12 +4,12 @@ import { rotateSlideout } from '../../../styles/animations';
 
 const animation = (props) =>
   css`
-    animation: ${props.extraAnimation ? rotateSlideout : ''} 3s forwards;
+    animation: ${rotateSlideout} 3s forwards;
   `;
 
 export const Container = styled.div`
   align-items: flex-end;
-  ${animation};
+  ${(props) => (props.extraAnimation ? animation : '')};
   background: ${colors.white_1};
   box-shadow: ${shadows.commonShadow};
   border-radius: 50%;
