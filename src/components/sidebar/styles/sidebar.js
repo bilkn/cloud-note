@@ -19,9 +19,18 @@ export const Container = styled.aside`
 `;
 
 export const Wrapper = styled.div`
+  align-items: center;
   display: flex;
   height: 100%;
+  @media ${devices.tablet} {
+    flex-direction: column;
+    padding: 4.5em 0;
+  }
 `;
+
+export const Box = styled.div`
+  height: min-content;
+`
 
 export const Nav = styled.nav`
   position: relative;

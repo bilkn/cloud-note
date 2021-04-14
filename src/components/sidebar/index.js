@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Container,
   Wrapper,
+  Box,
   Nav,
   List,
   Item,
@@ -16,6 +17,10 @@ export default function Sidebar({ children, ...restProps }) {
 
 Sidebar.Wrapper = function SidebarWrapper({ children, ...restProps }) {
   return <Wrapper {...restProps}>{children}</Wrapper>;
+};
+
+Sidebar.Box = function SidebarBox({ children, ...restProps }) {
+  return <Box {...restProps}>{children}</Box>;
 };
 
 Sidebar.Nav = function SidebarNav({ children, ...restProps }) {

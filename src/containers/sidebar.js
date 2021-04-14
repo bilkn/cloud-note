@@ -11,6 +11,19 @@ export default function SidebarContainer() {
   return (
     <Sidebar>
       <Sidebar.Wrapper>
+        <Sidebar.Box>
+          <Sidebar.Button
+            css={`
+              display: none;
+              @media ${devices.tablet} {
+                display: initial;
+                
+              }
+            `}
+          >
+            <AddCircle size="60" />
+          </Sidebar.Button>
+        </Sidebar.Box>
         <Sidebar.Nav /* translateY="90" */>
           <Sidebar.List>
             <Sidebar.Item active>
