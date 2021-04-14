@@ -1,7 +1,13 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import devices from '../../../styles/devices';
-import { colors, indexes, sizes, transitions, shadows } from '../../../styles/variables';
+import {
+  colors,
+  indexes,
+  sizes,
+  transitions,
+  shadows,
+} from '../../../styles/variables';
 
 export const Container = styled.aside`
   background: #e9ecf5;
@@ -24,21 +30,17 @@ export const Wrapper = styled.div`
   height: 100%;
   @media ${devices.tablet} {
     flex-direction: column;
-    padding: 4.5em 0;
+    padding: 7em 0;
   }
 `;
 
-export const Box = styled.div`
-  height: min-content;
-`
+export const Box = styled.div``;
 
 export const Nav = styled.nav`
   position: relative;
   width: 100%;
   @media ${devices.tablet} {
-    height: min-content;
     margin: auto;
-
     &::before {
       background: ${colors.red};
       content: '  ';
@@ -47,7 +49,7 @@ export const Nav = styled.nav`
       position: absolute;
       top: 0;
       width: 5px;
-      transform: ${props => `translateY(${props.translateY}px)`};
+      transform: ${(props) => `translateY(${props.translateY}px)`};
     }
   }
 `;

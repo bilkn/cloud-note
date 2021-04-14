@@ -5,11 +5,17 @@ export const colors = {
   redHover: '#e7483f',
   white_1: '#f7f9fa',
   white_1_hover: '#f4f3f3',
+  orange: '#FC9870',
+  yellow: '#FFC972',
+  purple: '#B692FE',
+  blue: '#01D4FF',
+  green: '#E4EE90',
 };
 
 export const indexes = {
   backdrop: 20,
   nav: 10,
+  palette: 5,
   poppedUI: 100,
   popover: 50,
   toast_btn: 1,
