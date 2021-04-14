@@ -1,10 +1,15 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { colors, indexes, shadows } from '../../../styles/variables';
-import { paletteSlideout } from '../../../styles/animations';
+import { rotateSlideout } from '../../../styles/animations';
+
+const animation = (props) =>
+  css`
+    animation: ${props.extraAnimation ? rotateSlideout : ''} 3s forwards;
+  `;
 
 export const Container = styled.div`
   align-items: flex-end;
-  animation: ${paletteSlideout} 5s forwards;
+  ${animation};
   background: ${colors.white_1};
   box-shadow: ${shadows.commonShadow};
   border-radius: 50%;
@@ -16,6 +21,9 @@ export const Container = styled.div`
   left: 25px;
   padding: 0.5em;
   position: fixed;
+  transform: ${(props) =>
+    props.active ? 'translateX(0)' : 'translateX(-100%)'};
+  transition: transform 0.5s;
   top: 86px;
   width: 115px;
   z-index: ${indexes.palette};

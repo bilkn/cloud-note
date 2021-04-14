@@ -15,8 +15,11 @@ to {
 }
 `;
 
-export const paletteSlideout = keyframes`
-    80% {
+export const rotateSlideout = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+    70% {
         transform: rotateZ(180deg);
     }
 
