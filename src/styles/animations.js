@@ -27,3 +27,13 @@ export const rotateSlideout = keyframes`
         transform: translateX(-100px) rotateZ(180deg);
     }
 `;
+
+export const scaleUp= keyframes`
+    from {
+        transform: scale(0.1);
+    }
+    to {
+        transform: scale(1);
+    }
+
+`;

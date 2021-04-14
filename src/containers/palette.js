@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 import { Palette } from '../components';
 import { colors } from '../styles/variables';
 import 'styled-components/macro';
-import {DataContext} from "../context"
+import { DataContext } from '../context';
 
 export default function PaletteContainer({ palette, setPalette }) {
-  const [ data, setData ] = useContext(DataContext);
-   const addNewData = () => {
-     const results = [...data.results, { color: 'yellow' }];
-     setData({ ...data, results });
-   };
+  const [data, setData] = useContext(DataContext);
+  const addNewData = () => {
+    const results = [{ color: colors.yellow, date: true }, ...data.results];
+    setData({ ...data, results });
+  };
   const handleColorClick = () => {
     addNewData();
     setPalette({ active: false, extraAnimation: true });
