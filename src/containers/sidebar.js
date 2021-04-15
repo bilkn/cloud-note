@@ -34,6 +34,7 @@ export default function SidebarContainer() {
                   display: initial;
                 }
               `}
+              aria-label="Add new note"
             >
               <AddCircle size="60" />
             </Sidebar.Button>
@@ -42,7 +43,7 @@ export default function SidebarContainer() {
             <Sidebar.List>
               <Sidebar.Item active={pathname === ROUTES.HOME}>
                 <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">
-                  <Note size="35"  />
+                  <Note size="35" />
                 </Sidebar.ButtonLink>
               </Sidebar.Item>
               <Sidebar.Item
@@ -54,7 +55,10 @@ export default function SidebarContainer() {
                   }
                 `}
               >
-                <Sidebar.Button aria-label="Add new note">
+                <Sidebar.Button
+                  onClick={handleAddClick}
+                  aria-label="Add new note"
+                >
                   <AddCircle size="60" />
                 </Sidebar.Button>
               </Sidebar.Item>

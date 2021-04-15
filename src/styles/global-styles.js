@@ -12,14 +12,13 @@ body {
         color: #333;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 16px;
-        height:100%;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
     }
    
     #root {
-        height: 100%;
+        min-height: 100vh;
         position: relative;
     }
 
