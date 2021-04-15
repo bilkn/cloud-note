@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header, Popover } from '../components';
 import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
@@ -7,6 +7,8 @@ import Avatar from '../components/avatar';
 import 'styled-components/macro';
 
 export default function HeaderContainer() {
+  const [showPopover, setShowPopover] = useState(false);
+  const handleAvatarClick = () => setShowPopover(!showPopover);
   return (
     <Header>
       <Header.Wrapper>
@@ -18,11 +20,9 @@ export default function HeaderContainer() {
             </Header.Icon>
           </Header.SearchBox>
         </Header.Box>
-
-        {/*   <PopoverContainer /> */}
-
-        <Avatar.Button size="40">
+        <Avatar.Button size="40" onClick={handleAvatarClick}>
           <Avatar.Picture src={Picture} />
+          {showPopover && <PopoverContainer />}
         </Avatar.Button>
       </Header.Wrapper>
     </Header>

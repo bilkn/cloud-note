@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
-
 export const Container = styled.div`
   background: #fff;
   border-radius: 8px;
@@ -12,7 +11,9 @@ export const Container = styled.div`
   width: 170px;
 `;
 
-export const List = styled.ul``;
+export const List = styled.ul`
+  text-align: start;
+`;
 
 export const Item = styled.li`
   &:first-child {

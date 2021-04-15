@@ -20,5 +20,6 @@ export const Picture = styled.img`
 export const Button = styled.button`
   border-radius: 5px;
   height: ${(props) => props.size + "px"};
+  position: relative;
   width: ${(props) => props.size + "px"};
 `;

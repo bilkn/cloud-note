@@ -15,9 +15,6 @@ import 'styled-components/macro';
 export default function Home() {
   return (
     <>
-      <HeaderContainer />
-      <SidebarContainer />
-
       <Wrapper
         css={`
           position: relative;
