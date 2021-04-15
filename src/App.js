@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HeaderContainer, SidebarContainer } from './containers';
 import { Home, Account, Signin, Signup, PasswordReset } from './pages';
-import {DataProvider} from "./providers"; 
+import { DataProvider } from './providers';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <DataProvider>
-            <Home />
+              <Home />
             </DataProvider>
           </Route>
           <Route path="/account">
@@ -25,7 +26,11 @@ function App() {
             <PasswordReset />
           </Route>
         </Switch>
+        <DataProvider>
+          <SidebarContainer />
+        </DataProvider>
       </Router>
+      <HeaderContainer />
     </>
   );
 }

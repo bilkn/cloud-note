@@ -11,7 +11,7 @@ export const Menu = styled.ul`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     display: none;
   }
 `;

@@ -18,7 +18,7 @@ export const Container = styled.div`
   top: 60px;
   width: 300px;
   z-index: ${indexes.poppedUI};
-  @media ${devices.mobile} {
+  @media ${devices.tablet} {
     margin-left: ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
   }
 `;

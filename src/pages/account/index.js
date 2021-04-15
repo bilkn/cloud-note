@@ -14,8 +14,6 @@ import devices from '../../styles/devices';
 export default function Account() {
   return (
     <>
-      <SidebarContainer />
-      <HeaderContainer />
       <Wrapper
         css={`
           margin-top: 4.5em;
@@ -44,7 +42,7 @@ export default function Account() {
             direction="column"
             css={`
               margin-top: 1em;
-              @media ${devices.mobile} {
+              @media ${devices.tablet} {
                 flex-direction: row;
               }
             `}
@@ -56,14 +54,14 @@ export default function Account() {
               css={`
                 flex: 1;
                 margin-top: 1em;
-                @media ${devices.mobile} {
+                @media ${devices.tablet} {
                   margin: 0;
                 }
               `}
             >
               {/* <ProfileContainer /> */}
-              {/*  <PasswordContainer /> */}
-              {/* <Form>
+               {/* <PasswordContainer />   */}
+               <Form>
                 <Form.Wrapper>
                   <Form.Fieldset
                     name=""
@@ -97,7 +95,7 @@ export default function Account() {
                   <Form.ButtonRed>Delete all notes</Form.ButtonRed>
                   <Form.ButtonRed>Delete account</Form.ButtonRed>
                 </Form.Wrapper>
-              </Form> */}
+              </Form> 
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>

@@ -17,7 +17,7 @@ export const Container = styled.aside`
   position: fixed;
   width: 100%;
   z-index: ${indexes.nav};
-  @media ${devices.mobile} {
+  @media ${devices.mobile } {
     top: 0;
     height: 100vh;
     width: ${sizes.sidebar_width};
