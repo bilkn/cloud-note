@@ -6,31 +6,29 @@ import { DataProvider } from './providers';
 function App() {
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <DataProvider>
+      <DataProvider>
+        <Router>
+          <Switch>
+            <Route path="/" exact>
               <Home />
-            </DataProvider>
-          </Route>
-          <Route path="/account">
-            <Account />
-          </Route>
-          <Route path="/signin">
-            <Signin />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/password_reset">
-            <PasswordReset />
-          </Route>
-        </Switch>
-        <DataProvider>
+            </Route>
+            <Route path="/account">
+              <Account />
+            </Route>
+            <Route path="/signin">
+              <Signin />
+            </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
+            <Route path="/password_reset">
+              <PasswordReset />
+            </Route>
+          </Switch>
           <SidebarContainer />
-        </DataProvider>
-      </Router>
-      <HeaderContainer />
+        </Router>
+        <HeaderContainer />
+      </DataProvider>
     </>
   );
 }

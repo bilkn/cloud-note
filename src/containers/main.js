@@ -5,6 +5,7 @@ import { DataContext } from '../context';
 export default function MainContainer() {
   const [data] = useContext(DataContext)
   // !!! Add isNow helper to add animation.
+
   return (
     <Main>
       <Main.Wrapper>

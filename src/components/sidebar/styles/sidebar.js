@@ -47,6 +47,7 @@ export const Nav = styled.nav`
       height: 90px;
       left: 0;
       position: absolute;
+      transition: transform 200ms;
       top: 0;
       width: 5px;
       transform: ${(props) => `translateY(${props.translateY}px)`};

@@ -6,8 +6,10 @@ import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
 import devices from '../styles/devices';
+import { useTranslateY } from '../hooks';
 
 export default function SidebarContainer() {
+  const { translateY } = useTranslateY();
   const [palette, setPalette] = useState({
     active: false,
     extraAnimation: false,
@@ -16,6 +18,7 @@ export default function SidebarContainer() {
   const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
   };
+
   // !!! translateY values will be changed according to item order.
   return (
     <>
@@ -34,7 +37,7 @@ export default function SidebarContainer() {
               <AddCircle size="60" />
             </Sidebar.Button>
           </Sidebar.Box>
-          <Sidebar.Nav /* translateY="90" */>
+          <Sidebar.Nav translateY={translateY}>
             <Sidebar.List>
               <Sidebar.Item active>
                 <Sidebar.ButtonLink aria-label="Notes">
