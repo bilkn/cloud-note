@@ -6,14 +6,14 @@ import Picture from '../assets/man-1.png';
 
 export default function ProfileContainer() {
   return (
-    <FlexWrapper align="flex-start" direction="column">
+    <>
       <FlexWrapper
         css={`
           margin: 0;
         `}
         align="center"
       >
-        <Avatar size="120px">
+        <Avatar size="120">
           {/* !!! Add username to the avatar */}
           <Avatar.Picture src={Picture} alt={Avatar} />
         </Avatar>
@@ -21,13 +21,18 @@ export default function ProfileContainer() {
           <Form.Box>
             <Form.ButtonRed
               css={`
-                margin: 0;
-                padding: ;
+                margin: 22px 10px 16px 0;
               `}
             >
               Upload new picture
             </Form.ButtonRed>
-            <Form.Button>Delete</Form.Button>
+            <Form.Button
+              css={`
+                margin: 22px 0 16px 0;
+              `}
+            >
+              Delete
+            </Form.Button>
           </Form.Box>
         </Form>
       </FlexWrapper>
@@ -68,6 +73,6 @@ export default function ProfileContainer() {
           />
         </Form.Fieldset>
       </Form>
-    </FlexWrapper>
+    </>
   );
 }

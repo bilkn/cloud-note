@@ -19,7 +19,7 @@ export const Container = styled.div`
   width: 300px;
   z-index: ${indexes.poppedUI};
   @media ${devices.tablet} {
-    margin-left:  ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
+    margin-left: ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
   }
 `;
 

@@ -14,12 +14,10 @@ import devices from '../../styles/devices';
 export default function Account() {
   return (
     <>
-      <SidebarContainer />
-      <HeaderContainer />
       <Wrapper
         css={`
           margin-top: 4.5em;
-          @media ${devices.tablet} {
+          @media ${devices.mobile} {
             margin-left: 90px;
           }
         `}
@@ -62,8 +60,8 @@ export default function Account() {
               `}
             >
               {/* <ProfileContainer /> */}
-              {/*  <PasswordContainer /> */}
-              {/* <Form>
+               {/* <PasswordContainer />   */}
+              {/*  <Form>
                 <Form.Wrapper>
                   <Form.Fieldset
                     name=""
@@ -97,7 +95,7 @@ export default function Account() {
                   <Form.ButtonRed>Delete all notes</Form.ButtonRed>
                   <Form.ButtonRed>Delete account</Form.ButtonRed>
                 </Form.Wrapper>
-              </Form> */}
+              </Form>  */}
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>

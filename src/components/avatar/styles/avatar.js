@@ -4,6 +4,7 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 export const Container = styled.div`
   background: gray;
   border-radius: 15px;
+  flex-shrink: 0;
   height: ${(props) => props.size + "px"};
   margin-right: 2em;
   width: ${(props) => props.size + "px"};

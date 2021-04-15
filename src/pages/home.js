@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Backdrop, Wrapper, Dialog, Toast } from '../components';
 import {
   HeaderContainer,
@@ -25,12 +25,12 @@ export default function Home() {
           }
         `}
       >
-       {/*  <ToastContainer /> */}
-      {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
+        {/*  <ToastContainer /> */}
+        {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
 
-       <MainContainer /> 
-         {/* <MenuContainer />   */}
-       {/*   <Backdrop />   */}
+        <MainContainer />
+        {/* <MenuContainer />   */}
+        {/*   <Backdrop />   */}
       </Wrapper>
     </>
   );

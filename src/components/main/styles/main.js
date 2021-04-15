@@ -1,5 +1,11 @@
-import styled from 'styled-components/macro';
-import { shadows } from '../../../styles/variables';
+import styled, { css } from 'styled-components/macro';
+import { shadows, colors } from '../../../styles/variables';
+import { scaleUp } from '../../../styles/animations';
+
+const noteAnimation = (props) =>
+  css`
+    animation: ${scaleUp} 1.5s forwards;
+  `;
 
 export const Container = styled.main`
   margin-top: 72px;
@@ -13,10 +19,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Note = styled.div`
-  background: #fc9870;
+  ${(props) => (props.date ? noteAnimation : '')}
+  background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
-  height:0;
+  height: 0;
   padding: 1.2em;
   padding-bottom: 75%;
 `;

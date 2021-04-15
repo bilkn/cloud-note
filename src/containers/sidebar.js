@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
-import { Palette, Sidebar } from '../components';
+import React, { useContext, useState } from 'react';
+import { Sidebar } from '../components';
+import { PaletteContainer } from '.';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
 import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
 import devices from '../styles/devices';
-import { colors } from '../styles/variables';
+import { useTranslateY } from '../hooks';
+import * as ROUTES from '../constants/routes';
+import { useLocation } from 'react-router';
 
 export default function SidebarContainer() {
+  const { translateY } = useTranslateY();
+  const {pathname} = useLocation();
   const [palette, setPalette] = useState({
     active: false,
     extraAnimation: false,
   });
 
-  const handleAddClick = () =>
+  const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
-
-  const handleColorClick = () => {
-    console.log('color click');
-    setPalette({ active: false, extraAnimation: true });
   };
-
-  const handleExtraAnimationEnd = () => {
-    console.log("end")
-    setPalette({ active: false, extraAnimation: false });
-  };
+  console.log(translateY);
   // !!! translateY values will be changed according to item order.
   return (
     <>
@@ -35,7 +32,7 @@ export default function SidebarContainer() {
               onClick={handleAddClick}
               css={`
                 display: none;
-                @media ${devices.tablet} {
+                @media ${devices.mobile} {
                   display: initial;
                 }
               `}
@@ -43,10 +40,10 @@ export default function SidebarContainer() {
               <AddCircle size="60" />
             </Sidebar.Button>
           </Sidebar.Box>
-          <Sidebar.Nav /* translateY="90" */>
+          <Sidebar.Nav translateY={translateY}>
             <Sidebar.List>
-              <Sidebar.Item active>
-                <Sidebar.ButtonLink aria-label="Notes">
+              <Sidebar.Item active={pathname === ROUTES.HOME}>
+                <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">
                   <Note size="35" />
                 </Sidebar.ButtonLink>
               </Sidebar.Item>
@@ -54,7 +51,7 @@ export default function SidebarContainer() {
                 css={`
                   bottom: 20px;
                   position: relative;
-                  @media ${devices.tablet} {
+                  @media ${devices.mobile} {
                     display: none;
                   }
                 `}
@@ -63,8 +60,11 @@ export default function SidebarContainer() {
                   <AddCircle size="60" />
                 </Sidebar.Button>
               </Sidebar.Item>
-              <Sidebar.Item>
-                <Sidebar.ButtonLink aria-label="Deleted notes">
+              <Sidebar.Item active={pathname === ROUTES.DELETED}>
+                <Sidebar.ButtonLink
+                  to={ROUTES.DELETED}
+                  aria-label="Deleted notes"
+                >
                   <TrashAlt size="28" />
                 </Sidebar.ButtonLink>
               </Sidebar.Item>
@@ -72,41 +72,7 @@ export default function SidebarContainer() {
           </Sidebar.Nav>
         </Sidebar.Wrapper>
       </Sidebar>
-      <Palette
-        active={palette.active}
-        extraAnimation={palette.extraAnimation}
-        onAnimationEnd={handleExtraAnimationEnd}
-      >
-        <Palette.Span>&#128578;</Palette.Span>
-        <Palette.ColorButton
-          color={colors.orange}
-          css={`
-            right: 22px;
-            top: 5px;
-          `}
-          onClick={handleColorClick}
-        />
-        <Palette.ColorButton
-          color={colors.yellow}
-          css={`
-            right: 8px;
-          `}
-        />
-        <Palette.ColorButton color={colors.purple} />
-        <Palette.ColorButton
-          color={colors.blue}
-          css={`
-            right: 8px;
-          `}
-        />
-        <Palette.ColorButton
-          color={colors.green}
-          css={`
-            right: 22px;
-            bottom: 5px;
-          `}
-        />
-      </Palette>
+      <PaletteContainer palette={palette} setPalette={setPalette} />
     </>
   );
 }

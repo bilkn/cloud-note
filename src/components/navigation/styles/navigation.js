@@ -12,7 +12,7 @@ export const Menu = styled.ul`
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   display: none;
-  flex-basis: 300px;
+  flex-basis: 250px;
   flex-direction: column;
   margin-right: 3em;
   padding: 1em;

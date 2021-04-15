@@ -40,9 +40,5 @@ Sidebar.Button = function SidebarButton({ children, ...restProps }) {
 };
 
 Sidebar.ButtonLink = function SideBarButtonLink({ children, ...restProps }) {
-  return (
-    <ButtonLink to="/" {...restProps}>
-      {children}
-    </ButtonLink>
-  );
+  return <ButtonLink {...restProps}>{children}</ButtonLink>;
 };
