@@ -10,6 +10,7 @@ import {
   NavMenuContainer,
 } from '../../containers';
 import devices from '../../styles/devices';
+import { sizes } from '../../styles/variables';
 
 export default function Account() {
   return (
@@ -18,7 +19,7 @@ export default function Account() {
         css={`
           margin-top: 4.5em;
           @media ${devices.mobile} {
-            margin-left: 90px;
+            margin-left: ${sizes.sidebar_width};
           }
         `}
       >
@@ -60,7 +61,7 @@ export default function Account() {
               `}
             >
               {/* <ProfileContainer /> */}
-               {/* <PasswordContainer />   */}
+              {/* <PasswordContainer />   */}
               {/*  <Form>
                 <Form.Wrapper>
                   <Form.Fieldset

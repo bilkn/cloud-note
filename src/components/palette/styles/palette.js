@@ -2,22 +2,22 @@ import styled, { css } from 'styled-components/macro';
 import { colors, indexes, shadows } from '../../../styles/variables';
 import { rotateSlideout } from '../../../styles/animations';
 
-const animation = (props) =>
+const animation = () =>
   css`
     animation: ${rotateSlideout} 3s forwards;
   `;
 
 export const Container = styled.div`
-  align-items: flex-end;
   ${(props) => (props.extraAnimation ? animation : '')};
+  align-items: flex-end;
   background: ${colors.white_1};
-  box-shadow: ${shadows.commonShadow};
   border-radius: 50%;
+  box-shadow: ${shadows.commonShadow};
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 7px; // !!! add support
   height: 115px;
+  justify-content: center;
   left: 25px;
   padding: 0.5em;
   position: fixed;

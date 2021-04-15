@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '../components';
 import { PaletteContainer } from '.';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
@@ -21,8 +21,6 @@ export default function SidebarContainer() {
   const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
   };
-  console.log(translateY);
-  // !!! translateY values will be changed according to item order.
   return (
     <>
       <Sidebar>

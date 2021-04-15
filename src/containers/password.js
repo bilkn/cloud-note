@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from '../components';
 import 'styled-components/macro';
+
 export default function PasswordContainer() {
   return (
     <Form>

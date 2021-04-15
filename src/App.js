@@ -6,6 +6,7 @@ import { DataProvider } from './providers';
 function App() {
   return (
     <>
+      <HeaderContainer />
       <DataProvider>
         <Router>
           <Switch>
@@ -27,7 +28,6 @@ function App() {
           </Switch>
           <SidebarContainer />
         </Router>
-        <HeaderContainer />
       </DataProvider>
     </>
   );

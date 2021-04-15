@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import devices from '../../../styles/devices';
-import { indexes, shadows } from '../../../styles/variables';
+import { indexes, shadows, sizes } from '../../../styles/variables';
 
 export const Container = styled.header`
   background: #e9ecf5;
@@ -11,8 +11,8 @@ export const Container = styled.header`
   top: 0;
   width: 100%;
   z-index: ${indexes.nav};
-  @media ${devices.tablet} {
-    margin-left: 90px;
+  @media ${devices.mobile} {
+    margin-left: ${sizes.sidebar_width};
     padding: 1em 2em;
     width: calc(100% - 90px);
   }
@@ -21,6 +21,7 @@ export const Container = styled.header`
 export const Wrapper = styled.div`
   display: flex;
 `;
+
 export const Box = styled.div`
   flex: 1;
   margin-right: 20px;
