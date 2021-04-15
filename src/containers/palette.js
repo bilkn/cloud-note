@@ -8,7 +8,7 @@ export default function PaletteContainer({ palette, setPalette }) {
   const [data, setData] = useContext(DataContext);
 
   const addNewData = (color) => {
-    const results = [{ color, date: true, text:"Hello" }, ...data.results];
+    const results = [{id: new Date().getTime(), color, date: true, text:"Hello" }, ...data.results];
     setData({ ...data, results });
   };
   const handleColorClick = (color) => {

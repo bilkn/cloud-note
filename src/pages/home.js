@@ -20,7 +20,7 @@ export default function Home() {
       <Wrapper
         css={`
           position: relative;
-          @media ${devices.tablet} {
+          @media ${devices.mobile} {
             margin-left: 90px;
           }
         `}

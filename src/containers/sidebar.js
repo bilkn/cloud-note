@@ -7,18 +7,15 @@ import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
 import devices from '../styles/devices';
 
-
 export default function SidebarContainer() {
- const [palette, setPalette] = useState({
-   active: false,
-   extraAnimation: false,
- });
+  const [palette, setPalette] = useState({
+    active: false,
+    extraAnimation: false,
+  });
 
- 
-
- const handleAddClick = () => {
-   setPalette({ extraAnimation: false, active: !palette.active });
- };
+  const handleAddClick = () => {
+    setPalette({ extraAnimation: false, active: !palette.active });
+  };
   // !!! translateY values will be changed according to item order.
   return (
     <>
@@ -29,7 +26,7 @@ export default function SidebarContainer() {
               onClick={handleAddClick}
               css={`
                 display: none;
-                @media ${devices.tablet} {
+                @media ${devices.mobile} {
                   display: initial;
                 }
               `}
@@ -48,7 +45,7 @@ export default function SidebarContainer() {
                 css={`
                   bottom: 20px;
                   position: relative;
-                  @media ${devices.tablet} {
+                  @media ${devices.mobile} {
                     display: none;
                   }
                 `}

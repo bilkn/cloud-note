@@ -16,7 +16,7 @@ export const Menu = styled.ul`
   flex-direction: column;
   margin-right: 3em;
   padding: 1em;
-  @media ${devices.tablet} {
+  @media ${devices.mobile} {
     display: flex;
   }
 `;

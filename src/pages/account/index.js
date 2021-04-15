@@ -19,7 +19,7 @@ export default function Account() {
       <Wrapper
         css={`
           margin-top: 4.5em;
-          @media ${devices.tablet} {
+          @media ${devices.mobile} {
             margin-left: 90px;
           }
         `}
@@ -44,7 +44,7 @@ export default function Account() {
             direction="column"
             css={`
               margin-top: 1em;
-              @media ${devices.tablet} {
+              @media ${devices.mobile} {
                 flex-direction: row;
               }
             `}
@@ -56,7 +56,7 @@ export default function Account() {
               css={`
                 flex: 1;
                 margin-top: 1em;
-                @media ${devices.tablet} {
+                @media ${devices.mobile} {
                   margin: 0;
                 }
               `}

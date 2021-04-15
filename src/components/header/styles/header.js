@@ -11,7 +11,7 @@ export const Container = styled.header`
   top: 0;
   width: 100%;
   z-index: ${indexes.nav};
-  @media ${devices.tablet} {
+  @media ${devices.mobile} {
     margin-left: 90px;
     padding: 1em 2em;
     width: calc(100% - 90px);

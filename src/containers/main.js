@@ -9,7 +9,7 @@ export default function MainContainer() {
     <Main>
       <Main.Wrapper>
         {data.results.map((note) => (
-          <Main.Note date={true} color={note.color}>{note.text}</Main.Note>
+          <Main.Note key={note.id} date={true} color={note.color}>{note.text}</Main.Note>
         ))}
         <Main.Note>Hello guys</Main.Note>
         <Main.Note>Hello guys</Main.Note>
