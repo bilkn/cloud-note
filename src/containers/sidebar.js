@@ -12,7 +12,7 @@ import { useLocation } from 'react-router';
 
 export default function SidebarContainer() {
   const { translateY } = useTranslateY();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const [palette, setPalette] = useState({
     active: false,
     extraAnimation: false,
@@ -42,7 +42,7 @@ export default function SidebarContainer() {
             <Sidebar.List>
               <Sidebar.Item active={pathname === ROUTES.HOME}>
                 <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">
-                  <Note size="35" />
+                  <Note size="35"  />
                 </Sidebar.ButtonLink>
               </Sidebar.Item>
               <Sidebar.Item
