@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header, Popover } from '../components';
 import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
@@ -9,6 +9,26 @@ import 'styled-components/macro';
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
   const handleAvatarClick = () => setShowPopover(!showPopover);
+
+  const handleWindowClick = useCallback(() => {
+    setShowPopover(false);
+  }, []);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Escape') setShowPopover(false);
+  }, []);
+
+  useEffect(() => {
+    if (showPopover) {
+      window.addEventListener('click', handleWindowClick);
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('click', handleWindowClick);
+    };
+  }, [handleWindowClick, handleKeyDown, showPopover]);
+  
   return (
     <Header>
       <Header.Wrapper>
