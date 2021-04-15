@@ -39,7 +39,7 @@ export default function SidebarContainer() {
               <AddCircle size="60" />
             </Sidebar.Button>
           </Sidebar.Box>
-          <Sidebar.Nav translateY={translateY}>
+          <Sidebar.Nav translateY={translateY} active={translateY >= 0}>
             <Sidebar.List>
               <Sidebar.Item active={pathname === ROUTES.HOME}>
                 <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">

@@ -15,6 +15,7 @@ export default function UseTranslateY() {
         setTranslateY(90);
         break;
       default:
+        setTranslateY(-1);
         break;
     }
   }, [pathname]);

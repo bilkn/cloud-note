@@ -44,6 +44,7 @@ export const Nav = styled.nav`
     &::before {
       background: ${colors.red};
       content: '  ';
+      display: ${(props) => (props.active ? 'initial' : 'none')};
       height: 90px;
       left: 0;
       position: absolute;
