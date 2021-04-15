@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '../components';
 import { PaletteContainer } from '.';
 import { Note } from '@styled-icons/fluentui-system-filled/Note';
@@ -12,7 +12,7 @@ import { useLocation } from 'react-router';
 
 export default function SidebarContainer() {
   const { translateY } = useTranslateY();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const [palette, setPalette] = useState({
     active: false,
     extraAnimation: false,
@@ -21,8 +21,6 @@ export default function SidebarContainer() {
   const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
   };
-  console.log(translateY);
-  // !!! translateY values will be changed according to item order.
   return (
     <>
       <Sidebar>
@@ -36,11 +34,12 @@ export default function SidebarContainer() {
                   display: initial;
                 }
               `}
+              aria-label="Add new note"
             >
               <AddCircle size="60" />
             </Sidebar.Button>
           </Sidebar.Box>
-          <Sidebar.Nav translateY={translateY}>
+          <Sidebar.Nav translateY={translateY} active={translateY >= 0}>
             <Sidebar.List>
               <Sidebar.Item active={pathname === ROUTES.HOME}>
                 <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">
@@ -56,7 +55,10 @@ export default function SidebarContainer() {
                   }
                 `}
               >
-                <Sidebar.Button aria-label="Add new note">
+                <Sidebar.Button
+                  onClick={handleAddClick}
+                  aria-label="Add new note"
+                >
                   <AddCircle size="60" />
                 </Sidebar.Button>
               </Sidebar.Item>

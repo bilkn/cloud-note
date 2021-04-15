@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { colors } from '../../../styles/variables';
+
 export const Container = styled.form`
   width: 100%;
 `;
@@ -79,8 +80,8 @@ export const Divider = styled.hr`
   color: #6e6d7a;
   display: block;
   height: 0;
-  text-align: center;
   margin-top: 2em;
+  text-align: center;
   ::after {
     background: #f3f5fb;
     content: 'Or';

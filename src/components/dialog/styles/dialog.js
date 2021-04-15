@@ -6,13 +6,13 @@ export const Container = styled.div`
   border-radius: 10px;
   height: ${(props) => props.height + 'px'};
   left: 50%;
-  margin-top: ${(props) => -(+props.height / 2) + 'px'};
   margin-left: ${(props) => -(+props.width / 2) + 'px'};
+  margin-top: ${(props) => -(+props.height / 2) + 'px'};
   padding: 0.9em 1.5em;
   position: fixed;
   top: 50%;
   width: ${(props) => props.width + 'px'};
-  z-index: ${indexes.poppedUI}
+  z-index: ${indexes.poppedUI};
 `;
 
 export const Box = styled.div`

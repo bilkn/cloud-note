@@ -8,6 +8,7 @@ function App() {
     <>
       <DataProvider>
         <Router>
+          <HeaderContainer />
           <Switch>
             <Route path="/" exact>
               <Home />
@@ -27,7 +28,6 @@ function App() {
           </Switch>
           <SidebarContainer />
         </Router>
-        <HeaderContainer />
       </DataProvider>
     </>
   );

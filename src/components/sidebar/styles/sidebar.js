@@ -17,7 +17,7 @@ export const Container = styled.aside`
   position: fixed;
   width: 100%;
   z-index: ${indexes.nav};
-  @media ${devices.mobile } {
+  @media ${devices.mobile} {
     top: 0;
     height: 100vh;
     width: ${sizes.sidebar_width};
@@ -44,6 +44,7 @@ export const Nav = styled.nav`
     &::before {
       background: ${colors.red};
       content: '  ';
+      display: ${(props) => (props.active ? 'initial' : 'none')};
       height: 90px;
       left: 0;
       position: absolute;
@@ -56,23 +57,27 @@ export const Nav = styled.nav`
 `;
 
 export const List = styled.ul`
-  align-items: center;
+  align-items: stretch;
   display: flex;
   justify-content: space-between;
+  padding: 0 1em;
   @media ${devices.mobile} {
-    align-items: stretch;
     flex-direction: column;
+    padding: 0;
   }
 `;
 
 export const Item = styled.li`
+  background: none;
+  color: ${(props) => (props.active ? colors.red : '#4949497a')};
   @media ${devices.mobile} {
     background: ${(props) => (props.active ? colors.gray_1_active : 'none')};
+    color: ${colors.red};
     height: 90px;
     transition: ${transitions.btnBgHover};
-  }
-  &:hover {
-    background: ${colors.gray_1_hover};
+    &:hover {
+      background: ${colors.gray_1_hover};
+    }
   }
 `;
 
@@ -84,7 +89,7 @@ export const Button = styled.button`
 
 export const ButtonLink = styled(ReactRouterLink)`
   align-items: center;
-  color: ${colors.red};
+  color: inherit;
   display: flex;
   justify-content: center;
   padding: 1em;

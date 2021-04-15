@@ -10,6 +10,10 @@ export default function PaletteContainer({ palette, setPalette }) {
   const addNewData = (color) => {
     const results = [{id: new Date().getTime(), color, date: true, text:"Hello" }, ...data.results];
     setData({ ...data, results });
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
   const handleColorClick = (color) => {
     addNewData(color);

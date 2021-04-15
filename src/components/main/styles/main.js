@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components/macro';
-import { shadows, colors } from '../../../styles/variables';
+import { shadows, colors} from '../../../styles/variables';
 import { scaleUp } from '../../../styles/animations';
 
-const noteAnimation = (props) =>
+const noteAnimation = () =>
   css`
     animation: ${scaleUp} 1.5s forwards;
   `;

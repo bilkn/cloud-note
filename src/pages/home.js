@@ -9,19 +9,17 @@ import {
   ToastContainer,
 } from '../containers';
 import devices from '../styles/devices';
+import {sizes} from '../styles/variables';
 import 'styled-components/macro';
 
 export default function Home() {
   return (
     <>
-      <HeaderContainer />
-      <SidebarContainer />
-
       <Wrapper
         css={`
           position: relative;
-          @media ${devices.tablet} {
-            margin-left: 90px;
+          @media ${devices.mobile} {
+            margin-left: ${sizes.sidebar_width};
           }
         `}
       >

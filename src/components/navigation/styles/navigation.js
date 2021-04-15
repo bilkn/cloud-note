@@ -23,8 +23,8 @@ export const Menu = styled.ul`
 
 export const MenuItem = styled.li`
   background: ${(props) => (props.active ? 'white' : 'none')};
-  border-top-right-radius: ${(props) => (props.active ? '25px' : 'none')};
   border-bottom-right-radius: ${(props) => (props.active ? '25px' : 'none')};
+  border-top-right-radius: ${(props) => (props.active ? '25px' : 'none')};
   box-shadow: ${(props) => (props.active ? '3px 3px 30px #0000001a' : 'none')};
   color: white;
   position: relative;

@@ -1,5 +1,6 @@
 import React from "react"
 import { Popover } from "../components"
+import * as ROUTES from "../constants/routes"
 
 export default function PopoverContainer() {
     return (
@@ -10,7 +11,7 @@ export default function PopoverContainer() {
           </Popover.Item>
           <Popover.Line />
           <Popover.Item>
-            <Popover.ButtonLink>Account Settings</Popover.ButtonLink>
+            <Popover.ButtonLink to={ROUTES.ACCOUNT}>Account Settings</Popover.ButtonLink>
           </Popover.Item>
           <Popover.Line />
           <Popover.Item>

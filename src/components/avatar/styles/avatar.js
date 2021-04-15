@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import { Link as ReactRouterLink } from 'react-router-dom';
 
 export const Container = styled.div`
   background: gray;
@@ -21,5 +20,6 @@ export const Picture = styled.img`
 export const Button = styled.button`
   border-radius: 5px;
   height: ${(props) => props.size + "px"};
+  position: relative;
   width: ${(props) => props.size + "px"};
 `;
