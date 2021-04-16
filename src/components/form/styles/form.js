@@ -17,12 +17,19 @@ export const Box = styled.div``;
 
 export const Input = styled.input`
   background: #e5e5e5;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   margin-top: 7px;
   padding: 0.7em 1em;
+  transition-duration: 200ms;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease;
   vertical-align: baseline;
   width: 100%;
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 4px #49494917;
+  }
 `;
 
 export const Label = styled.label`
@@ -67,7 +74,7 @@ export const ButtonLink = styled(ReactRouterLink)`
   margin-top: 1.5em;
 `;
 
-export const Title = styled.h2``
+export const Title = styled.h2``;
 
 export const Subtitle = styled.h3`
   margin-top: 1.3em;
