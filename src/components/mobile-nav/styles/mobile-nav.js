@@ -18,7 +18,11 @@ export const Menu = styled.ul`
 
 export const MenuItem = styled.li`
   border-bottom: 1px solid #eee;
+  color: ${(props) => (props.active ? 'black' : colors.gray_3)};
   text-transform: capitalize;
+  &:hover {
+    color: #0000009e;
+  }
 `;
 
 export const Link = styled(ReactRouterLink)`
@@ -28,7 +32,7 @@ export const Link = styled(ReactRouterLink)`
 
 export const MenuLink = styled(ReactRouterLink)`
   align-items: center;
-  color: #000;
+  color: inherit;
   display: flex;
   height: 100%;
   justify-content: space-between;

@@ -3,6 +3,7 @@ export const colors = {
   gray_1_active: '#d6d8dfc7',
   gray_2: '#dcdcdcad',
   gray_2_hover: '#dcdcdc',
+  gray_3: '#9e9ea7',
   red: '#f1554c',
   red_hover: '#e7483f',
   red_hover_2: '#f1554cb8',
