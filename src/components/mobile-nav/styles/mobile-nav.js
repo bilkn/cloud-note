@@ -18,6 +18,7 @@ export const Menu = styled.ul`
 
 export const MenuItem = styled.li`
   border-bottom: 1px solid #eee;
+  text-transform: capitalize;
 `;
 
 export const Link = styled(ReactRouterLink)`

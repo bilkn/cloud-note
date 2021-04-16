@@ -11,7 +11,7 @@ export default function PasswordContainer() {
             margin: 0;
           `}
         >
-          <Form.Label for="user_old_password">Old password</Form.Label>
+          <Form.Label htmlhtmlFor="user_old_password">Old password</Form.Label>
           <Form.Input
             type="password"
             id="user_old_password"
@@ -19,7 +19,7 @@ export default function PasswordContainer() {
           />
         </Form.Fieldset>
         <Form.Fieldset>
-          <Form.Label for="user_password">New Password</Form.Label>
+          <Form.Label htmlhtmlFor="user_password">New Password</Form.Label>
           <Form.Input
             type="password"
             id="user_password"

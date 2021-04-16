@@ -28,6 +28,7 @@ export const MenuItem = styled.li`
   box-shadow: ${(props) => (props.active ? '3px 3px 30px #0000001a' : 'none')};
   color: white;
   position: relative;
+  text-transform: capitalize;
   &::before {
     background: ${colors.red};
     content: '';

@@ -42,11 +42,11 @@ export default function Signup() {
         <Form.Divider />
         <Form>
           <Form.Fieldset>
-            <Form.Label for="user_login">Username</Form.Label>
+            <Form.Label htmlFor="user_login">Username</Form.Label>
             <Form.Input id="user_login" type="text" />
           </Form.Fieldset>
           <Form.Fieldset>
-            <Form.Label for="user_email">Email</Form.Label>
+            <Form.Label htmlFor="user_email">Email</Form.Label>
             <Form.Input
               id="user_email"
               name="user[email]"
@@ -55,7 +55,7 @@ export default function Signup() {
             />
           </Form.Fieldset>
           <Form.Fieldset>
-            <Form.Label for="user_password">Password</Form.Label>
+            <Form.Label htmlFor="user_password">Password</Form.Label>
             <Form.Input
               id="user_password"
               name="user[password]"

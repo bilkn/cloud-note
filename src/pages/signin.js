@@ -42,7 +42,7 @@ export default function Signin() {
         <Form.Divider />
         <Form>
           <Form.Fieldset>
-            <Form.Label for="login">Username or Email Address</Form.Label>
+            <Form.Label htmlFor="login">Username or Email Address</Form.Label>
             <Form.Input
               id="login"
               type="text"
@@ -52,7 +52,7 @@ export default function Signin() {
           </Form.Fieldset>
           <Form.Fieldset>
             <Form.Label
-              for="user_password"
+              htmlFor="user_password"
               css={`
                 display: flex;
                 justify-content: space-between;

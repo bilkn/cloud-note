@@ -1,18 +1,20 @@
 import React from 'react';
-import { FlexWrapper, Navigation, Form, Wrapper } from '../../components';
+import { FlexWrapper, Navigation, Wrapper } from '../../components';
 import 'styled-components/macro';
 import {
   ProfileContainer,
   PasswordContainer,
   MobileNavMenuContainer,
-  SidebarContainer,
-  HeaderContainer,
+  SettingsContainer,
   NavMenuContainer,
 } from '../../containers';
 import devices from '../../styles/devices';
 import { sizes } from '../../styles/variables';
+import { Route, useRouteMatch } from 'react-router';
+import * as Routes from '../../constants/routes';
 
 export default function Account() {
+  const { path } = useRouteMatch();
   return (
     <>
       <Wrapper
@@ -60,43 +62,15 @@ export default function Account() {
                 }
               `}
             >
-              {/* <ProfileContainer /> */}
-              {/* <PasswordContainer />   */}
-              {/*  <Form>
-                <Form.Wrapper>
-                  <Form.Fieldset
-                    name=""
-                    css={`
-                      margin: 0;
-                    `}
-                  >
-                    <Form.Label for="user_login">Username</Form.Label>
-                    <Form.Input
-                      type="text"
-                      id="user_login"
-                      name="user[login]"
-                      value="Mr. Johnson"
-                      autocorrect="username"
-                    />
-                  </Form.Fieldset>
-                  <Form.Fieldset>
-                    <Form.Label for="user_email">Email</Form.Label>
-                    <Form.Input
-                      type="email"
-                      id="user_email"
-                      name="user[email]"
-                      autocomplete="email"
-                    />
-                  </Form.Fieldset>
-                </Form.Wrapper>
-                <Form.Button>Save</Form.Button>
-                <Form.Wrapper>
-                  <Form.Subtitle>danger zone</Form.Subtitle>
-                  <Form.Line />
-                  <Form.ButtonRed>Delete all notes</Form.ButtonRed>
-                  <Form.ButtonRed>Delete account</Form.ButtonRed>
-                </Form.Wrapper>
-              </Form>  */}
+              <Route exact path={`${Routes.ACCOUNT}`}>
+                <SettingsContainer />
+              </Route>
+              <Route path={`${path}${Routes.PROFILE}`}>
+                <ProfileContainer />
+              </Route>
+              <Route path={`${path}${Routes.PASSWORD}`}>
+                <PasswordContainer />
+              </Route>
             </FlexWrapper>
           </FlexWrapper>
         </FlexWrapper>
