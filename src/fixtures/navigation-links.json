@@ -1,0 +1,14 @@
+[
+  {
+    "name": "edit profile",
+    "path": "/profile"
+  },
+  {
+    "name": "account settings",
+    "path": "/account"
+  },
+  {
+    "name": "password",
+    "path": "/password"
+  }
+]
