@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { colors } from '../../../styles/variables';
+import { colors, transitions } from '../../../styles/variables';
 
 export const Container = styled.form`
   width: 100%;
@@ -44,15 +44,22 @@ export const Text = styled.p`
 export const Textarea = styled(Input)``;
 
 export const Button = styled.button`
-  background: #dcdcdc;
+  background: ${colors.gray_2};
   border-radius: 5px;
   margin-top: 1.5em;
   padding: 0.625em 1em;
+  transition: background 50ms;
+  &:hover {
+    background: ${colors.gray_2_hover};
+  }
 `;
 
 export const ButtonRed = styled(Button)`
   background: ${colors.red};
   color: white;
+  &:hover {
+    background: ${colors.red_hover_2};
+  }
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`

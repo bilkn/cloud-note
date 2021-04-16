@@ -1,8 +1,11 @@
 export const colors = {
   gray_1_hover: '#d6d8df73',
   gray_1_active: '#d6d8dfc7',
+  gray_2: '#dcdcdcad',
+  gray_2_hover: '#dcdcdc',
   red: '#f1554c',
-  redHover: '#e7483f',
+  red_hover: '#e7483f',
+  red_hover_2: '#f1554cb8',
   white_1: '#f7f9fa',
   white_1_hover: '#f4f3f3',
   red_2: '#FC9870',
