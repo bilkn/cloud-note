@@ -38,7 +38,7 @@ export default function ProfileContainer() {
       </FlexWrapper>
       <Form>
         <Form.Fieldset>
-          <Form.Label for="profile_name">
+          <Form.Label htmlhtmlFor="profile_name">
             Name<Form.Span>*</Form.Span>
           </Form.Label>
           <Form.Input
@@ -53,7 +53,7 @@ export default function ProfileContainer() {
             position: relative;
           `}
         >
-          <Form.Label for="profile_bio">Bio</Form.Label>
+          <Form.Label htmlhtmlFor="profile_bio">Bio</Form.Label>
           <Form.Span
             css={`
               color: #9e9ea7;

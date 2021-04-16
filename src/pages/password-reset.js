@@ -29,7 +29,7 @@ export default function PasswordReset() {
         </Form.Text>
         <Form>
           <Form.Fieldset>
-            <Form.Label for="email">Email Address</Form.Label>
+            <Form.Label htmlFor="email">Email Address</Form.Label>
             <Form.Input id="email" name="email" type="email" />
             <Form.ButtonRed
               type="submit"

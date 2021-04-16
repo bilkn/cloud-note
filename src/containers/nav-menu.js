@@ -13,10 +13,10 @@ export default function NavMenuContainer() {
   return (
     <Nav.Menu>
       {NavLinks.map(({ path, name }) => (
-        <Nav.MenuItem active={matchSubpath(path)}>
+        <Nav.MenuItem key={path} active={matchSubpath(path) ? 1: undefined}>
           <Nav.MenuLink
             to={`${url !== path ? url : ''}${path}`}
-            active={matchSubpath(path)}
+            active={matchSubpath(path) ? 1: undefined}
           >
             {name}
           </Nav.MenuLink>
