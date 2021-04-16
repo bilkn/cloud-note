@@ -34,7 +34,11 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Box = styled.div``;
+export const Box = styled.div`
+  @media ${devices.mobile} {
+    min-height: 60px;
+  }
+`;
 
 export const Nav = styled.nav`
   position: relative;

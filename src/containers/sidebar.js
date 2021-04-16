@@ -6,13 +6,14 @@ import { TrashAlt } from '@styled-icons/fa-solid/TrashAlt';
 import { AddCircle } from '@styled-icons/fluentui-system-filled/AddCircle';
 import 'styled-components/macro';
 import devices from '../styles/devices';
-import { useTranslateY } from '../hooks';
+import { useTranslateY, useMatchLastSubpath } from '../hooks';
 import * as ROUTES from '../constants/routes';
 import { useLocation } from 'react-router';
 
 export default function SidebarContainer() {
   const { translateY } = useTranslateY();
   const { pathname } = useLocation();
+  const {matchSubpath} = useMatchLastSubpath();
   const [palette, setPalette] = useState({
     active: false,
     extraAnimation: false,
@@ -21,23 +22,26 @@ export default function SidebarContainer() {
   const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
   };
+
   return (
     <>
       <Sidebar>
         <Sidebar.Wrapper>
           <Sidebar.Box>
-            <Sidebar.Button
-              onClick={handleAddClick}
-              css={`
-                display: none;
-                @media ${devices.mobile} {
-                  display: initial;
-                }
-              `}
-              aria-label="Add new note"
-            >
-              <AddCircle size="60" />
-            </Sidebar.Button>
+            {matchSubpath(ROUTES.HOME) && (
+              <Sidebar.Button
+                onClick={handleAddClick}
+                css={`
+                  display: none;
+                  @media ${devices.mobile} {
+                    display: initial;
+                  }
+                `}
+                aria-label="Add new note"
+              >
+                <AddCircle size="60" />
+              </Sidebar.Button>
+            )}
           </Sidebar.Box>
           <Sidebar.Nav translateY={translateY} active={translateY >= 0}>
             <Sidebar.List>
