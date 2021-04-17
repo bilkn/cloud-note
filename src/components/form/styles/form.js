@@ -17,12 +17,19 @@ export const Box = styled.div``;
 
 export const Input = styled.input`
   background: #e5e5e5;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   margin-top: 7px;
   padding: 0.7em 1em;
+  transition-duration: 200ms;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease;
   vertical-align: baseline;
   width: 100%;
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 4px #49494917;
+  }
 `;
 
 export const Label = styled.label`
@@ -44,15 +51,34 @@ export const Text = styled.p`
 export const Textarea = styled(Input)``;
 
 export const Button = styled.button`
-  background: #dcdcdc;
+  background: ${colors.gray_2};
   border-radius: 5px;
   margin-top: 1.5em;
   padding: 0.625em 1em;
+  transition: background 50ms;
+  &:hover {
+    background: ${colors.gray_2_hover};
+  }
 `;
 
 export const ButtonRed = styled(Button)`
   background: ${colors.red};
   color: white;
+  &:hover {
+    background: ${colors.red_hover_2};
+  }
+`;
+
+export const ButtonBlue = styled(Button)`
+  align-items: center;
+  background: ${colors.blue_2};
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  &:hover {
+    background: ${colors.blue_2_hover};
+  }
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
@@ -60,7 +86,7 @@ export const ButtonLink = styled(ReactRouterLink)`
   margin-top: 1.5em;
 `;
 
-export const Title = styled.h2``
+export const Title = styled.h2``;
 
 export const Subtitle = styled.h3`
   margin-top: 1.3em;

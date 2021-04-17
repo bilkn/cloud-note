@@ -21,6 +21,7 @@ export default function SidebarContainer() {
   const handleAddClick = () => {
     setPalette({ extraAnimation: false, active: !palette.active });
   };
+
   return (
     <>
       <Sidebar>

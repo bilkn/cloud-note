@@ -13,7 +13,7 @@ export default function DialogContainer({text}) {
             background: ${colors.red};
             color: ${colors.white_1};
             &:hover {
-              background: ${colors.redHover};
+              background: ${colors.red_hover};
             }
           `}
         >

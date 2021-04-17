@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import {HOME, DELETED} from "../constants/routes"
 
-export default function UseTranslateY() {
+export default function useTranslateY() {
   const { pathname } = useLocation();
   const [translateY, setTranslateY] = useState(0);
 

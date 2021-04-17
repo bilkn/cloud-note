@@ -1,14 +1,20 @@
 export const colors = {
   gray_1_hover: '#d6d8df73',
   gray_1_active: '#d6d8dfc7',
+  gray_2: '#dcdcdcad',
+  gray_2_hover: '#dcdcdc',
+  gray_3: '#9e9ea7',
   red: '#f1554c',
-  redHover: '#e7483f',
+  red_hover: '#e7483f',
+  red_hover_2: '#f1554cb8',
   white_1: '#f7f9fa',
   white_1_hover: '#f4f3f3',
   red_2: '#FC9870',
   orange: '#FFC972',
   purple: '#B692FE',
   blue: '#01D4FF',
+  blue_2: '#4285f4',
+  blue_2_hover: '#2a75f3',
   green: '#E4EE90',
 };
 

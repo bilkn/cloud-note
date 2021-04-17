@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components/macro';
-import { colors, indexes, shadows } from '../../../styles/variables';
+import { colors, indexes, shadows, sizes } from '../../../styles/variables';
+import devices from '../../../styles/devices';
 import { rotateSlideout } from '../../../styles/animations';
 
 const animation = () =>
@@ -8,44 +9,67 @@ const animation = () =>
   `;
 
 export const Container = styled.div`
-  ${(props) => (props.extraAnimation ? animation : '')};
-  align-items: flex-end;
+  align-items: flex-start;
   background: ${colors.white_1};
   border-radius: 50%;
+  bottom: 0;
   box-shadow: ${shadows.commonShadow};
   display: flex;
-  flex-direction: column;
-  gap: 7px; // !!! add support
-  height: 115px;
+  flex-direction: row;
+  height: 290px;
   justify-content: center;
-  left: 25px;
-  padding: 0.5em;
+  left: 50%;
+  margin-left: -145px;
   position: fixed;
   transform: ${(props) =>
-    props.active ? 'translateX(0)' : 'translateX(-100%)'};
-  transition: transform 0.5s;
-  top: 86px;
-  width: 115px;
+    props.active ? 'translateY(25%)' : 'translateY(100%)'};
+  transition: ${(props) => (props.resizing ? '' : 'transform 0.5s')};
+  width: 290px;
   z-index: ${indexes.palette};
+
+  @media ${devices.mobile} {
+    ${(props) => (props.extraAnimation ? animation : '')};
+    align-items: flex-end;
+    flex-direction: column;
+    height: 115px;
+    left: 25px;
+    margin: initial;
+    padding: 0.5em;
+    transform: ${(props) =>
+      props.active ? 'translateX(0)' : 'translateX(-100%)'};
+    top: 86px;
+    width: 115px;
+  }
 `;
 
 export const ColorButton = styled.button`
   background: ${(props) => props.color};
   border-radius: 50%;
-  height: 12px;
+  height: 42px;
+  margin-right: 20px;
   position: relative;
   transition: transform 50ms;
-  width: 12px;
+  width: 42px;
 
   &:hover {
     transform: scale(1.1);
   }
+  @media ${devices.mobile} {
+    height: 12px;
+    margin-bottom: 7px;
+    margin-right: 0;
+    top: initial !important;
+    width: 12px;
+  }
 `;
 
 export const Span = styled.span`
-  display: block;
-  left: 10px;
-  position: absolute;
-  transform: rotate(180deg);
-  user-select: none;
+  display: none;
+  @media ${devices.mobile} {
+    display: block;
+    left: 10px;
+    position: absolute;
+    transform: rotate(180deg);
+    user-select: none;
+  }
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import { FlexWrapper, Form } from '../components';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
+import { colors } from '../styles/variables';
 
 export default function Signin() {
   return (
@@ -20,16 +21,7 @@ export default function Signin() {
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
         <Form>
-          <Form.Button
-            css={`
-              align-items: center;
-              background: #4285f4;
-              color: white;
-              display: flex;
-              justify-content: center;
-              width: 100%;
-            `}
-          >
+          <Form.ButtonBlue>
             <Google
               size="20px"
               css={`
@@ -37,7 +29,7 @@ export default function Signin() {
               `}
             />
             Sign in with Google
-          </Form.Button>
+          </Form.ButtonBlue>
         </Form>
         <Form.Divider />
         <Form>

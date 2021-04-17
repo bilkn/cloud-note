@@ -33,12 +33,24 @@ export const SearchBox = styled.div`
 `;
 
 export const Input = styled.input`
-  border: none;
+  border: 1px solid transparent;
   border-radius: 20px;
   display: inline-block;
   padding: 10px;
   padding-left: 40px;
+  transition-duration: 200ms;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease;
+  outline: none;
   width: 100%;
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 4px #49494917;
+  }
+  &:focus {
+    border-color: rgb(241 85 76 / 50%);
+    box-shadow: 0 0 0 4px #f1554c40;
+  }
 `;
 
 export const Icon = styled.i`

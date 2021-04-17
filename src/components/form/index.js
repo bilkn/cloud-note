@@ -10,6 +10,7 @@ import {
   Textarea,
   Button,
   ButtonRed,
+  ButtonBlue,
   ButtonLink,
   Title,
   Subtitle,
@@ -56,6 +57,10 @@ Form.Button = function FormButton({ children, ...restProps }) {
 
 Form.ButtonRed = function FormButtonRed({ children, ...restProps }) {
   return <ButtonRed {...restProps}>{children}</ButtonRed>;
+};
+
+Form.ButtonBlue = function FormButtonBlue({ children, ...restProps }) {
+  return <ButtonBlue {...restProps}>{children}</ButtonBlue>;
 };
 
 Form.ButtonLink = function FormButtonLink({ children, ...restProps }) {
