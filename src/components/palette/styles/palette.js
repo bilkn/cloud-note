@@ -24,7 +24,7 @@ export const Container = styled.div`
   position: fixed;
   transform: ${(props) =>
     props.active ? 'translateY(25%)' : 'translateY(100%)'};
-  transition: transform 0.5s;
+  transition: ${(props) => (props.resizing ? '' : 'transform 0.5s')};
   width: 290px;
   z-index: ${indexes.palette};
 

@@ -4,7 +4,7 @@ import { colors } from '../styles/variables';
 import devices from '../styles/devices';
 import 'styled-components/macro';
 import { DataContext } from '../context';
-import { useMatchLastSubpath } from '../hooks';
+import { useMatchLastSubpath, useResize } from '../hooks';
 import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
 
@@ -12,6 +12,7 @@ export default function PaletteContainer({ palette, setPalette }) {
   const [data, setData] = useContext(DataContext);
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
+  const { resizing } = useResize();
 
   const addNewData = (color) => {
     const results = [
@@ -24,18 +25,21 @@ export default function PaletteContainer({ palette, setPalette }) {
       behavior: 'smooth',
     });
   };
+
   const handleColorClick = (color) => {
     if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);
     const mql = window.matchMedia(devices.mobile);
     addNewData(color);
     setPalette({ active: false, extraAnimation: mql.matches });
   };
+
   const handleExtraAnimationEnd = () =>
     setPalette({ active: false, extraAnimation: false });
 
   return (
     <Palette
       active={palette.active}
+      resizing={resizing}
       extraAnimation={palette.extraAnimation}
       onAnimationEnd={handleExtraAnimationEnd}
     >
