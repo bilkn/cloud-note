@@ -69,6 +69,18 @@ export const ButtonRed = styled(Button)`
   }
 `;
 
+export const ButtonBlue = styled(Button)`
+  align-items: center;
+  background: ${colors.blue_2};
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  &:hover {
+    background: ${colors.blue_2_hover};
+  }
+`;
+
 export const ButtonLink = styled(ReactRouterLink)`
   color: #4f3cc9;
   margin-top: 1.5em;

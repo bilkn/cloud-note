@@ -21,19 +21,7 @@ export default function Signin() {
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
         <Form>
-          <Form.Button
-            css={`
-              align-items: center;
-              background: ${colors.blue_2};
-              color: white;
-              display: flex;
-              justify-content: center;
-              width: 100%;
-              &:hover {
-                background: ${colors.blue_2_hover};
-              }
-            `}
-          >
+          <Form.ButtonBlue>
             <Google
               size="20px"
               css={`
@@ -41,7 +29,7 @@ export default function Signin() {
               `}
             />
             Sign in with Google
-          </Form.Button>
+          </Form.ButtonBlue>
         </Form>
         <Form.Divider />
         <Form>
