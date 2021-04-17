@@ -4,12 +4,15 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 afterEach(cleanup);
 
-test('Popover is rendered after clicking avatar', () => {
+describe('After clicking avatar', () => {
   const { getByTestId } = render(
     <Router>
       <HeaderContainer />
     </Router>
   );
-  const avatar = getByTestId('avatar');
-  fireEvent.click(avatar);
+  it('Should render popover component', () => {
+    const avatar = getByTestId('avatar');
+    fireEvent.click(avatar);
+    getByTestId('popover');
+  });
 });

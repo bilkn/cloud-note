@@ -70,7 +70,7 @@ export default function HeaderContainer() {
         </Header.Wrapper> */}
         <Avatar.Button size="40" onClick={handleAvatarClick} data-testid="avatar">
           <Avatar.Picture src={Picture} />
-          {showPopover && <PopoverContainer />}
+          {showPopover && <PopoverContainer data-testid="popover"/>}
         </Avatar.Button>
       </Header.Wrapper>
     </Header>
