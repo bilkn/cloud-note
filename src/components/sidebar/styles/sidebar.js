@@ -89,6 +89,10 @@ export const Button = styled.button`
   background: none;
   border: none;
   color: #515255;
+  transition: color 50ms;
+  :hover {
+    color: #515255c2;
+  }
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
