@@ -13,6 +13,8 @@ export const colors = {
   orange: '#FFC972',
   purple: '#B692FE',
   blue: '#01D4FF',
+  blue_2: '#4285f4',
+  blue_2_hover: '#2a75f3',
   green: '#E4EE90',
 };
 

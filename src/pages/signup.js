@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, FlexWrapper } from '../components';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
+import {colors} from "../styles/variables"
 
 export default function Signup() {
   return (
@@ -23,11 +24,14 @@ export default function Signup() {
           <Form.Button
             css={`
               align-items: center;
-              background: #4285f4;
+              background: ${colors.blue_2};
               color: white;
               display: flex;
               justify-content: center;
               width: 100%;
+              &:hover {
+                background: ${colors.blue_2_hover};
+              }
             `}
           >
             <Google

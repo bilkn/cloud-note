@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { colors, transitions } from '../../../styles/variables';
+import { colors } from '../../../styles/variables';
 
 export const Container = styled.form`
   width: 100%;
