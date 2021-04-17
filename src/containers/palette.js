@@ -52,7 +52,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           @media ${devices.mobile} {
             left: initial;
             right: 22px;
-            top: 5px;
+            top: 5px !important;
           }
         `}
         onClick={() => handleColorClick(colors.red_2)}
@@ -87,6 +87,7 @@ export default function PaletteContainer({ palette, setPalette }) {
       <Palette.ColorButton
         color={colors.green}
         css={`
+          margin: 0;
           right: 20px;
           top: 82px;
           @media ${devices.mobile} {

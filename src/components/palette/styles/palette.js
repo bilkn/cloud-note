@@ -17,7 +17,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   height: 290px;
-  gap: 20px; // !!! add support
   justify-content: center;
   left: 50%;
   margin-left: -145px;
@@ -33,7 +32,6 @@ export const Container = styled.div`
     align-items: flex-end;
     flex-direction: column;
     height: 115px;
-    gap: 7px;
     left: 25px;
     margin: initial;
     padding: 0.5em;
@@ -48,6 +46,7 @@ export const ColorButton = styled.button`
   background: ${(props) => props.color};
   border-radius: 50%;
   height: 42px;
+  margin-right: 20px;
   position: relative;
   transition: transform 50ms;
   width: 42px;
@@ -57,6 +56,8 @@ export const ColorButton = styled.button`
   }
   @media ${devices.mobile} {
     height: 12px;
+    margin-bottom: 7px;
+    margin-right: 0;
     top: initial !important;
     width: 12px;
   }
