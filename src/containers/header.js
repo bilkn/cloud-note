@@ -68,7 +68,7 @@ export default function HeaderContainer() {
             Sign Up
           </Form.ButtonRed>
         </Header.Wrapper> */}
-        <Avatar.Button size="40" onClick={handleAvatarClick}>
+        <Avatar.Button size="40" onClick={handleAvatarClick} data-testid="avatar">
           <Avatar.Picture src={Picture} />
           {showPopover && <PopoverContainer />}
         </Avatar.Button>

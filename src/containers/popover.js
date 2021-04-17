@@ -18,13 +18,13 @@ export default function PopoverContainer() {
           </Popover.ButtonLink>
         </Popover.Item>
         <Popover.Line />
-        <Popover.Item>
+        {/* <Popover.Item>
           <Popover.ButtonLink>Help</Popover.ButtonLink>
         </Popover.Item>
         <Popover.Line />
         <Popover.Item>
           <Popover.ButtonLink>Sign Out</Popover.ButtonLink>
-        </Popover.Item>
+        </Popover.Item> */}
       </Popover.List>
     </Popover>
   );
