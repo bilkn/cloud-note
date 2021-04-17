@@ -42,7 +42,7 @@ export default function HeaderContainer() {
             </Header.Icon>
           </Header.SearchBox>
         </Header.Box>
-        <Header.Wrapper>
+        {/* <Header.Wrapper>
           <Form.Button
             to={ROUTES.SIGN_IN}
             forwardedAs={ReactRouterLink}
@@ -67,11 +67,11 @@ export default function HeaderContainer() {
           >
             Sign Up
           </Form.ButtonRed>
-        </Header.Wrapper>
-         {/*  <Avatar.Button size="40" onClick={handleAvatarClick}>
+        </Header.Wrapper> */}
+        <Avatar.Button size="40" onClick={handleAvatarClick}>
           <Avatar.Picture src={Picture} />
           {showPopover && <PopoverContainer />}
-        </Avatar.Button>  */}
+        </Avatar.Button>
       </Header.Wrapper>
     </Header>
   );
