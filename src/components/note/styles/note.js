@@ -18,18 +18,22 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Button = styled.button`
-  background: none; 
+export const Box = styled.div`
+  align-items: center;
+  background: none;
   display: flex;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  height: 24px;
+  right: 15px;
+  top: 5px;
+  outline: none;
 `;
 
 export const Span = styled.span`
   background: black;
   border-radius: 50%;
-  height: 5px;
+  height: 7px;
   margin-right: 5px;
-  width: 5px;
+  transition: transform 300ms;
+  width: 7px;
 `;
