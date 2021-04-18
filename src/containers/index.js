@@ -11,3 +11,4 @@ export { default as DialogContainer } from './dialog';
 export { default as ToastContainer } from './toast';
 export { default as PaletteContainer } from './palette';
 export { default as SettingsContainer } from './settings';
+export { default as NoteContainer } from './note';

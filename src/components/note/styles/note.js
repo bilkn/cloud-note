@@ -15,4 +15,21 @@ export const Container = styled.div`
   height: 0;
   padding: 1.2em;
   padding-bottom: 75%;
+  position: relative;
+`;
+
+export const Button = styled.button`
+  background: none; 
+  display: flex;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`;
+
+export const Span = styled.span`
+  background: black;
+  border-radius: 50%;
+  height: 5px;
+  margin-right: 5px;
+  width: 5px;
 `;
