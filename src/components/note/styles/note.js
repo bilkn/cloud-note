@@ -21,6 +21,7 @@ export const Container = styled.div`
 export const Box = styled.div`
   align-items: center;
   background: none;
+  cursor: pointer;
   display: flex;
   position: absolute;
   height: 24px;
@@ -30,9 +31,13 @@ export const Box = styled.div`
 `;
 
 export const Span = styled.span`
-  background: black;
+  align-items: center;
+  background: ${colors.gray_4};
   border-radius: 50%;
+  cursor: pointer;
+  display: flex;
   height: 7px;
+  justify-content: center;
   margin-right: 5px;
   transition: transform 300ms;
   width: 7px;

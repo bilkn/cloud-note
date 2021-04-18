@@ -88,10 +88,10 @@ export const Item = styled.li`
 export const Button = styled.button`
   background: none;
   border: none;
-  color: #515255;
+  color: ${colors.gray_4};
   transition: color 50ms;
   :hover {
-    color: #515255c2;
+    color: ${colors.gray_4_hover};
   }
 `;
 
