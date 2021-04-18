@@ -12,3 +12,4 @@ export { default as Wrapper } from './wrapper';
 export { default as Dialog } from './dialog';
 export { default as Toast } from './toast';
 export { default as Palette } from './palette';
+export { default as Note } from './note';

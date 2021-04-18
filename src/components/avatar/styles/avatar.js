@@ -26,4 +26,7 @@ export const Button = styled.button`
   &:hover {
     box-shadow: 0 0 0 2pt #b6b6b6;
   }
+  &:focus {
+    box-shadow: 0 0 0 2pt #b6b6b6;
+  }
 `;

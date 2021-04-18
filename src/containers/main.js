@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Main } from '../components';
+import { Main, Note } from '../components';
 import { DataContext } from '../context';
 
 export default function MainContainer() {
@@ -10,17 +10,15 @@ export default function MainContainer() {
     <Main>
       <Main.Wrapper>
         {data.results.map((note) => (
-          <Main.Note contentEditable key={note.id} date={true} color={note.color}>{note.text}</Main.Note>
+          <Note contentEditable key={note.id} date={true} color={note.color}>{note.text}</Note>
         ))}
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
-        <Main.Note>Hello guys</Main.Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
+        <Note>Hello guys</Note>
       </Main.Wrapper>
     </Main>
   );
