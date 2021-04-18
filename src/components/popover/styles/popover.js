@@ -30,18 +30,21 @@ export const Item = styled.li`
       z-index: 10;
     }
   }
-  &:hover {
-    background: rgba(13, 12, 34, 0.03);
-  }
-  &:hover&::before {
-    border-bottom-color: rgb(247, 247, 248);
-  }
 `;
 
 export const ButtonLink = styled(ReactRouterLink)`
   color: #000000a8;
   display: block;
   padding: 15px 10px;
+  outline: none;
+  &:hover,
+  &:focus {
+    background: rgba(13, 12, 34, 0.03);
+  }
+  &:hover&::before,
+  &:focus&::before {
+    border-bottom-color: rgb(247, 247, 248);
+  }
 `;
 
 export const Line = styled.hr`
