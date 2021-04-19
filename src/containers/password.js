@@ -31,6 +31,7 @@ export default function PasswordContainer() {
             name="user[old_password]"
             value={oldPasswordValue}
             onChange={handleOldPasswordChange}
+            data-testid="old-password-input"
           />
         </Form.Fieldset>
         <Form.Fieldset>
@@ -42,6 +43,7 @@ export default function PasswordContainer() {
             autocomplete="new-password"
             value={newPasswordValue}
             onChange={handleNewPasswordChange}
+            data-testid="new-password-input"
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>

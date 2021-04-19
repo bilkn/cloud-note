@@ -28,7 +28,7 @@ export default function ProfileContainer() {
       >
         <Avatar size="120">
           {/* !!! Add username to the avatar */}
-          <Avatar.Picture src={Picture} alt={Avatar} />
+          <Avatar.Picture src={Picture} alt={"Avatar"} />
         </Avatar>
         <Form>
           <Form.Box>

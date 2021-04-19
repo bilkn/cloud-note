@@ -33,6 +33,7 @@ function SettingsContainer() {
             value={usernameValue}
             autocorrect="username"
             onChange={handleUsernameChange}
+            data-testid="username-input"
           />
         </Form.Fieldset>
         <Form.Fieldset>
@@ -44,6 +45,7 @@ function SettingsContainer() {
             autocomplete="email"
             value={emailValue}
             onChange={handleEmailChange}
+            data-testid="email-input"
           />
         </Form.Fieldset>
       </Form.Wrapper>

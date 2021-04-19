@@ -84,7 +84,7 @@ export default function HeaderContainer() {
           onClick={handleAvatarClick}
           data-testid="avatar"
         >
-          <Avatar.Picture src={Picture} />
+          <Avatar.Picture src={Picture} alt="Avatar" /> {/* !!! Add username to alt. */}
           {showPopover && <PopoverContainer data-testid="popover" />}
         </Avatar.Button>
       </Header.Wrapper>
