@@ -18,18 +18,40 @@ export const Container = styled.div`
   position: relative;
 `;
 
+
 export const Button = styled.button`
-  background: none; 
+  align-items: center;
+  background: ${colors.gray_4};
+  border-radius: 50%;
+  cursor: pointer;
   display: flex;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  height: 7px;
+  justify-content: center;
+  margin-right: 5px;
+  position: relative;
+  transition: transform 300ms;
+  outline: none;
+  width: 7px;
 `;
 
-export const Span = styled.span`
-  background: black;
-  border-radius: 50%;
-  height: 5px;
-  margin-right: 5px;
-  width: 5px;
+export const Box = styled.div`
+  align-items: center;
+  background: none;
+  color: ${colors.gray_4};
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  height: 24px;
+  right: 15px;
+  top: 5px;
+  outline: none;
+  &:focus {
+    color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
+  }
+
+  &:focus Button {
+    // !!! Deactive mouse focus.
+    background: ${({ active, mouseClick }) =>
+      active ? colors.gray_4 : mouseClick ? colors.gray_4 : 'whitesmoke'};
+  }
 `;
