@@ -9,7 +9,7 @@ export const Container = styled.main`
 export const Wrapper = styled.div`
   display: grid;
   gap: 2em;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   padding: 2.5em;
 `;
 

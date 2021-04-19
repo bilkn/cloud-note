@@ -1,12 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Main } from '../components';
 import { NoteContainer } from '../containers';
 import { DataContext } from '../context';
 import 'styled-components/macro';
 export default function MainContainer() {
   const [data] = useContext(DataContext);
-  // !!! Add isNow helper to add animation.
+  const [mouseClick, setMouseClick] = useState(true);
 
+  useEffect(() => {
+    const handleWindowKeyDown = () => {
+      setMouseClick(false);
+    };
+    window.addEventListener('keydown', handleWindowKeyDown);
+    return () => window.removeEventListener('keydown', handleWindowKeyDown);
+  }, []);
+
+  // !!! Add isNow helper to add animation.
   return (
     <Main>
       <Main.Wrapper>
@@ -15,11 +24,11 @@ export default function MainContainer() {
             {note.text}
           </Note>
         ))} */}
-        <NoteContainer />
-        <NoteContainer />
-        <NoteContainer />
-        <NoteContainer />
-        <NoteContainer />   
+        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
+        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
+        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
+        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
+        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
       </Main.Wrapper>
     </Main>
   );

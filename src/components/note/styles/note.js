@@ -27,7 +27,7 @@ export const Button = styled.button`
   height: 7px;
   justify-content: center;
   margin-right: 5px;
-  transition: transform 300ms, background 200ms;
+  transition: transform 300ms;
   outline: none;
   width: 7px;
 `;

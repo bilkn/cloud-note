@@ -6,15 +6,8 @@ import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export default function NoteContainer() {
+export default function NoteContainer({ mouseClick, setMouseClick }) {
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const [mouseClick, setMouseClick] = useState(false);
-
-  useEffect(() => {
-    const handleWindowKeyDown = () => setMouseClick(false);
-    window.addEventListener('keydown', handleWindowKeyDown);
-    return () => window.removeEventListener('keydown', handleWindowKeyDown);
-  }, []);
 
   const handleButtonClick = () => {
     setMouseClick(true);
