@@ -20,8 +20,9 @@ export default function MainContainer() {
   return (
     <Main>
       <Main.Wrapper>
-        {data.results.map(({ text, color, date }) => (
+        {data.results.map(({ text, color, date, id }) => (
           <NoteContainer
+            key={id}
             color={color}
             date={date}
             mouseClick={mouseClick}

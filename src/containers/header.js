@@ -10,8 +10,9 @@ import * as ROUTES from '../constants/routes';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
-  const handleAvatarClick = () => setShowPopover(!showPopover);
+  const [searchValue, setSearchValue] = useState('');
 
+  const handleAvatarClick = () => setShowPopover(!showPopover);
   const handleWindowClick = useCallback(() => {
     setShowPopover(false);
   }, []);
@@ -19,6 +20,11 @@ export default function HeaderContainer() {
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') setShowPopover(false);
   }, []);
+
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
+  };
 
   useEffect(() => {
     if (showPopover) {
@@ -36,7 +42,12 @@ export default function HeaderContainer() {
       <Header.Wrapper>
         <Header.Box>
           <Header.SearchBox>
-            <Header.Input type="search" placeholder="Find a note" />
+            <Header.Input
+              type="search"
+              placeholder="Find a note"
+              onChange={handleSearchChange}
+              value={searchValue}
+            />
             <Header.Icon>
               <Search size="24" />
             </Header.Icon>
@@ -68,9 +79,13 @@ export default function HeaderContainer() {
             Sign Up
           </Form.ButtonRed>
         </Header.Wrapper> */}
-        <Avatar.Button size="40" onClick={handleAvatarClick} data-testid="avatar">
+        <Avatar.Button
+          size="40"
+          onClick={handleAvatarClick}
+          data-testid="avatar"
+        >
           <Avatar.Picture src={Picture} />
-          {showPopover && <PopoverContainer data-testid="popover"/>}
+          {showPopover && <PopoverContainer data-testid="popover" />}
         </Avatar.Button>
       </Header.Wrapper>
     </Header>
