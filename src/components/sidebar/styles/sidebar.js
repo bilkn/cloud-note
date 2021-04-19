@@ -90,6 +90,7 @@ export const Button = styled.button`
   border: none;
   color: ${colors.gray_4};
   transition: color 50ms;
+
   :hover {
     color: ${colors.gray_4_hover};
   }
@@ -99,8 +100,13 @@ export const ButtonLink = styled(ReactRouterLink)`
   align-items: center;
   color: inherit;
   display: flex;
+  height: 100%;
   justify-content: center;
   padding: 1em;
-  height: 100%;
+  outline: none;
   width: 100%;
+
+  &:focus {
+    background: ${colors.gray_1_hover};
+  }
 `;

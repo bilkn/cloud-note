@@ -18,7 +18,7 @@ body {
     }
    
     #root {
-        min-height: 100vh;
+        min-height: calc(100vh - 72px);
         position: relative;
     }
 
