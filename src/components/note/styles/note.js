@@ -18,6 +18,7 @@ export const Container = styled.div`
   position: relative;
 `;
 
+
 export const Button = styled.button`
   align-items: center;
   background: ${colors.gray_4};
@@ -27,6 +28,7 @@ export const Button = styled.button`
   height: 7px;
   justify-content: center;
   margin-right: 5px;
+  position: relative;
   transition: transform 300ms;
   outline: none;
   width: 7px;
@@ -43,7 +45,6 @@ export const Box = styled.div`
   right: 15px;
   top: 5px;
   outline: none;
-
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }

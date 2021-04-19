@@ -10,9 +10,13 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
   const [isBoxActive, setIsBoxActive] = useState(false);
 
   const handleButtonClick = () => {
-    setMouseClick(true);
     setIsBoxActive(!isBoxActive);
   };
+
+  const handleMouseDown = () => {
+    setMouseClick(true);
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setIsBoxActive(!isBoxActive);
@@ -35,11 +39,21 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
         ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
           isBoxActive ? `transform : translate(${translate}) scale(6.5);` : ''
-        } &:hover, &:focus {
+        } &:hover {
           ${
             isBoxActive ? `transform : translate(${translate}) scale(7.5);` : ''
           }
-        }`,
+          }
+          &:focus {
+            ${
+              isBoxActive
+                ? mouseClick
+                  ? ''
+                  : `transform : translate(${translate}) scale(7.5);`
+                : ''
+            }
+          }
+        `,
         children: icons[i],
         label: labels[i],
       };
@@ -51,6 +65,7 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
         active={isBoxActive}
         mouseClick={mouseClick}
         onClick={handleButtonClick}
+        onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex="0"
@@ -67,9 +82,11 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
         />
         {createBoxButtons().map(({ css, children, label }, index) => (
           <Note.Button
+            active={isBoxActive}
             key={index}
             role={isBoxActive ? 'button' : ''}
             tabIndex={isBoxActive ? '0' : '-1'}
+            title={label}
             aria-label={label}
             css={css}
           >

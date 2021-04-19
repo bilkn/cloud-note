@@ -12,3 +12,4 @@ Note.Box = function NoteButton({ children, ...restProps }) {
 Note.Button = function NoteButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
+
