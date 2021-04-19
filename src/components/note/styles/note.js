@@ -27,7 +27,7 @@ export const Button = styled.button`
   height: 7px;
   justify-content: center;
   margin-right: 5px;
-  transition: transform 300ms;
+  transition: transform 300ms, background 200ms;
   outline: none;
   width: 7px;
 `;
@@ -45,11 +45,12 @@ export const Box = styled.div`
   outline: none;
 
   &:focus {
-    color: whitesmoke;
+    color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }
 
   &:focus Button {
     // !!! Deactive mouse focus.
-    background: ${(props) => (props.active ? colors.gray_4 : 'whitesmoke')};
+    background: ${({ active, mouseClick }) =>
+      active ? colors.gray_4 : mouseClick ? colors.gray_4 : 'whitesmoke'};
   }
 `;

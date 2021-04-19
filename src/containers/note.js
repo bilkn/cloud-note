@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Note } from '../components';
 import 'styled-components/macro';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
-import { colors } from '../styles/variables';
 
 export default function NoteContainer() {
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const handleButtonClick = () => setIsBoxActive(!isBoxActive);
+  const [mouseClick, setMouseClick] = useState(false);
+
+  useEffect(() => {
+    const handleWindowKeyDown = () => setMouseClick(false);
+    window.addEventListener('keydown', handleWindowKeyDown);
+    return () => window.removeEventListener('keydown', handleWindowKeyDown);
+  }, []);
+
+  const handleButtonClick = () => {
+    setMouseClick(true);
+    setIsBoxActive(!isBoxActive);
+  };
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setIsBoxActive(!isBoxActive);
@@ -18,6 +28,7 @@ export default function NoteContainer() {
 
   const createBoxButtons = () => {
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
+    const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
     const iconSize = isBoxActive ? '3' : '0';
     const icons = [
@@ -37,6 +48,7 @@ export default function NoteContainer() {
           }
         }`,
         children: icons[i],
+        label: labels[i],
       };
     });
   };
@@ -44,10 +56,12 @@ export default function NoteContainer() {
     <Note>
       <Note.Box
         active={isBoxActive}
-        role="button"
+        mouseClick={mouseClick}
         onClick={handleButtonClick}
         onKeyDown={handleKeyDown}
+        role="button"
         tabIndex="0"
+        aria-label="Toggle note menu"
       >
         <Cross
           css={`
@@ -58,11 +72,12 @@ export default function NoteContainer() {
             opacity: ${isBoxActive ? '1' : '0'};
           `}
         />
-        {createBoxButtons().map(({ css, children }, index) => (
+        {createBoxButtons().map(({ css, children, label }, index) => (
           <Note.Button
+            key={index}
             role={isBoxActive ? 'button' : ''}
             tabIndex={isBoxActive ? '0' : '-1'}
-            key={index}
+            aria-label={label}
             css={css}
           >
             {children}
