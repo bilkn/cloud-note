@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '../components';
 import 'styled-components/macro';
 
 export default function PasswordContainer() {
+  const [oldPasswordValue, setOldPasswordValue] = useState('');
+  const [newPasswordValue, setNewPasswordValue] = useState('');
+
+  const handleOldPasswordChange = (e) => {
+    e.stopPropagation();
+    setOldPasswordValue(e.target.value);
+  };
+
+  const handleNewPasswordChange = (e) => {
+    e.stopPropagation();
+    setNewPasswordValue(e.target.value);
+  };
+
   return (
     <Form>
       <Form.Wrapper>
@@ -16,6 +29,8 @@ export default function PasswordContainer() {
             type="password"
             id="user_old_password"
             name="user[old_password]"
+            value={oldPasswordValue}
+            onChange={handleOldPasswordChange}
           />
         </Form.Fieldset>
         <Form.Fieldset>
@@ -25,6 +40,8 @@ export default function PasswordContainer() {
             id="user_password"
             name="user[password]"
             autocomplete="new-password"
+            value={newPasswordValue}
+            onChange={handleNewPasswordChange}
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
