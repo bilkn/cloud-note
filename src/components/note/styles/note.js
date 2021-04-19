@@ -18,7 +18,7 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Span = styled.span`
+export const Button = styled.button`
   align-items: center;
   background: ${colors.gray_4};
   border-radius: 50%;
@@ -28,12 +28,14 @@ export const Span = styled.span`
   justify-content: center;
   margin-right: 5px;
   transition: transform 300ms;
+  outline: none;
   width: 7px;
 `;
 
 export const Box = styled.div`
   align-items: center;
   background: none;
+  color: ${colors.gray_4};
   cursor: pointer;
   display: flex;
   position: absolute;
@@ -42,8 +44,12 @@ export const Box = styled.div`
   top: 5px;
   outline: none;
 
-  &:focus Span { // !!! Deactive mouse focus.
-    background: ${(props) =>
-      props.active ? colors.gray_4 : 'whitesmoke'};
+  &:focus {
+    color: whitesmoke;
+  }
+
+  &:focus Button {
+    // !!! Deactive mouse focus.
+    background: ${(props) => (props.active ? colors.gray_4 : 'whitesmoke')};
   }
 `;

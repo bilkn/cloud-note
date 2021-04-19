@@ -31,7 +31,7 @@ export default function NoteContainer() {
         ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
           isBoxActive ? `transform : translate(${translate}) scale(6.5);` : ''
-        } &:hover {
+        } &:hover, &:focus {
           ${
             isBoxActive ? `transform : translate(${translate}) scale(7.5);` : ''
           }
@@ -40,8 +40,6 @@ export default function NoteContainer() {
       };
     });
   };
-
-  console.log(createBoxButtons());
   return (
     <Note>
       <Note.Box
@@ -52,23 +50,23 @@ export default function NoteContainer() {
         tabIndex="0"
       >
         <Cross
-          color={colors.gray_4}
           css={`
+            color: inherit;
             left: 3px;
             position: absolute;
             transition: opacity 300ms;
             opacity: ${isBoxActive ? '1' : '0'};
           `}
         />
-        {createBoxButtons().map(({ css, children }, i) => (
-          <Note.Span
+        {createBoxButtons().map(({ css, children }, index) => (
+          <Note.Button
             role={isBoxActive ? 'button' : ''}
-            tabIndex="0"
-            key={i}
+            tabIndex={isBoxActive ? '0' : '-1'}
+            key={index}
             css={css}
           >
             {children}
-          </Note.Span>
+          </Note.Button>
         ))}
       </Note.Box>
       Hello guys
