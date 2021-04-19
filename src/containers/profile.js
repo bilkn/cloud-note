@@ -61,6 +61,7 @@ export default function ProfileContainer() {
             autocomplete="name"
             value={nameValue}
             onChange={handleNameChange}
+            data-testid={'name-input'}
           />
         </Form.Fieldset>
         <Form.Fieldset
@@ -87,6 +88,7 @@ export default function ProfileContainer() {
             maxlength="1200"
             value={bioValue}
             onChange={handleBioChange}
+            data-testid={'bio-input'}
           />
         </Form.Fieldset>
       </Form>
