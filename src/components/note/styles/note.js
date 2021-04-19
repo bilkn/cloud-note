@@ -18,18 +18,6 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Box = styled.div`
-  align-items: center;
-  background: none;
-  cursor: pointer;
-  display: flex;
-  position: absolute;
-  height: 24px;
-  right: 15px;
-  top: 5px;
-  outline: none;
-`;
-
 export const Span = styled.span`
   align-items: center;
   background: ${colors.gray_4};
@@ -41,4 +29,21 @@ export const Span = styled.span`
   margin-right: 5px;
   transition: transform 300ms;
   width: 7px;
+`;
+
+export const Box = styled.div`
+  align-items: center;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  height: 24px;
+  right: 15px;
+  top: 5px;
+  outline: none;
+
+  &:focus Span { // !!! Deactive mouse focus.
+    background: ${(props) =>
+      props.active ? colors.gray_4 : 'whitesmoke'};
+  }
 `;

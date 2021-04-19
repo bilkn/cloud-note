@@ -10,9 +10,47 @@ import { colors } from '../styles/variables';
 export default function NoteContainer() {
   const [isBoxActive, setIsBoxActive] = useState(false);
   const handleButtonClick = () => setIsBoxActive(!isBoxActive);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setIsBoxActive(!isBoxActive);
+    }
+  };
+
+  const createBoxButtons = () => {
+    const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
+    const iconColor = 'white';
+    const iconSize = isBoxActive ? '3' : '0';
+    const icons = [
+      <Edit color={iconColor} size={iconSize} />,
+      <Clipboard color={iconColor} size={iconSize} />,
+      <Trash color={iconColor} size={iconSize} />,
+    ];
+    return translates.map((translate, i, arr) => {
+      return {
+        css: `
+        ${i === arr.length - 1 ? 'margin:0;' : ''}
+        ${
+          isBoxActive ? `transform : translate(${translate}) scale(6.5);` : ''
+        } &:hover {
+          ${
+            isBoxActive ? `transform : translate(${translate}) scale(7.5);` : ''
+          }
+        }`,
+        children: icons[i],
+      };
+    });
+  };
+
+  console.log(createBoxButtons());
   return (
     <Note>
-      <Note.Box role="button" onClick={handleButtonClick}>
+      <Note.Box
+        active={isBoxActive}
+        role="button"
+        onClick={handleButtonClick}
+        onKeyDown={handleKeyDown}
+        tabIndex="0"
+      >
         <Cross
           color={colors.gray_4}
           css={`
@@ -22,44 +60,16 @@ export default function NoteContainer() {
             opacity: ${isBoxActive ? '1' : '0'};
           `}
         />
-
-        <Note.Span
-          role={isBoxActive ? 'button' : ''}
-          css={`
-            ${isBoxActive && 'transform : translate(-70px, 20px) scale(6.5)'};
-
-            &:hover {
-              ${isBoxActive && 'transform : translate(-70px, 20px) scale(7.5)'}
-            }
-          `}
-        >
-          <Edit color="white" size={isBoxActive ? '3' : '0'} />
-        </Note.Span>
-        <Note.Span
-          role={isBoxActive ? 'button' : ''}
-          css={`
-            ${isBoxActive && 'transform : translate(-30px, 60px) scale(6.5)'};
-
-            &:hover {
-              ${isBoxActive && 'transform : translate(-30px, 60px) scale(7.5)'}
-            }
-          `}
-        >
-          <Clipboard color="white" size={isBoxActive ? '3' : '0'} />
-        </Note.Span>
-        <Note.Span
-          role={isBoxActive ? 'button' : ''}
-          css={`
-            margin: 0;
-            ${isBoxActive && 'transform : translate(23px, 70px) scale(6.5)'};
-
-            &:hover {
-              ${isBoxActive && 'transform : translate(23px, 70px) scale(7.5)'}
-            }
-          `}
-        >
-          <Trash color="white" size={isBoxActive ? '3' : '0'} />
-        </Note.Span>
+        {createBoxButtons().map(({ css, children }, i) => (
+          <Note.Span
+            role={isBoxActive ? 'button' : ''}
+            tabIndex="0"
+            key={i}
+            css={css}
+          >
+            {children}
+          </Note.Span>
+        ))}
       </Note.Box>
       Hello guys
     </Note>
