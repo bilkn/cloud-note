@@ -45,6 +45,7 @@ export const Box = styled.div`
   right: 15px;
   top: 5px;
   outline: none;
+  
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }
