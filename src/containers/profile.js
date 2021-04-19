@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlexWrapper, Form } from '../components';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
 
 export default function ProfileContainer() {
+  const [nameValue, setNameValue] = useState('');
+  const [bioValue, setBioValue] = useState('');
+
+  const handleNameChange = (e) => {
+    e.stopPropagation();
+    setNameValue(e.target.value);
+  };
+
+  const handleBioChange = (e) => {
+    e.stopPropagation();
+    setBioValue(e.target.value);
+  };
+
   return (
     <>
       <FlexWrapper
@@ -46,6 +59,8 @@ export default function ProfileContainer() {
             id="profile_name"
             name="profile[name]"
             autocomplete="name"
+            value={nameValue}
+            onChange={handleNameChange}
           />
         </Form.Fieldset>
         <Form.Fieldset
@@ -70,6 +85,8 @@ export default function ProfileContainer() {
             name="profile[bio]"
             rows="10"
             maxlength="1200"
+            value={bioValue}
+            onChange={handleBioChange}
           />
         </Form.Fieldset>
       </Form>
