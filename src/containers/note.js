@@ -6,8 +6,9 @@ import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export default function NoteContainer({ mouseClick, setMouseClick }) {
+export default function NoteContainer(props) {
   const [isBoxActive, setIsBoxActive] = useState(false);
+  const { mouseClick, setMouseClick, color, date, children } = props;
 
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
@@ -43,16 +44,15 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
           ${
             isBoxActive ? `transform : translate(${translate}) scale(7.5);` : ''
           }
-          }
+        }
           &:focus {
-            ${
-              isBoxActive
-                ? mouseClick
-                  ? ''
-                  : `transform : translate(${translate}) scale(7.5);`
-                : ''
-            }
+              ${
+                isBoxActive && !mouseClick
+                  ? `transform: translate(${translate}) scale(7.5);`
+                  : ''
+              }
           }
+           
         `,
         children: icons[i],
         label: labels[i],
@@ -60,7 +60,7 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
     });
   };
   return (
-    <Note>
+    <Note color={color} date={date}>
       <Note.Box
         active={isBoxActive}
         mouseClick={mouseClick}
@@ -94,7 +94,7 @@ export default function NoteContainer({ mouseClick, setMouseClick }) {
           </Note.Button>
         ))}
       </Note.Box>
-      Hello guys
+      {children}
     </Note>
   );
 }

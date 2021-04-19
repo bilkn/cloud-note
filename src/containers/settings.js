@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from '../components';
-import "styled-components/macro";
+import 'styled-components/macro';
 
 function SettingsContainer() {
+  const [usernameValue, setUsernameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+
+  const handleUsernameChange = (e) => {
+    e.stopPropagation();
+    setUsernameValue(e.target.value);
+  };
+  
+  const handleEmailChange = (e) => {
+    e.stopPropagation();
+    setEmailValue(e.target.value);
+  };
+
   return (
     <Form>
       <Form.Wrapper>
@@ -17,8 +30,10 @@ function SettingsContainer() {
             type="text"
             id="user_login"
             name="user[login]"
-            value="Mr. Johnson"
+            value={usernameValue}
             autocorrect="username"
+            onChange={handleUsernameChange}
+            data-testid="username-input"
           />
         </Form.Fieldset>
         <Form.Fieldset>
@@ -28,6 +43,9 @@ function SettingsContainer() {
             id="user_email"
             name="user[email]"
             autocomplete="email"
+            value={emailValue}
+            onChange={handleEmailChange}
+            data-testid="email-input"
           />
         </Form.Fieldset>
       </Form.Wrapper>

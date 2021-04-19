@@ -22,11 +22,13 @@ export const Button = styled.button`
   height: ${(props) => props.size + 'px'};
   position: relative;
   transition: box-shadow 50ms;
+  outline: none;
   width: ${(props) => props.size + 'px'};
+
   &:hover {
     box-shadow: 0 0 0 2pt #b6b6b6;
   }
   &:focus {
-    box-shadow: 0 0 0 2pt #b6b6b6;
+    box-shadow: 0 0 0 2pt #b6b6b7;
   }
 `;

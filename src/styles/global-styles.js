@@ -18,7 +18,7 @@ body {
     }
    
     #root {
-        min-height: 100vh;
+        min-height: calc(100vh - 72px);
         position: relative;
     }
 
@@ -41,5 +41,11 @@ body {
     img {
         max-width: 100%;
     }
+
+    [type="search"]::-webkit-search-cancel-button,
+    [type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+}
 
 `;

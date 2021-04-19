@@ -3,6 +3,7 @@ import { Main } from '../components';
 import { NoteContainer } from '../containers';
 import { DataContext } from '../context';
 import 'styled-components/macro';
+
 export default function MainContainer() {
   const [data] = useContext(DataContext);
   const [mouseClick, setMouseClick] = useState(true);
@@ -19,16 +20,17 @@ export default function MainContainer() {
   return (
     <Main>
       <Main.Wrapper>
-        {/* {data.results.map((note) => (
-          <Note contentEditable key={note.id} date={true} color={note.color}>
-            {note.text}
-          </Note>
-        ))} */}
-        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
-        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
-        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
-        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
-        <NoteContainer mouseClick={mouseClick} setMouseClick={setMouseClick} />
+        {data.results.map(({ text, color, date, id }) => (
+          <NoteContainer
+            key={id}
+            color={color}
+            date={date}
+            mouseClick={mouseClick}
+            setMouseClick={setMouseClick}
+          >
+            {text}
+          </NoteContainer>
+        ))}
       </Main.Wrapper>
     </Main>
   );
