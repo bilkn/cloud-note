@@ -12,12 +12,15 @@ export const Container = styled.div`
   background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
-  height: 0;
   padding: 1.2em;
-  padding-bottom: 75%;
   position: relative;
 `;
 
+export const Content = styled.div`
+  height: 0;
+  padding-bottom: 75%;
+  outline: none;
+`;
 
 export const Button = styled.button`
   align-items: center;
@@ -45,7 +48,7 @@ export const Box = styled.div`
   right: 15px;
   top: 5px;
   outline: none;
-  
+
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }

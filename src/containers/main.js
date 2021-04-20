@@ -27,9 +27,8 @@ export default function MainContainer() {
             date={date}
             mouseClick={mouseClick}
             setMouseClick={setMouseClick}
-          >
-            {text}
-          </NoteContainer>
+            text={text}
+          />
         ))}
       </Main.Wrapper>
     </Main>

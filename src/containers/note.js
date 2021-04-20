@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Note } from '../components';
 import 'styled-components/macro';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function NoteContainer(props) {
+  const { mouseClick, setMouseClick, color, date, text } = props;
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const { mouseClick, setMouseClick, color, date, children } = props;
+  const [isEditable, setIsEditable] = useState(true);
+  const [currentText, setCurrentText] = useState(text);
 
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
@@ -22,6 +25,12 @@ export default function NoteContainer(props) {
     if (e.key === 'Enter') {
       setIsBoxActive(!isBoxActive);
     }
+  };
+
+  const handleInput = (e) => {
+    console.log('hello ');
+    e.preventDefault();
+    setCurrentText(e.target.textContent);
   };
 
   const createBoxButtons = () => {
@@ -59,6 +68,7 @@ export default function NoteContainer(props) {
       };
     });
   };
+
   return (
     <Note color={color} date={date}>
       <Note.Box
@@ -80,10 +90,10 @@ export default function NoteContainer(props) {
             opacity: ${isBoxActive ? '1' : '0'};
           `}
         />
-        {createBoxButtons().map(({ css, children, label }, index) => (
+        {createBoxButtons().map(({ css, children, label }) => (
           <Note.Button
             active={isBoxActive}
-            key={index}
+            key={uuidv4()}
             role={isBoxActive ? 'button' : ''}
             tabIndex={isBoxActive ? '0' : '-1'}
             title={label}
@@ -94,7 +104,9 @@ export default function NoteContainer(props) {
           </Note.Button>
         ))}
       </Note.Box>
-      {children}
+      <Note.Content contentEditable={isEditable} onInput={handleInput}>
+        {currentText}
+      </Note.Content>
     </Note>
   );
 }
