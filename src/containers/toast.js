@@ -1,32 +1,19 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { Toast } from '../components';
 import { ReactComponent as CrossIcon } from '../assets/cross-icon.svg';
+import { toastReducer } from '../reducers';
 import 'styled-components/macro';
-import { v4 as uuidv4 } from 'uuid';
-
-const content = {
-  id: uuidv4(),
-  type: 'notification',
-  text: 'Note has been added.',
-};
-const content2 = {
-  id: uuidv4(),
-  type: 'error',
-  text: 'An error has occurred.',
-};
 
 function ToastContainer() {
-  const [contentList, setContentList] = useState([content, content2]);
+  const [state, dispatch] = useReducer(toastReducer, []);
 
-  const handleAnimationEnd = (currentId) => {
-    setContentList(() => {
-      return contentList.filter(({ id }) => id !== currentId);
-    });
+  const handleAnimationEnd = (contentId) => {
+    dispatch({ type: 'REMOVE_CONTENT', payload: contentId });
   };
 
   return (
     <Toast>
-      {contentList.map(({ id, type, text }) => (
+      {state.map(({ id, type, text }) => (
         <Toast.Content key={id} type={type}>
           <Toast.Text>{text}</Toast.Text>
           <Toast.Loader
