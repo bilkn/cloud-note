@@ -23,12 +23,12 @@ export default function MainContainer() {
   return (
     <Main>
       <Main.Wrapper>
-        {data.results.map(({ text, color, date, id }) => (
+        {data.results.map(({ text, color, timestamp, id }) => (
           <NoteContainer
             key={id}
             id={id}
             color={color}
-            date={date}
+            timestamp={timestamp}
             mouseClick={mouseClick}
             setMouseClick={setMouseClick}
             text={text}

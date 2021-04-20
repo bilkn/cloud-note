@@ -7,6 +7,7 @@ import { DataContext } from '../context';
 import { useMatchLastSubpath, useResize } from '../hooks';
 import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function PaletteContainer({ palette, setPalette }) {
   const [data, setData] = useContext(DataContext);
@@ -16,7 +17,7 @@ export default function PaletteContainer({ palette, setPalette }) {
 
   const addNewData = (color) => {
     const results = [
-      { id: new Date().getTime(), color, date: true, text: 'Hello' },
+      { id: uuidv4(), color, timestamp: new Date(), text: 'Hello' },
       ...data.results,
     ];
     setData({ ...data, results });

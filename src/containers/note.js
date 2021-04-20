@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Note } from '../components';
 import 'styled-components/macro';
+import { Note } from '../components';
+import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
@@ -13,7 +14,7 @@ export default function NoteContainer(props) {
     mouseClick,
     setMouseClick,
     color,
-    date,
+    timestamp,
     text,
     active,
     setCurrentId,
@@ -21,6 +22,7 @@ export default function NoteContainer(props) {
   const [isBoxActive, setIsBoxActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
   };
@@ -93,7 +95,7 @@ export default function NoteContainer(props) {
   }, [active]);
 
   return (
-    <Note color={color} date={date}>
+    <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
       <Note.Box
         active={isBoxActive}
         mouseClick={mouseClick}
