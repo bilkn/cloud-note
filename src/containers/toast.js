@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Toast } from '../components';
 import { ReactComponent as CrossIcon } from '../assets/cross-icon.svg';
 import { toastReducer } from '../reducers';
@@ -7,9 +7,17 @@ import 'styled-components/macro';
 function ToastContainer() {
   const [state, dispatch] = useReducer(toastReducer, []);
 
-  const handleAnimationEnd = (contentId) => {
+  const contentRemoveHandler = (contentId) => {
     dispatch({ type: 'REMOVE_CONTENT', payload: contentId });
   };
+
+
+  useEffect(() => {
+    setInterval(() => {
+      dispatch({ type: 'ADD_NOTE' });
+    }, 1500);
+    dispatch({ type: 'ERROR' });
+  }, []);
 
   return (
     <Toast>
@@ -19,9 +27,9 @@ function ToastContainer() {
           <Toast.Loader
             id={id}
             duration="2000"
-            onAnimationEnd={handleAnimationEnd}
+            onAnimationEnd={contentRemoveHandler}
           >
-            <Toast.Button>
+            <Toast.Button id={id} onClick={contentRemoveHandler}>
               <CrossIcon
                 css={`
                   width: 17px;

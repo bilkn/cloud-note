@@ -23,15 +23,19 @@ Toast.Text = function ToastText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
 };
 
-Toast.Button = function ToastButton({ children, ...restProps }) {
-  return <Button {...restProps}>{children}</Button>;
+Toast.Button = function ToastButton({ onClick, id, children, ...restProps }) {
+  return (
+    <Button onClick={() => onClick(id)} {...restProps}>
+      {children}
+    </Button>
+  );
 };
 
 Toast.Loader = function ToastLoader({
-  children,
   duration,
   onAnimationEnd,
   id,
+  children,
   ...restProps
 }) {
   Loader.defaultProps = {
@@ -59,7 +63,7 @@ Toast.Loader = function ToastLoader({
             stroke: #fff;
             stroke-dashoffset: calc(94 - (94 * 0) / 100);
           `}
-          onAnimationEnd={()=> onAnimationEnd(id)}
+          onAnimationEnd={() => onAnimationEnd(id)}
         />
       </SVG>
     </Loader>
