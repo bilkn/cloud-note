@@ -27,7 +27,13 @@ Toast.Button = function ToastButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
 
-Toast.Loader = function ToastLoader({ children, duration, ...restProps }) {
+Toast.Loader = function ToastLoader({
+  children,
+  duration,
+  onAnimationEnd,
+  id,
+  ...restProps
+}) {
   Loader.defaultProps = {
     duration: '500',
   };
@@ -53,7 +59,7 @@ Toast.Loader = function ToastLoader({ children, duration, ...restProps }) {
             stroke: #fff;
             stroke-dashoffset: calc(94 - (94 * 0) / 100);
           `}
-          // !!! Add animationend handler
+          onAnimationEnd={()=> onAnimationEnd(id)}
         />
       </SVG>
     </Loader>
