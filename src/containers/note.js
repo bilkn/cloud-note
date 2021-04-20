@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Note } from '../components';
 import 'styled-components/macro';
+import { Note } from '../components';
+import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
@@ -8,11 +9,20 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function NoteContainer(props) {
-  const { mouseClick, setMouseClick, color, date, text } = props;
+  const {
+    id,
+    mouseClick,
+    setMouseClick,
+    color,
+    timestamp,
+    text,
+    active,
+    setCurrentId,
+  } = props;
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
   };
@@ -32,9 +42,21 @@ export default function NoteContainer(props) {
     setTextValue(e.target.value);
   };
 
+  const handleBlur = () => {
+    setIsBoxActive(false);
+    setCurrentId('');
+  };
+
+  useEffect(() => {
+    if (!isSecondsPassed(1, timestamp)) {
+      setCurrentId(id);
+      console.log('true');
+    }
+  }, [timestamp, id, setCurrentId]);
+
   const createBoxButtons = () => {
     const handleEditClick = () => {
-      setIsDisabled(false);
+      isBoxActive && setCurrentId(id);
     };
     const handlers = [handleEditClick];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
@@ -74,13 +96,13 @@ export default function NoteContainer(props) {
   };
 
   useEffect(() => {
-    if (!isDisabled) {
+    if (active) {
       textAreaRef.current.focus();
     }
-  }, [isDisabled]);
+  }, [active]);
 
   return (
-    <Note color={color} date={date}>
+    <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
       <Note.Box
         active={isBoxActive}
         mouseClick={mouseClick}
@@ -118,7 +140,8 @@ export default function NoteContainer(props) {
       <Note.TextArea
         value={textValue}
         onChange={handleChange}
-        disabled={isDisabled}
+        onBlur={handleBlur}
+        disabled={!active}
         ref={textAreaRef}
       />
     </Note>

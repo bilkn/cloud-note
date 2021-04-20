@@ -8,7 +8,7 @@ const noteAnimation = () =>
   `;
 
 export const Container = styled.div`
-  ${(props) => (props.date ? noteAnimation : '')}
+  ${(props) => (props.animate ? noteAnimation : '')}
   background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
