@@ -7,6 +7,7 @@ import 'styled-components/macro';
 export default function MainContainer() {
   const [data] = useContext(DataContext);
   const [mouseClick, setMouseClick] = useState(true);
+  const [currentId, setCurrentId] = useState('');
 
   useEffect(() => {
     const handleWindowKeyDown = () => {
@@ -16,6 +17,8 @@ export default function MainContainer() {
     return () => window.removeEventListener('keydown', handleWindowKeyDown);
   }, []);
 
+
+
   // !!! Add isNow helper to add animation.
   return (
     <Main>
@@ -23,11 +26,14 @@ export default function MainContainer() {
         {data.results.map(({ text, color, date, id }) => (
           <NoteContainer
             key={id}
+            id={id}
             color={color}
             date={date}
             mouseClick={mouseClick}
             setMouseClick={setMouseClick}
             text={text}
+            active={currentId === id}
+            setCurrentId={setCurrentId}
           />
         ))}
       </Main.Wrapper>

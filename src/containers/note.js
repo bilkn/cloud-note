@@ -8,9 +8,17 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function NoteContainer(props) {
-  const { mouseClick, setMouseClick, color, date, text } = props;
+  const {
+    id,
+    mouseClick,
+    setMouseClick,
+    color,
+    date,
+    text,
+    active,
+    setCurrentId,
+  } = props;
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
   const handleButtonClick = () => {
@@ -32,9 +40,14 @@ export default function NoteContainer(props) {
     setTextValue(e.target.value);
   };
 
+  const handleBlur = () => {
+    setIsBoxActive(false);
+    setCurrentId('');
+  };
+
   const createBoxButtons = () => {
     const handleEditClick = () => {
-      setIsDisabled(false);
+      setCurrentId(id);
     };
     const handlers = [handleEditClick];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
@@ -74,10 +87,10 @@ export default function NoteContainer(props) {
   };
 
   useEffect(() => {
-    if (!isDisabled) {
+    if (active) {
       textAreaRef.current.focus();
     }
-  }, [isDisabled]);
+  }, [active]);
 
   return (
     <Note color={color} date={date}>
@@ -118,7 +131,8 @@ export default function NoteContainer(props) {
       <Note.TextArea
         value={textValue}
         onChange={handleChange}
-        disabled={isDisabled}
+        onBlur={handleBlur}
+        disabled={!active}
         ref={textAreaRef}
       />
     </Note>
