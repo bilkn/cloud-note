@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container,Content, Box, Button } from './styles/note';
+import { Container, TextArea, Box, Button } from './styles/note';
 
 export default function Note({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
-Note.Content = function NoteContent({ children, ...restProps }) {
-  return <Content {...restProps}>{children}</Content>;
+Note.TextArea = function NoteTextArea({ children, ...restProps }) {
+  return <TextArea {...restProps}>{children}</TextArea>;
 };
 
 Note.Box = function NoteButton({ children, ...restProps }) {
@@ -16,4 +16,3 @@ Note.Box = function NoteButton({ children, ...restProps }) {
 Note.Button = function NoteButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
-

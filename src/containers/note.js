@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 export default function NoteContainer(props) {
   const { mouseClick, setMouseClick, color, date, text } = props;
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const [isEditable, setIsEditable] = useState(true);
-  const [currentText, setCurrentText] = useState(text);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [textValue, setTextValue] = useState(text);
 
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
@@ -27,10 +27,9 @@ export default function NoteContainer(props) {
     }
   };
 
-  const handleInput = (e) => {
-    console.log('hello ');
+  const handleChange = (e) => {
     e.preventDefault();
-    setCurrentText(e.target.textContent);
+    setTextValue(e.target.value);
   };
 
   const createBoxButtons = () => {
@@ -104,9 +103,7 @@ export default function NoteContainer(props) {
           </Note.Button>
         ))}
       </Note.Box>
-      <Note.Content contentEditable={isEditable} onInput={handleInput}>
-        {currentText}
-      </Note.Content>
+      <Note.TextArea value={textValue} onChange={handleChange} />
     </Note>
   );
 }
