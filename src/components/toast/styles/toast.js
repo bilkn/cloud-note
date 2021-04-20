@@ -20,7 +20,8 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   align-items: center;
-  background: ${colors.purple_2};
+  background: ${({ type }) =>
+    type === 'notification' ? colors.purple_2 : 'gray'};
   border-radius: 5px;
   box-shadow: 0 2px 10px #0000002e;
   display: flex;
