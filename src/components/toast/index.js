@@ -1,11 +1,23 @@
 import React from 'react';
-import { Container, Text, Button, Loader, SVG, Circle } from './styles/toast';
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  Loader,
+  SVG,
+  Circle,
+} from './styles/toast';
 import 'styled-components/macro';
 import { toastLoader } from '../../styles/animations';
 
 export default function Toast({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
+
+Toast.Content = function ToastContent({ children, ...restProps }) {
+  return <Content {...restProps}>{children}</Content>;
+};
 
 Toast.Text = function ToastText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;

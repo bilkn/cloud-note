@@ -23,7 +23,7 @@ export default function Home() {
           }
         `}
       >
-        {/*  <ToastContainer /> */}
+          <ToastContainer /> 
         {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
 
         <MainContainer />
