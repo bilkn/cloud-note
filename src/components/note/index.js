@@ -5,9 +5,9 @@ export default function Note({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
-Note.TextArea = function NoteTextArea({ children, ...restProps }) {
-  return <TextArea {...restProps}>{children}</TextArea>;
-};
+Note.TextArea = React.forwardRef((props, ref) => (
+  <TextArea ref={ref} {...props} />
+));
 
 Note.Box = function NoteButton({ children, ...restProps }) {
   return <Box {...restProps}>{children}</Box>;
