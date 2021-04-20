@@ -47,9 +47,16 @@ export default function NoteContainer(props) {
     setCurrentId('');
   };
 
+  useEffect(() => {
+    if (!isSecondsPassed(1, timestamp)) {
+      setCurrentId(id);
+      console.log('true');
+    }
+  }, [timestamp, id, setCurrentId]);
+
   const createBoxButtons = () => {
     const handleEditClick = () => {
-      setCurrentId(id);
+      isBoxActive && setCurrentId(id);
     };
     const handlers = [handleEditClick];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];

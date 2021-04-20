@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Main } from '../components';
+import { isSecondsPassed } from '../helpers';
 import { NoteContainer } from '../containers';
 import { DataContext } from '../context';
 import 'styled-components/macro';
@@ -18,8 +19,6 @@ export default function MainContainer() {
   }, []);
 
 
-
-  // !!! Add isNow helper to add animation.
   return (
     <Main>
       <Main.Wrapper>
