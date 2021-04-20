@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Note } from '../components';
 import 'styled-components/macro';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function NoteContainer(props) {
+  const { mouseClick, setMouseClick, color, date, text } = props;
   const [isBoxActive, setIsBoxActive] = useState(false);
-  const { mouseClick, setMouseClick, color, date, children } = props;
-
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [textValue, setTextValue] = useState(text);
+  const textAreaRef = useRef(null);
   const handleButtonClick = () => {
     setIsBoxActive(!isBoxActive);
   };
@@ -24,7 +27,16 @@ export default function NoteContainer(props) {
     }
   };
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setTextValue(e.target.value);
+  };
+
   const createBoxButtons = () => {
+    const handleEditClick = () => {
+      setIsDisabled(false);
+    };
+    const handlers = [handleEditClick];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
@@ -56,9 +68,17 @@ export default function NoteContainer(props) {
         `,
         children: icons[i],
         label: labels[i],
+        handler: handlers[i],
       };
     });
   };
+
+  useEffect(() => {
+    if (!isDisabled) {
+      textAreaRef.current.focus();
+    }
+  }, [isDisabled]);
+
   return (
     <Note color={color} date={date}>
       <Note.Box
@@ -80,21 +100,27 @@ export default function NoteContainer(props) {
             opacity: ${isBoxActive ? '1' : '0'};
           `}
         />
-        {createBoxButtons().map(({ css, children, label }, index) => (
+        {createBoxButtons().map(({ css, children, label, handler }) => (
           <Note.Button
             active={isBoxActive}
-            key={index}
+            key={uuidv4()}
             role={isBoxActive ? 'button' : ''}
             tabIndex={isBoxActive ? '0' : '-1'}
             title={label}
             aria-label={label}
             css={css}
+            onClick={handler}
           >
             {children}
           </Note.Button>
         ))}
       </Note.Box>
-      {children}
+      <Note.TextArea
+        value={textValue}
+        onChange={handleChange}
+        disabled={isDisabled}
+        ref={textAreaRef}
+      />
     </Note>
   );
 }

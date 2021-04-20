@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { HeaderContainer, SidebarContainer } from './containers';
+import { HeaderContainer, SidebarContainer, ToastContainer } from './containers';
 import { Home, Account, Signin, Signup, PasswordReset } from './pages';
 import { DataProvider } from './providers';
 
@@ -29,6 +29,7 @@ function App() {
           <SidebarContainer />
         </Router>
       </DataProvider>
+      <ToastContainer />
     </>
   );
 }

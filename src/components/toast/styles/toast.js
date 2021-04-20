@@ -1,19 +1,14 @@
 import styled from 'styled-components/macro';
-import { indexes, sizes } from '../../../styles/variables';
+import { indexes, sizes, colors } from '../../../styles/variables';
 import devices from '../../../styles/devices';
 
 export const Container = styled.div`
-  align-items: center;
-  background: #7d6fcd;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px #0000002e;
   color: white;
   display: flex;
-  height: 50px;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1em;
   left: 50%;
   margin-left: -150px;
-  padding: 0.5em 1em;
   position: fixed;
   top: 60px;
   width: 300px;
@@ -21,6 +16,20 @@ export const Container = styled.div`
   @media ${devices.tablet} {
     margin-left: ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
   }
+`;
+
+export const Content = styled.div`
+  align-items: center;
+  background: ${({ type }) =>
+    type === 'notification' ? colors.purple_2 : 'gray'};
+  border-radius: 5px;
+  box-shadow: 0 2px 10px #0000002e;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  user-select: none;
+  width: 100%;
 `;
 
 export const Text = styled.p``;

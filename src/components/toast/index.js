@@ -1,5 +1,13 @@
 import React from 'react';
-import { Container, Text, Button, Loader, SVG, Circle } from './styles/toast';
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  Loader,
+  SVG,
+  Circle,
+} from './styles/toast';
 import 'styled-components/macro';
 import { toastLoader } from '../../styles/animations';
 
@@ -7,15 +15,29 @@ export default function Toast({ children, ...restProps }) {
   return <Container {...restProps}>{children}</Container>;
 }
 
+Toast.Content = function ToastContent({ children, ...restProps }) {
+  return <Content {...restProps}>{children}</Content>;
+};
+
 Toast.Text = function ToastText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
 };
 
-Toast.Button = function ToastButton({ children, ...restProps }) {
-  return <Button {...restProps}>{children}</Button>;
+Toast.Button = function ToastButton({ onClick, id, children, ...restProps }) {
+  return (
+    <Button onClick={() => onClick(id)} {...restProps}>
+      {children}
+    </Button>
+  );
 };
 
-Toast.Loader = function ToastLoader({ children, duration, ...restProps }) {
+Toast.Loader = function ToastLoader({
+  duration,
+  onAnimationEnd,
+  id,
+  children,
+  ...restProps
+}) {
   Loader.defaultProps = {
     duration: '500',
   };
@@ -41,7 +63,7 @@ Toast.Loader = function ToastLoader({ children, duration, ...restProps }) {
             stroke: #fff;
             stroke-dashoffset: calc(94 - (94 * 0) / 100);
           `}
-          // !!! Add animationend handler
+          onAnimationEnd={() => onAnimationEnd(id)}
         />
       </SVG>
     </Loader>

@@ -47,6 +47,7 @@ export default function HeaderContainer() {
               placeholder="Find a note"
               onChange={handleSearchChange}
               value={searchValue}
+              data-testid="search-input"
             />
             <Header.Icon>
               <Search size="24" />

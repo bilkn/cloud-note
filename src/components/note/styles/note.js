@@ -12,12 +12,20 @@ export const Container = styled.div`
   background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
-  height: 0;
-  padding: 1.2em;
-  padding-bottom: 75%;
+  padding: 2em 1.2em;
   position: relative;
 `;
 
+export const TextArea = styled.textarea`
+  background: none;
+  border: none;
+  height: 0;
+  padding-bottom: 75%;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  width: 100%;
+`;
 
 export const Button = styled.button`
   align-items: center;
@@ -45,13 +53,12 @@ export const Box = styled.div`
   right: 15px;
   top: 5px;
   outline: none;
-  
+
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }
 
   &:focus Button {
-    // !!! Deactive mouse focus.
     background: ${({ active, mouseClick }) =>
       active ? colors.gray_4 : mouseClick ? colors.gray_4 : 'whitesmoke'};
   }
