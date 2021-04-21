@@ -53,14 +53,26 @@ export default function NoteContainer(props) {
   };
 
   const createBoxButtons = () => {
-    const handleEditMouseUp = (e) => {
-      e.stopPropagation();
+    const handleEditMouseUp = () => {
       if (isButtonsActive) {
         setIsActive(true);
-        setIsButtonsActive(false);
       }
     };
-    const handlers = [handleEditMouseUp];
+
+    const handleCopyMouseUp = () => {
+      if (isButtonsActive) {
+        const elem = document.createElement('textarea');
+        document.body.appendChild(elem);
+        elem.value = textValue;
+        elem.select();
+        elem.setSelectionRange(0, 99999); // For mobile devices.
+        document.execCommand('copy');
+        document.body.removeChild(elem);
+        // !!! Add notificiation.
+      }
+    };
+
+    const handlers = [handleEditMouseUp, handleCopyMouseUp];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
