@@ -81,13 +81,15 @@ export default function NoteContainer(props) {
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"
+        title="Toggle note menu"
         tabIndex="0"
         aria-label="Toggle note menu"
       >
         <Cross
+          size="28"
           css={`
             color: inherit;
-            left: 3px;
+            left: 5px;
             position: absolute;
             transition: opacity 300ms;
             opacity: ${isButtonsActive ? '1' : '0'};

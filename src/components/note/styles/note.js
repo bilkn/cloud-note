@@ -48,6 +48,7 @@ export const Box = styled.div`
   color: ${colors.gray_4};
   cursor: pointer;
   display: flex;
+  padding: 0 0.2em;
   position: absolute;
   height: 24px;
   right: 15px;

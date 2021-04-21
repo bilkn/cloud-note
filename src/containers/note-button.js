@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
-import { v4 as uuidv4 } from 'uuid';
 import { Note } from '../components';
+import { ToastContext } from '../context';
 
 export default function NoteButton(props) {
   const { isButtonsActive, setIsActive, textValue, mouseClick } = props;
+  const [, dispatch] = useContext(ToastContext);
 
   const createBoxButtons = () => {
-
     const handleEditMouseUp = () => {
       if (isButtonsActive) {
         setIsActive(true);
       }
     };
-    
+
     const handleCopyMouseUp = () => {
       if (isButtonsActive) {
         const elem = document.createElement('textarea');
@@ -26,7 +26,7 @@ export default function NoteButton(props) {
         elem.setSelectionRange(0, 99999); // For mobile devices.
         document.execCommand('copy');
         document.body.removeChild(elem);
-        // !!! Add notificiation.
+        dispatch({ type: 'COPY' });
       }
     };
 
@@ -71,10 +71,10 @@ export default function NoteButton(props) {
     });
   };
 
-  return createBoxButtons().map(({ css, children, label, handler }) => (
+  return createBoxButtons().map(({ css, children, label, handler }, index) => (
     <Note.Button
       active={isButtonsActive}
-      key={uuidv4()}
+      key={index}
       role={isButtonsActive ? 'button' : ''}
       tabIndex={isButtonsActive ? '0' : '-1'}
       title={isButtonsActive ? label : ''}
