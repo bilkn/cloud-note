@@ -23,9 +23,8 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  
 
-  const handleButtonClick = () => {
+  const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
   };
@@ -37,6 +36,7 @@ export default function NoteContainer(props) {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setIsButtonsActive(!isButtonsActive);
+      setCurrentId(id);
     }
   };
 
@@ -46,18 +46,21 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
-    setIsButtonsActive(false);
+    if (!(currentId === id)) {
+      setIsButtonsActive(false);
+    }
     setIsActive(false);
-    setCurrentId('');
   };
 
   const createBoxButtons = () => {
-    const handleEditClick = () => {
+    const handleEditMouseUp = (e) => {
+      e.stopPropagation();
       if (isButtonsActive) {
         setIsActive(true);
+        setIsButtonsActive(false);
       }
     };
-    const handlers = [handleEditClick];
+    const handlers = [handleEditMouseUp];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
@@ -113,17 +116,21 @@ export default function NoteContainer(props) {
   }, [timestamp, id, setCurrentId, isActive]);
 
   useEffect(() => {
+    const textArea = textAreaRef.current;
+    const length = textValue.length;
+
     if (isActive) {
-      textAreaRef.current.focus();
-    } else textAreaRef.current.blur();
-  }, [isActive]);
+      textArea.focus();
+      textArea.setSelectionRange(length, length);
+    } else textArea.blur();
+  }, [isActive, textValue]);
 
   return (
     <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
       <Note.Box
         active={isButtonsActive}
         mouseClick={mouseClick}
-        onClick={handleButtonClick}
+        onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"
@@ -148,8 +155,10 @@ export default function NoteContainer(props) {
             title={isButtonsActive ? label : ''}
             aria-label={label}
             css={css}
-            onClick={handler}
-            onKeyDown={(e) => e.stopPropagation()}
+            onMouseUp={handler}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && handler(e);
+            }}
           >
             {children}
           </Note.Button>

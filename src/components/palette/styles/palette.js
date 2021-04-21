@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { colors, indexes, shadows, sizes } from '../../../styles/variables';
+import { colors, indexes, shadows } from '../../../styles/variables';
 import devices from '../../../styles/devices';
 import { rotateSlideout } from '../../../styles/animations';
 
