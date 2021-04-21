@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Main } from '../components';
-import { isSecondsPassed } from '../helpers';
 import { NoteContainer } from '../containers';
 import { DataContext } from '../context';
 import 'styled-components/macro';
@@ -9,6 +8,7 @@ export default function MainContainer() {
   const [data] = useContext(DataContext);
   const [mouseClick, setMouseClick] = useState(true);
   const [currentId, setCurrentId] = useState('');
+
 
   useEffect(() => {
     const handleWindowKeyDown = () => {
@@ -31,7 +31,7 @@ export default function MainContainer() {
             mouseClick={mouseClick}
             setMouseClick={setMouseClick}
             text={text}
-            active={currentId === id}
+            currentId={currentId}
             setCurrentId={setCurrentId}
           />
         ))}
