@@ -16,15 +16,17 @@ export default function NoteContainer(props) {
     color,
     timestamp,
     text,
-    active,
+    currentId,
     setCurrentId,
   } = props;
-  const [isBoxActive, setIsBoxActive] = useState(false);
+  const [isButtonsActive, setIsButtonsActive] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
 
-  const handleButtonClick = () => {
-    setIsBoxActive(!isBoxActive);
+  const handleMouseUp = () => {
+    setIsButtonsActive(!isButtonsActive);
+    setCurrentId(id);
   };
 
   const handleMouseDown = () => {
@@ -33,7 +35,8 @@ export default function NoteContainer(props) {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      setIsBoxActive(!isBoxActive);
+      setIsButtonsActive(!isButtonsActive);
+      setCurrentId(id);
     }
   };
 
@@ -43,26 +46,25 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
-    setIsBoxActive(false);
-    setCurrentId('');
+    if (!(currentId === id)) {
+      setIsButtonsActive(false);
+    }
+    setIsActive(false);
   };
 
-  useEffect(() => {
-    if (!isSecondsPassed(1, timestamp)) {
-      setCurrentId(id);
-      console.log('true');
-    }
-  }, [timestamp, id, setCurrentId]);
-
   const createBoxButtons = () => {
-    const handleEditClick = () => {
-      isBoxActive && setCurrentId(id);
+    const handleEditMouseUp = (e) => {
+      e.stopPropagation();
+      if (isButtonsActive) {
+        setIsActive(true);
+        setIsButtonsActive(false);
+      }
     };
-    const handlers = [handleEditClick];
+    const handlers = [handleEditMouseUp];
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
-    const iconSize = isBoxActive ? '3' : '0';
+    const iconSize = isButtonsActive ? '3' : '0';
     const icons = [
       <Edit color={iconColor} size={iconSize} />,
       <Clipboard color={iconColor} size={iconSize} />,
@@ -73,15 +75,19 @@ export default function NoteContainer(props) {
         css: `
         ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
-          isBoxActive ? `transform : translate(${translate}) scale(6.5);` : ''
+          isButtonsActive
+            ? `transform : translate(${translate}) scale(6.5);`
+            : ''
         } &:hover {
           ${
-            isBoxActive ? `transform : translate(${translate}) scale(7.5);` : ''
+            isButtonsActive
+              ? `transform : translate(${translate}) scale(7.5);`
+              : ''
           }
         }
           &:focus {
               ${
-                isBoxActive && !mouseClick
+                isButtonsActive && !mouseClick
                   ? `transform: translate(${translate}) scale(7.5);`
                   : ''
               }
@@ -96,17 +102,35 @@ export default function NoteContainer(props) {
   };
 
   useEffect(() => {
-    if (active) {
-      textAreaRef.current.focus();
+    if (currentId && currentId !== id) {
+      setIsButtonsActive(false);
+      setIsActive(false);
     }
-  }, [active]);
+  }, [currentId, id]);
+
+  useEffect(() => {
+    if (!isSecondsPassed(1, timestamp)) {
+      setIsActive(true);
+      setCurrentId(id);
+    }
+  }, [timestamp, id, setCurrentId, isActive]);
+
+  useEffect(() => {
+    const textArea = textAreaRef.current;
+    const length = textValue.length;
+
+    if (isActive) {
+      textArea.focus();
+      textArea.setSelectionRange(length, length);
+    } else textArea.blur();
+  }, [isActive, textValue]);
 
   return (
     <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
       <Note.Box
-        active={isBoxActive}
+        active={isButtonsActive}
         mouseClick={mouseClick}
-        onClick={handleButtonClick}
+        onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"
@@ -119,19 +143,22 @@ export default function NoteContainer(props) {
             left: 3px;
             position: absolute;
             transition: opacity 300ms;
-            opacity: ${isBoxActive ? '1' : '0'};
+            opacity: ${isButtonsActive ? '1' : '0'};
           `}
         />
         {createBoxButtons().map(({ css, children, label, handler }) => (
           <Note.Button
-            active={isBoxActive}
+            active={isButtonsActive}
             key={uuidv4()}
-            role={isBoxActive ? 'button' : ''}
-            tabIndex={isBoxActive ? '0' : '-1'}
-            title={label}
+            role={isButtonsActive ? 'button' : ''}
+            tabIndex={isButtonsActive ? '0' : '-1'}
+            title={isButtonsActive ? label : ''}
             aria-label={label}
             css={css}
-            onClick={handler}
+            onMouseUp={handler}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && handler(e);
+            }}
           >
             {children}
           </Note.Button>
@@ -141,7 +168,7 @@ export default function NoteContainer(props) {
         value={textValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        disabled={!active}
+        disabled={!isActive}
         ref={textAreaRef}
       />
     </Note>
