@@ -38,8 +38,6 @@ export const Button = styled.button`
   left: 0;
   margin-right: 5px;
   position: absolute;
-  transition: 300ms;
-  transition-property: transform, width, height;
   outline: none;
   width: 7px;
 `;
@@ -56,6 +54,7 @@ export const Box = styled.div`
   top: 5px;
   outline: none;
   width: 40px;
+  z-index: 500;
 
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};

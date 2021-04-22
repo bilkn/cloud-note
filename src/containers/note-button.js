@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
@@ -7,9 +7,8 @@ import { Note } from '../components';
 import { ToastContext } from '../context';
 
 export default function NoteButton(props) {
-  const { isButtonsActive, setIsActive,  isHoverActive, textValue, mouseClick } = props;
+  const { isButtonsActive, setIsActive, textValue, mouseClick } = props;
   const [, dispatch] = useContext(ToastContext);
- 
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
@@ -53,7 +52,7 @@ export default function NoteButton(props) {
             : ''
         } &:hover {
           ${
-            isButtonsActive && isHoverActive
+            isButtonsActive
               ? `transform : translate(${translate}) scale(1.2);`
               : ''
           }
@@ -75,23 +74,21 @@ export default function NoteButton(props) {
     });
   };
 
-  return createBoxButtons().map(
-    ({ css, children, label, handler }, index) => (
-      <Note.Button
-        active={isButtonsActive}
-        key={index}
-        role={isButtonsActive ? 'button' : ''}
-        tabIndex={isButtonsActive ? '0' : '-1'}
-        title={isButtonsActive ? label : ''}
-        aria-label={label}
-        css={css}
-        onMouseUp={handler}
-        onKeyDown={(e) => {
-          e.key === 'Enter' && handler(e);
-        }}
-      >
-        {children}
-      </Note.Button>
-    )
-  );
+  return createBoxButtons().map(({ css, children, label, handler }, index) => (
+    <Note.Button
+      active={isButtonsActive}
+      key={index}
+      role={isButtonsActive ? 'button' : ''}
+      tabIndex={isButtonsActive ? '0' : '-1'}
+      title={isButtonsActive ? label : ''}
+      aria-label={label}
+      css={css}
+      onMouseUp={handler}
+      onKeyDown={(e) => {
+        e.key === 'Enter' && handler(e);
+      }}
+    >
+      {children}
+    </Note.Button>
+  ));
 }
