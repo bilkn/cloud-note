@@ -34,7 +34,8 @@ export default function NoteButton(props) {
     const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const iconColor = 'white';
-    const iconSize = isButtonsActive ? '3' : '0';
+    const iconSize = isButtonsActive ? '50%' : '0';
+    const positions = ['left: 5px', 'left: 17px', 'left: 29px'];
     const icons = [
       <Edit color={iconColor} size={iconSize} />,
       <Clipboard color={iconColor} size={iconSize} />,
@@ -43,22 +44,23 @@ export default function NoteButton(props) {
     return translates.map((translate, i, arr) => {
       return {
         css: `
+        ${positions[i]};
         ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
           isButtonsActive
-            ? `transform : translate(${translate}) scale(6.5);`
+            ? `transform : translate(${translate}); height:46px; width:46px;`
             : ''
         } &:hover {
           ${
             isButtonsActive
-              ? `transform : translate(${translate}) scale(7.5);`
+              ? `transform : translate(${translate}) scale(1.2);`
               : ''
           }
         }
           &:focus {
               ${
                 isButtonsActive && !mouseClick
-                  ? `transform: translate(${translate}) scale(7.5);`
+                  ? `transform: translate(${translate}); height: 55px; width: 55px;`
                   : ''
               }
           }
@@ -67,25 +69,28 @@ export default function NoteButton(props) {
         children: icons[i],
         label: labels[i],
         handler: handlers[i],
+        position: positions[i],
       };
     });
   };
 
-  return createBoxButtons().map(({ css, children, label, handler }, index) => (
-    <Note.Button
-      active={isButtonsActive}
-      key={index}
-      role={isButtonsActive ? 'button' : ''}
-      tabIndex={isButtonsActive ? '0' : '-1'}
-      title={isButtonsActive ? label : ''}
-      aria-label={label}
-      css={css}
-      onMouseUp={handler}
-      onKeyDown={(e) => {
-        e.key === 'Enter' && handler(e);
-      }}
-    >
-      {children}
-    </Note.Button>
-  ));
+  return createBoxButtons().map(
+    ({ css, children, label, handler }, index) => (
+      <Note.Button
+        active={isButtonsActive}
+        key={index}
+        role={isButtonsActive ? 'button' : ''}
+        tabIndex={isButtonsActive ? '0' : '-1'}
+        title={isButtonsActive ? label : ''}
+        aria-label={label}
+        css={css}
+        onMouseUp={handler}
+        onKeyDown={(e) => {
+          e.key === 'Enter' && handler(e);
+        }}
+      >
+        {children}
+      </Note.Button>
+    )
+  );
 }

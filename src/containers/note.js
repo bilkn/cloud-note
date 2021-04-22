@@ -89,8 +89,8 @@ export default function NoteContainer(props) {
           size="28"
           css={`
             color: inherit;
-            left: 5px;
             position: absolute;
+            right: 0;
             transition: opacity 300ms;
             opacity: ${isButtonsActive ? '1' : '0'};
           `}
