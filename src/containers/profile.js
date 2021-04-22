@@ -9,12 +9,12 @@ export default function ProfileContainer() {
   const [bioValue, setBioValue] = useState('');
 
   const handleNameChange = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setNameValue(e.target.value);
   };
 
   const handleBioChange = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setBioValue(e.target.value);
   };
 

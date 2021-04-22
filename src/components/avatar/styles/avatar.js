@@ -14,6 +14,7 @@ export const Picture = styled.img`
   display: block;
   height: inherit;
   object-fit: cover;
+  user-select: none;
   width: inherit;
 `;
 

@@ -27,7 +27,7 @@ export const TextArea = styled.textarea`
   width: 100%;
 `;
 
-export const Button = styled.button`
+export const Button = styled.span`
   align-items: center;
   background: ${colors.gray_4};
   border-radius: 50%;
@@ -36,25 +36,25 @@ export const Button = styled.button`
   height: 7px;
   justify-content: center;
   left: 0;
-  margin-right: 5px;
   position: absolute;
   outline: none;
   width: 7px;
 `;
 
-export const Box = styled.div`
+export const Box = styled.button`
   align-items: center;
   background: none;
   color: ${colors.gray_4};
   cursor: pointer;
   display: flex;
   height: 24px;
+  justify-content: center;
   position: absolute;
   right: 15px;
   top: 5px;
   outline: none;
   width: 40px;
-  z-index: 500;
+  z-index: 5;
 
   &:focus {
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};

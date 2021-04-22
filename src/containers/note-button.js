@@ -45,7 +45,6 @@ export default function NoteButton(props) {
       return {
         css: `
         ${positions[i]};
-        ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
           isButtonsActive
             ? `transform : translate(${translate}); height:46px; width:46px;`
@@ -60,7 +59,7 @@ export default function NoteButton(props) {
           &:focus {
               ${
                 isButtonsActive && !mouseClick
-                  ? `transform: translate(${translate}); scale(1.2)`
+                  ? `transform: translate(${translate}) scale(1.2);`
                   : ''
               }
           }

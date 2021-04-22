@@ -84,14 +84,12 @@ export default function NoteContainer(props) {
         title="Toggle note menu"
         tabIndex="0"
         aria-label="Toggle note menu"
+        onClick={(e) => e.stopPropagation()}
       >
         <Cross
           size="28"
           css={`
             color: inherit;
-            position: absolute;
-            right: 0;
-            transition: opacity 300ms;
             opacity: ${isButtonsActive ? '1' : '0'};
           `}
         />

@@ -7,12 +7,12 @@ function SettingsContainer() {
   const [emailValue, setEmailValue] = useState('');
 
   const handleUsernameChange = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setUsernameValue(e.target.value);
   };
   
   const handleEmailChange = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     setEmailValue(e.target.value);
   };
 
