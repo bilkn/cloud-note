@@ -19,11 +19,13 @@ export default function NoteContainer(props) {
   const [isButtonsActive, setIsButtonsActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
+  const [isHoverActive, setIsHoverActive] = useState(false);
   const textAreaRef = useRef(null);
 
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
+    setTimeout(() => setIsHoverActive(!isHoverActive), 200);
   };
 
   const handleMouseDown = () => {
@@ -100,6 +102,7 @@ export default function NoteContainer(props) {
           setIsActive={setIsActive}
           textValue={textValue}
           mouseClick={mouseClick}
+          isHoverActive={isHoverActive}
         />
       </Note.Box>
       <Note.TextArea

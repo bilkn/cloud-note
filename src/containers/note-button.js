@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext} from 'react';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
@@ -7,8 +7,9 @@ import { Note } from '../components';
 import { ToastContext } from '../context';
 
 export default function NoteButton(props) {
-  const { isButtonsActive, setIsActive, textValue, mouseClick } = props;
+  const { isButtonsActive, setIsActive,  isHoverActive, textValue, mouseClick } = props;
   const [, dispatch] = useContext(ToastContext);
+ 
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
@@ -52,7 +53,7 @@ export default function NoteButton(props) {
             : ''
         } &:hover {
           ${
-            isButtonsActive
+            isButtonsActive && isHoverActive
               ? `transform : translate(${translate}) scale(1.2);`
               : ''
           }
@@ -60,7 +61,7 @@ export default function NoteButton(props) {
           &:focus {
               ${
                 isButtonsActive && !mouseClick
-                  ? `transform: translate(${translate}); height: 55px; width: 55px;`
+                  ? `transform: translate(${translate}); scale(1.2)`
                   : ''
               }
           }
