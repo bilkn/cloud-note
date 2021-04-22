@@ -3,10 +3,7 @@ import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
-import { Trash } from '@styled-icons/bootstrap/Trash';
-import { v4 as uuidv4 } from 'uuid';
+import { NoteButtonContainer } from '.';
 
 export default function NoteContainer(props) {
   const {
@@ -52,55 +49,6 @@ export default function NoteContainer(props) {
     setIsActive(false);
   };
 
-  const createBoxButtons = () => {
-    const handleEditMouseUp = (e) => {
-      e.stopPropagation();
-      if (isButtonsActive) {
-        setIsActive(true);
-        setIsButtonsActive(false);
-      }
-    };
-    const handlers = [handleEditMouseUp];
-    const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
-    const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
-    const iconColor = 'white';
-    const iconSize = isButtonsActive ? '3' : '0';
-    const icons = [
-      <Edit color={iconColor} size={iconSize} />,
-      <Clipboard color={iconColor} size={iconSize} />,
-      <Trash color={iconColor} size={iconSize} />,
-    ];
-    return translates.map((translate, i, arr) => {
-      return {
-        css: `
-        ${i === arr.length - 1 ? 'margin:0;' : ''}
-        ${
-          isButtonsActive
-            ? `transform : translate(${translate}) scale(6.5);`
-            : ''
-        } &:hover {
-          ${
-            isButtonsActive
-              ? `transform : translate(${translate}) scale(7.5);`
-              : ''
-          }
-        }
-          &:focus {
-              ${
-                isButtonsActive && !mouseClick
-                  ? `transform: translate(${translate}) scale(7.5);`
-                  : ''
-              }
-          }
-           
-        `,
-        children: icons[i],
-        label: labels[i],
-        handler: handlers[i],
-      };
-    });
-  };
-
   useEffect(() => {
     if (currentId && currentId !== id) {
       setIsButtonsActive(false);
@@ -118,7 +66,6 @@ export default function NoteContainer(props) {
   useEffect(() => {
     const textArea = textAreaRef.current;
     const length = textValue.length;
-
     if (isActive) {
       textArea.focus();
       textArea.setSelectionRange(length, length);
@@ -134,35 +81,26 @@ export default function NoteContainer(props) {
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"
+        title="Toggle note menu"
         tabIndex="0"
         aria-label="Toggle note menu"
       >
         <Cross
+          size="28"
           css={`
             color: inherit;
-            left: 3px;
             position: absolute;
+            right: 0;
             transition: opacity 300ms;
             opacity: ${isButtonsActive ? '1' : '0'};
           `}
         />
-        {createBoxButtons().map(({ css, children, label, handler }) => (
-          <Note.Button
-            active={isButtonsActive}
-            key={uuidv4()}
-            role={isButtonsActive ? 'button' : ''}
-            tabIndex={isButtonsActive ? '0' : '-1'}
-            title={isButtonsActive ? label : ''}
-            aria-label={label}
-            css={css}
-            onMouseUp={handler}
-            onKeyDown={(e) => {
-              e.key === 'Enter' && handler(e);
-            }}
-          >
-            {children}
-          </Note.Button>
-        ))}
+        <NoteButtonContainer
+          isButtonsActive={isButtonsActive}
+          setIsActive={setIsActive}
+          textValue={textValue}
+          mouseClick={mouseClick}
+        />
       </Note.Box>
       <Note.TextArea
         value={textValue}

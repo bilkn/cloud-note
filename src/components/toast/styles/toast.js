@@ -28,6 +28,7 @@ export const Content = styled.div`
   height: 50px;
   justify-content: space-between;
   padding: 0.5em 1em;
+  text-align: center;
   user-select: none;
   width: 100%;
 `;

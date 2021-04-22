@@ -1,11 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useContext } from 'react';
 import { Toast } from '../components';
 import { ReactComponent as CrossIcon } from '../assets/cross-icon.svg';
-import { toastReducer } from '../reducers';
+import { ToastContext } from '../context';
 import 'styled-components/macro';
 
 function ToastContainer() {
-  const [state, dispatch] = useReducer(toastReducer, []);
+  const [state, dispatch] = useContext(ToastContext);
 
   const contentRemoveHandler = (contentId) => {
     dispatch({ type: 'REMOVE_CONTENT', payload: contentId });
@@ -18,7 +18,7 @@ function ToastContainer() {
           <Toast.Text>{text}</Toast.Text>
           <Toast.Loader
             id={id}
-            duration="2000"
+            duration="3000"
             onAnimationEnd={contentRemoveHandler}
           >
             <Toast.Button id={id} onClick={contentRemoveHandler}>
