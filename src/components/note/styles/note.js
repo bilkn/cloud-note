@@ -27,18 +27,51 @@ export const TextArea = styled.textarea`
   width: 100%;
 `;
 
+export const Title = styled.div`
+  align-items: center;
+  background: white;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 60%;
+  position: absolute;
+  transition: width 250ms;
+  top: 0;
+  overflow: hidden;
+  width: 0px;
+`;
+
+export const ButtonWrapper = styled.div`
+  height: 7px;
+  left: 0;
+  position: absolute;
+  width: 7px;
+
+  &:hover > div {
+    ${({ active }) => (active ? ' width: 100px' : '')};
+  }
+`;
+
 export const Button = styled.span`
   align-items: center;
   background: ${colors.gray_4};
   border-radius: 50%;
   cursor: pointer;
   display: flex;
-  height: 7px;
+  height: 100%;
   justify-content: center;
-  left: 0;
-  position: absolute;
+  position: relative;
   outline: none;
-  width: 7px;
+  width: 100%;
+
+  &:hover {
+    ${({ active }) => (active ? 'box-shadow: 0 0 0 2px white' : '')};
+  }
+
+  &:hover Title {
+    ${({ active }) => (active ? ' width: max-content' : '')};
+  }
 `;
 
 export const Box = styled.button`
@@ -60,7 +93,7 @@ export const Box = styled.button`
     color: ${({ mouseClick }) => (mouseClick ? '' : 'whitesmoke')};
   }
 
-  &:focus Button {
+  &:focus span {
     background: ${({ active, mouseClick }) =>
       active ? colors.gray_4 : mouseClick ? colors.gray_4 : 'whitesmoke'};
   }
