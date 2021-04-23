@@ -2,8 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { colors } from '../styles/variables';
 
 export default function toastReducer(state, action) {
+  
+  // !!! Decrease duplication.
   switch (action.type) {
-    case 'ADD_NOTE': {
+    case 'ADD': {
       const newContent = {
         id: uuidv4(),
         type: 'notification',
@@ -13,8 +15,24 @@ export default function toastReducer(state, action) {
       return [newContent, ...state];
     }
 
-    case 'REMOVE_CONTENT': {
-      return state.filter(({ id }) => id !== action.payload);
+    case 'DELETE': {
+      const newContent = {
+        id: uuidv4(),
+        type: 'notification',
+        color: colors.purple_2,
+        text: 'Note has been deleted.',
+      };
+      return [newContent, ...state];
+    }
+
+    case 'UPDATE': {
+      const newContent = {
+        id: uuidv4(),
+        type: 'notification',
+        color: colors.purple_2,
+        text: 'Changes have been saved.',
+      };
+      return [newContent, ...state];
     }
 
     case 'COPY': {
@@ -37,7 +55,11 @@ export default function toastReducer(state, action) {
       return [newContent, ...state];
     }
 
+    case 'REMOVE_CONTENT': {
+      return state.filter(({ id }) => id !== action.payload);
+    }
+
     default:
-       throw Error(`Unhandled action type: ${action.type}!`);
+      throw Error(`Unhandled action type: ${action.type}!`);
   }
 }

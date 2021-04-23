@@ -3,33 +3,25 @@ import { Palette } from '../components';
 import { colors } from '../styles/variables';
 import devices from '../styles/devices';
 import 'styled-components/macro';
-import { DataContext } from '../context';
-import { useMatchLastSubpath, useResize } from '../hooks';
+import { useData, useMatchLastSubpath, useResize } from '../hooks';
 import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
 
 export default function PaletteContainer({ palette, setPalette }) {
-  const { dispatchData } = useContext(DataContext);
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
   const { resizing } = useResize();
+  const { Add, Delete, Update } = useData();
 
-  const addNewData = (color) => {
-    dispatchData({
-      type: 'ADD',
-      payload: { color, text: 'Hello World!' },
-    });
+  const handleColorClick = (color) => {
+    Add(color, 'Welcome To the New Era.');
+    if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);
+    const mql = window.matchMedia(devices.mobile);
+    setPalette({ active: false, extraAnimation: mql.matches });
     window.scroll({
       top: 0,
       behavior: 'smooth',
     });
-  }; // !!! add this to a custom hook.
-
-  const handleColorClick = (color) => {
-    if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);
-    const mql = window.matchMedia(devices.mobile);
-    addNewData(color);
-    setPalette({ active: false, extraAnimation: mql.matches });
   };
 
   const handleExtraAnimationEnd = () =>

@@ -5,11 +5,12 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { DataContext, ToastContext } from '../context';
+import { useData } from '../hooks';
 
 export default function NoteButtonContainer(props) {
   const { isButtonsActive, setIsActive, textValue, id } = props;
   const { dispatchToast } = useContext(ToastContext);
-  const { dispatchData } = useContext(DataContext);
+  const { Delete } = useData();
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
@@ -33,7 +34,7 @@ export default function NoteButtonContainer(props) {
 
     const handleDeleteMouseUp = () => {
       if (isButtonsActive) {
-        dispatchData({ type: 'DELETE', removeId: id });
+        Delete(id)
       }
     };
 
