@@ -16,7 +16,7 @@ export default function PaletteContainer({ palette, setPalette }) {
 
   const addNewData = (color) => {
     dispatchData({
-      type: 'ADD_DATA',
+      type: 'ADD',
       payload: { color, text: 'Hello World!' },
     });
     window.scroll({

@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function dataReducer(state, action) {
   switch (action.type) {
-    case 'ADD_DATA': {
+    case 'ADD': {
       const { text, color } = action.payload;
       const newData = {
         id: uuidv4(),
@@ -14,16 +14,16 @@ export default function dataReducer(state, action) {
       return { ...state, results: newResults };
     }
 
-    case 'REMOVE_DATA': {
+    case 'DELETE': {
       const { results, deleted } = state;
-      const { removeId } = action.payload;
+      const { removeId } = action;
       const willRemovedData = results.find(({ id }) => id === removeId);
       const newResults = results.filter(({ id }) => id !== removeId);
       const newDeleted = [willRemovedData, ...deleted];
-      return { results: newResults, deleted: newDeleted, ...state };
+      return { ...state, results: newResults, deleted: newDeleted };
     }
 
     default:
-      throw Error(`Unhandled action type! ${action.type}`);
+      throw Error(`Unhandled action type: ${action.type}!`);
   }
 }

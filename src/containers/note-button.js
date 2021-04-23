@@ -4,11 +4,12 @@ import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
-import { ToastContext } from '../context';
+import { DataContext, ToastContext } from '../context';
 
-export default function NoteButton(props) {
-  const { isButtonsActive, setIsActive, textValue } = props;
+export default function NoteButtonContainer(props) {
+  const { isButtonsActive, setIsActive, textValue, id } = props;
   const { dispatchToast } = useContext(ToastContext);
+  const { dispatchData } = useContext(DataContext);
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
@@ -30,7 +31,17 @@ export default function NoteButton(props) {
       }
     };
 
-    const handlers = [handleEditMouseUp, handleCopyMouseUp];
+    const handleDeleteMouseUp = () => {
+      if (isButtonsActive) {
+        dispatchData({ type: 'DELETE', removeId: id });
+      }
+    };
+
+    const handlers = [
+      handleEditMouseUp,
+      handleCopyMouseUp,
+      handleDeleteMouseUp,
+    ];
     const translates = ['-90px, 40px', '-101px, 90px', '-112px, 140px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const title = ['Edit', 'Copy', 'Delete'];

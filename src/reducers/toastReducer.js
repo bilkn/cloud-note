@@ -38,6 +38,6 @@ export default function toastReducer(state, action) {
     }
 
     default:
-       throw Error(`Unhandled action type! ${action.type}`);
+       throw Error(`Unhandled action type: ${action.type}!`);
   }
 }
