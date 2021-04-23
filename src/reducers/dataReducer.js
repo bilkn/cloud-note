@@ -11,7 +11,7 @@ export default function dataReducer(state, action) {
         text,
       };
       const newResults = [newData, ...state.results];
-      return { results: newResults, ...state };
+      return { ...state, results: newResults };
     }
 
     case 'REMOVE_DATA': {

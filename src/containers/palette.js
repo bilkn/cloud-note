@@ -9,13 +9,16 @@ import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
 
 export default function PaletteContainer({ palette, setPalette }) {
-  const [data, setData] = useContext(DataContext);
+  const { dataState, dispatchData } = useContext(DataContext);
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
   const { resizing } = useResize();
 
   const addNewData = (color) => {
-  
+    dispatchData({
+      type: 'ADD_DATA',
+      payload: { color, text: 'Hello World!' },
+    });
     window.scroll({
       top: 0,
       behavior: 'smooth',
@@ -53,7 +56,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.red_2)}
-        data-testid = "color-btn"
+        data-testid="color-btn"
       />
       <Palette.ColorButton
         color={colors.orange}
