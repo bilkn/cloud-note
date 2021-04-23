@@ -5,15 +5,15 @@ import { ToastContext } from '../context';
 import 'styled-components/macro';
 
 function ToastContainer() {
-  const [state, dispatch] = useContext(ToastContext);
+  const {toastState, dispatchToast} = useContext(ToastContext);
 
   const contentRemoveHandler = (contentId) => {
-    dispatch({ type: 'REMOVE_CONTENT', payload: contentId });
+    dispatchToast({ type: 'REMOVE_CONTENT', payload: contentId });
   };
 
   return (
     <Toast>
-      {state.map(({ id, type, text }) => (
+      {toastState.map(({ id, type, text }) => (
         <Toast.Content key={id} type={type}>
           <Toast.Text>{text}</Toast.Text>
           <Toast.Loader

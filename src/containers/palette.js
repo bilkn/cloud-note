@@ -9,7 +9,7 @@ import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
 
 export default function PaletteContainer({ palette, setPalette }) {
-  const { dataState, dispatchData } = useContext(DataContext);
+  const { dispatchData } = useContext(DataContext);
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
   const { resizing } = useResize();
