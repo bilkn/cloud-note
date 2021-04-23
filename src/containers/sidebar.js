@@ -36,6 +36,7 @@ export default function SidebarContainer() {
                 }
               `}
               aria-label="Add new note"
+              data-testid = "add-note-btn"
             >
               <AddCircle size="60" />
             </Sidebar.Button>
