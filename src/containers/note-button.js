@@ -63,7 +63,7 @@ export default function NoteButton(props) {
 
   return createBoxButtons().map(({ css, children, label, title, handler }, index) => (
     <Note.ButtonWrapper active={isButtonsActive} css={css}>
-      <Note.Title>{title}</Note.Title>
+      <Note.Title active={isButtonsActive}>{title}</Note.Title>
       <Note.Button
         active={isButtonsActive}
         key={index}

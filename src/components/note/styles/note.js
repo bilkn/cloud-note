@@ -36,10 +36,14 @@ export const Title = styled.div`
   justify-content: center;
   left: 60%;
   position: absolute;
-  transition: width 250ms;
+  ${({ active }) => (active ? 'transition: width 250ms;' : '')}
   top: 0;
   overflow: hidden;
   width: 0px;
+
+  &:hover + span {
+    ${({ active }) => (active ? 'box-shadow: 0 0 0 2px white' : '')};
+  }
 `;
 
 export const ButtonWrapper = styled.div`
