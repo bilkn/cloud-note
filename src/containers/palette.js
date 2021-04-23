@@ -7,7 +7,6 @@ import { DataContext } from '../context';
 import { useMatchLastSubpath, useResize } from '../hooks';
 import * as ROUTES from '../constants/routes';
 import { useHistory } from 'react-router';
-import { v4 as uuidv4 } from 'uuid';
 
 export default function PaletteContainer({ palette, setPalette }) {
   const [data, setData] = useContext(DataContext);
@@ -16,10 +15,7 @@ export default function PaletteContainer({ palette, setPalette }) {
   const { resizing } = useResize();
 
   const addNewData = (color) => {
-    const results = [
-      
-    ];
-    setData({ ...data, results });
+  
     window.scroll({
       top: 0,
       behavior: 'smooth',
