@@ -31,8 +31,9 @@ export default function NoteButton(props) {
     };
 
     const handlers = [handleEditMouseUp, handleCopyMouseUp];
-    const translates = ['-70px, 20px', '-30px, 60px', '23px, 70px'];
+    const translates = ['-90px, 40px', '-101px, 90px', '-112px, 140px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
+    const title = ["Edit","Copy","Delete"];
     const iconColor = 'white';
     const iconSize = isButtonsActive ? '50%' : '0';
     const positions = ['left: 5px', 'left: 17px', 'left: 29px'];
@@ -45,50 +46,37 @@ export default function NoteButton(props) {
       return {
         css: `
         ${positions[i]};
-        ${i === arr.length - 1 ? 'margin:0;' : ''}
         ${
           isButtonsActive
             ? `transform : translate(${translate}); height:46px; width:46px;`
             : ''
-        } &:hover {
-          ${
-            isButtonsActive
-              ? `transform : translate(${translate}) scale(1.2);`
-              : ''
-          }
-        }
-          &:focus {
-              ${
-                isButtonsActive && !mouseClick
-                  ? `transform: translate(${translate}); scale(1.2)`
-                  : ''
-              }
-          }
-           
+        } 
         `,
         children: icons[i],
         label: labels[i],
+        title: title[i],
         handler: handlers[i],
         position: positions[i],
       };
     });
   };
 
-  return createBoxButtons().map(({ css, children, label, handler }, index) => (
-    <Note.Button
-      active={isButtonsActive}
-      key={index}
-      role={isButtonsActive ? 'button' : ''}
-      tabIndex={isButtonsActive ? '0' : '-1'}
-      title={isButtonsActive ? label : ''}
-      aria-label={label}
-      css={css}
-      onMouseUp={handler}
-      onKeyDown={(e) => {
-        e.key === 'Enter' && handler(e);
-      }}
-    >
-      {children}
-    </Note.Button>
+  return createBoxButtons().map(({ css, children, label, title, handler },index) => (
+    <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
+      <Note.Title active={isButtonsActive}>{title}</Note.Title>
+      <Note.Button
+        active={isButtonsActive}
+        role={isButtonsActive ? 'button' : ''}
+        tabIndex={isButtonsActive ? '0' : '-1'}
+        title={isButtonsActive ? label : ''}
+        aria-label={label}
+        onMouseUp={handler}
+        onKeyDown={(e) => {
+          e.key === 'Enter' && handler(e);
+        }}
+      >
+        {children}
+      </Note.Button>
+    </Note.ButtonWrapper>
   ));
 }

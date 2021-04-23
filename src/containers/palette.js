@@ -25,7 +25,7 @@ export default function PaletteContainer({ palette, setPalette }) {
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }; // !!! add this to a custom hook.
 
   const handleColorClick = (color) => {
     if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);
@@ -43,6 +43,7 @@ export default function PaletteContainer({ palette, setPalette }) {
       resizing={resizing}
       extraAnimation={palette.extraAnimation}
       onAnimationEnd={handleExtraAnimationEnd}
+      data-testid="palette"
     >
       <Palette.Span>&#128578;</Palette.Span>
       <Palette.ColorButton
@@ -57,6 +58,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.red_2)}
+        data-testid = "color-btn"
       />
       <Palette.ColorButton
         color={colors.orange}
