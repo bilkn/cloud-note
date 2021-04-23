@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MatchMediaMock from 'jest-matchmedia-mock';
 import { PaletteContainer } from '.';
 import { DataProvider } from '../providers';
@@ -7,7 +7,7 @@ import { scroll } from '../mocks';
 
 let matchMedia = null;
 
-describe('Test', () => {
+describe('Tests note creation', () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
     scroll();
@@ -31,7 +31,5 @@ describe('Test', () => {
         </DataProvider>
       </Router>
     );
-    const paletteColorBtn = screen.getByTestId('color-btn');
-    fireEvent.click(paletteColorBtn);
   });
 });

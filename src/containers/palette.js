@@ -25,7 +25,7 @@ export default function PaletteContainer({ palette, setPalette }) {
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }; // !!! add this to a custom hook.
 
   const handleColorClick = (color) => {
     if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);

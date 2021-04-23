@@ -21,7 +21,7 @@ export default function MainContainer() {
 
   return (
     <Main>
-      <Main.Wrapper>
+      <Main.Wrapper >
         {data.results.map(({ text, color, timestamp, id }) => (
           <NoteContainer
             key={id}

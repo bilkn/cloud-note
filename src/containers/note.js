@@ -106,6 +106,7 @@ export default function NoteContainer(props) {
         onBlur={handleBlur}
         disabled={!isActive}
         ref={textAreaRef}
+        data-testid="note-text-area"
       />
     </Note>
   );
