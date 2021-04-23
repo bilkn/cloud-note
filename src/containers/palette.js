@@ -17,8 +17,7 @@ export default function PaletteContainer({ palette, setPalette }) {
 
   const addNewData = (color) => {
     const results = [
-      { id: uuidv4(), color, timestamp: new Date(), text: 'Hello' },
-      ...data.results,
+      
     ];
     setData({ ...data, results });
     window.scroll({
