@@ -15,8 +15,8 @@ test('Palette slides in after add note button click', () => {
   );
   const addButton = getByTestId("add-note-btn");
   const palette = getByTestId('palette');
+
   expect(palette).toHaveStyle('transform: translateY(100%);');
-  
   fireEvent.click(addButton)
   expect(palette).toHaveStyle('transform: translateY(25%);');
 });

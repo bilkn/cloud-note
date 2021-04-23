@@ -58,6 +58,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.red_2)}
+        data-testid = "color-btn"
       />
       <Palette.ColorButton
         color={colors.orange}
