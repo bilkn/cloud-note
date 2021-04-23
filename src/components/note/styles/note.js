@@ -31,6 +31,7 @@ export const Title = styled.div`
   align-items: center;
   background: white;
   border-radius: 0 20px 20px 0;
+  color: black;
   display: flex;
   height: 100%;
   justify-content: center;
