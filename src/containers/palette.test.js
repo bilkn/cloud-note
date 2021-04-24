@@ -1,9 +1,7 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent, cleanup } from '@testing-library/react';
 import MatchMediaMock from 'jest-matchmedia-mock';
-import { PaletteContainer } from '.';
-import { DataProvider } from '../providers';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { scroll } from '../mocks';
+import App from '../App';
 
 let matchMedia = null;
 
@@ -15,21 +13,14 @@ describe('Tests note creation', () => {
 
   afterEach(() => {
     matchMedia.clear();
+    cleanup();
   });
 
   test('New note is created after color button click', () => {
-    const setPalette = jest.fn();
-    const mediaQuery = '(min-width: 30em)';
-    const mql = window.matchMedia(mediaQuery);
-    const { getByTestId } = render(
-      <Router>
-        <DataProvider>
-          <PaletteContainer
-            palette={{ active: false, extraAnimation: false }}
-            setPalette={setPalette}
-          />
-        </DataProvider>
-      </Router>
-    );
+    const { getByTestId } = render(<App />);
+    const colorBtn = getByTestId('color-btn');
+    fireEvent.click(colorBtn);
+    const note = getByTestId('note');
+    expect(note).toBeInTheDocument();
   });
 });

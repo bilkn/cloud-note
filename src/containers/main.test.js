@@ -20,7 +20,7 @@ test('renders notes', () => {
   render(
     <DataProvider value={{ dataState: fakeDataState, dispatchData }}>
       <ToastProvider>
-        <MainContainer />
+        <MainContainer data={fakeDataState.results} />
       </ToastProvider>
     </DataProvider>
   );

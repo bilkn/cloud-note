@@ -77,7 +77,7 @@ export default function NoteContainer(props) {
   }, [isActive, textValue]);
 
   return (
-    <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
+    <Note color={color} animate={!isSecondsPassed(1, timestamp)} data-testid="note">
       <Note.Box
         active={isButtonsActive}
         mouseClick={mouseClick}
