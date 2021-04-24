@@ -5,10 +5,9 @@ import { DataContext } from '../context';
 import 'styled-components/macro';
 
 export default function MainContainer() {
-  const [data] = useContext(DataContext);
+  const {dataState} = useContext(DataContext);
   const [mouseClick, setMouseClick] = useState(true);
   const [currentId, setCurrentId] = useState('');
-
 
   useEffect(() => {
     const handleWindowKeyDown = () => {
@@ -21,8 +20,8 @@ export default function MainContainer() {
 
   return (
     <Main>
-      <Main.Wrapper >
-        {data.results.map(({ text, color, timestamp, id }) => (
+      <Main.Wrapper>
+        {dataState.results.map(({ text, color, timestamp, id }) => (
           <NoteContainer
             key={id}
             id={id}

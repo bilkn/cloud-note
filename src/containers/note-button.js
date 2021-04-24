@@ -4,11 +4,13 @@ import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
-import { ToastContext } from '../context';
+import { DataContext, ToastContext } from '../context';
+import { useData } from '../hooks';
 
-export default function NoteButton(props) {
-  const { isButtonsActive, setIsActive, textValue, mouseClick } = props;
-  const [, dispatch] = useContext(ToastContext);
+export default function NoteButtonContainer(props) {
+  const { isButtonsActive, setIsActive, textValue, id } = props;
+  const { dispatchToast } = useContext(ToastContext);
+  const { Delete } = useData();
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
@@ -26,14 +28,24 @@ export default function NoteButton(props) {
         elem.setSelectionRange(0, 99999); // For mobile devices.
         document.execCommand('copy');
         document.body.removeChild(elem);
-        dispatch({ type: 'COPY' });
+        dispatchToast({ type: 'COPY' });
       }
     };
 
-    const handlers = [handleEditMouseUp, handleCopyMouseUp];
+    const handleDeleteMouseUp = () => {
+      if (isButtonsActive) {
+        Delete(id)
+      }
+    };
+
+    const handlers = [
+      handleEditMouseUp,
+      handleCopyMouseUp,
+      handleDeleteMouseUp,
+    ];
     const translates = ['-90px, 40px', '-101px, 90px', '-112px, 140px'];
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
-    const title = ["Edit","Copy","Delete"];
+    const title = ['Edit', 'Copy', 'Delete'];
     const iconColor = 'white';
     const iconSize = isButtonsActive ? '50%' : '0';
     const positions = ['left: 5px', 'left: 17px', 'left: 29px'];
@@ -61,22 +73,24 @@ export default function NoteButton(props) {
     });
   };
 
-  return createBoxButtons().map(({ css, children, label, title, handler },index) => (
-    <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
-      <Note.Title active={isButtonsActive}>{title}</Note.Title>
-      <Note.Button
-        active={isButtonsActive}
-        role={isButtonsActive ? 'button' : ''}
-        tabIndex={isButtonsActive ? '0' : '-1'}
-        title={isButtonsActive ? label : ''}
-        aria-label={label}
-        onMouseUp={handler}
-        onKeyDown={(e) => {
-          e.key === 'Enter' && handler(e);
-        }}
-      >
-        {children}
-      </Note.Button>
-    </Note.ButtonWrapper>
-  ));
+  return createBoxButtons().map(
+    ({ css, children, label, title, handler }, index) => (
+      <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
+        <Note.Title active={isButtonsActive}>{title}</Note.Title>
+        <Note.Button
+          active={isButtonsActive}
+          role={isButtonsActive ? 'button' : ''}
+          tabIndex={isButtonsActive ? '0' : '-1'}
+          title={isButtonsActive ? label : ''}
+          aria-label={label}
+          onMouseUp={handler}
+          onKeyDown={(e) => {
+            e.key === 'Enter' && handler(e);
+          }}
+        >
+          {children}
+        </Note.Button>
+      </Note.ButtonWrapper>
+    )
+  );
 }

@@ -98,6 +98,7 @@ export default function NoteContainer(props) {
           setIsActive={setIsActive}
           textValue={textValue}
           mouseClick={mouseClick}
+          id={id}
         />
       </Note.Box>
       <Note.TextArea
