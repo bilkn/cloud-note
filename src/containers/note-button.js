@@ -8,7 +8,8 @@ import { ToastContext } from '../context';
 import { useData } from '../hooks';
 
 export default function NoteButtonContainer(props) {
-  const { isButtonsActive, setIsActive, textValue, id } = props;
+  const { isButtonsActive, setIsActive, textValue, id, dialogState } = props;
+  const [, setDialog] = dialogState;
   const { dispatchToast } = useContext(ToastContext);
   const { Delete } = useData();
 
@@ -34,7 +35,11 @@ export default function NoteButtonContainer(props) {
 
     const handleDeleteMouseUp = () => {
       if (isButtonsActive) {
-        Delete(id);
+        setDialog({
+          active: true,
+          text: 'Are you sure to delete this note?',
+          operation: () => Delete(id),
+        });
       }
     };
 

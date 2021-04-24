@@ -16,6 +16,7 @@ export default function NoteContainer(props) {
     text,
     currentId,
     setCurrentId,
+    dialogState
   } = props;
   const [isButtonsActive, setIsButtonsActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -102,6 +103,7 @@ export default function NoteContainer(props) {
           textValue={textValue}
           mouseClick={mouseClick}
           id={id}
+          dialogState={dialogState}
         />
       </Note.Box>
       <Note.TextArea

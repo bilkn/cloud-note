@@ -26,11 +26,11 @@ export default function Home() {
         `}
       >
           
-        {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
+       
 
         <MainContainer data={dataState.results} />
         {/* <MenuContainer />   */}
-        {/*   <Backdrop />   */}
+      {/*   <Backdrop />   */}
       </Wrapper>
     </>
   );
