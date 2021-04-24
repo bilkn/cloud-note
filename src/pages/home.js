@@ -25,12 +25,8 @@ export default function Home() {
           }
         `}
       >
-          
-       
-
         <MainContainer data={dataState.results} />
         {/* <MenuContainer />   */}
-      {/*   <Backdrop />   */}
       </Wrapper>
     </>
   );

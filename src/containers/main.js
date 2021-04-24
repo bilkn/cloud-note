@@ -20,7 +20,6 @@ export default function MainContainer({ data }) {
     window.addEventListener('keydown', handleWindowKeyDown);
     return () => window.removeEventListener('keydown', handleWindowKeyDown);
   }, []);
-
   return (
     <>
       <Main>

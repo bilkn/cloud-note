@@ -23,7 +23,7 @@ export default function NoteContainer(props) {
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
   const { Modify } = useData();
-
+  
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
