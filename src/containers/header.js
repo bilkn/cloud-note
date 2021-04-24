@@ -5,12 +5,13 @@ import { PopoverContainer } from './';
 import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const history = useHistory();
+  const [query, setQuery] = useState('');
 
   const handleAvatarClick = () => setShowPopover(!showPopover);
   const handleWindowClick = useCallback(() => {
@@ -22,7 +23,7 @@ export default function HeaderContainer() {
   }, []);
 
   const handleSearchChange = (e) => {
-    setSearchValue(e.target.value);
+    setQuery(e.target.value);
   };
 
   useEffect(() => {
@@ -36,6 +37,16 @@ export default function HeaderContainer() {
     };
   }, [handleWindowClick, handleKeyDown, showPopover]);
 
+   useEffect(() => {
+     const params = new URLSearchParams();
+     if (query) {
+       params.append('search', query);
+     } else {
+       params.delete('search');
+     }
+     history.replace({ search: params.toString() });
+   }, [query, history]);
+
   return (
     <Header>
       <Header.Wrapper>
@@ -45,7 +56,7 @@ export default function HeaderContainer() {
               type="search"
               placeholder="Find a note"
               onChange={handleSearchChange}
-              value={searchValue}
+              value={query}
               data-testid="search-input"
             />
             <Header.Icon>
@@ -84,7 +95,8 @@ export default function HeaderContainer() {
           onClick={handleAvatarClick}
           data-testid="avatar"
         >
-          <Avatar.Picture src={Picture} alt="Avatar" /> {/* !!! Add username to alt. */}
+          <Avatar.Picture src={Picture} alt="Avatar" />{' '}
+          {/* !!! Add username to alt. */}
           {showPopover && <PopoverContainer data-testid="popover" />}
         </Avatar.Button>
       </Header.Wrapper>
