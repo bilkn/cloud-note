@@ -7,12 +7,10 @@ export default function PasswordContainer() {
   const [newPasswordValue, setNewPasswordValue] = useState('');
 
   const handleOldPasswordChange = (e) => {
-    e.preventDefault();
     setOldPasswordValue(e.target.value);
   };
 
   const handleNewPasswordChange = (e) => {
-    e.preventDefault();
     setNewPasswordValue(e.target.value);
   };
 
