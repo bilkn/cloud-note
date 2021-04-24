@@ -21,7 +21,12 @@ function ToastContainer() {
             duration="3000"
             onAnimationEnd={contentRemoveHandler}
           >
-            <Toast.Button id={id} onClick={contentRemoveHandler}>
+            <Toast.Button
+              id={id}
+              onClick={contentRemoveHandler}
+              title="Close notification"
+              aria-label="Close notification"
+            >
               <CrossIcon
                 css={`
                   width: 17px;
