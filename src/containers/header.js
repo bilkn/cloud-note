@@ -22,7 +22,6 @@ export default function HeaderContainer() {
   }, []);
 
   const handleSearchChange = (e) => {
-    e.preventDefault();
     setSearchValue(e.target.value);
   };
 

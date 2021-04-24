@@ -81,14 +81,18 @@ export default function NoteButtonContainer(props) {
   return createBoxButtons().map(
     ({ css, children, label, title, handler }, index) => (
       <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
-        <Note.Title onMouseUp={handler} active={isButtonsActive}>
+        <Note.Title
+          onMouseUp={handler}
+          active={isButtonsActive}
+          title={isButtonsActive ? label : 'Toggle note menu'}
+        >
           {title}
         </Note.Title>
         <Note.Button
           active={isButtonsActive}
           role={isButtonsActive ? 'button' : ''}
           tabIndex={isButtonsActive ? '0' : '-1'}
-          title={isButtonsActive ? label : ''}
+          title={isButtonsActive ? label : 'Toggle note menu'}
           aria-label={label}
           onMouseUp={handler}
           onKeyDown={(e) => {
