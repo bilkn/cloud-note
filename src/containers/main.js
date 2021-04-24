@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Main } from '../components';
 import { NoteContainer } from '../containers';
-import { DataContext } from '../context';
 import 'styled-components/macro';
 
-export default function MainContainer() {
-  const {dataState} = useContext(DataContext);
+export default function MainContainer({ data }) {
   const [mouseClick, setMouseClick] = useState(true);
   const [currentId, setCurrentId] = useState('');
 
@@ -17,11 +15,10 @@ export default function MainContainer() {
     return () => window.removeEventListener('keydown', handleWindowKeyDown);
   }, []);
 
-
   return (
     <Main>
       <Main.Wrapper>
-        {dataState.results.map(({ text, color, timestamp, id }) => (
+        {data.map(({ text, color, timestamp, id }) => (
           <NoteContainer
             key={id}
             id={id}
