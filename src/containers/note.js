@@ -4,6 +4,7 @@ import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
+import { useData } from '../hooks';
 
 export default function NoteContainer(props) {
   const {
@@ -20,6 +21,7 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+  const { Modify } = useData();
 
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
@@ -46,6 +48,7 @@ export default function NoteContainer(props) {
     if (!(currentId === id)) {
       setIsButtonsActive(false);
     }
+    Modify(id, textValue);
     setIsActive(false);
   };
 
