@@ -3,6 +3,7 @@ import { FlexWrapper, Form } from '../components';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
+import devices from '../styles/devices';
 
 export default function ProfileContainer() {
   const [nameValue, setNameValue] = useState('');
@@ -26,7 +27,7 @@ export default function ProfileContainer() {
       >
         <Avatar size="120">
           {/* !!! Add username to the avatar */}
-          <Avatar.Picture src={Picture} alt={"Avatar"} />
+          <Avatar.Picture src={Picture} alt={'Avatar'} />
         </Avatar>
         <Form>
           <Form.Box>
@@ -89,6 +90,18 @@ export default function ProfileContainer() {
             data-testid={'bio-input'}
           />
         </Form.Fieldset>
+        <Form.Box>
+          <Form.ButtonRed
+            css={`
+              width: 100%;
+              @media ${devices.mobile} {
+                width: initial;
+              }
+            `}
+          >
+            Save Profile
+          </Form.ButtonRed>
+        </Form.Box>
       </Form>
     </>
   );
