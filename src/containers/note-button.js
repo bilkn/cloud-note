@@ -4,7 +4,7 @@ import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
-import { DataContext, ToastContext } from '../context';
+import { ToastContext } from '../context';
 import { useData } from '../hooks';
 
 export default function NoteButtonContainer(props) {
@@ -34,7 +34,7 @@ export default function NoteButtonContainer(props) {
 
     const handleDeleteMouseUp = () => {
       if (isButtonsActive) {
-        Delete(id)
+        Delete(id);
       }
     };
 
@@ -76,7 +76,9 @@ export default function NoteButtonContainer(props) {
   return createBoxButtons().map(
     ({ css, children, label, title, handler }, index) => (
       <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
-        <Note.Title active={isButtonsActive}>{title}</Note.Title>
+        <Note.Title onMouseUp={handler} active={isButtonsActive}>
+          {title}
+        </Note.Title>
         <Note.Button
           active={isButtonsActive}
           role={isButtonsActive ? 'button' : ''}
