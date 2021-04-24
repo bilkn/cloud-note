@@ -9,7 +9,6 @@ import { DataContext } from '../context';
 export default function Deleted() {
   const { dataState } = useContext(DataContext);
 
-  console.log(dataState)
   return (
     <Wrapper
       css={`
