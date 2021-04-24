@@ -32,6 +32,7 @@ export default function ProfileContainer() {
         <Form>
           <Form.Box>
             <Form.ButtonRed
+              type="button"
               css={`
                 margin: 22px 10px 16px 0;
               `}
@@ -39,6 +40,7 @@ export default function ProfileContainer() {
               Upload new picture
             </Form.ButtonRed>
             <Form.Button
+              type="button"
               css={`
                 margin: 22px 0 16px 0;
               `}
