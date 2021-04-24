@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Palette } from '../components';
 import { colors } from '../styles/variables';
 import devices from '../styles/devices';
@@ -11,7 +11,7 @@ export default function PaletteContainer({ palette, setPalette }) {
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
   const { resizing } = useResize();
-  const { Add, Delete, Update } = useData();
+  const { Add} = useData();
 
   const handleColorClick = (color) => {
     Add(color, 'Welcome To the New Era.');

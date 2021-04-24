@@ -4,11 +4,12 @@ import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
-import { DataContext, ToastContext } from '../context';
+import { ToastContext } from '../context';
 import { useData } from '../hooks';
 
 export default function NoteButtonContainer(props) {
-  const { isButtonsActive, setIsActive, textValue, id } = props;
+  const { isButtonsActive, setIsActive, textValue, id, dialogState } = props;
+  const [, setDialog] = dialogState;
   const { dispatchToast } = useContext(ToastContext);
   const { Delete } = useData();
 
@@ -34,7 +35,11 @@ export default function NoteButtonContainer(props) {
 
     const handleDeleteMouseUp = () => {
       if (isButtonsActive) {
-        Delete(id)
+        setDialog({
+          active: true,
+          text: 'Are you sure to delete this note?',
+          operation: () => Delete(id),
+        });
       }
     };
 
@@ -76,12 +81,18 @@ export default function NoteButtonContainer(props) {
   return createBoxButtons().map(
     ({ css, children, label, title, handler }, index) => (
       <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
-        <Note.Title active={isButtonsActive}>{title}</Note.Title>
+        <Note.Title
+          onMouseUp={handler}
+          active={isButtonsActive}
+          title={isButtonsActive ? label : 'Toggle note menu'}
+        >
+          {title}
+        </Note.Title>
         <Note.Button
           active={isButtonsActive}
           role={isButtonsActive ? 'button' : ''}
           tabIndex={isButtonsActive ? '0' : '-1'}
-          title={isButtonsActive ? label : ''}
+          title={isButtonsActive ? label : 'Toggle note menu'}
           aria-label={label}
           onMouseUp={handler}
           onKeyDown={(e) => {

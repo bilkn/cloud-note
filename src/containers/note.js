@@ -4,6 +4,7 @@ import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
+import { useData } from '../hooks';
 
 export default function NoteContainer(props) {
   const {
@@ -15,12 +16,14 @@ export default function NoteContainer(props) {
     text,
     currentId,
     setCurrentId,
+    dialogState
   } = props;
   const [isButtonsActive, setIsButtonsActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-
+  const { Modify } = useData();
+  
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
@@ -46,6 +49,7 @@ export default function NoteContainer(props) {
     if (!(currentId === id)) {
       setIsButtonsActive(false);
     }
+    Modify(id, textValue);
     setIsActive(false);
   };
 
@@ -73,7 +77,7 @@ export default function NoteContainer(props) {
   }, [isActive, textValue]);
 
   return (
-    <Note color={color} animate={!isSecondsPassed(1, timestamp)}>
+    <Note color={color} animate={!isSecondsPassed(1, timestamp)} data-testid="note">
       <Note.Box
         active={isButtonsActive}
         mouseClick={mouseClick}
@@ -99,6 +103,7 @@ export default function NoteContainer(props) {
           textValue={textValue}
           mouseClick={mouseClick}
           id={id}
+          dialogState={dialogState}
         />
       </Note.Box>
       <Note.TextArea

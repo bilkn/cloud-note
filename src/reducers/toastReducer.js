@@ -25,7 +25,7 @@ export default function toastReducer(state, action) {
       return [newContent, ...state];
     }
 
-    case 'UPDATE': {
+    case 'MODIFY': {
       const newContent = {
         id: uuidv4(),
         type: 'notification',

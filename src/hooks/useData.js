@@ -24,13 +24,13 @@ export default function useData() {
     });
   };
 
-  const Update = (updatedData) => {
-    const type = 'UPDATE';
-    dispatchData({ type, updatedData });
+  const Modify = (id, text) => {
+    const type = 'MODIFY';
+    dispatchData({ type, payload: { modifyId: id, text }});
     dispatchToast({
       type,
     });
   };
 
-  return { Add, Delete, Update };
+  return { Add, Delete, Modify };
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Backdrop, Wrapper, Dialog } from '../components';
 import {
   HeaderContainer,
@@ -10,8 +10,11 @@ import {
 import devices from '../styles/devices';
 import {sizes} from '../styles/variables';
 import 'styled-components/macro';
+import { DataContext } from '../context';
 
 export default function Home() {
+  const { dataState } = useContext(DataContext);
+
   return (
     <>
       <Wrapper
@@ -22,12 +25,8 @@ export default function Home() {
           }
         `}
       >
-          
-        {/*   <DialogContainer text="Are you sure you want to remove this note?" />  */}
-
-        <MainContainer />
+        <MainContainer data={dataState.results} />
         {/* <MenuContainer />   */}
-        {/*   <Backdrop />   */}
       </Wrapper>
     </>
   );
