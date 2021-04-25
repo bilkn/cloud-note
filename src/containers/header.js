@@ -8,16 +8,15 @@ import 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import useQuery from '../hooks/useQuery';
+import { useWindowClick } from '../hooks';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
   const { query, setQuery } = useQuery('search');
 
+  useWindowClick([() => setShowPopover(false)], showPopover, [showPopover]);
+
   const handleAvatarClick = () => setShowPopover(!showPopover);
-  
-  const handleWindowClick = useCallback(() => {
-    setShowPopover(false);
-  }, []);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') setShowPopover(false);
@@ -27,7 +26,7 @@ export default function HeaderContainer() {
     setQuery(e.target.value);
   };
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (showPopover) {
       window.addEventListener('click', handleWindowClick);
       window.addEventListener('keydown', handleKeyDown);
@@ -36,7 +35,7 @@ export default function HeaderContainer() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('click', handleWindowClick);
     };
-  }, [handleWindowClick, handleKeyDown, showPopover]);
+  }, [handleWindowClick, handleKeyDown, showPopover]); */
 
   return (
     <Header>

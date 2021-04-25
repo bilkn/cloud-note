@@ -30,6 +30,10 @@ export default function MainContainer({ data }) {
     }
   }, [searchProp, data]);
 
+  useEffect(()=> {
+    
+  }, [])
+
   return (
     <>
       <Main>
