@@ -27,6 +27,7 @@ export default function dataReducer(state, action) {
       const newDeleted = [newData, ...deleted];
       return { ...state, results: newResults, deleted: newDeleted };
     }
+    
     case 'MODIFY': {
       const { modifyId, text } = action.payload;
       const { results } = state;

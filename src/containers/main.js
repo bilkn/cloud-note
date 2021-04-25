@@ -60,7 +60,7 @@ export default function MainContainer({ data }) {
       {dialog.active && (
         <DialogContainer
           text={dialog.text}
-          operation={dialog.operation}
+          /* operation={dialog.operation} */
           dialogState={dialogState}
         />
       )}

@@ -5,13 +5,13 @@ import { PopoverContainer } from './';
 import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
-import { Link as ReactRouterLink, useHistory } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+import useQuery from '../hooks/useQuery';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
-  const history = useHistory();
-  const [query, setQuery] = useState('');
+  const { query, setQuery } = useQuery('search');
 
   const handleAvatarClick = () => setShowPopover(!showPopover);
   const handleWindowClick = useCallback(() => {
@@ -36,16 +36,6 @@ export default function HeaderContainer() {
       window.removeEventListener('click', handleWindowClick);
     };
   }, [handleWindowClick, handleKeyDown, showPopover]);
-
-   useEffect(() => {
-     const params = new URLSearchParams();
-     if (query) {
-       params.append('search', query);
-     } else {
-       params.delete('search');
-     }
-     history.replace({ search: params.toString() });
-   }, [query, history]);
 
   return (
     <Header>

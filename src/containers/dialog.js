@@ -2,7 +2,6 @@ import React from 'react';
 import { Backdrop, Dialog } from '../components';
 import { colors } from '../styles/variables';
 import 'styled-components/macro';
-import PropTypes from 'prop-types';
 
 export default function DialogContainer({ dialogState, text, operation }) {
   const [, setDialog] = dialogState;
@@ -51,8 +50,3 @@ export default function DialogContainer({ dialogState, text, operation }) {
     </>
   );
 }
-
-DialogContainer.propTypes = {
-  text: PropTypes.string,
-  operation: PropTypes.func,
-};
