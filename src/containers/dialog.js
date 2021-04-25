@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Backdrop, Dialog } from '../components';
 import { colors } from '../styles/variables';
 import 'styled-components/macro';
 
 export default function DialogContainer({ dialogState, text, operation }) {
-  const [, setDialog] = dialogState;
+  const [dialog, setDialog] = dialogState;
+  const ref = useRef(null);
 
   const resetDialog = () => {
     setDialog({ active: false, text: '', operation: null });
@@ -18,7 +19,12 @@ export default function DialogContainer({ dialogState, text, operation }) {
   const handleNoClick = () => {
     resetDialog();
   };
-  
+
+  useEffect(() => {
+    const noBtn = ref.current;
+    noBtn.focus();
+  }, [dialog]);
+
   return (
     <>
       <Backdrop />
@@ -26,6 +32,7 @@ export default function DialogContainer({ dialogState, text, operation }) {
         <Dialog.Text>{text}</Dialog.Text>
         <Dialog.Box>
           <Dialog.Button
+            ref={ref}
             onClick={handleNoClick}
             css={`
               background: ${colors.red};
