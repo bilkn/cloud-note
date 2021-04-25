@@ -4,7 +4,6 @@ export default function useWindowEvent(
   callbacks,
   events,
   condition,
-  dependencies
 ) {
   const handleEvent = useCallback(() => {
     callbacks.forEach((cb) => cb());
@@ -17,5 +16,5 @@ export default function useWindowEvent(
     return () => {
       events.forEach((event) => window.removeEventListener(event, handleEvent));
     };
-  }, [handleEvent, condition, events, ...dependencies]);
+  }, [handleEvent, condition, events]);
 }
