@@ -100,6 +100,7 @@ export default function ProfileContainer() {
             value={nameValue}
             onChange={handleNameChange}
             data-testid={'name-input'}
+            required
           />
         </Form.Fieldset>
         <Form.Fieldset

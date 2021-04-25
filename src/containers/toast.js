@@ -18,7 +18,7 @@ function ToastContainer() {
           <Toast.Text>{text}</Toast.Text>
           <Toast.Loader
             id={id}
-            duration="3000"
+            duration="30000"
             onAnimationEnd={contentRemoveHandler}
           >
             <Toast.Button
