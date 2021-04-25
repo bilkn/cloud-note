@@ -19,19 +19,19 @@ export default function NoteContainer(props) {
     setCurrentId,
     dialogState,
   } = props;
-  const [isButtonsActive, setIsButtonsActive] = useState(false);
+  const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
   const { Add, Delete, DeleteSilently, Modify, SortByDate } = useData();
   useWindowKey({
     keys: ['Escape'],
-    handlers: [() => setIsButtonsActive(false)],
-    condition: isButtonsActive,
+    handlers: [() => setShowButtons(false)],
+    condition: showButtons,
   });
 
   const handleBoxToggleMouseUp = () => {
-    setIsButtonsActive(!isButtonsActive);
+    setShowButtons(!showButtons);
     setCurrentId(id);
   };
 
@@ -45,7 +45,7 @@ export default function NoteContainer(props) {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      setIsButtonsActive(!isButtonsActive);
+      setShowButtons(!showButtons);
       setCurrentId(id);
     }
   };
@@ -56,7 +56,7 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
-    if (!(currentId === id)) setIsButtonsActive(false);
+    if (!(currentId === id)) setShowButtons(false);
     if (textValue) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
@@ -68,7 +68,7 @@ export default function NoteContainer(props) {
 
   useEffect(() => {
     if (currentId && currentId !== id) {
-      setIsButtonsActive(false);
+      setShowButtons(false);
       setIsActive(false);
     }
   }, [currentId, id]);
@@ -96,34 +96,38 @@ export default function NoteContainer(props) {
       data-testid="note"
       onClick={handleNoteClick}
     >
-      <Note.Box
-        active={isButtonsActive}
-        mouseClick={mouseClick}
-        onMouseUp={handleBoxToggleMouseUp}
-        onMouseDown={handleMouseDown}
-        onKeyDown={handleKeyDown}
-        role="button"
-        title="Toggle note menu"
-        tabIndex="0"
-        aria-label="Toggle note menu"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Cross
-          size="28"
-          css={`
-            color: inherit;
-            opacity: ${isButtonsActive ? '1' : '0'};
-          `}
-        />
-        <NoteButtonContainer
-          isButtonsActive={isButtonsActive}
-          setIsActive={setIsActive}
-          textValue={textValue}
+      {lastModified && (
+        <Note.Box
+          active={showButtons}
           mouseClick={mouseClick}
-          id={id}
-          dialogState={dialogState}
-        />
-      </Note.Box>
+          onMouseUp={handleBoxToggleMouseUp}
+          onMouseDown={handleMouseDown}
+          onKeyDown={handleKeyDown}
+          role="button"
+          title="Toggle note menu"
+          tabIndex="0"
+          aria-label="Toggle note menu"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Cross
+            size="28"
+            css={`
+              color: inherit;
+              opacity: ${showButtons ? '1' : '0'};
+            `}
+          />
+
+          <NoteButtonContainer
+            showButtons={showButtons}
+            setIsActive={setIsActive}
+            textValue={textValue}
+            mouseClick={mouseClick}
+            id={id}
+            dialogState={dialogState}
+          />
+        </Note.Box>
+      )}
+
       <Note.TextArea
         value={textValue}
         onChange={handleChange}
