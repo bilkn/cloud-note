@@ -27,7 +27,7 @@ export default function dataReducer(state, action) {
       const newDeleted = [newData, ...deleted];
       return { ...state, results: newResults, deleted: newDeleted };
     }
-    
+
     case 'MODIFY': {
       const { modifyId, text } = action.payload;
       const { results } = state;
@@ -39,6 +39,13 @@ export default function dataReducer(state, action) {
         ...results.filter(({ id }) => id !== modifyId),
       ];
       return { ...state, results: newResults };
+    }
+
+    case 'SORT_BY_DATE': {
+      const sortedResults = state.results.sort(
+        (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+      );
+      return { ...state, results: sortedResults };
     }
 
     default:

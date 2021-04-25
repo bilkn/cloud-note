@@ -16,14 +16,14 @@ export default function NoteContainer(props) {
     text,
     currentId,
     setCurrentId,
-    dialogState
+    dialogState,
   } = props;
   const [isButtonsActive, setIsButtonsActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { Modify } = useData();
-  
+  const { Modify, SortByDate } = useData();
+
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
@@ -50,6 +50,7 @@ export default function NoteContainer(props) {
       setIsButtonsActive(false);
     }
     Modify(id, textValue);
+    SortByDate();
     setIsActive(false);
   };
 
@@ -77,7 +78,11 @@ export default function NoteContainer(props) {
   }, [isActive, textValue]);
 
   return (
-    <Note color={color} animate={!isSecondsPassed(1, timestamp)} data-testid="note">
+    <Note
+      color={color}
+      animate={!isSecondsPassed(1, timestamp)}
+      data-testid="note"
+    >
       <Note.Box
         active={isButtonsActive}
         mouseClick={mouseClick}

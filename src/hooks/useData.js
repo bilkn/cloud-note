@@ -26,11 +26,15 @@ export default function useData() {
 
   const Modify = (id, text) => {
     const type = 'MODIFY';
-    dispatchData({ type, payload: { modifyId: id, text }});
+    dispatchData({ type, payload: { modifyId: id, text } });
     dispatchToast({
       type,
     });
   };
 
-  return { Add, Delete, Modify };
+  const SortByDate = () => {
+    dispatchData({ type: 'SORT_BY_DATE' });
+  };
+
+  return { Add, Delete, Modify, SortByDate };
 }
