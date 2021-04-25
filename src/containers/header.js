@@ -14,6 +14,7 @@ export default function HeaderContainer() {
   const { query, setQuery } = useQuery('search');
 
   const handleAvatarClick = () => setShowPopover(!showPopover);
+  
   const handleWindowClick = useCallback(() => {
     setShowPopover(false);
   }, []);
