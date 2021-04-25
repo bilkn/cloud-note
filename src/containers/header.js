@@ -5,47 +5,26 @@ import { PopoverContainer } from './';
 import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
-import { Link as ReactRouterLink, useHistory } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+import useQuery from '../hooks/useQuery';
+import { useWindowEvent, useWindowKey } from '../hooks';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
-  const history = useHistory();
-  const [query, setQuery] = useState('');
+  const { query, setQuery } = useQuery('search');
+  useWindowEvent([() => setShowPopover(false)], ['click'], showPopover);
+  useWindowKey({
+    keys: ['Escape'],
+    callbacks: [() => setShowPopover(!showPopover)],
+    condition: showPopover,
+  });
 
   const handleAvatarClick = () => setShowPopover(!showPopover);
-  const handleWindowClick = useCallback(() => {
-    setShowPopover(false);
-  }, []);
-
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') setShowPopover(false);
-  }, []);
 
   const handleSearchChange = (e) => {
     setQuery(e.target.value);
   };
-
-  useEffect(() => {
-    if (showPopover) {
-      window.addEventListener('click', handleWindowClick);
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('click', handleWindowClick);
-    };
-  }, [handleWindowClick, handleKeyDown, showPopover]);
-
-   useEffect(() => {
-     const params = new URLSearchParams();
-     if (query) {
-       params.append('search', query);
-     } else {
-       params.delete('search');
-     }
-     history.replace({ search: params.toString() });
-   }, [query, history]);
 
   return (
     <Header>

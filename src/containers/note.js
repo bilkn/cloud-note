@@ -13,24 +13,29 @@ export default function NoteContainer(props) {
     setMouseClick,
     color,
     timestamp,
+    lastModified,
     text,
     currentId,
     setCurrentId,
-    dialogState
+    dialogState,
   } = props;
   const [isButtonsActive, setIsButtonsActive] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { Modify } = useData();
-  
-  const handleMouseUp = () => {
+  const { Add, Delete, DeleteSilently, Modify, SortByDate } = useData();
+
+  const handleBoxToggleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
     setCurrentId(id);
   };
 
   const handleMouseDown = () => {
     setMouseClick(true);
+  };
+
+  const handleNoteClick = () => {
+    setCurrentId(id);
   };
 
   const handleKeyDown = (e) => {
@@ -46,10 +51,13 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
-    if (!(currentId === id)) {
-      setIsButtonsActive(false);
-    }
-    Modify(id, textValue);
+    if (!(currentId === id)) setIsButtonsActive(false);
+    if (textValue) {
+      if (!lastModified) Add(id, textValue);
+      else Modify(id, textValue);
+    } else if (lastModified) Delete(id);
+    else DeleteSilently(id);
+    SortByDate();
     setIsActive(false);
   };
 
@@ -77,11 +85,16 @@ export default function NoteContainer(props) {
   }, [isActive, textValue]);
 
   return (
-    <Note color={color} animate={!isSecondsPassed(1, timestamp)} data-testid="note">
+    <Note
+      color={color}
+      animate={!isSecondsPassed(1, timestamp)}
+      data-testid="note"
+      onClick={handleNoteClick}
+    >
       <Note.Box
         active={isButtonsActive}
         mouseClick={mouseClick}
-        onMouseUp={handleMouseUp}
+        onMouseUp={handleBoxToggleMouseUp}
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         role="button"

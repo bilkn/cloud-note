@@ -11,10 +11,10 @@ export default function PaletteContainer({ palette, setPalette }) {
   const history = useHistory();
   const { matchSubpath } = useMatchLastSubpath();
   const { resizing } = useResize();
-  const { Add} = useData();
+  const { AddTemplate } = useData();
 
   const handleColorClick = (color) => {
-    Add(color, 'Welcome To the New Era.');
+    AddTemplate(color);
     if (!matchSubpath(ROUTES.HOME)) history.push(ROUTES.HOME);
     const mql = window.matchMedia(devices.mobile);
     setPalette({ active: false, extraAnimation: mql.matches });

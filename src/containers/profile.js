@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { FlexWrapper, Form } from '../components';
+import { FlexWrapper, Form, Wrapper } from '../components';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
+import devices from '../styles/devices';
 
 export default function ProfileContainer() {
   const [nameValue, setNameValue] = useState('');
   const [bioValue, setBioValue] = useState('');
+  const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
     setNameValue(e.target.value);
@@ -16,34 +18,72 @@ export default function ProfileContainer() {
     setBioValue(e.target.value);
   };
 
+  const handleUploadPictureClick = () => {
+    setShowFileInput(true);
+  };
+
+  const handleFileChange = (e) => {
+    console.log(e.target.files);
+  };
+
   return (
     <>
       <FlexWrapper
         css={`
           margin: 0;
         `}
-        align="center"
+        align={showFileInput ? 'flex-start' : 'center'}
       >
-        <Avatar size="120">
-          {/* !!! Add username to the avatar */}
-          <Avatar.Picture src={Picture} alt={"Avatar"} />
-        </Avatar>
+        <Wrapper
+          css={`
+            ${showFileInput ? 'min-height:150px' : ''}
+          `}
+        >
+          <Avatar size="120">
+            {/* !!! Add username to the avatar */}
+            <Avatar.Picture src={Picture} alt={'Avatar'} />
+          </Avatar>
+        </Wrapper>
         <Form>
           <Form.Box>
-            <Form.ButtonRed
-              css={`
-                margin: 22px 10px 16px 0;
-              `}
-            >
-              Upload new picture
-            </Form.ButtonRed>
+            {!showFileInput && (
+              <Form.ButtonRed
+                css={`
+                  margin: 22px 16px 16px 0;
+                `}
+                type="button"
+                onClick={handleUploadPictureClick}
+              >
+                Upload new picture
+              </Form.ButtonRed>
+            )}
+            {showFileInput && (
+              <Form.Fieldset
+                css={`
+                  margin: 0;
+                  margin-top: 0.3em;
+                `}
+              >
+                <Form.Input
+                  css={`
+                    cursor: pointer;
+                    margin: 0;
+                  `}
+                  type="file"
+                  onChange={handleFileChange}
+                />
+              </Form.Fieldset>
+            )}
             <Form.Button
               css={`
                 margin: 22px 0 16px 0;
+                ${showFileInput ? 'margin-right: 16px' : ''}
               `}
+              type="button"
             >
               Delete
             </Form.Button>
+            {showFileInput && <Form.ButtonRed>Upload Now</Form.ButtonRed>}
           </Form.Box>
         </Form>
       </FlexWrapper>
@@ -60,6 +100,7 @@ export default function ProfileContainer() {
             value={nameValue}
             onChange={handleNameChange}
             data-testid={'name-input'}
+            required
           />
         </Form.Fieldset>
         <Form.Fieldset
@@ -89,6 +130,18 @@ export default function ProfileContainer() {
             data-testid={'bio-input'}
           />
         </Form.Fieldset>
+        <Form.Box>
+          <Form.ButtonRed
+            css={`
+              width: 100%;
+              @media ${devices.mobile} {
+                width: initial;
+              }
+            `}
+          >
+            Save Profile
+          </Form.ButtonRed>
+        </Form.Box>
       </Form>
     </>
   );

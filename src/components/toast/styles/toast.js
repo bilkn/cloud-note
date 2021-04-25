@@ -6,15 +6,18 @@ export const Container = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 1em;
   left: 50%;
   margin-left: -150px;
   position: fixed;
   top: 60px;
   width: 300px;
   z-index: ${indexes.poppedUI};
-  @media ${devices.tablet} {
+  @media ${devices.mobile} {
     margin-left: ${`calc(${sizes.sidebar_width} / 2 - 150px)`};
+  }
+
+  & > div:not(:first-child) {
+    margin-top: 1em;
   }
 `;
 

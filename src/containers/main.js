@@ -4,10 +4,11 @@ import { DialogContainer, NoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
+import { useMouseClick } from '../hooks';
 
 export default function MainContainer({ data }) {
   const { search: searchProp } = useLocation();
-  const [mouseClick, setMouseClick] = useState(true);
+  const { mouseClick, setMouseClick } = useMouseClick();
   const [currentId, setCurrentId] = useState('');
   const [dialog, setDialog] = useState({
     active: false,
@@ -16,14 +17,6 @@ export default function MainContainer({ data }) {
   });
   const dialogState = [dialog, setDialog];
   const [displayedData, setDisplayedData] = useState([]);
-
-  useEffect(() => {
-    const handleWindowKeyDown = () => {
-      setMouseClick(false);
-    };
-    window.addEventListener('keydown', handleWindowKeyDown);
-    return () => window.removeEventListener('keydown', handleWindowKeyDown);
-  }, []);
 
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
@@ -37,16 +30,21 @@ export default function MainContainer({ data }) {
     }
   }, [searchProp, data]);
 
+  useEffect(()=> {
+    
+  }, [])
+
   return (
     <>
       <Main>
         <Main.Wrapper>
-          {displayedData.map(({ text, color, timestamp, id }) => (
+          {displayedData.map(({ text, color, timestamp, lastModified, id }) => (
             <NoteContainer
               key={id}
               id={id}
               color={color}
               timestamp={timestamp}
+              lastModified={lastModified}
               mouseClick={mouseClick}
               setMouseClick={setMouseClick}
               text={text}

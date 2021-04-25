@@ -32,11 +32,15 @@ export default function Account() {
             max-width: 878px;
             padding: 1em;
             padding-bottom: 5.75em;
+            @media ${devices.mobile} {
+              padding-bottom: 0;
+            }
           `}
         >
           <Navigation>
             <Navigation.Breadcrumb>
-              <Navigation.Link to="/name">Codebee</Navigation.Link> {/* !!! Change "to" prop */}
+              <Navigation.Link to="/name">Codebee</Navigation.Link>{' '}
+              {/* !!! Change "to" prop */}
               <Navigation.Span>/</Navigation.Span>
               <Navigation.Text>Account Settings</Navigation.Text>
             </Navigation.Breadcrumb>

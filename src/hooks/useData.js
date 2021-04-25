@@ -5,14 +5,21 @@ export default function useData() {
   const { dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
 
-  const Add = (color, text) => {
+  const Add = (id, text) => {
     const type = 'ADD';
     dispatchData({
       type,
-      payload: { color, text },
+      payload: { id, text },
     });
     dispatchToast({
       type,
+    });
+  };
+
+  const AddTemplate = (color) => {
+    dispatchData({
+      type: 'ADD_TEMPLATE',
+      payload: { color },
     });
   };
 
@@ -24,13 +31,21 @@ export default function useData() {
     });
   };
 
+  const DeleteSilently= (id) => {
+    dispatchData({ type: 'DELETE', removeId: id });
+  };
+
   const Modify = (id, text) => {
     const type = 'MODIFY';
-    dispatchData({ type, payload: { modifyId: id, text }});
+    dispatchData({ type, payload: { modifyId: id, text } });
     dispatchToast({
       type,
     });
   };
 
-  return { Add, Delete, Modify };
+  const SortByDate = () => {
+    dispatchData({ type: 'SORT_BY_DATE' });
+  };
+
+  return { Add, AddTemplate, Delete, DeleteSilently, Modify, SortByDate };
 }

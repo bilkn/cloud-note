@@ -51,8 +51,8 @@ function SettingsContainer() {
       <Form.Wrapper>
         <Form.Subtitle>danger zone</Form.Subtitle>
         <Form.Line />
-        <Form.ButtonRed>Delete all notes</Form.ButtonRed>
-        <Form.ButtonRed>Delete account</Form.ButtonRed>
+        <Form.ButtonRed type="button">Delete all notes</Form.ButtonRed>
+        <Form.ButtonRed type="button">Delete account</Form.ButtonRed>
       </Form.Wrapper>
     </Form>
   );
