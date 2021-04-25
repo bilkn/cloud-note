@@ -1,20 +1,21 @@
 import { useCallback, useEffect } from 'react';
 
-export default function useWindowEvent(
-  callbacks,
-  events,
-  condition,
-) {
-  const handleEvent = useCallback(() => {
-    callbacks.forEach((cb) => cb());
-  }, [callbacks]);
+export default function useWindowEvent(params) {
+  const { events, handlers, condition } = params;
+  const handleEvent = useCallback((e) => {
+    handlers.forEach((cb) => cb(e));
+  }, [handlers]);
 
   useEffect(() => {
     if (condition) {
-      events.forEach((event) => window.addEventListener(event, handleEvent));
+      events.forEach(({ event, capture = false }) =>
+        window.addEventListener(event, handleEvent, capture)
+      );
     }
     return () => {
-      events.forEach((event) => window.removeEventListener(event, handleEvent));
+      events.forEach(({ event, capture = false }) =>
+        window.removeEventListener(event, handleEvent, capture)
+      );
     };
   }, [handleEvent, condition, events]);
 }
