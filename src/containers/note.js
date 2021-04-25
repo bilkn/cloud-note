@@ -30,7 +30,8 @@ export default function NoteContainer(props) {
     condition: showButtons,
   });
 
-  const handleBoxToggleMouseUp = () => {
+  const handleToggleClick = (e) => {
+    e.stopPropagation();
     setShowButtons(!showButtons);
     setCurrentId(id);
   };
@@ -57,7 +58,7 @@ export default function NoteContainer(props) {
 
   const handleBlur = () => {
     if (!(currentId === id)) setShowButtons(false);
-    if (textValue) {
+    if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
@@ -66,6 +67,7 @@ export default function NoteContainer(props) {
     setIsActive(false);
   };
 
+  // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
     if (currentId && currentId !== id) {
       setShowButtons(false);
@@ -73,6 +75,7 @@ export default function NoteContainer(props) {
     }
   }, [currentId, id]);
 
+  // Activates the note, if it is just created.
   useEffect(() => {
     if (!isSecondsPassed(1, timestamp)) {
       setIsActive(true);
@@ -80,6 +83,7 @@ export default function NoteContainer(props) {
     }
   }, [timestamp, id, setCurrentId, isActive]);
 
+  // Prevents the text selector to be positioned the beginning of the text.
   useEffect(() => {
     const textArea = textAreaRef.current;
     const length = textValue.length;
@@ -100,14 +104,13 @@ export default function NoteContainer(props) {
         <Note.Box
           active={showButtons}
           mouseClick={mouseClick}
-          onMouseUp={handleBoxToggleMouseUp}
+          onClick={handleToggleClick}
           onMouseDown={handleMouseDown}
           onKeyDown={handleKeyDown}
           role="button"
           title="Toggle note menu"
           tabIndex="0"
           aria-label="Toggle note menu"
-          onClick={(e) => e.stopPropagation()}
         >
           <Cross
             size="28"
