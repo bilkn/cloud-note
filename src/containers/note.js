@@ -23,7 +23,7 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { Add, DeleteSilently, Modify, SortByDate } = useData();
+  const { Add, Delete, DeleteSilently, Modify, SortByDate } = useData();
 
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
@@ -51,7 +51,8 @@ export default function NoteContainer(props) {
     if (textValue) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
-    } else DeleteSilently(id);
+    } else if (lastModified) Delete(id);
+    else DeleteSilently(id);
     SortByDate();
     setIsActive(false);
   };
