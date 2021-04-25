@@ -25,6 +25,7 @@ export default function NoteButtonContainer(props) {
       if (showButtons) {
         copyToClipboard(textValue)
         dispatchToast({ type: 'COPY' });
+        setIsActive(false);
       }
     };
 
@@ -35,6 +36,7 @@ export default function NoteButtonContainer(props) {
           text: 'Are you sure to delete this note?',
           operation: () => Delete(id),
         });
+         setIsActive(false);
       }
     };
 

@@ -31,6 +31,7 @@ export default function NoteContainer(props) {
   });
 
   const handleToggleClick = (e) => {
+    console.log('click');
     e.stopPropagation();
     setShowButtons(!showButtons);
     setCurrentId(id);
@@ -42,13 +43,6 @@ export default function NoteContainer(props) {
 
   const handleNoteClick = () => {
     setCurrentId(id);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      setShowButtons(!showButtons);
-      setCurrentId(id);
-    }
   };
 
   const handleChange = (e) => {
@@ -106,7 +100,6 @@ export default function NoteContainer(props) {
           mouseClick={mouseClick}
           onClick={handleToggleClick}
           onMouseDown={handleMouseDown}
-          onKeyDown={handleKeyDown}
           role="button"
           title="Toggle note menu"
           tabIndex="0"
