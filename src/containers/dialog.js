@@ -22,7 +22,7 @@ export default function DialogContainer({ dialogState, text, operation }) {
   return (
     <>
       <Backdrop />
-      <Dialog height="150" width="300">
+      <Dialog height="150" width="300" role="dialog">
         <Dialog.Text>{text}</Dialog.Text>
         <Dialog.Box>
           <Dialog.Button

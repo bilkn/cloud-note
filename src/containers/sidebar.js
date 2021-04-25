@@ -35,8 +35,9 @@ export default function SidebarContainer() {
                   display: initial;
                 }
               `}
+              title="Add new note"
               aria-label="Add new note"
-              data-testid = "add-note-btn"
+              data-testid="add-note-btn"
             >
               <AddCircle size="60" />
             </Sidebar.Button>
@@ -44,7 +45,11 @@ export default function SidebarContainer() {
           <Sidebar.Nav translateY={translateY} active={translateY >= 0}>
             <Sidebar.List>
               <Sidebar.Item active={pathname === ROUTES.HOME}>
-                <Sidebar.ButtonLink to={ROUTES.HOME} aria-label="Notes">
+                <Sidebar.ButtonLink
+                  to={ROUTES.HOME}
+                  title="Notes"
+                  aria-label="Notes"
+                >
                   <Note size="35" />
                 </Sidebar.ButtonLink>
               </Sidebar.Item>
@@ -59,6 +64,7 @@ export default function SidebarContainer() {
               >
                 <Sidebar.Button
                   onClick={handleAddClick}
+                  title="Add new note"
                   aria-label="Add new note"
                 >
                   <AddCircle size="60" />
@@ -67,6 +73,7 @@ export default function SidebarContainer() {
               <Sidebar.Item active={pathname === ROUTES.DELETED}>
                 <Sidebar.ButtonLink
                   to={ROUTES.DELETED}
+                  title="Deleted notes"
                   aria-label="Deleted notes"
                 >
                   <TrashAlt size="28" />
