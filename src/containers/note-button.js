@@ -6,6 +6,7 @@ import 'styled-components/macro';
 import { Note } from '../components';
 import { ToastContext } from '../context';
 import { useData } from '../hooks';
+import { copyToClipboard } from '../helpers';
 
 export default function NoteButtonContainer(props) {
   const { isButtonsActive, setIsActive, textValue, id, dialogState } = props;
@@ -22,13 +23,7 @@ export default function NoteButtonContainer(props) {
 
     const handleCopyMouseUp = () => {
       if (isButtonsActive) {
-        const elem = document.createElement('textarea');
-        document.body.appendChild(elem);
-        elem.value = textValue;
-        elem.select();
-        elem.setSelectionRange(0, 99999); // For mobile devices.
-        document.execCommand('copy');
-        document.body.removeChild(elem);
+        copyToClipboard(textValue)
         dispatchToast({ type: 'COPY' });
       }
     };
