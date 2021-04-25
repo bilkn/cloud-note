@@ -3,15 +3,30 @@ import { v4 as uuidv4 } from 'uuid';
 export default function dataReducer(state, action) {
   switch (action.type) {
     case 'ADD': {
-      const { text, color } = action.payload;
+      const { id: dataId, text } = action.payload;
+      const { results } = state;
+      const templateData = results.find(({ id }) => id === dataId);
+      const filteredResults = results.filter(({ id }) => id !== dataId);
+      const lastModified = templateData.timestamp;
+      const newData = {
+        ...templateData,
+        lastModified,
+        text,
+      };
+      const newResults = [newData, ...filteredResults];
+      return { ...state, results: newResults };
+    }
+
+    case 'ADD_TEMPLATE': {
+      const { color } = action.payload;
       const date = new Date();
       const newData = {
         id: uuidv4(),
         color,
         timestamp: date,
-        lastModified: date,
+        lastModified: null,
         deletionDate: null,
-        text,
+        text: '',
       };
       const newResults = [newData, ...state.results];
       return { ...state, results: newResults };
@@ -49,6 +64,6 @@ export default function dataReducer(state, action) {
     }
 
     default:
-      throw Error(`Unhandled action type: ${action.type}!`);
+      throw Error(`Unhandled action type: "${action.type}".`);
   }
 }

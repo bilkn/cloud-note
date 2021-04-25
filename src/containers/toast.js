@@ -24,8 +24,8 @@ function ToastContainer() {
             <Toast.Button
               id={id}
               onClick={contentRemoveHandler}
-              title="Close notification"
-              aria-label="Close notification"
+              title="Dismiss"
+              aria-label="Dismiss"
             >
               <CrossIcon
                 css={`

@@ -13,6 +13,7 @@ export default function NoteContainer(props) {
     setMouseClick,
     color,
     timestamp,
+    lastModified,
     text,
     currentId,
     setCurrentId,
@@ -22,7 +23,7 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { Modify, SortByDate } = useData();
+  const { Add, DeleteSilently, Modify, SortByDate } = useData();
 
   const handleMouseUp = () => {
     setIsButtonsActive(!isButtonsActive);
@@ -46,10 +47,11 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
-    if (!(currentId === id)) {
-      setIsButtonsActive(false);
-    }
-    Modify(id, textValue);
+    if (!(currentId === id)) setIsButtonsActive(false);
+    if (textValue) {
+      if (!lastModified) Add(id, textValue);
+      else Modify(id, textValue);
+    } else DeleteSilently(id);
     SortByDate();
     setIsActive(false);
   };
