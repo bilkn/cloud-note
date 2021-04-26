@@ -23,7 +23,7 @@ export default function NoteButtonContainer(props) {
 
     const handleCopyMouseUp = () => {
       if (showButtons) {
-        copyToClipboard(textValue)
+        copyToClipboard(textValue);
         dispatchToast({ type: 'COPY' });
         setIsActive(false);
       }
@@ -36,7 +36,7 @@ export default function NoteButtonContainer(props) {
           text: 'Are you sure to delete this note?',
           operation: () => Delete(id),
         });
-         setIsActive(false);
+        setIsActive(false);
       }
     };
 
@@ -56,7 +56,7 @@ export default function NoteButtonContainer(props) {
       <Clipboard color={iconColor} size={iconSize} />,
       <Trash color={iconColor} size={iconSize} />,
     ];
-    return translates.map((translate, i, arr) => {
+    return translates.map((translate, i) => {
       return {
         css: `
         ${positions[i]};

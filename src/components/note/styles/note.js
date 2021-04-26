@@ -23,8 +23,24 @@ export const TextArea = styled.textarea`
   padding-bottom: 75%;
   resize: none;
   outline: none;
-  overflow: hidden;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #e1e1e1f7;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.gray_3};
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d3d3d3;
+  }
 `;
 
 export const Title = styled.div`
