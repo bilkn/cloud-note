@@ -42,7 +42,7 @@ export default function DialogContainer({ dialogState, text, operation }) {
               }
             `}
           >
-            No
+            Cancel
           </Dialog.Button>
           <Dialog.Button
             onClick={handleYesClick}
@@ -50,7 +50,7 @@ export default function DialogContainer({ dialogState, text, operation }) {
               box-shadow: 0 3px 6px rgba(30, 38, 56, 0.19);
             `}
           >
-            Yes
+            Delete
           </Dialog.Button>
         </Dialog.Box>
       </Dialog>
