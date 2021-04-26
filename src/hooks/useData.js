@@ -25,14 +25,14 @@ export default function useData() {
 
   const Delete = (id) => {
     const type = 'DELETE';
-    dispatchData({ type, removeId: id });
+    dispatchData({ type, deleteId: id });
     dispatchToast({
       type,
     });
   };
 
-  const DeleteSilently= (id) => {
-    dispatchData({ type: 'DELETE', removeId: id });
+  const DeletePermanently = (id) => {
+    dispatchData({ type: 'PERMANENT_DELETE', deleteId: id });
   };
 
   const Modify = (id, text) => {
@@ -47,5 +47,5 @@ export default function useData() {
     dispatchData({ type: 'SORT_BY_DATE' });
   };
 
-  return { Add, AddTemplate, Delete, DeleteSilently, Modify, SortByDate };
+  return { Add, AddTemplate, Delete, DeletePermanently, Modify, SortByDate };
 }

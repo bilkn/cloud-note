@@ -23,9 +23,9 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { Add, Delete, DeleteSilently, Modify, SortByDate } = useData();
+  const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
   useWindowEvent({
-    events: [{event:'click'}],
+    events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
     condition: showButtons,
   });
@@ -60,7 +60,7 @@ export default function NoteContainer(props) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
-    else DeleteSilently(id);
+    else DeletePermanently(id);
     SortByDate();
     setIsActive(false);
   };
