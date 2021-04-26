@@ -13,6 +13,6 @@ Dialog.Text = function DialogText({ children, ...restProps }) {
   return <Text {...restProps}>{children}</Text>;
 };
 
-Dialog.Button = function DialogButton({ children, ...restProps }) {
-  return <Button {...restProps}>{children}</Button>;
-};
+Dialog.Button = React.forwardRef(({ children, ...restProps }, ref) => (
+  <Button ref={ref} {...restProps}>{children}</Button>
+));

@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import { indexes, sizes, colors } from '../../../styles/variables';
+import { slideInFaded } from '../../../styles/animations';
 import devices from '../../../styles/devices';
 
 export const Container = styled.div`
@@ -23,6 +24,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   align-items: center;
+  animation: ${slideInFaded} 500ms forwards;
   background: ${({ type }) =>
     type === 'notification' ? colors.purple_2 : 'gray'};
   border-radius: 5px;

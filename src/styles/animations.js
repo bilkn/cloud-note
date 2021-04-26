@@ -30,7 +30,7 @@ export const rotateSlideout = keyframes`
     }
 `;
 
-export const scaleUp= keyframes`
+export const scaleUp = keyframes`
     from {
         transform: scale(0.1);
     }
@@ -39,4 +39,16 @@ export const scaleUp= keyframes`
         transform: scale(1);
     }
 
+`;
+
+export const slideInFaded = keyframes`
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0)
+        opacity:1;
+    }
 `;

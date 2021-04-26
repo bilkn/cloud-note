@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container, Wrapper} from './styles/main';
+import { Container, Grid} from './styles/main';
 
 export default function Main({children, ...restProps}) {
   return <Container {...restProps}>{children}</Container>;
 }
 
-Main.Wrapper = function MainWrapper({ children, ...restProps }) {
-  return <Wrapper {...restProps}>{children}</Wrapper>;
+Main.Grid = function MainGrid({ children, ...restProps }) {
+  return <Grid {...restProps}>{children}</Grid>;
 };
 
 

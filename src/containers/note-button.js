@@ -9,32 +9,34 @@ import { useData } from '../hooks';
 import { copyToClipboard } from '../helpers';
 
 export default function NoteButtonContainer(props) {
-  const { isButtonsActive, setIsActive, textValue, id, dialogState } = props;
+  const { showButtons, setIsActive, textValue, id, dialogState } = props;
   const [, setDialog] = dialogState;
   const { dispatchToast } = useContext(ToastContext);
   const { Delete } = useData();
 
   const createBoxButtons = () => {
     const handleEditMouseUp = () => {
-      if (isButtonsActive) {
+      if (showButtons) {
         setIsActive(true);
       }
     };
 
     const handleCopyMouseUp = () => {
-      if (isButtonsActive) {
+      if (showButtons) {
         copyToClipboard(textValue)
         dispatchToast({ type: 'COPY' });
+        setIsActive(false);
       }
     };
 
     const handleDeleteMouseUp = () => {
-      if (isButtonsActive) {
+      if (showButtons) {
         setDialog({
           active: true,
           text: 'Are you sure to delete this note?',
           operation: () => Delete(id),
         });
+         setIsActive(false);
       }
     };
 
@@ -47,7 +49,7 @@ export default function NoteButtonContainer(props) {
     const labels = ['Edit note', 'Copy to clipboard', 'Delete note'];
     const title = ['Edit', 'Copy', 'Delete'];
     const iconColor = 'white';
-    const iconSize = isButtonsActive ? '50%' : '0';
+    const iconSize = showButtons ? '50%' : '0';
     const positions = ['left: 5px', 'left: 17px', 'left: 29px'];
     const icons = [
       <Edit color={iconColor} size={iconSize} />,
@@ -59,7 +61,7 @@ export default function NoteButtonContainer(props) {
         css: `
         ${positions[i]};
         ${
-          isButtonsActive
+          showButtons
             ? `transform : translate(${translate}); height:46px; width:46px;`
             : ''
         } 
@@ -75,19 +77,19 @@ export default function NoteButtonContainer(props) {
 
   return createBoxButtons().map(
     ({ css, children, label, title, handler }, index) => (
-      <Note.ButtonWrapper active={isButtonsActive} css={css} key={index}>
+      <Note.ButtonWrapper active={showButtons} css={css} key={index}>
         <Note.Title
           onMouseUp={handler}
-          active={isButtonsActive}
-          title={isButtonsActive ? label : 'Toggle note menu'}
+          active={showButtons}
+          title={showButtons ? label : 'Toggle note menu'}
         >
           {title}
         </Note.Title>
         <Note.Button
-          active={isButtonsActive}
-          role={isButtonsActive ? 'button' : ''}
-          tabIndex={isButtonsActive ? '0' : '-1'}
-          title={isButtonsActive ? label : 'Toggle note menu'}
+          active={showButtons}
+          role={showButtons ? 'button' : ''}
+          tabIndex={showButtons ? '0' : '-1'}
+          title={showButtons ? label : 'Toggle note menu'}
           aria-label={label}
           onMouseUp={handler}
           onKeyDown={(e) => {

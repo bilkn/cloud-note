@@ -13,10 +13,14 @@ import { useWindowEvent, useWindowKey } from '../hooks';
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
   const { query, setQuery } = useQuery('search');
-  useWindowEvent([() => setShowPopover(false)], ['click'], showPopover);
+  useWindowEvent({
+    events: [{ event: 'click' }],
+    handlers: [() => setShowPopover(false)],
+    condition: showPopover,
+  });
   useWindowKey({
     keys: ['Escape'],
-    callbacks: [() => setShowPopover(!showPopover)],
+    handlers: [() => setShowPopover(!showPopover)],
     condition: showPopover,
   });
 

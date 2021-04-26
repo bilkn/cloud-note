@@ -1,14 +1,13 @@
 import { useCallback, useEffect } from 'react';
 
 export default function useWindowKey(params) {
-  const { keys, callbacks, condition } = params;
+  const { keys, handlers, condition } = params;
 
   const mapHandlersWithKeys = keys.reduce((obj, key, i) => {
-    obj[key] = callbacks[i];
+    obj[key] = handlers[i];
     return obj;
   }, {});
 
-  console.log(mapHandlersWithKeys);
 
   const handleKeyDown = useCallback(
     (e) => {
