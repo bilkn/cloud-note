@@ -37,7 +37,7 @@ export default function MainContainer({ data }) {
   return (
     <>
       <Main>
-        <Main.Wrapper>
+        <Main.Grid>
           {displayedData.map(({ text, color, timestamp, lastModified, id }) => (
             <NoteContainer
               key={id}
@@ -53,7 +53,7 @@ export default function MainContainer({ data }) {
               dialogState={dialogState}
             />
           ))}
-        </Main.Wrapper>
+        </Main.Grid>
       </Main>
       {dialog.active && (
         <DialogContainer
