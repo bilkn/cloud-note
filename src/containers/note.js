@@ -4,7 +4,7 @@ import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
-import { useData, useWindowKey } from '../hooks';
+import { useData, useWindowKey, useWindowEvent } from '../hooks';
 
 export default function NoteContainer(props) {
   const {
@@ -24,6 +24,11 @@ export default function NoteContainer(props) {
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
   const { Add, Delete, DeleteSilently, Modify, SortByDate } = useData();
+  useWindowEvent({
+    events: [{event:'click'}],
+    handlers: [() => setShowButtons(false)],
+    condition: showButtons,
+  });
   useWindowKey({
     keys: ['Escape'],
     handlers: [() => setShowButtons(false)],
@@ -31,7 +36,6 @@ export default function NoteContainer(props) {
   });
 
   const handleToggleClick = (e) => {
-    console.log('click');
     e.stopPropagation();
     setShowButtons(!showButtons);
     setCurrentId(id);

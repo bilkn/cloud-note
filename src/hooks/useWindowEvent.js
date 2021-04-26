@@ -2,9 +2,13 @@ import { useCallback, useEffect } from 'react';
 
 export default function useWindowEvent(params) {
   const { events, handlers, condition } = params;
-  const handleEvent = useCallback((e) => {
-    handlers.forEach((cb) => cb(e));
-  }, [handlers]);
+
+  const handleEvent = useCallback(
+    (e) => {
+      handlers.forEach((cb) => cb(e));
+    },
+    [handlers]
+  );
 
   useEffect(() => {
     if (condition) {
