@@ -24,7 +24,10 @@ export default function NoteButtonContainer(props) {
     const handleCopyMouseUp = () => {
       if (showButtons) {
         copyToClipboard(textValue);
-        dispatchToast({ type: 'COPY' });
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'Note has been copied to the clipboard.',
+        });
         setIsActive(false);
       }
     };
