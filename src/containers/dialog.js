@@ -1,18 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { Backdrop, Dialog } from '../components';
 import { colors } from '../styles/variables';
 import 'styled-components/macro';
+import { DialogContext } from '../context';
 
-export default function DialogContainer({ dialogState, text, operation }) {
-  const [dialog, setDialog] = dialogState;
+export default function DialogContainer() {
+  const [dialog, setDialog] = useContext(DialogContext);
   const ref = useRef(null);
+  const { isOpen, text, handler, buttons } = dialog;
 
   const resetDialog = () => {
-    setDialog({ active: false, text: '', operation: null });
+    setDialog({ isOpen: false, text: '', operation: null });
   };
 
   const handleYesClick = () => {
-    operation();
+    handler();
     resetDialog();
   };
 
@@ -21,11 +24,15 @@ export default function DialogContainer({ dialogState, text, operation }) {
   };
 
   useEffect(() => {
-    const noBtn = ref.current;
-    noBtn.focus();
-  }, [dialog]);
+    if (isOpen) {
+      const noBtn = ref.current;
+      noBtn.focus();
+    }
+  }, [isOpen]);
 
-  return (
+  if (!isOpen) return null;
+
+  return ReactDOM.createPortal(
     <>
       <Backdrop />
       <Dialog role="dialog">
@@ -42,7 +49,7 @@ export default function DialogContainer({ dialogState, text, operation }) {
               }
             `}
           >
-            Cancel
+            {buttons[0]}
           </Dialog.Button>
           <Dialog.Button
             onClick={handleYesClick}
@@ -50,10 +57,11 @@ export default function DialogContainer({ dialogState, text, operation }) {
               box-shadow: 0 3px 6px rgba(30, 38, 56, 0.19);
             `}
           >
-            Delete
+            {buttons[1]}
           </Dialog.Button>
         </Dialog.Box>
       </Dialog>
-    </>
+    </>,
+    document.getElementById('portal')
   );
 }

@@ -6,6 +6,7 @@ import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
 import { useData, useWindowKey, useWindowEvent } from '../hooks';
 
+
 export default function NoteContainer(props) {
   const {
     id,
@@ -17,7 +18,6 @@ export default function NoteContainer(props) {
     text,
     currentId,
     setCurrentId,
-    dialogState,
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -54,7 +54,7 @@ export default function NoteContainer(props) {
     setTextValue(e.target.value);
   };
 
- /*  const handleBlur = () => {
+  const handleBlur = () => {
     if (!(currentId === id)) setShowButtons(false);
     if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
@@ -63,7 +63,7 @@ export default function NoteContainer(props) {
     else DeletePermanently(id);
     SortByDate();
     setIsActive(false);
-  }; */
+  };
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
@@ -123,7 +123,6 @@ export default function NoteContainer(props) {
             textValue={textValue}
             mouseClick={mouseClick}
             id={id}
-            dialogState={dialogState}
           />
         </Note.Box>
       )}
@@ -131,7 +130,7 @@ export default function NoteContainer(props) {
       <Note.TextArea
         value={textValue}
         onChange={handleChange}
-       /*  onBlur={handleBlur} */
+        onBlur={handleBlur} 
         disabled={!isActive}
         ref={textAreaRef}
         data-testid="note-text-area"
