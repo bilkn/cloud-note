@@ -31,6 +31,14 @@ export default function useData() {
     });
   };
 
+  const DeleteAll = () => {
+    const type = 'DELETE_ALL';
+    dispatchData({ type });
+    dispatchToast({
+      type,
+    });
+  };
+
   const DeletePermanently = (id) => {
     dispatchData({ type: 'PERMANENT_DELETE', deleteId: id });
   };
@@ -47,5 +55,13 @@ export default function useData() {
     dispatchData({ type: 'SORT_BY_DATE' });
   };
 
-  return { Add, AddTemplate, Delete, DeletePermanently, Modify, SortByDate };
+  return {
+    Add,
+    AddTemplate,
+    Delete,
+    DeleteAll,
+    DeletePermanently,
+    Modify,
+    SortByDate,
+  };
 }

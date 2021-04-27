@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Form } from '../components';
 import { DialogContext } from '../context';
+import { useData } from '../hooks';
 import 'styled-components/macro';
 
 function SettingsContainer() {
   const [usernameValue, setUsernameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [, setDialog] = useContext(DialogContext);
+  const {DeleteAll} =  useData()
 
   const handleUsernameChange = (e) => {
     setUsernameValue(e.target.value);
@@ -16,12 +18,14 @@ function SettingsContainer() {
     setEmailValue(e.target.value);
   };
 
+  
+
   const handleDeleteAllNotes = () => {
     setDialog({
       isOpen: true,
       text:
         'Are you sure you want to delete all your notes? This will permanently erase your notes.',
-      handler: () => console.log('delete'),
+      handler: () => DeleteAll(),
       buttons: ['Cancel', 'Delete'],
     });
   };

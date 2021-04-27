@@ -25,6 +25,16 @@ export default function toastReducer(state, action) {
       return [newContent, ...state];
     }
 
+    case 'DELETE_ALL': {
+      const newContent = {
+        id: uuidv4(),
+        type: 'notification',
+        color: colors.purple_2,
+        text: 'All of your notes have been deleted permanently.',
+      };
+      return [newContent, ...state];
+    }
+
     case 'MODIFY': {
       const newContent = {
         id: uuidv4(),
