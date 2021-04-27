@@ -26,6 +26,7 @@ export const TextArea = styled.textarea`
   resize: none;
   outline: none;
   overflow: ${({ active }) => (active ? 'auto' : 'hidden')};
+  overscroll-behavior: contain;
   width: 100%;
 
   &::-webkit-scrollbar {
@@ -43,6 +44,12 @@ export const TextArea = styled.textarea`
 
   &::-webkit-scrollbar-thumb:hover {
     background: #d3d3d3;
+  }
+
+  @supports (aspect-ratio: 4/3) {
+    aspect-ratio: 4/3;
+    height: initial;
+    padding-bottom: 0;
   }
 `;
 
