@@ -6,7 +6,6 @@ import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
 import { useData, useWindowKey, useWindowEvent } from '../hooks';
 
-
 export default function NoteContainer(props) {
   const {
     id,
@@ -54,7 +53,8 @@ export default function NoteContainer(props) {
     setTextValue(e.target.value);
   };
 
-  /* const handleBlur = () => {
+  const handleBlur = () => {
+    const textArea = textAreaRef.current;
     if (!(currentId === id)) setShowButtons(false);
     if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
@@ -63,7 +63,12 @@ export default function NoteContainer(props) {
     else DeletePermanently(id);
     SortByDate();
     setIsActive(false);
-  }; */
+    textArea.scroll({
+      top: 0,
+    });
+  };
+
+  // !!! After blur text area should scroll to top.
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
@@ -128,9 +133,10 @@ export default function NoteContainer(props) {
       )}
 
       <Note.TextArea
+        active={isActive}
         value={textValue}
         onChange={handleChange}
-     /*    onBlur={handleBlur}  */
+        onBlur={handleBlur}
         disabled={!isActive}
         ref={textAreaRef}
         data-testid="note-text-area"

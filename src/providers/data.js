@@ -1,10 +1,11 @@
 import React, { useReducer } from 'react';
 import { DataContext } from '../context';
 import { dataReducer } from '../reducers';
-
+import { dummyDataList } from '../fixtures/dummy-data';
 export default function DataProvider(props) {
+  
   const [dataState, dispatchData] = useReducer(dataReducer, {
-    results: [],
+    results: [...dummyDataList(50)],
     deleted: [],
     isLoading: false,
     isError: false,

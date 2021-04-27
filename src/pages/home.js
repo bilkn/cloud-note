@@ -11,7 +11,7 @@ import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
 import 'styled-components/macro';
 import { DataContext } from '../context';
-import { dummyDataList } from '../fixtures/dummy-data';
+
 
 export default function Home() {
   const { dataState } = useContext(DataContext);
@@ -25,8 +25,8 @@ export default function Home() {
         }
       `}
     >
-      <MainContainer data={dummyDataList(50)} />
-      {/* <MainContainer data={dataState.results} /> */}
+    {/*   <MainContainer data={dummyDataList(50)} /> */}
+      <MainContainer data={dataState.results} /> 
       {/* <MenuContainer />   */}
     </Wrapper>
   );

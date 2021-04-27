@@ -25,6 +25,7 @@ export const TextArea = styled.textarea`
   padding-bottom: 75%;
   resize: none;
   outline: none;
+  overflow: ${({ active }) => (active ? 'auto' : 'hidden')};
   width: 100%;
 
   &::-webkit-scrollbar {

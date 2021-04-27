@@ -4,7 +4,7 @@ import { colors } from '../styles/variables';
 export const dummyData = {
   id: uuidv4(),
   text:
-    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis quam repellat eaque quod eligendi explicabo. Quisquam quod quo sed nemo! Iusto perferendis, laboriosam labore laborum odit nemo quam voluptate tempora voluptas nihil libero a vel commodi! Voluptatibus cumque consectetur corporis consequatur eveniet vitae non ut, ratione magni ducimus molestiae eligendi!',
+    'Lorem ipsum !  Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus impedit dolores sit quisquam deleniti vitae ex! Distinctio odit veritatis consectetur, ipsum quas fuga cumque sint autem perspiciatis omnis eveniet adipisci voluptatem ipsa odio eum similique neque itaque, numquam alias molestiae aut! Deleniti quam dolorum voluptas, suscipit nulla quod voluptate?',
   timestamp: new Date(),
   lastModified: new Date(),
   color: colors.orange,
