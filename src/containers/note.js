@@ -17,7 +17,6 @@ export default function NoteContainer(props) {
     text,
     currentId,
     setCurrentId,
-    dialogState,
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -55,6 +54,7 @@ export default function NoteContainer(props) {
   };
 
   const handleBlur = () => {
+    const textArea = textAreaRef.current;
     if (!(currentId === id)) setShowButtons(false);
     if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
@@ -63,7 +63,12 @@ export default function NoteContainer(props) {
     else DeletePermanently(id);
     SortByDate();
     setIsActive(false);
+    textArea.scroll({
+      top: 0,
+    });
   };
+
+  // !!! After blur text area should scroll to top.
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
@@ -123,12 +128,12 @@ export default function NoteContainer(props) {
             textValue={textValue}
             mouseClick={mouseClick}
             id={id}
-            dialogState={dialogState}
           />
         </Note.Box>
       )}
 
       <Note.TextArea
+        active={isActive}
         value={textValue}
         onChange={handleChange}
         onBlur={handleBlur}

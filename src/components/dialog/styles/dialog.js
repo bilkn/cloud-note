@@ -5,6 +5,7 @@ export const Container = styled.div`
   background: #f7f9fa;
   border-radius: 10px;
   left: 50%;
+  max-width: 330px;
   padding: 1.25em 1.5em;
   position: fixed;
   transform: translate(-50%, -50%);
@@ -14,13 +15,16 @@ export const Container = styled.div`
 
 export const Box = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  & button:first-child {
+    margin-right: 2em;
+  }
 `;
 
 export const Text = styled.p`
   color: black;
   font-size: 1.1rem;
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
   text-align: center;
 `;
 

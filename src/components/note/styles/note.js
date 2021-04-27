@@ -12,7 +12,7 @@ export const Container = styled.div`
   background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
-  padding: 2em 1.2em;
+  padding: 2em 1em;
   position: relative;
 `;
 
@@ -20,11 +20,37 @@ export const TextArea = styled.textarea`
   background: none;
   border: none;
   height: 0;
+  line-height: 1.4;
+  padding: 0 1.2em;
   padding-bottom: 75%;
   resize: none;
   outline: none;
-  overflow: hidden;
+  overflow: ${({ active }) => (active ? 'auto' : 'hidden')};
+  overscroll-behavior: contain;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #e1e1e1f7;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${colors.gray_3};
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d3d3d3;
+  }
+
+  @supports (aspect-ratio: 4/3) {
+    aspect-ratio: 4/3;
+    height: initial;
+    padding-bottom: 0;
+  }
 `;
 
 export const Title = styled.div`

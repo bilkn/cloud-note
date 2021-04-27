@@ -43,8 +43,12 @@ export default function dataReducer(state, action) {
       return { ...state, results: newResults, deleted: newDeleted };
     }
 
+    case 'DELETE_ALL': {
+      return { ...state, results: [], deleted: [] };
+    }
+
     case 'PERMANENT_DELETE': {
-      const { results} = state;
+      const { results } = state;
       const { deleteId } = action;
       const newResults = results.filter(({ id }) => id !== deleteId);
       return { ...state, results: newResults };

@@ -4,14 +4,14 @@ import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 import 'styled-components/macro';
 import { Note } from '../components';
-import { ToastContext } from '../context';
+import { DialogContext, ToastContext } from '../context';
 import { useData } from '../hooks';
 import { copyToClipboard } from '../helpers';
 
 export default function NoteButtonContainer(props) {
-  const { showButtons, setIsActive, textValue, id, dialogState } = props;
-  const [, setDialog] = dialogState;
+  const { showButtons, setIsActive, textValue, id } = props;
   const { dispatchToast } = useContext(ToastContext);
+  const [, setDialog] = useContext(DialogContext);
   const { Delete } = useData();
 
   const createBoxButtons = () => {
@@ -23,8 +23,11 @@ export default function NoteButtonContainer(props) {
 
     const handleCopyMouseUp = () => {
       if (showButtons) {
-        copyToClipboard(textValue)
-        dispatchToast({ type: 'COPY' });
+        copyToClipboard(textValue);
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'Note has been copied to the clipboard.',
+        });
         setIsActive(false);
       }
     };
@@ -32,11 +35,12 @@ export default function NoteButtonContainer(props) {
     const handleDeleteMouseUp = () => {
       if (showButtons) {
         setDialog({
-          active: true,
+          isOpen: true,
           text: 'Are you sure to delete this note?',
-          operation: () => Delete(id),
+          handler: () => Delete(id),
+          buttons: ['Cancel', 'Delete'],
         });
-         setIsActive(false);
+        setIsActive(false);
       }
     };
 
@@ -56,7 +60,7 @@ export default function NoteButtonContainer(props) {
       <Clipboard color={iconColor} size={iconSize} />,
       <Trash color={iconColor} size={iconSize} />,
     ];
-    return translates.map((translate, i, arr) => {
+    return translates.map((translate, i) => {
       return {
         css: `
         ${positions[i]};

@@ -12,7 +12,8 @@ export default function useData() {
       payload: { id, text },
     });
     dispatchToast({
-      type,
+      type: 'NOTIFICATION',
+      payload: 'Note has been added.',
     });
   };
 
@@ -27,7 +28,17 @@ export default function useData() {
     const type = 'DELETE';
     dispatchData({ type, deleteId: id });
     dispatchToast({
-      type,
+      type: 'NOTIFICATION',
+      payload: 'Note has been deleted.',
+    });
+  };
+
+  const DeleteAll = () => {
+    const type = 'DELETE_ALL';
+    dispatchData({ type });
+    dispatchToast({
+      type: 'NOTIFICATION',
+      payload: 'All notes have been deleted permanently.',
     });
   };
 
@@ -39,7 +50,8 @@ export default function useData() {
     const type = 'MODIFY';
     dispatchData({ type, payload: { modifyId: id, text } });
     dispatchToast({
-      type,
+      type: 'NOTIFICATION',
+      payload: 'Changes have been saved.',
     });
   };
 
@@ -47,5 +59,13 @@ export default function useData() {
     dispatchData({ type: 'SORT_BY_DATE' });
   };
 
-  return { Add, AddTemplate, Delete, DeletePermanently, Modify, SortByDate };
+  return {
+    Add,
+    AddTemplate,
+    Delete,
+    DeleteAll,
+    DeletePermanently,
+    Modify,
+    SortByDate,
+  };
 }
