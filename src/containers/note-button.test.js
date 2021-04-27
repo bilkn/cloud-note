@@ -25,6 +25,8 @@ test('Note is deleted after clicking delete button', () => {
   );
   const boxBtn = getByLabelText('Toggle note menu');
   fireEvent.click(boxBtn);
+  const textArea = getByTestId("note-text-area");
+  fireEvent.blur(textArea)
   const deleteBtn = getByLabelText('Delete note');
   // !!! Delete button style may be tested in the future.
   fireEvent.click(deleteBtn);
