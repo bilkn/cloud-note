@@ -1,8 +1,6 @@
 import styled from 'styled-components/macro';
 import devices from '../../../styles/devices';
 
-
-
 export const Container = styled.main`
   margin-top: 72px;
 `;
@@ -17,4 +15,3 @@ export const Grid = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 `;
-

@@ -11,7 +11,6 @@ export default function MainContainer({ data }) {
   const { mouseClick, setMouseClick } = useMouseClick();
   const [currentId, setCurrentId] = useState('');
   const [displayedData, setDisplayedData] = useState([]);
-
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
     if (searchQuery) {

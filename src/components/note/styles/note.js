@@ -12,7 +12,7 @@ export const Container = styled.div`
   background: ${(props) => props.color || colors.red_2};
   border-radius: 20px;
   box-shadow: ${shadows.commonShadow};
-  padding: 2em 1.2em;
+  padding: 2em 1em;
   position: relative;
 `;
 
@@ -20,6 +20,8 @@ export const TextArea = styled.textarea`
   background: none;
   border: none;
   height: 0;
+  line-height: 1.4;
+  padding: 0 1.2em;
   padding-bottom: 75%;
   resize: none;
   outline: none;

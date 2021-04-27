@@ -25,7 +25,8 @@ export default function Home() {
         }
       `}
     >
-      <MainContainer data={dataState.results} />
+      <MainContainer data={dummyDataList(50)} />
+      {/* <MainContainer data={dataState.results} /> */}
       {/* <MenuContainer />   */}
     </Wrapper>
   );
