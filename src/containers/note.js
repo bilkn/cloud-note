@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { Cross } from '@styled-icons/entypo/Cross';
 import { NoteButtonContainer } from '.';
 import { useData, useWindowKey, useWindowEvent } from '../hooks';
 
@@ -104,32 +103,27 @@ export default function NoteContainer(props) {
       onClick={handleNoteClick}
     >
       {lastModified && (
-        <Note.Box
-          active={showButtons}
-          mouseClick={mouseClick}
-          onClick={handleToggleClick}
-          onMouseDown={handleMouseDown}
-          role="button"
-          title="Toggle note menu"
-          tabIndex="0"
-          aria-label="Toggle note menu"
-        >
-          <Cross
-            size="28"
-            css={`
-              color: inherit;
-              opacity: ${showButtons ? '1' : '0'};
-            `}
-          />
-
-          <NoteButtonContainer
+        <Note.ButtonWrapper>
+          {/*   <Note.Box
+            active={showButtons}
+            mouseClick={mouseClick}
+            onClick={handleToggleClick}
+            onMouseDown={handleMouseDown}
+            role="button"
+            title="Toggle note menu"
+            tabIndex="0"
+            aria-label="Toggle note menu"
+          > */}
+          {/*   <NoteButtonContainer
             showButtons={showButtons}
             setIsActive={setIsActive}
             textValue={textValue}
             mouseClick={mouseClick}
             id={id}
-          />
-        </Note.Box>
+          /> */}
+          {/* </Note.Box> */}
+          <Note.ToggleButton active={showButtons} onClick={handleToggleClick} />
+        </Note.ButtonWrapper>
       )}
 
       <Note.TextArea
