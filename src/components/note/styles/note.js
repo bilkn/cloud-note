@@ -1,11 +1,23 @@
 import styled, { css } from 'styled-components/macro';
 import { shadows, colors } from '../../../styles/variables';
-import { scaleUp } from '../../../styles/animations';
+import {
+  dotBeforeAnimation,
+  dotAfterAnimation,
+  scaleUp,
+} from '../../../styles/animations';
 
 const noteAnimation = () =>
   css`
     animation: ${scaleUp} 1.5s forwards;
   `;
+
+const dotBeforeAnimationRule = css`
+  animation: ${dotBeforeAnimation} 500ms forwards;
+`;
+
+const dotAfterAnimationRule = css`
+  animation: ${dotAfterAnimation} 500ms forwards;
+`;
 
 export const Container = styled.div`
   ${(props) => (props.animate ? noteAnimation : '')}
@@ -108,10 +120,12 @@ export const ToggleButton = styled.button`
   }
 
   &::before {
+    ${({ active }) => (active ? dotBeforeAnimationRule : '')};
     left: 0;
   }
 
   &::after {
+    ${({ active }) => (active ? dotAfterAnimationRule : '')};
     right: 0;
   }
 `;

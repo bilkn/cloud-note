@@ -7,7 +7,7 @@ import {
   Button,
   ToggleButton,
   Title,
-  Dot
+  Dot,
 } from './styles/note';
 
 export default function Note({ children, ...restProps }) {
@@ -30,9 +30,9 @@ Note.Button = function NoteButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
 
-Note.ToggleButton = function NoteToggleButton({active, ...restProps }) {
+Note.ToggleButton = function NoteToggleButton({ active, ...restProps }) {
   return (
-    <ToggleButton {...restProps}>
+    <ToggleButton active={active} {...restProps}>
       <Dot active={active} />
     </ToggleButton>
   );
