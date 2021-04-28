@@ -85,20 +85,37 @@ export const Title = styled.div`
   }
 `;
 
-export const Box = styled.div``;
+export const Box = styled.div`
+  background: white;
+  border-radius: 0 0 25px 25px;
+  display: flex;
+  flex-direction: column;
+  height: ${({ active }) => (active ? '200px' : '0')};
+  padding-top: 150%;
+  position: absolute;
+  transform: translateY(-5px);
+  transition: height 500ms;
+  overflow: hidden;
+  width: ${({ active }) => (active ? '40px' : '0')};
+`;
 
 export const ButtonWrapper = styled.div`
   border: none;
   cursor: pointer;
   display: flex;
   height: 5px;
+  justify-content: center;
   position: absolute;
   right: 25px;
   top: 25px;
   width: 21px;
 `;
 
-export const Button = styled.button``;
+export const Button = styled.button`
+  background: none;
+  color: ${colors.gray_4};
+  padding: 0.5em;
+`;
 
 export const ToggleButton = styled.button`
   background: none;
@@ -109,7 +126,7 @@ export const ToggleButton = styled.button`
 
   &::before,
   &::after {
-    background: #515255;
+    background: ${colors.gray_4};
     border-radius: 50%;
     content: ' ';
     height: 5px;

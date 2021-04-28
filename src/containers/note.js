@@ -4,6 +4,9 @@ import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import { NoteButtonContainer } from '.';
 import { useData, useWindowKey, useWindowEvent } from '../hooks';
+import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
+import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
+import { Trash } from '@styled-icons/bootstrap/Trash';
 
 export default function NoteContainer(props) {
   const {
@@ -104,26 +107,36 @@ export default function NoteContainer(props) {
     >
       {lastModified && (
         <Note.ButtonWrapper>
-          {/*   <Note.Box
+          <Note.Box active={showButtons}>
+            <Note.Button title="Edit note" aria-label="Edit note">
+              <Edit size="24" />
+            </Note.Button>
+            <Note.Button title="Enlarge note" aria-label="Enlarge note">
+              <Fullscreen size="24" />
+            </Note.Button>
+            <Note.Button title="Copy to clipboard" aria-label="Copy to clipboard">
+              <Clipboard size="24" />
+            </Note.Button>
+            <Note.Button title="Delete note" aria-label="Delete note">
+              <Trash size="24" />
+            </Note.Button>
+          </Note.Box>
+          <Note.ToggleButton
             active={showButtons}
             mouseClick={mouseClick}
             onClick={handleToggleClick}
             onMouseDown={handleMouseDown}
-            role="button"
             title="Toggle note menu"
-            tabIndex="0"
             aria-label="Toggle note menu"
-          > */}
-          {/*   <NoteButtonContainer
+          />
+        </Note.ButtonWrapper>
+        /*   <NoteButtonContainer
             showButtons={showButtons}
             setIsActive={setIsActive}
             textValue={textValue}
             mouseClick={mouseClick}
             id={id}
-          /> */}
-          {/* </Note.Box> */}
-          <Note.ToggleButton active={showButtons} onClick={handleToggleClick} />
-        </Note.ButtonWrapper>
+          /> */
       )}
 
       <Note.TextArea

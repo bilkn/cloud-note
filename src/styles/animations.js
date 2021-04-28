@@ -64,7 +64,7 @@ export const dotBeforeAnimation = keyframes`
     transform: translateX(0);
   }
   50% {
-    transform: translateX(7px);
+    transform: translateX(8px) scale(0.5);
     height: 5px;
     width: 5px;
   }
@@ -79,7 +79,7 @@ export const dotAfterAnimation = keyframes`
     transform: translateX(0);
   }
   50% {
-    transform: translateX(-7px);
+    transform: translateX(-8px) scale(0.5);
     height: 5px;
     width: 5px;
   }
