@@ -1,5 +1,11 @@
 import { keyframes } from 'styled-components';
 
+const dotToStyle = `
+    border-radius: 3px;
+    height: 2px;
+    width: 11px;
+`;
+
 export const fadeIn = keyframes`
 from {
     opacity: 0;
@@ -52,3 +58,35 @@ export const slideInFaded = keyframes`
         opacity:1;
     }
 `;
+
+export const dotBeforeAnimation = keyframes`
+ from {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(7px);
+    height: 5px;
+    width: 5px;
+  }
+  to {
+    ${dotToStyle}
+    transform: rotateZ(-45deg) translate(2px, 5px);
+  }
+`;
+
+export const dotAfterAnimation = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-7px);
+    height: 5px;
+    width: 5px;
+  }
+  to {
+    ${dotToStyle}
+    transform: rotateZ(45deg) translate(-2px, 5px);
+  }
+`;
+
+

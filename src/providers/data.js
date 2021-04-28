@@ -5,7 +5,7 @@ import { dummyDataList } from '../fixtures/dummy-data';
 export default function DataProvider(props) {
   
   const [dataState, dispatchData] = useReducer(dataReducer, {
-    results: [...dummyDataList(50)],
+    results: [/* ...dummyDataList(50) */],
     deleted: [],
     isLoading: false,
     isError: false,

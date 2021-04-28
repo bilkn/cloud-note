@@ -12,10 +12,8 @@ import { sizes } from '../styles/variables';
 import 'styled-components/macro';
 import { DataContext } from '../context';
 
-
 export default function Home() {
   const { dataState } = useContext(DataContext);
-
   return (
     <Wrapper
       css={`
@@ -25,8 +23,8 @@ export default function Home() {
         }
       `}
     >
-    {/*   <MainContainer data={dummyDataList(50)} /> */}
-      <MainContainer data={dataState.results} /> 
+      {/*   <MainContainer data={dummyDataList(50)} /> */}
+      <MainContainer data={dataState.results} />
       {/* <MenuContainer />   */}
     </Wrapper>
   );

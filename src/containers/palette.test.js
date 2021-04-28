@@ -8,7 +8,7 @@ let matchMedia = null;
 describe('Tests note creation', () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
-    scroll();
+    scroll(window);
   });
 
   afterEach(() => {
