@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { shadows, colors } from '../../../styles/variables';
+import { shadows, colors, indexes } from '../../../styles/variables';
 import {
   dotBeforeAnimation,
   dotAfterAnimation,
@@ -87,14 +87,15 @@ export const Title = styled.div`
 
 export const Box = styled.div`
   background: white;
-  border-radius: 0 0 25px 25px;
+  border-radius: ${({ active }) => (active ? '0 0 25px 25px' : '25px')};
   display: flex;
   flex-direction: column;
   height: ${({ active }) => (active ? '205px' : '0')};
   padding-top: 150%;
   position: absolute;
   transform: translateY(5px);
-  transition: height 500ms;
+  transition: 500ms;
+  transition-property: height, border-radius;
   overflow: hidden;
   width: ${({ active }) => (active ? '40px' : '0')};
 `;
@@ -142,7 +143,7 @@ export const ToggleButton = styled.button`
     position: absolute;
     top: 13px;
     width: 5px;
-    z-index: 10;
+    z-index: ${indexes.note_btn};
   }
 
   &::before {
@@ -163,8 +164,8 @@ export const Dot = styled.span`
     active ? 'box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;' : ''};
   height: ${({ active }) => (active ? '45px' : '5px')};
   position: absolute;
-  ${({ active }) =>
-    active ? 'transform: translateY(12px)' : 'transform: translateY(-8px)'};
+  transform: ${({ active }) =>
+    active ? ' translateY(12px)' : 'translateY(-8px)'};
   transition: 300ms;
   transition-property: width, height, transform, background;
   width: ${({ active }) => (active ? '45px' : '5px')};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Main } from '../components';
-import {NoteContainer } from '../containers';
+import { NoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
@@ -13,6 +13,7 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
+   
     if (searchQuery) {
       const filteredData = data.filter(({ text }) =>
         text.toLowerCase().includes(searchQuery.toLowerCase())
@@ -22,22 +23,22 @@ export default function MainContainer({ data }) {
       setDisplayedData(data);
     }
   }, [searchProp, data]);
-
+ console.log('main');
   return (
     <>
       <Main>
         <Main.Grid>
-          {displayedData.map(({ text, color, timestamp, lastModified, id }) => (
+          {displayedData.map(({ id, color, text, timestamp, lastModified }) => (
             <NoteContainer
               key={id}
-              id={id}
+              id ={id}
               color={color}
+              text={text}
               timestamp={timestamp}
               lastModified={lastModified}
               mouseClick={mouseClick}
               setMouseClick={setMouseClick}
-              text={text}
-              currentId={currentId}
+              isCurrentId={currentId === id}
               setCurrentId={setCurrentId}
             />
           ))}

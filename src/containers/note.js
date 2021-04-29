@@ -9,16 +9,16 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
 import { copyToClipboard } from '../helpers';
 import { DialogContext, ToastContext } from '../context';
 
-export default function NoteContainer(props) {
+export const NoteContainer = React.memo((props) => {
   const {
     id,
-    mouseClick,
-    setMouseClick,
     color,
+    text,
     timestamp,
     lastModified,
-    text,
-    currentId,
+    mouseClick,
+    setMouseClick,
+    isCurrentId,
     setCurrentId,
   } = props;
   const [showButtons, setShowButtons] = useState(false);
@@ -44,6 +44,8 @@ export default function NoteContainer(props) {
       setIsActive(true);
     }
   };
+
+  console.log("note render")
 
   const handleCopyClick = () => {
     if (showButtons) {
@@ -89,7 +91,7 @@ export default function NoteContainer(props) {
 
   const handleBlur = () => {
     const textArea = textAreaRef.current;
-    if (!(currentId === id)) setShowButtons(false);
+    if (!isCurrentId) setShowButtons(false);
     if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
@@ -106,11 +108,11 @@ export default function NoteContainer(props) {
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
-    if (currentId && currentId !== id) {
+    if (!isCurrentId) {
       setShowButtons(false);
       setIsActive(false);
     }
-  }, [currentId, id]);
+  }, [isCurrentId]);
 
   // Activates the note, if it is just created.
   useEffect(() => {
@@ -165,7 +167,7 @@ export default function NoteContainer(props) {
               <Trash size="24" />
             </Note.Button>
           </Note.Box>
-          
+
           <Note.ToggleButton
             active={showButtons}
             mouseClick={mouseClick}
@@ -195,4 +197,6 @@ export default function NoteContainer(props) {
       />
     </Note>
   );
-}
+})
+
+export default NoteContainer;
