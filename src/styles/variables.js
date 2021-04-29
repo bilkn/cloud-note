@@ -6,6 +6,7 @@ export const colors = {
   gray_3: '#9e9ea7',
   gray_4: "#515255",
   gray_4_hover: "#515255c2",
+  gray_5_hover: "#eaeaea",
   red: '#f1554c',
   red_hover: '#e7483f',
   red_hover_2: '#f1554cb8',

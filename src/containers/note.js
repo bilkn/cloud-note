@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { NoteButtonContainer } from '.';
 import { useData, useWindowKey, useWindowEvent } from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
+import { copyToClipboard } from '../helpers';
+import { DialogContext, ToastContext } from '../context';
 
 export default function NoteContainer(props) {
   const {
@@ -24,6 +25,8 @@ export default function NoteContainer(props) {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+  const { dispatchToast } = useContext(ToastContext);
+  const [, setDialog] = useContext(DialogContext);
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
   useWindowEvent({
     events: [{ event: 'click' }],
@@ -35,6 +38,35 @@ export default function NoteContainer(props) {
     handlers: [() => setShowButtons(false)],
     condition: showButtons,
   });
+
+  const handleEditClick = () => {
+    if (showButtons) {
+      setIsActive(true);
+    }
+  };
+
+  const handleCopyClick = () => {
+    if (showButtons) {
+      copyToClipboard(textValue);
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been copied to the clipboard.',
+      });
+      setIsActive(false);
+    }
+  };
+
+  const handleDeleteClick = () => {
+    if (showButtons) {
+      setDialog({
+        isOpen: true,
+        text: 'Are you sure to delete this note?',
+        handler: () => Delete(id),
+        buttons: ['Cancel', 'Delete'],
+      });
+      setIsActive(false);
+    }
+  };
 
   const handleToggleClick = (e) => {
     e.stopPropagation();
@@ -108,16 +140,28 @@ export default function NoteContainer(props) {
       {lastModified && (
         <Note.ButtonWrapper>
           <Note.Box active={showButtons}>
-            <Note.Button title="Edit note" aria-label="Edit note">
+            <Note.Button
+              onClick={handleEditClick}
+              title="Edit note"
+              aria-label="Edit note"
+            >
               <Edit size="24" />
             </Note.Button>
             <Note.Button title="Enlarge note" aria-label="Enlarge note">
               <Fullscreen size="24" />
             </Note.Button>
-            <Note.Button title="Copy to clipboard" aria-label="Copy to clipboard">
+            <Note.Button
+              onClick={handleCopyClick}
+              title="Copy to clipboard"
+              aria-label="Copy to clipboard"
+            >
               <Clipboard size="24" />
             </Note.Button>
-            <Note.Button title="Delete note" aria-label="Delete note">
+            <Note.Button
+              onClick={handleDeleteClick}
+              title="Delete note"
+              aria-label="Delete note"
+            >
               <Trash size="24" />
             </Note.Button>
           </Note.Box>

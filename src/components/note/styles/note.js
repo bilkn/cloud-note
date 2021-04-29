@@ -115,6 +115,13 @@ export const Button = styled.button`
   background: none;
   color: ${colors.gray_4};
   padding: 0.5em;
+  transition: background 100ms;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    background: ${colors.gray_5_hover};
+  }
 `;
 
 export const ToggleButton = styled.button`
