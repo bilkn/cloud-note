@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Main } from '../components';
+import { Main, Backdrop } from '../components';
 import { NoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
@@ -11,9 +11,11 @@ export default function MainContainer({ data }) {
   const { mouseClick, setMouseClick } = useMouseClick();
   const [currentId, setCurrentId] = useState('');
   const [displayedData, setDisplayedData] = useState([]);
+  const [showEnlargedNote, setShowEnlargedNote] = useState(false);
+
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
-   
+
     if (searchQuery) {
       const filteredData = data.filter(({ text }) =>
         text.toLowerCase().includes(searchQuery.toLowerCase())
@@ -23,7 +25,7 @@ export default function MainContainer({ data }) {
       setDisplayedData(data);
     }
   }, [searchProp, data]);
- console.log('main');
+  console.log('main');
   return (
     <>
       <Main>
@@ -31,7 +33,7 @@ export default function MainContainer({ data }) {
           {displayedData.map(({ id, color, text, timestamp, lastModified }) => (
             <NoteContainer
               key={id}
-              id ={id}
+              id={id}
               color={color}
               text={text}
               timestamp={timestamp}
@@ -40,10 +42,16 @@ export default function MainContainer({ data }) {
               setMouseClick={setMouseClick}
               isCurrentId={currentId === id}
               setCurrentId={setCurrentId}
+              setShowEnlargedNote={setShowEnlargedNote}
             />
           ))}
         </Main.Grid>
       </Main>
+      {showEnlargedNote && (
+        <Backdrop>
+        {/*   <NoteContainer /> */}
+        </Backdrop>
+      )}
     </>
   );
 }

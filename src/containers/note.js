@@ -18,6 +18,7 @@ export const NoteContainer = React.memo((props) => {
     setMouseClick,
     isCurrentId,
     setCurrentId,
+    setShowEnlargedNote
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -29,7 +30,14 @@ export const NoteContainer = React.memo((props) => {
     handleCopyClick,
     handleDeleteClick,
     handleToggleClick,
-  } = useHandler({ showButtons, setShowButtons, setCurrentId, setIsActive });
+    handleEnlargeClick,
+  } = useHandler({
+    showButtons,
+    setShowButtons,
+    setCurrentId,
+    setIsActive,
+    setShowEnlargedNote,
+  });
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -114,7 +122,7 @@ export const NoteContainer = React.memo((props) => {
             >
               <Edit size="24" />
             </Note.Button>
-            <Note.Button title="Enlarge note" aria-label="Enlarge note">
+            <Note.Button onClick={handleEnlargeClick} title="Enlarge note" aria-label="Enlarge note">
               <Fullscreen size="24" />
             </Note.Button>
             <Note.Button

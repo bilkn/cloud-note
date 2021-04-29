@@ -4,7 +4,13 @@ import { DialogContext, ToastContext } from '../context';
 import { copyToClipboard } from '../helpers';
 
 function useHandler(props) {
-  const { showButtons, setShowButtons, setCurrentId, setIsActive } = props;
+  const {
+    showButtons,
+    setShowButtons,
+    setCurrentId,
+    setIsActive,
+    setShowEnlargedNote,
+  } = props;
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { Delete } = useData();
@@ -38,6 +44,10 @@ function useHandler(props) {
     }
   };
 
+  const handleEnlargeClick = () => {
+    setShowEnlargedNote(true);
+  };
+
   const handleToggleClick = (e, id) => {
     e.stopPropagation();
     setShowButtons(!showButtons);
@@ -49,6 +59,7 @@ function useHandler(props) {
     handleCopyClick,
     handleDeleteClick,
     handleToggleClick,
+    handleEnlargeClick,
   };
 }
 
