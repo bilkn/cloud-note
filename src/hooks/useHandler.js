@@ -10,6 +10,7 @@ function useHandler(props) {
     setCurrentId,
     setIsActive,
     setShowEnlargedNote,
+    setRect
   } = props;
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
@@ -44,8 +45,9 @@ function useHandler(props) {
     }
   };
 
-  const handleEnlargeClick = () => {
+  const handleEnlargeClick = (rect) => {
     setShowEnlargedNote(true);
+    setRect(rect)
   };
 
   const handleToggleClick = (e, id) => {

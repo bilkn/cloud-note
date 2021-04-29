@@ -7,7 +7,7 @@ import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export default function NoteContainer(props, ref) {
+export default function NoteContainer(props) {
   const {
     id,
     color,
@@ -19,11 +19,14 @@ export default function NoteContainer(props, ref) {
     isCurrentId,
     setCurrentId,
     setShowEnlargedNote,
+    setRect,
+    style
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+  const noteRef = useRef(null)
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
   const {
     handleEditClick,
@@ -37,6 +40,7 @@ export default function NoteContainer(props, ref) {
     setCurrentId,
     setIsActive,
     setShowEnlargedNote,
+    setRect,
   });
   useWindowEvent({
     events: [{ event: 'click' }],
@@ -56,6 +60,8 @@ export default function NoteContainer(props, ref) {
   const handleNoteClick = () => {
     setCurrentId(id);
   };
+
+  console.log(style);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -110,7 +116,8 @@ export default function NoteContainer(props, ref) {
       animate={!isSecondsPassed(1, timestamp)}
       data-testid="note"
       onClick={handleNoteClick}
-      ref={ref}
+      ref={noteRef}
+      css={style}
     >
       {lastModified && (
         <Note.ButtonWrapper>
@@ -123,7 +130,7 @@ export default function NoteContainer(props, ref) {
               <Edit size="24" />
             </Note.Button>
             <Note.Button
-              onClick={handleEnlargeClick}
+              onClick={()=>handleEnlargeClick(noteRef.current.getBoundingClientRect())}
               title="Enlarge note"
               aria-label="Enlarge note"
             >
@@ -167,5 +174,4 @@ export default function NoteContainer(props, ref) {
   );
 }
 
-const ForwardRefNoteContainer = React.forwardRef(NoteContainer, {});
-export const MemoOfFowardRefNoteContainer = React.memo(ForwardRefNoteContainer);
+export const MemoizedNoteContainer = React.memo(NoteContainer);
