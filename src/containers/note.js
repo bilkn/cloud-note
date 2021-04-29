@@ -7,7 +7,7 @@ import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export const NoteContainer = React.memo((props) => {
+export default function NoteContainer(props, ref) {
   const {
     id,
     color,
@@ -18,7 +18,7 @@ export const NoteContainer = React.memo((props) => {
     setMouseClick,
     isCurrentId,
     setCurrentId,
-    setShowEnlargedNote
+    setShowEnlargedNote,
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -104,13 +104,13 @@ export const NoteContainer = React.memo((props) => {
       textArea.setSelectionRange(length, length);
     } else textArea.blur();
   }, [isActive, textValue]);
-
   return (
     <Note
       color={color}
       animate={!isSecondsPassed(1, timestamp)}
       data-testid="note"
       onClick={handleNoteClick}
+      ref={ref}
     >
       {lastModified && (
         <Note.ButtonWrapper>
@@ -122,7 +122,11 @@ export const NoteContainer = React.memo((props) => {
             >
               <Edit size="24" />
             </Note.Button>
-            <Note.Button onClick={handleEnlargeClick} title="Enlarge note" aria-label="Enlarge note">
+            <Note.Button
+              onClick={handleEnlargeClick}
+              title="Enlarge note"
+              aria-label="Enlarge note"
+            >
               <Fullscreen size="24" />
             </Note.Button>
             <Note.Button
@@ -161,6 +165,7 @@ export const NoteContainer = React.memo((props) => {
       />
     </Note>
   );
-});
+}
 
-export default NoteContainer;
+const ForwardRefNoteContainer = React.forwardRef(NoteContainer, {});
+export const MemoOfFowardRefNoteContainer = React.memo(ForwardRefNoteContainer);

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Main, Backdrop } from '../components';
-import { NoteContainer } from '../containers';
+import { MemoOfFowardRefNoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
@@ -12,9 +12,9 @@ export default function MainContainer({ data }) {
   const [currentId, setCurrentId] = useState('');
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
-
   const getCurrentNoteData = displayedData.find(({ id }) => id === currentId);
   const handleBackdropClick = () => setShowEnlargedNote(false);
+  const noteRef = useRef(null);
 
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
@@ -27,13 +27,12 @@ export default function MainContainer({ data }) {
       setDisplayedData(data);
     }
   }, [searchProp, data]);
-
   return (
     <>
       <Main>
         <Main.Grid>
           {displayedData.map((data) => (
-            <NoteContainer
+            <MemoOfFowardRefNoteContainer
               key={data.id}
               {...data}
               mouseClick={mouseClick}
@@ -41,19 +40,21 @@ export default function MainContainer({ data }) {
               isCurrentId={currentId === data.id}
               setCurrentId={setCurrentId}
               setShowEnlargedNote={setShowEnlargedNote}
+              ref={noteRef}
             />
           ))}
         </Main.Grid>
       </Main>
       {showEnlargedNote && (
         <Backdrop onClick={handleBackdropClick}>
-          <NoteContainer
+          <MemoOfFowardRefNoteContainer
             {...getCurrentNoteData}
             mouseClick={mouseClick}
             setMouseClick={setMouseClick}
             isCurrentId={currentId === data.id}
             setCurrentId={setCurrentId}
             setShowEnlargedNote={setShowEnlargedNote}
+            ref= {noteRef}
           />
           {/* !!! Remove setState duplicates. */}
         </Backdrop>
