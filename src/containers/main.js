@@ -13,9 +13,11 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
 
+  const getCurrentNoteData = displayedData.find(({ id }) => id === currentId);
+  const handleBackdropClick = () => setShowEnlargedNote(false);
+
   useEffect(() => {
     const { search: searchQuery } = queryString.parse(searchProp);
-
     if (searchQuery) {
       const filteredData = data.filter(({ text }) =>
         text.toLowerCase().includes(searchQuery.toLowerCase())
@@ -25,22 +27,18 @@ export default function MainContainer({ data }) {
       setDisplayedData(data);
     }
   }, [searchProp, data]);
-  console.log('main');
+
   return (
     <>
       <Main>
         <Main.Grid>
-          {displayedData.map(({ id, color, text, timestamp, lastModified }) => (
+          {displayedData.map((data) => (
             <NoteContainer
-              key={id}
-              id={id}
-              color={color}
-              text={text}
-              timestamp={timestamp}
-              lastModified={lastModified}
+              key={data.id}
+              {...data}
               mouseClick={mouseClick}
               setMouseClick={setMouseClick}
-              isCurrentId={currentId === id}
+              isCurrentId={currentId === data.id}
               setCurrentId={setCurrentId}
               setShowEnlargedNote={setShowEnlargedNote}
             />
@@ -48,8 +46,16 @@ export default function MainContainer({ data }) {
         </Main.Grid>
       </Main>
       {showEnlargedNote && (
-        <Backdrop>
-        {/*   <NoteContainer /> */}
+        <Backdrop onClick={handleBackdropClick}>
+          <NoteContainer
+            {...getCurrentNoteData}
+            mouseClick={mouseClick}
+            setMouseClick={setMouseClick}
+            isCurrentId={currentId === data.id}
+            setCurrentId={setCurrentId}
+            setShowEnlargedNote={setShowEnlargedNote}
+          />
+          {/* !!! Remove setState duplicates. */}
         </Backdrop>
       )}
     </>
