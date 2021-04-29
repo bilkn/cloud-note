@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { useData, useWindowKey, useWindowEvent } from '../hooks';
+import { useData, useWindowKey, useWindowEvent, useHandler } from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
-import { copyToClipboard } from '../helpers';
-import { DialogContext, ToastContext } from '../context';
 
 export const NoteContainer = React.memo((props) => {
   const {
@@ -25,9 +23,13 @@ export const NoteContainer = React.memo((props) => {
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const { dispatchToast } = useContext(ToastContext);
-  const [, setDialog] = useContext(DialogContext);
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const {
+    handleEditClick,
+    handleCopyClick,
+    handleDeleteClick,
+    handleToggleClick,
+  } = useHandler({ showButtons, setShowButtons, setCurrentId, setIsActive });
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -38,43 +40,6 @@ export const NoteContainer = React.memo((props) => {
     handlers: [() => setShowButtons(false)],
     condition: showButtons,
   });
-
-  const handleEditClick = () => {
-    if (showButtons) {
-      setIsActive(true);
-    }
-  };
-
-  console.log("note render")
-
-  const handleCopyClick = () => {
-    if (showButtons) {
-      copyToClipboard(textValue);
-      dispatchToast({
-        type: 'NOTIFICATION',
-        payload: 'Note has been copied to the clipboard.',
-      });
-      setIsActive(false);
-    }
-  };
-
-  const handleDeleteClick = () => {
-    if (showButtons) {
-      setDialog({
-        isOpen: true,
-        text: 'Are you sure to delete this note?',
-        handler: () => Delete(id),
-        buttons: ['Cancel', 'Delete'],
-      });
-      setIsActive(false);
-    }
-  };
-
-  const handleToggleClick = (e) => {
-    e.stopPropagation();
-    setShowButtons(!showButtons);
-    setCurrentId(id);
-  };
 
   const handleMouseDown = () => {
     setMouseClick(true);
@@ -153,39 +118,30 @@ export const NoteContainer = React.memo((props) => {
               <Fullscreen size="24" />
             </Note.Button>
             <Note.Button
-              onClick={handleCopyClick}
+              onClick={() => handleCopyClick(textValue)}
               title="Copy to clipboard"
               aria-label="Copy to clipboard"
             >
               <Clipboard size="24" />
             </Note.Button>
             <Note.Button
-              onClick={handleDeleteClick}
+              onClick={() => handleDeleteClick(id)}
               title="Delete note"
               aria-label="Delete note"
             >
               <Trash size="24" />
             </Note.Button>
           </Note.Box>
-
           <Note.ToggleButton
             active={showButtons}
             mouseClick={mouseClick}
-            onClick={handleToggleClick}
+            onClick={(e) => handleToggleClick(e, id)}
             onMouseDown={handleMouseDown}
             title="Toggle note menu"
             aria-label="Toggle note menu"
           />
         </Note.ButtonWrapper>
-        /*   <NoteButtonContainer
-            showButtons={showButtons}
-            setIsActive={setIsActive}
-            textValue={textValue}
-            mouseClick={mouseClick}
-            id={id}
-          /> */
       )}
-
       <Note.TextArea
         active={isActive}
         value={textValue}
@@ -197,6 +153,6 @@ export const NoteContainer = React.memo((props) => {
       />
     </Note>
   );
-})
+});
 
 export default NoteContainer;
