@@ -90,10 +90,10 @@ export const Box = styled.div`
   border-radius: 0 0 25px 25px;
   display: flex;
   flex-direction: column;
-  height: ${({ active }) => (active ? '200px' : '0')};
+  height: ${({ active }) => (active ? '205px' : '0')};
   padding-top: 150%;
   position: absolute;
-  transform: translateY(-5px);
+  transform: translateY(5px);
   transition: height 500ms;
   overflow: hidden;
   width: ${({ active }) => (active ? '40px' : '0')};
@@ -103,11 +103,11 @@ export const ButtonWrapper = styled.div`
   border: none;
   cursor: pointer;
   display: flex;
-  height: 5px;
+  height: 26px;
   justify-content: center;
   position: absolute;
   right: 25px;
-  top: 25px;
+  top: 10px;
   width: 21px;
 `;
 
@@ -125,10 +125,12 @@ export const Button = styled.button`
 `;
 
 export const ToggleButton = styled.button`
+  align-items: flex-end;
   background: none;
   display: flex;
   height: inherit;
   justify-content: center;
+  margin: auto;
   width: inherit;
 
   &::before,
@@ -138,7 +140,7 @@ export const ToggleButton = styled.button`
     content: ' ';
     height: 5px;
     position: absolute;
-    top: 0;
+    top: 13px;
     width: 5px;
     z-index: 10;
   }
@@ -161,7 +163,8 @@ export const Dot = styled.span`
     active ? 'box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;' : ''};
   height: ${({ active }) => (active ? '45px' : '5px')};
   position: absolute;
-  ${({ active }) => (active ? 'transform: translateY(-20px)' : '')};
+  ${({ active }) =>
+    active ? 'transform: translateY(12px)' : 'transform: translateY(-8px)'};
   transition: 300ms;
   transition-property: width, height, transform, background;
   width: ${({ active }) => (active ? '45px' : '5px')};

@@ -165,6 +165,7 @@ export default function NoteContainer(props) {
               <Trash size="24" />
             </Note.Button>
           </Note.Box>
+          
           <Note.ToggleButton
             active={showButtons}
             mouseClick={mouseClick}
