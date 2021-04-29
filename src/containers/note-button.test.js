@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+/* import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { v4 as uuidv4 } from 'uuid';
 import { MainContainer } from '.';
 import { DataProvider, ToastProvider } from '../providers';
@@ -43,3 +43,4 @@ test('Note is deleted after clicking delete button', async () => {
   // !!! Delete button style may be tested in the future.
   fireEvent.click(deleteBtn);
 });
+ */

@@ -2,26 +2,46 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { NoteButtonContainer } from '.';
-import { useData, useWindowKey, useWindowEvent } from '../hooks';
+import { useData, useWindowKey, useWindowEvent, useHandler } from '../hooks';
+import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
+import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
+import { Trash } from '@styled-icons/bootstrap/Trash';
 
 export default function NoteContainer(props) {
   const {
     id,
-    mouseClick,
-    setMouseClick,
     color,
+    text,
     timestamp,
     lastModified,
-    text,
-    currentId,
+    mouseClick,
+    setMouseClick,
+    isCurrentId,
     setCurrentId,
+    setShowEnlargedNote,
+    setRect,
+    style
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
+  const noteRef = useRef(null)
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const {
+    handleEditClick,
+    handleCopyClick,
+    handleDeleteClick,
+    handleToggleClick,
+    handleEnlargeClick,
+  } = useHandler({
+    showButtons,
+    setShowButtons,
+    setCurrentId,
+    setIsActive,
+    setShowEnlargedNote,
+    setRect,
+  });
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -33,12 +53,6 @@ export default function NoteContainer(props) {
     condition: showButtons,
   });
 
-  const handleToggleClick = (e) => {
-    e.stopPropagation();
-    setShowButtons(!showButtons);
-    setCurrentId(id);
-  };
-
   const handleMouseDown = () => {
     setMouseClick(true);
   };
@@ -47,6 +61,8 @@ export default function NoteContainer(props) {
     setCurrentId(id);
   };
 
+  console.log(style);
+
   const handleChange = (e) => {
     e.preventDefault();
     setTextValue(e.target.value);
@@ -54,7 +70,7 @@ export default function NoteContainer(props) {
 
   const handleBlur = () => {
     const textArea = textAreaRef.current;
-    if (!(currentId === id)) setShowButtons(false);
+    if (!isCurrentId) setShowButtons(false);
     if (textValue.trim()) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
@@ -71,11 +87,11 @@ export default function NoteContainer(props) {
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
-    if (currentId && currentId !== id) {
+    if (!isCurrentId) {
       setShowButtons(false);
       setIsActive(false);
     }
-  }, [currentId, id]);
+  }, [isCurrentId]);
 
   // Activates the note, if it is just created.
   useEffect(() => {
@@ -94,38 +110,57 @@ export default function NoteContainer(props) {
       textArea.setSelectionRange(length, length);
     } else textArea.blur();
   }, [isActive, textValue]);
-
   return (
     <Note
       color={color}
       animate={!isSecondsPassed(1, timestamp)}
       data-testid="note"
       onClick={handleNoteClick}
+      ref={noteRef}
+      css={style}
     >
       {lastModified && (
         <Note.ButtonWrapper>
-          {/*   <Note.Box
+          <Note.Box active={showButtons}>
+            <Note.Button
+              onClick={handleEditClick}
+              title="Edit note"
+              aria-label="Edit note"
+            >
+              <Edit size="24" />
+            </Note.Button>
+            <Note.Button
+              onClick={()=>handleEnlargeClick(noteRef.current.getBoundingClientRect())}
+              title="Enlarge note"
+              aria-label="Enlarge note"
+            >
+              <Fullscreen size="24" />
+            </Note.Button>
+            <Note.Button
+              onClick={() => handleCopyClick(textValue)}
+              title="Copy to clipboard"
+              aria-label="Copy to clipboard"
+            >
+              <Clipboard size="24" />
+            </Note.Button>
+            <Note.Button
+              onClick={() => handleDeleteClick(id)}
+              title="Delete note"
+              aria-label="Delete note"
+            >
+              <Trash size="24" />
+            </Note.Button>
+          </Note.Box>
+          <Note.ToggleButton
             active={showButtons}
             mouseClick={mouseClick}
-            onClick={handleToggleClick}
+            onClick={(e) => handleToggleClick(e, id)}
             onMouseDown={handleMouseDown}
-            role="button"
             title="Toggle note menu"
-            tabIndex="0"
             aria-label="Toggle note menu"
-          > */}
-          {/*   <NoteButtonContainer
-            showButtons={showButtons}
-            setIsActive={setIsActive}
-            textValue={textValue}
-            mouseClick={mouseClick}
-            id={id}
-          /> */}
-          {/* </Note.Box> */}
-          <Note.ToggleButton active={showButtons} onClick={handleToggleClick} />
+          />
         </Note.ButtonWrapper>
       )}
-
       <Note.TextArea
         active={isActive}
         value={textValue}
@@ -138,3 +173,5 @@ export default function NoteContainer(props) {
     </Note>
   );
 }
+
+export const MemoizedNoteContainer = React.memo(NoteContainer);

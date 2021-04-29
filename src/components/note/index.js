@@ -10,9 +10,13 @@ import {
   Dot,
 } from './styles/note';
 
-export default function Note({ children, ...restProps }) {
-  return <Container {...restProps}>{children}</Container>;
-}
+const Note = React.forwardRef(({ children, ...restProps }, ref) => {
+  return (
+    <Container ref={ref} {...restProps}>
+      {children}
+    </Container>
+  );
+});
 
 Note.TextArea = React.forwardRef((props, ref) => (
   <TextArea ref={ref} {...props} />
@@ -41,3 +45,5 @@ Note.ToggleButton = function NoteToggleButton({ active, ...restProps }) {
 Note.Title = function NoteTitle({ children, ...restProps }) {
   return <Title {...restProps}>{children}</Title>;
 };
+
+export default Note;

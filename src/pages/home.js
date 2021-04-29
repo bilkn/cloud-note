@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Backdrop, Wrapper, Dialog } from '../components';
+import {  Wrapper, Dialog } from '../components';
 import {
   HeaderContainer,
   MenuContainer,
@@ -14,6 +14,7 @@ import { DataContext } from '../context';
 
 export default function Home() {
   const { dataState } = useContext(DataContext);
+
   return (
     <Wrapper
       css={`
@@ -23,6 +24,7 @@ export default function Home() {
         }
       `}
     >
+   
       {/*   <MainContainer data={dummyDataList(50)} /> */}
       <MainContainer data={dataState.results} />
       {/* <MenuContainer />   */}
