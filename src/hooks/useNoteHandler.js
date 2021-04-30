@@ -1,17 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useData } from '.';
 import { DialogContext, ToastContext } from '../context';
 import { copyToClipboard } from '../helpers';
 
-function useHandler(props) {
-  const {
-    showButtons,
-    setShowButtons,
-    setCurrentId,
-    setIsActive,
-    setShowEnlargedNote,
-    setRect
-  } = props;
+function useNoteHandler() {
+  const [currentId, setCurrentId] = useState('');
+  const [showButtons, setShowButtons] = useState(false);
+  const [showEnlargedNote, setShowEnlargedNote] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [rect, setRect] = useState(null);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { Delete } = useData();
@@ -47,12 +44,13 @@ function useHandler(props) {
 
   const handleEnlargeClick = (rect) => {
     setShowEnlargedNote(true);
-    setRect(rect)
+    setRect(rect);
   };
 
   const handleToggleClick = (e, id) => {
     e.stopPropagation();
-    setShowButtons(!showButtons);
+    if (!showButtons) setShowButtons(true);
+    else if (currentId === id && showButtons) setShowButtons(false);
     setCurrentId(id);
   };
 
@@ -62,7 +60,17 @@ function useHandler(props) {
     handleDeleteClick,
     handleToggleClick,
     handleEnlargeClick,
+    currentId,
+    setCurrentId,
+    showButtons,
+    setShowButtons,
+    showEnlargedNote,
+    setShowEnlargedNote,
+    rect,
+    setRect,
+    isActive,
+    setIsActive,
   };
 }
 
-export default useHandler;
+export default useNoteHandler;
