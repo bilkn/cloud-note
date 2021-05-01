@@ -2,7 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { useData, useWindowKey, useWindowEvent, useHandler } from '../hooks';
+import {
+  useData,
+  useWindowKey,
+  useWindowEvent,
+  useNoteHandler,
+  useMouseClick,
+} from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
@@ -14,34 +20,34 @@ export default function NoteContainer(props) {
     text,
     timestamp,
     lastModified,
-    mouseClick,
-    setMouseClick,
     isCurrentId,
     setCurrentId,
     setShowEnlargedNote,
     setRect,
-    style
+    cssStyle,
   } = props;
-  const [showButtons, setShowButtons] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const textAreaRef = useRef(null);
-  const noteRef = useRef(null)
+  const noteRef = useRef(null);
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const { mouseClick, setMouseClick } = useMouseClick();
+
   const {
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
     handleToggleClick,
     handleEnlargeClick,
-  } = useHandler({
     showButtons,
     setShowButtons,
-    setCurrentId,
+    isActive,
     setIsActive,
+  } = useNoteHandler({
+    setCurrentId,
     setShowEnlargedNote,
     setRect,
   });
+
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -60,8 +66,6 @@ export default function NoteContainer(props) {
   const handleNoteClick = () => {
     setCurrentId(id);
   };
-
-  console.log(style);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -83,7 +87,6 @@ export default function NoteContainer(props) {
     });
   };
 
-  // !!! After blur text area should scroll to top.
 
   // Deactivates the active note, if another note's toggle button is clicked.
   useEffect(() => {
@@ -91,7 +94,7 @@ export default function NoteContainer(props) {
       setShowButtons(false);
       setIsActive(false);
     }
-  }, [isCurrentId]);
+  }, [isCurrentId, setIsActive, setShowButtons]);
 
   // Activates the note, if it is just created.
   useEffect(() => {
@@ -99,7 +102,7 @@ export default function NoteContainer(props) {
       setIsActive(true);
       setCurrentId(id);
     }
-  }, [timestamp, id, setCurrentId, isActive]);
+  }, [timestamp, id, setCurrentId, isActive, setIsActive]);
 
   // Prevents the text selector to be positioned the beginning of the text.
   useEffect(() => {
@@ -117,7 +120,7 @@ export default function NoteContainer(props) {
       data-testid="note"
       onClick={handleNoteClick}
       ref={noteRef}
-      css={style}
+      css={cssStyle}
     >
       {lastModified && (
         <Note.ButtonWrapper>
@@ -130,7 +133,9 @@ export default function NoteContainer(props) {
               <Edit size="24" />
             </Note.Button>
             <Note.Button
-              onClick={()=>handleEnlargeClick(noteRef.current.getBoundingClientRect())}
+              onClick={() =>
+                handleEnlargeClick(noteRef.current.getBoundingClientRect())
+              }
               title="Enlarge note"
               aria-label="Enlarge note"
             >

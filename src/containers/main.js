@@ -4,11 +4,9 @@ import { MemoizedNoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
-import { useMouseClick } from '../hooks';
 
 export default function MainContainer({ data }) {
   const { search: searchProp } = useLocation();
-  const { mouseClick, setMouseClick } = useMouseClick();
   const [currentId, setCurrentId] = useState('');
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
@@ -36,13 +34,11 @@ export default function MainContainer({ data }) {
             <MemoizedNoteContainer
               key={data.id}
               {...data}
-              mouseClick={mouseClick}
-              setMouseClick={setMouseClick}
               isCurrentId={currentId === data.id}
               setCurrentId={setCurrentId}
               setShowEnlargedNote={setShowEnlargedNote}
               setRect={setRect}
-              css={''}
+              cssStyle={''}
             />
           ))}
         </Main.Grid>
@@ -51,12 +47,10 @@ export default function MainContainer({ data }) {
         <Backdrop onClick={handleBackdropClick}>
           <MemoizedNoteContainer
             {...getCurrentNoteData}
-            mouseClick={mouseClick}
-            setMouseClick={setMouseClick}
             isCurrentId={currentId === data.id}
             setCurrentId={setCurrentId}
             setShowEnlargedNote={setShowEnlargedNote}
-            style={`
+            cssStyle={`
               height: ${rect.height}px;
               left: ${rect.left}px;
               top: ${rect.top}px;

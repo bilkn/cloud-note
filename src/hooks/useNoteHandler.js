@@ -1,20 +1,14 @@
 import { useContext } from 'react';
-import { useData } from '.';
+import { useData, useNoteState } from '.';
 import { DialogContext, ToastContext } from '../context';
 import { copyToClipboard } from '../helpers';
 
 function useHandler(props) {
-  const {
-    showButtons,
-    setShowButtons,
-    setCurrentId,
-    setIsActive,
-    setShowEnlargedNote,
-    setRect
-  } = props;
+  const { setCurrentId, setShowEnlargedNote, setRect } = props;
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { Delete } = useData();
+  const { showButtons, setShowButtons, isActive, setIsActive } = useNoteState();
 
   const handleEditClick = () => {
     if (showButtons) {
@@ -47,7 +41,7 @@ function useHandler(props) {
 
   const handleEnlargeClick = (rect) => {
     setShowEnlargedNote(true);
-    setRect(rect)
+    setRect(rect);
   };
 
   const handleToggleClick = (e, id) => {
@@ -62,6 +56,10 @@ function useHandler(props) {
     handleDeleteClick,
     handleToggleClick,
     handleEnlargeClick,
+    showButtons,
+    setShowButtons,
+    isActive,
+    setIsActive,
   };
 }
 
