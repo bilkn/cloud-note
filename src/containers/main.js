@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Main, Backdrop } from '../components';
-import { MemoizedNoteContainer } from '../containers';
+import { NoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
+import { scaleUpToCenter } from '../styles/animations';
+import { css } from 'styled-components/macro';
 
 export default function MainContainer({ data }) {
   const { search: searchProp } = useLocation();
@@ -11,7 +13,9 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
+
   const handleBackdropClick = () => setShowEnlargedNote(false);
+
   const getCurrentNoteData = displayedData.find(({ id }) => id === currentId);
 
   useEffect(() => {
@@ -31,7 +35,7 @@ export default function MainContainer({ data }) {
       <Main>
         <Main.Grid>
           {displayedData.map((data) => (
-            <MemoizedNoteContainer
+            <NoteContainer
               key={data.id}
               {...data}
               isCurrentId={currentId === data.id}
@@ -45,20 +49,22 @@ export default function MainContainer({ data }) {
       </Main>
       {showEnlargedNote && (
         <Backdrop onClick={handleBackdropClick}>
-          <MemoizedNoteContainer
+          <NoteContainer
             {...getCurrentNoteData}
             isCurrentId={currentId === data.id}
             setCurrentId={setCurrentId}
             setShowEnlargedNote={setShowEnlargedNote}
-            cssStyle={`
-              height: ${rect.height}px;
-              left: ${rect.left}px;
-              top: ${rect.top}px;
-              position: absolute;      
+            cssStyle={css`
+              animation: ${scaleUpToCenter} 500ms forwards;
+              height: ${rect?.height}px;
+              left: ${rect?.left}px;
+              top: ${rect?.top}px;
+              position: absolute;
               transition: 500ms;
               transition-property: transform, left, top;
-              width: ${rect.width}px
+              width: ${rect?.width}px;
             `}
+            activate={true}
           />
           {/* !!! Remove setState duplications. */}
         </Backdrop>

@@ -12,7 +12,8 @@ function useHandler(props) {
     text,
     lastModified,
     timestamp,
-    isCurrentId
+    isCurrentId,
+    activate
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [textValue, setTextValue] = useState(text);
@@ -102,6 +103,13 @@ function useHandler(props) {
       textArea.setSelectionRange(length, length);
     } else textArea.blur();
   }, [isActive, textValue]);
+
+    useEffect(() => {
+      if (activate) {
+        console.log("activate")
+        setIsActive(true);
+      }
+    }, [activate]);
 
   return {
     handleEditClick,

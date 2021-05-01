@@ -12,7 +12,7 @@ import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export default function NoteContainer(props) {
+ function NoteContainer(props) {
   const {
     id,
     color,
@@ -24,6 +24,7 @@ export default function NoteContainer(props) {
     setShowEnlargedNote,
     setRect,
     cssStyle,
+    activate,
   } = props;
   const noteRef = useRef(null);
   const { mouseClick, setMouseClick } = useMouseClick();
@@ -50,6 +51,7 @@ export default function NoteContainer(props) {
     text,
     lastModified,
     timestamp,
+    activate
   });
 
   useWindowEvent({
@@ -143,4 +145,4 @@ export default function NoteContainer(props) {
   );
 }
 
-export const MemoizedNoteContainer = React.memo(NoteContainer);
+export default React.memo(NoteContainer);
