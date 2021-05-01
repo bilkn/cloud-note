@@ -69,7 +69,8 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
     setMouseClick(true);
   };
 
-  const handleNoteClick = () => {
+  const handleNoteClick = (e) => {
+    e.stopPropagation();
     setCurrentId(id);
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import { Main, Backdrop } from '../components';
 import { NoteContainer } from '../containers';
 import 'styled-components/macro';
