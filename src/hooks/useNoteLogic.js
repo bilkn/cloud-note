@@ -13,7 +13,7 @@ function useHandler(props) {
     lastModified,
     timestamp,
     isCurrentId,
-    activate
+    activate,
   } = props;
   const [showButtons, setShowButtons] = useState(false);
   const [textValue, setTextValue] = useState(text);
@@ -24,32 +24,29 @@ function useHandler(props) {
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
 
   const handleEditClick = () => {
-    if (showButtons) {
-      setIsActive(true);
-    }
+    setIsActive(true);
   };
 
   const handleCopyClick = (textValue) => {
-    if (showButtons) {
-      copyToClipboard(textValue);
-      dispatchToast({
-        type: 'NOTIFICATION',
-        payload: 'Note has been copied to the clipboard.',
-      });
-      setIsActive(false);
-    }
+    copyToClipboard(textValue);
+    dispatchToast({
+      type: 'NOTIFICATION',
+      payload: 'Note has been copied to the clipboard.',
+    });
+    setIsActive(false);
   };
 
   const handleDeleteClick = (id) => {
-    if (showButtons) {
-      setDialog({
-        isOpen: true,
-        text: 'Are you sure to delete this note?',
-        handler: () => Delete(id),
-        buttons: ['Cancel', 'Delete'],
-      });
-      setIsActive(false);
-    }
+    setDialog({
+      isOpen: true,
+      text: 'Are you sure to delete this note?',
+      handler: () => {
+        setShowEnlargedNote(false);
+        Delete(id);
+      },
+      buttons: ['Cancel', 'Delete'],
+    });
+    setIsActive(false);
   };
 
   const handleEnlargeClick = (rect) => {
@@ -104,12 +101,11 @@ function useHandler(props) {
     } else textArea.blur();
   }, [isActive, textValue]);
 
-    useEffect(() => {
-      if (activate) {
-        console.log("activate")
-        setIsActive(true);
-      }
-    }, [activate]);
+  useEffect(() => {
+    if (activate) {
+      setIsActive(true);
+    }
+  }, [activate]);
 
   return {
     handleEditClick,
@@ -124,7 +120,7 @@ function useHandler(props) {
     setTextValue,
     isActive,
     setIsActive,
-    textAreaRef
+    textAreaRef,
   };
 }
 

@@ -12,7 +12,7 @@ import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
- function NoteContainer(props) {
+function NoteContainer(props) {
   const {
     id,
     color,
@@ -51,7 +51,7 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
     text,
     lastModified,
     timestamp,
-    activate
+    activate,
   });
 
   useWindowEvent({
@@ -70,7 +70,7 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
   };
 
   const handleNoteClick = (e) => {
-    e.stopPropagation();
+    activate && e.stopPropagation(); // If it is initially activated, stops propagation.
     setCurrentId(id);
   };
 
@@ -78,7 +78,6 @@ import { Trash } from '@styled-icons/bootstrap/Trash';
     e.preventDefault();
     setTextValue(e.target.value);
   };
-
 
   return (
     <Note
