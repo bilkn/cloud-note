@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
 import {
-  useData,
   useWindowKey,
   useWindowEvent,
   useNoteHandler,
@@ -26,10 +25,7 @@ export default function NoteContainer(props) {
     setRect,
     cssStyle,
   } = props;
-  const [textValue, setTextValue] = useState(text);
-  const textAreaRef = useRef(null);
   const noteRef = useRef(null);
-  const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
   const { mouseClick, setMouseClick } = useMouseClick();
 
   const {
@@ -38,14 +34,22 @@ export default function NoteContainer(props) {
     handleDeleteClick,
     handleToggleClick,
     handleEnlargeClick,
+    handleBlur,
     showButtons,
     setShowButtons,
     isActive,
-    setIsActive,
+    textValue,
+    setTextValue,
+    textAreaRef,
   } = useNoteHandler({
     setCurrentId,
     setShowEnlargedNote,
     setRect,
+    isCurrentId,
+    id,
+    text,
+    lastModified,
+    timestamp,
   });
 
   useWindowEvent({
@@ -72,47 +76,6 @@ export default function NoteContainer(props) {
     setTextValue(e.target.value);
   };
 
-  const handleBlur = () => {
-    const textArea = textAreaRef.current;
-    if (!isCurrentId) setShowButtons(false);
-    if (textValue.trim()) {
-      if (!lastModified) Add(id, textValue);
-      else Modify(id, textValue);
-    } else if (lastModified) Delete(id);
-    else DeletePermanently(id);
-    SortByDate();
-    setIsActive(false);
-    textArea.scroll({
-      top: 0,
-    });
-  };
-
-
-  // Deactivates the active note, if another note's toggle button is clicked.
-  useEffect(() => {
-    if (!isCurrentId) {
-      setShowButtons(false);
-      setIsActive(false);
-    }
-  }, [isCurrentId, setIsActive, setShowButtons]);
-
-  // Activates the note, if it is just created.
-  useEffect(() => {
-    if (!isSecondsPassed(1, timestamp)) {
-      setIsActive(true);
-      setCurrentId(id);
-    }
-  }, [timestamp, id, setCurrentId, isActive, setIsActive]);
-
-  // Prevents the text selector to be positioned the beginning of the text.
-  useEffect(() => {
-    const textArea = textAreaRef.current;
-    const length = textValue.length;
-    if (isActive) {
-      textArea.focus();
-      textArea.setSelectionRange(length, length);
-    } else textArea.blur();
-  }, [isActive, textValue]);
   return (
     <Note
       color={color}
