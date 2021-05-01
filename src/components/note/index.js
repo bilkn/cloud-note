@@ -35,7 +35,6 @@ Note.Button = function NoteButton({ children, ...restProps }) {
 };
 
 Note.ToggleButton = function NoteToggleButton({ active, ...restProps }) {
-  
   return (
     <ToggleButton active={active} {...restProps}>
       <Dot active={active} />
