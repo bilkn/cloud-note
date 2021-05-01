@@ -5,7 +5,7 @@ import { isSecondsPassed } from '../helpers';
 import {
   useWindowKey,
   useWindowEvent,
-  useNoteHandler,
+  useNoteLogic,
   useMouseClick,
 } from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
@@ -41,7 +41,7 @@ export default function NoteContainer(props) {
     textValue,
     setTextValue,
     textAreaRef,
-  } = useNoteHandler({
+  } = useNoteLogic({
     setCurrentId,
     setShowEnlargedNote,
     setRect,
@@ -75,6 +75,7 @@ export default function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
+
 
   return (
     <Note
