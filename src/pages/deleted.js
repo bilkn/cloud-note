@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Wrapper } from '../components';
+import { Heading, Wrapper } from '../components';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
 import 'styled-components/macro';
@@ -18,6 +18,7 @@ export default function Deleted() {
         }
       `}
     >
+      {!dataState.deleted.length && <Heading>You can recycle your deleted notes here</Heading>}
       <MainContainer data={dataState.deleted} />
     </Wrapper>
   );

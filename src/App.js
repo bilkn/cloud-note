@@ -7,6 +7,7 @@ import {
 } from './containers';
 import { Home, Deleted, Account, Signin, Signup, PasswordReset } from './pages';
 import { DataProvider, DialogProvider, ToastProvider } from './providers';
+import * as ROUTES from "./constants/routes"
 
 function App() {
   return (
@@ -17,22 +18,22 @@ function App() {
             <Router>
               <HeaderContainer />
               <Switch>
-                <Route path="/" exact>
+                <Route path={ROUTES.HOME} exact>
                   <Home />
                 </Route>
-                <Route path="/deleted">
+                <Route path={ROUTES.DELETED}>
                   <Deleted />
                 </Route>
-                <Route path="/account">
+                <Route path={ROUTES.ACCOUNT}>
                   <Account />
                 </Route>
-                <Route path="/signin">
+                <Route path={ROUTES.SIGN_IN}>
                   <Signin />
                 </Route>
-                <Route path="/signup">
+                <Route path={ROUTES.SIGN_UP}>
                   <Signup />
                 </Route>
-                <Route path="/password_reset">
+                <Route path={ROUTES.PASSWORD_RESET}>
                   <PasswordReset />
                 </Route>
               </Switch>

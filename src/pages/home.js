@@ -1,12 +1,6 @@
-import React, { useContext, useState } from 'react';
-import {  Wrapper, Dialog } from '../components';
-import {
-  HeaderContainer,
-  MenuContainer,
-  MainContainer,
-  SidebarContainer,
-  DialogContainer,
-} from '../containers';
+import React, { useContext } from 'react';
+import { Heading, Wrapper } from '../components';
+import { MainContainer } from '../containers';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
 import 'styled-components/macro';
@@ -24,10 +18,10 @@ export default function Home() {
         }
       `}
     >
-   
-      {/*   <MainContainer data={dummyDataList(50)} /> */}
+      {!dataState.results.length && (
+        <Heading>Looks like you don't have any notes</Heading>
+      )}
       <MainContainer data={dataState.results} />
-      {/* <MenuContainer />   */}
     </Wrapper>
   );
 }

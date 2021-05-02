@@ -1,47 +1,59 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import 'styled-components/macro';
 import { Note } from '../components';
 import { isSecondsPassed } from '../helpers';
-import { useData, useWindowKey, useWindowEvent, useHandler } from '../hooks';
+import {
+  useWindowKey,
+  useWindowEvent,
+  useNoteLogic,
+  useMouseClick,
+} from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
 
-export default function NoteContainer(props) {
+function NoteContainer(props) {
   const {
     id,
     color,
     text,
     timestamp,
     lastModified,
-    mouseClick,
-    setMouseClick,
     isCurrentId,
     setCurrentId,
     setShowEnlargedNote,
     setRect,
-    style
+    cssStyle,
+    activate,
   } = props;
-  const [showButtons, setShowButtons] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [textValue, setTextValue] = useState(text);
-  const textAreaRef = useRef(null);
-  const noteRef = useRef(null)
-  const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const noteRef = useRef(null);
+  const { mouseClick, setMouseClick } = useMouseClick();
+
   const {
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
     handleToggleClick,
     handleEnlargeClick,
-  } = useHandler({
+    handleBlur,
     showButtons,
     setShowButtons,
+    isActive,
+    textValue,
+    setTextValue,
+    textAreaRef,
+  } = useNoteLogic({
     setCurrentId,
-    setIsActive,
     setShowEnlargedNote,
     setRect,
+    isCurrentId,
+    id,
+    text,
+    lastModified,
+    timestamp,
+    activate,
   });
+
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -57,59 +69,16 @@ export default function NoteContainer(props) {
     setMouseClick(true);
   };
 
-  const handleNoteClick = () => {
+  const handleNoteClick = (e) => {
+    activate && e.stopPropagation(); // If note is initially activated, it stops propagation.
     setCurrentId(id);
   };
-
-  console.log(style);
 
   const handleChange = (e) => {
     e.preventDefault();
     setTextValue(e.target.value);
   };
-
-  const handleBlur = () => {
-    const textArea = textAreaRef.current;
-    if (!isCurrentId) setShowButtons(false);
-    if (textValue.trim()) {
-      if (!lastModified) Add(id, textValue);
-      else Modify(id, textValue);
-    } else if (lastModified) Delete(id);
-    else DeletePermanently(id);
-    SortByDate();
-    setIsActive(false);
-    textArea.scroll({
-      top: 0,
-    });
-  };
-
-  // !!! After blur text area should scroll to top.
-
-  // Deactivates the active note, if another note's toggle button is clicked.
-  useEffect(() => {
-    if (!isCurrentId) {
-      setShowButtons(false);
-      setIsActive(false);
-    }
-  }, [isCurrentId]);
-
-  // Activates the note, if it is just created.
-  useEffect(() => {
-    if (!isSecondsPassed(1, timestamp)) {
-      setIsActive(true);
-      setCurrentId(id);
-    }
-  }, [timestamp, id, setCurrentId, isActive]);
-
-  // Prevents the text selector to be positioned the beginning of the text.
-  useEffect(() => {
-    const textArea = textAreaRef.current;
-    const length = textValue.length;
-    if (isActive) {
-      textArea.focus();
-      textArea.setSelectionRange(length, length);
-    } else textArea.blur();
-  }, [isActive, textValue]);
+  console.log('render note');
   return (
     <Note
       color={color}
@@ -117,7 +86,7 @@ export default function NoteContainer(props) {
       data-testid="note"
       onClick={handleNoteClick}
       ref={noteRef}
-      css={style}
+      css={cssStyle}
     >
       {lastModified && (
         <Note.ButtonWrapper>
@@ -130,7 +99,9 @@ export default function NoteContainer(props) {
               <Edit size="24" />
             </Note.Button>
             <Note.Button
-              onClick={()=>handleEnlargeClick(noteRef.current.getBoundingClientRect())}
+              onClick={() =>
+                handleEnlargeClick(noteRef.current.getBoundingClientRect())
+              }
               title="Enlarge note"
               aria-label="Enlarge note"
             >
@@ -144,7 +115,7 @@ export default function NoteContainer(props) {
               <Clipboard size="24" />
             </Note.Button>
             <Note.Button
-              onClick={() => handleDeleteClick(id)}
+              onClick={(e) => handleDeleteClick(e, id)}
               title="Delete note"
               aria-label="Delete note"
             >
@@ -170,8 +141,11 @@ export default function NoteContainer(props) {
         ref={textAreaRef}
         data-testid="note-text-area"
       />
+      {!isActive && (
+        <Note.Date>{timestamp.toLocaleDateString('en-US')}</Note.Date>
+      )}
     </Note>
   );
 }
 
-export const MemoizedNoteContainer = React.memo(NoteContainer);
+export default React.memo(NoteContainer);

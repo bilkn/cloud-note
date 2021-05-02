@@ -89,4 +89,10 @@ export const dotAfterAnimation = keyframes`
   }
 `;
 
-
+export const scaleUpToCenter = keyframes`
+  to {
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    top: 50%; 
+  } 
+`;
