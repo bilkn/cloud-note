@@ -8,14 +8,14 @@ import { AllProviders } from './all-providers';
 import { DataProvider, DialogProvider, ToastProvider } from '../providers';
 import { useData } from '../hooks';
 import { act } from 'react-dom/test-utils';
-
+/* 
 beforeEach(() => {
   Object.defineProperty(Element.prototype, 'scroll', {
     value: jest.fn(),
     writable: false,
     configurable: false,
   });
-});
+}); */
 
 afterEach(() => {
   cleanup();
@@ -102,6 +102,11 @@ afterEach(() => {
 }); */
 
 describe('Non dialog buttons are working correctly', () => {
+  Object.defineProperty(Element.prototype, 'scroll', {
+    value: jest.fn(),
+    writable: false,
+    configurable: false,
+  });
   beforeEach(() => {
     const history = createMemoryHistory();
     const fakeNote = {
@@ -130,5 +135,14 @@ describe('Non dialog buttons are working correctly', () => {
     const editBtn = screen.getByLabelText('Edit note');
     fireEvent.click(editBtn);
     expect(textArea).toHaveFocus();
+  });
+
+  test('Text is copied after copy button click', () => {
+    document.execCommand = jest.fn();
+    const boxBtn = screen.getByLabelText('Toggle note menu');
+    fireEvent.click(boxBtn);
+    const copyBtn = screen.getByLabelText('Copy to clipboard');
+    fireEvent.click(copyBtn);
+    expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 });
