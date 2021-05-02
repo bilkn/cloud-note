@@ -70,7 +70,7 @@ function NoteContainer(props) {
   };
 
   const handleNoteClick = (e) => {
-    activate && e.stopPropagation(); // If it is initially activated, stops propagation.
+    activate && e.stopPropagation(); // If note is initially activated, it stops propagation.
     setCurrentId(id);
   };
 
@@ -78,7 +78,7 @@ function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
-
+  console.log("render note")
   return (
     <Note
       color={color}
@@ -115,7 +115,7 @@ function NoteContainer(props) {
               <Clipboard size="24" />
             </Note.Button>
             <Note.Button
-              onClick={() => handleDeleteClick(id)}
+              onClick={(e) => handleDeleteClick(e,id)}
               title="Delete note"
               aria-label="Delete note"
             >

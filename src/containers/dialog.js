@@ -4,11 +4,22 @@ import { Backdrop, Dialog } from '../components';
 import { colors } from '../styles/variables';
 import 'styled-components/macro';
 import { DialogContext } from '../context';
+import { useWindowEvent, useWindowKey } from '../hooks';
 
 export default function DialogContainer() {
   const [dialog, setDialog] = useContext(DialogContext);
   const ref = useRef(null);
   const { isOpen, text, handler, buttons } = dialog;
+  useWindowEvent({
+    events: [{ event: 'click' }],
+    handlers: [() => resetDialog(false)],
+    condition: dialog,
+  });
+  useWindowKey({
+    keys: ['Escape'],
+    handlers: [() => resetDialog(false)],
+    condition: dialog,
+  });
 
   const resetDialog = () => {
     setDialog({ isOpen: false, text: '', operation: null });

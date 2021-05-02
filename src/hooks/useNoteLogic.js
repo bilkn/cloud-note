@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useData } from '.';
 import { DialogContext, ToastContext } from '../context';
-import { copyToClipboard, isSecondsPassed } from '../helpers';
+import { copyToClipboard, isSecondsPassed, scrollToBottom } from '../helpers';
 
 function useHandler(props) {
   const {
@@ -23,8 +23,11 @@ function useHandler(props) {
   const textAreaRef = useRef(null);
   const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
 
+
   const handleEditClick = () => {
     setIsActive(true);
+    setShowButtons(false);
+    scrollToBottom(textAreaRef.current)
   };
 
   const handleCopyClick = (textValue) => {
@@ -34,9 +37,11 @@ function useHandler(props) {
       payload: 'Note has been copied to the clipboard.',
     });
     setIsActive(false);
+    setShowButtons(false);
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = (e, id) => {
+    e.stopPropagation();
     setDialog({
       isOpen: true,
       text: 'Are you sure to delete this note?',
@@ -52,6 +57,7 @@ function useHandler(props) {
   const handleEnlargeClick = (rect) => {
     setShowEnlargedNote(true);
     setRect(rect);
+    scrollToBottom(textAreaRef.current);
   };
 
   const handleToggleClick = (e, id) => {
