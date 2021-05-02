@@ -21,7 +21,7 @@ afterEach(() => {
   cleanup();
 });
 
-test('Note is deleted after clicking delete button', () => {
+/* test('Note is deleted after clicking delete button', () => {
   const { result } = renderHook(() => useData());
   const history = createMemoryHistory();
   const id = uuidv4();
@@ -99,9 +99,9 @@ test('Note is deleted after clicking delete button', () => {
   const dialogDeleteBtn = screen.getByText('Delete');
   fireEvent.click(dialogDeleteBtn);
   expect(note).toBeNull();
-});
+}); */
 
-/* describe('Non dialog buttons are working correctly', () => {
+describe('Non dialog buttons are working correctly', () => {
   beforeEach(() => {
     const history = createMemoryHistory();
     const fakeNote = {
@@ -122,5 +122,13 @@ test('Note is deleted after clicking delete button', () => {
       { wrapper: AllProviders }
     );
   });
+
+  test('Text area is focused after edit button click', () => {
+    const textArea = screen.getByTestId('note-text-area');
+    const boxBtn = screen.getByLabelText('Toggle note menu');
+    fireEvent.click(boxBtn);
+    const editBtn = screen.getByLabelText('Edit note');
+    fireEvent.click(editBtn);
+    expect(textArea).toHaveFocus();
+  });
 });
- */
