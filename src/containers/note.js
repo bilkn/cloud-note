@@ -78,7 +78,7 @@ function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
-  console.log("render note")
+  console.log('render note');
   return (
     <Note
       color={color}
@@ -115,7 +115,7 @@ function NoteContainer(props) {
               <Clipboard size="24" />
             </Note.Button>
             <Note.Button
-              onClick={(e) => handleDeleteClick(e,id)}
+              onClick={(e) => handleDeleteClick(e, id)}
               title="Delete note"
               aria-label="Delete note"
             >
@@ -141,6 +141,9 @@ function NoteContainer(props) {
         ref={textAreaRef}
         data-testid="note-text-area"
       />
+      {!isActive && (
+        <Note.Date>{timestamp.toLocaleDateString('en-US')}</Note.Date>
+      )}
     </Note>
   );
 }

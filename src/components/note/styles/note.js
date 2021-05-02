@@ -170,3 +170,9 @@ export const Dot = styled.span`
   transition-property: width, height, transform, background;
   width: ${({ active }) => (active ? '45px' : '5px')};
 `;
+
+export const Date = styled.p`
+  bottom: 5px;
+  left: 35px;
+  position: absolute;
+`
