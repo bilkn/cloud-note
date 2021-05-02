@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MainContainer, DialogContainer } from '../containers';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { AllProviders } from './all-providers';
+import { AllProviders } from '../__test-utils__/all-providers';
 import { DataProvider, DialogProvider, ToastProvider } from '../providers';
 import { useData } from '../hooks';
 import { act } from 'react-dom/test-utils';

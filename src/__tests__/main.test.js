@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { MainContainer } from '../containers';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import { AllProviders } from './all-providers';
+import { AllProviders } from '../__test-utils__/all-providers';
 
 test('renders notes', () => {
   const fakeNote = {
