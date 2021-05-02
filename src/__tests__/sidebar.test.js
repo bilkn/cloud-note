@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { SidebarContainer } from '.';
+import { SidebarContainer } from '../containers';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { DataProvider, ToastProvider } from '../providers';
 

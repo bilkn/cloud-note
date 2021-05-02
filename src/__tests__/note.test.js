@@ -1,10 +1,9 @@
-/* import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { v4 as uuidv4 } from 'uuid';
-import { MainContainer } from '.';
-import { DataProvider, ToastProvider } from '../providers';
+import { MainContainer } from '../containers';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-
+import { AllProviders } from './all-providers';
 
 afterEach(() => {
   cleanup();
@@ -19,21 +18,11 @@ test('Note is deleted after clicking delete button', async () => {
     text: 'Testing note',
   };
   const fakeData = [fakeNote];
-  const dataState = {
-    results: fakeData,
-    deleted: [],
-    isLoading: false,
-    isError: false,
-  };
-  const dispatchData = jest.fn();
+
   const { getByTitle, getByLabelText, getByTestId } = render(
     <Router history={history}>
-      <DataProvider value={{ dataState, dispatchData }}>
-        <ToastProvider>
-          <MainContainer data={fakeData} />
-        </ToastProvider>
-      </DataProvider>
-    </Router>
+      <MainContainer data={fakeData} />
+    </Router>, {wrapper:AllProviders}
   );
   const textAreaElt = getByTestId('note-text-area');
   fireEvent.blur(textAreaElt);
@@ -43,4 +32,3 @@ test('Note is deleted after clicking delete button', async () => {
   // !!! Delete button style may be tested in the future.
   fireEvent.click(deleteBtn);
 });
- */

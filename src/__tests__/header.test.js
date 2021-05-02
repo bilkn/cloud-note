@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { HeaderContainer } from '.';
+import { HeaderContainer } from '../containers';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 

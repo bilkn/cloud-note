@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { PasswordContainer } from '.';
+import { PasswordContainer } from '../containers';
 
 afterEach(cleanup);
 
