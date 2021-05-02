@@ -67,6 +67,16 @@ export default function dataReducer(state, action) {
       return { ...state, results: newResults };
     }
 
+    case 'RECOVER': {
+      const { recoverId } = action.payload;
+      const { results, deleted } = state;
+      const willRecoveredData = deleted.find(({ id }) => id === recoverId);
+      const newDeleted = deleted.filter(({ id }) => id !== recoverId);
+      const newResults = [...results, willRecoveredData];
+      console.log({ ...state, results: newResults, deleted: newDeleted });
+      return { ...state, results: newResults, deleted: newDeleted };
+    }
+
     case 'SORT_BY_DATE': {
       const sortedResults = state.results.sort(
         (a, b) => b.timestamp.getTime() - a.timestamp.getTime()

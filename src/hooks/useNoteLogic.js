@@ -21,13 +21,25 @@ function useHandler(props) {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
-  const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const {
+    Add,
+    Delete,
+    DeletePermanently,
+    Modify,
+    Recover,
+    SortByDate,
+  } = useData();
 
+  const handleToggleClick = (e, id) => {
+    e.stopPropagation();
+    setShowButtons(!showButtons);
+    setCurrentId(id);
+  };
 
   const handleEditClick = () => {
     setIsActive(true);
     setShowButtons(false);
-    scrollToBottom(textAreaRef.current)
+    scrollToBottom(textAreaRef.current);
   };
 
   const handleCopyClick = (textValue) => {
@@ -60,10 +72,9 @@ function useHandler(props) {
     scrollToBottom(textAreaRef.current);
   };
 
-  const handleToggleClick = (e, id) => {
-    e.stopPropagation();
-    setShowButtons(!showButtons);
-    setCurrentId(id);
+  const handleRecoverClick = (id) => {
+    Recover(id);
+    setIsActive(false);
   };
 
   const handleBlur = () => {
@@ -114,11 +125,12 @@ function useHandler(props) {
   }, [activate]);
 
   return {
+    handleToggleClick,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
-    handleToggleClick,
     handleEnlargeClick,
+    handleRecoverClick,
     handleBlur,
     showButtons,
     setShowButtons,

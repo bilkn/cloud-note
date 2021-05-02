@@ -55,6 +55,15 @@ export default function useData() {
     });
   };
 
+  const Recover = (id) => {
+    const type = 'RECOVER';
+    dispatchData({ type, payload: { recoverId: id } });
+    dispatchToast({
+      type: 'NOTIFICATION',
+      payload: 'Note has been recovered.',
+    });
+  };
+
   const SortByDate = () => {
     dispatchData({ type: 'SORT_BY_DATE' });
   };
@@ -66,6 +75,7 @@ export default function useData() {
     DeleteAll,
     DeletePermanently,
     Modify,
+    Recover,
     SortByDate,
   };
 }
