@@ -20,6 +20,7 @@ export const AllProviders = ({ children }) => {
      text: '',
      buttons: [],
    };
+   
   const dispatchData = jest.fn();
   const dispatchToast = jest.fn();
   const setDialog = jest.fn();
