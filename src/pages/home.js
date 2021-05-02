@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Wrapper} from '../components';
+import { Heading, Wrapper } from '../components';
 import { MainContainer } from '../containers';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
@@ -18,6 +18,9 @@ export default function Home() {
         }
       `}
     >
+      {!dataState.results.length && (
+        <Heading>Looks like you don't have any notes</Heading>
+      )}
       <MainContainer data={dataState.results} />
     </Wrapper>
   );
