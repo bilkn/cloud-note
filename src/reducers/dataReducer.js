@@ -5,11 +5,11 @@ export default function dataReducer(state, action) {
     case 'ADD': {
       const { id: dataId, text } = action.payload;
       const { results } = state;
-      const templateData = results.find(({ id }) => id === dataId);
+      const willAddedData = results.find(({ id }) => id === dataId);
       const filteredResults = results.filter(({ id }) => id !== dataId);
-      const lastModified = templateData.timestamp;
+      const lastModified = willAddedData.timestamp;
       const newData = {
-        ...templateData,
+        ...willAddedData,
         lastModified,
         text,
       };
@@ -73,7 +73,6 @@ export default function dataReducer(state, action) {
       const willRecoveredData = deleted.find(({ id }) => id === recoverId);
       const newDeleted = deleted.filter(({ id }) => id !== recoverId);
       const newResults = [...results, willRecoveredData];
-      console.log({ ...state, results: newResults, deleted: newDeleted });
       return { ...state, results: newResults, deleted: newDeleted };
     }
 
