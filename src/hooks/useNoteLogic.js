@@ -74,7 +74,8 @@ function useHandler(props) {
     Recover(id);
   };
 
-  const handlePermanentDeleteClick = (id) => {
+  const handlePermanentDeleteClick = (e,id) => {
+    e.stopPropagation();
     DeletePermanently(id,"deleted");
   };
 
@@ -85,7 +86,7 @@ function useHandler(props) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
-    else DeletePermanently(id,"results",false);
+    else DeletePermanently(id,"results",false,false);
     SortByDate();
     setIsActive(false);
     textArea.scroll({

@@ -136,7 +136,7 @@ function NoteContainer(props) {
                   <Recycle size="24" />
                 </Note.Button>
                 <Note.Button
-                  onClick={() => handlePermanentDeleteClick(id)}
+                  onClick={(e) => handlePermanentDeleteClick(e,id)}
                   title="Delete permanently"
                   aria-label="Delete permanently"
                 >

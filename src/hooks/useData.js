@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { DataContext, ToastContext } from '../context';
+import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
   const { dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
+  const [, setDialog] = useContext(DialogContext);
 
   const Add = (id, text) => {
     const type = 'ADD';
@@ -42,17 +43,29 @@ export default function useData() {
     });
   };
 
-  const DeletePermanently = (id, store, notification = true) => {
-    dispatchData({
-      type: 'PERMANENT_DELETE',
-      payload: { deleteId: id, store },
-    });
-    if (notification) {
-      dispatchToast({
-        type: 'NOTIFICATION',
-        payload: 'Note has been deleted permanently.',
+  const DeletePermanently = (id, store, notification = true, dialog = true) => {
+    const deleteHandler = () => {
+      dispatchData({
+        type: 'PERMANENT_DELETE',
+        payload: { deleteId: id, store },
       });
-    }
+      if (notification) {
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'Note has been deleted permanently.',
+        });
+      }
+    };
+
+    if (dialog) {
+      setDialog({
+        isOpen: true,
+        text:
+          'Are you sure you want to delete this note? This will permanently erase your note.',
+        handler: deleteHandler,
+        buttons: ['Cancel', 'Delete'],
+      });
+    } else deleteHandler();
   };
 
   const Modify = (id, text) => {
@@ -67,6 +80,7 @@ export default function useData() {
   const Recover = (id) => {
     const type = 'RECOVER';
     dispatchData({ type, payload: { recoverId: id } });
+    SortByDate();
     dispatchToast({
       type: 'NOTIFICATION',
       payload: 'Note has been recovered.',

@@ -12,12 +12,12 @@ export default function DialogContainer() {
   const { isOpen, text, handler, buttons } = dialog;
   useWindowEvent({
     events: [{ event: 'click' }],
-    handlers: [() => resetDialog(false)],
+    handlers: [() => resetDialog()],
     condition: dialog,
   });
   useWindowKey({
     keys: ['Escape'],
-    handlers: [() => resetDialog(false)],
+    handlers: [() => resetDialog()],
     condition: dialog,
   });
 
@@ -33,7 +33,6 @@ export default function DialogContainer() {
   const handleNoClick = () => {
     resetDialog();
   };
-
   useEffect(() => {
     if (isOpen) {
       const noBtn = ref.current;
