@@ -61,7 +61,7 @@ export default function useData() {
       setDialog({
         isOpen: true,
         text:
-          'Are you sure you want to delete this note? This will permanently erase your note.',
+          'Are you sure you want to delete this note permanently?',
         handler: deleteHandler,
         buttons: ['Cancel', 'Delete'],
       });

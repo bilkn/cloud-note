@@ -112,6 +112,7 @@ export const ButtonWrapper = styled.div`
   right: 25px;
   top: 10px;
   width: 21px;
+  z-index: 1;
 `;
 
 export const Button = styled.button`
