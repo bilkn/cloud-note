@@ -21,13 +21,25 @@ function useHandler(props) {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
-  const { Add, Delete, DeletePermanently, Modify, SortByDate } = useData();
+  const {
+    Add,
+    Delete,
+    DeletePermanently,
+    Modify,
+    Recover,
+    SortByDate,
+  } = useData();
 
+  const handleToggleClick = (e, id) => {
+    e.stopPropagation();
+    setShowButtons(!showButtons);
+    setCurrentId(id);
+  };
 
   const handleEditClick = () => {
     setIsActive(true);
     setShowButtons(false);
-    scrollToBottom(textAreaRef.current)
+    scrollToBottom(textAreaRef.current);
   };
 
   const handleCopyClick = (textValue) => {
@@ -36,7 +48,6 @@ function useHandler(props) {
       type: 'NOTIFICATION',
       payload: 'Note has been copied to the clipboard.',
     });
-    setIsActive(false);
     setShowButtons(false);
   };
 
@@ -51,7 +62,6 @@ function useHandler(props) {
       },
       buttons: ['Cancel', 'Delete'],
     });
-    setIsActive(false);
   };
 
   const handleEnlargeClick = (rect) => {
@@ -60,10 +70,13 @@ function useHandler(props) {
     scrollToBottom(textAreaRef.current);
   };
 
-  const handleToggleClick = (e, id) => {
+  const handleRecoverClick = (id) => {
+    Recover(id);
+  };
+
+  const handlePermanentDeleteClick = (e,id) => {
     e.stopPropagation();
-    setShowButtons(!showButtons);
-    setCurrentId(id);
+    DeletePermanently(id,"deleted");
   };
 
   const handleBlur = () => {
@@ -73,7 +86,7 @@ function useHandler(props) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
-    else DeletePermanently(id);
+    else DeletePermanently(id,"results",false,false);
     SortByDate();
     setIsActive(false);
     textArea.scroll({
@@ -114,11 +127,13 @@ function useHandler(props) {
   }, [activate]);
 
   return {
+    handleToggleClick,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
-    handleToggleClick,
     handleEnlargeClick,
+    handleRecoverClick,
+    handlePermanentDeleteClick,
     handleBlur,
     showButtons,
     setShowButtons,

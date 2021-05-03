@@ -5,6 +5,7 @@ import {
   dotAfterAnimation,
   scaleUp,
 } from '../../../styles/animations';
+import * as ROUTES from "../../../constants/routes"
 
 const noteAnimation = () =>
   css`
@@ -90,7 +91,8 @@ export const Box = styled.div`
   border-radius: ${({ active }) => (active ? '0 0 25px 25px' : '25px')};
   display: flex;
   flex-direction: column;
-  height: ${({ active }) => (active ? '205px' : '0')};
+  height: ${({ active, route }) =>
+    active ? (route === ROUTES.HOME ? '205px' : '125px') : '0'};
   padding-top: 150%;
   position: absolute;
   transform: translateY(5px);
@@ -175,4 +177,4 @@ export const Date = styled.p`
   bottom: 5px;
   left: 35px;
   position: absolute;
-`
+`;

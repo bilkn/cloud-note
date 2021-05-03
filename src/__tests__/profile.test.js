@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render} from '@testing-library/react';
-import { ProfileContainer } from '.';
+import { ProfileContainer } from '../containers';
 
 afterEach(cleanup);
 

@@ -1,6 +1,5 @@
 import { render, fireEvent, cleanup } from '@testing-library/react';
 import MatchMediaMock from 'jest-matchmedia-mock';
-import { scroll } from '../mocks';
 import App from '../App';
 
 let matchMedia = null;
@@ -8,7 +7,11 @@ let matchMedia = null;
 describe('Tests note creation', () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
-    scroll(window);
+     Object.defineProperty(window, 'scroll', {
+       value: jest.fn(),
+       writable: false,
+       configurable: false,
+     });
   });
 
   afterEach(() => {

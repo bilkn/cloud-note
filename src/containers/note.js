@@ -7,11 +7,13 @@ import {
   useWindowEvent,
   useNoteLogic,
   useMouseClick,
+  useMatchLastSubpath,
 } from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
 import { Clipboard } from '@styled-icons/fa-regular/Clipboard';
 import { Trash } from '@styled-icons/bootstrap/Trash';
-
+import { Recycle } from '@styled-icons/remix-fill/Recycle';
+import * as ROUTES from '../constants/routes';
 function NoteContainer(props) {
   const {
     id,
@@ -28,13 +30,14 @@ function NoteContainer(props) {
   } = props;
   const noteRef = useRef(null);
   const { mouseClick, setMouseClick } = useMouseClick();
-
   const {
+    handleToggleClick,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
-    handleToggleClick,
     handleEnlargeClick,
+    handleRecoverClick,
+    handlePermanentDeleteClick,
     handleBlur,
     showButtons,
     setShowButtons,
@@ -53,7 +56,6 @@ function NoteContainer(props) {
     timestamp,
     activate,
   });
-
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowButtons(false)],
@@ -64,6 +66,7 @@ function NoteContainer(props) {
     handlers: [() => setShowButtons(false)],
     condition: showButtons,
   });
+  const { matchSubpath, pathname } = useMatchLastSubpath();
 
   const handleMouseDown = () => {
     setMouseClick(true);
@@ -78,7 +81,6 @@ function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
-  console.log('render note');
   return (
     <Note
       color={color}
@@ -90,37 +92,58 @@ function NoteContainer(props) {
     >
       {lastModified && (
         <Note.ButtonWrapper>
-          <Note.Box active={showButtons}>
-            <Note.Button
-              onClick={handleEditClick}
-              title="Edit note"
-              aria-label="Edit note"
-            >
-              <Edit size="24" />
-            </Note.Button>
-            <Note.Button
-              onClick={() =>
-                handleEnlargeClick(noteRef.current.getBoundingClientRect())
-              }
-              title="Enlarge note"
-              aria-label="Enlarge note"
-            >
-              <Fullscreen size="24" />
-            </Note.Button>
-            <Note.Button
-              onClick={() => handleCopyClick(textValue)}
-              title="Copy to clipboard"
-              aria-label="Copy to clipboard"
-            >
-              <Clipboard size="24" />
-            </Note.Button>
-            <Note.Button
-              onClick={(e) => handleDeleteClick(e, id)}
-              title="Delete note"
-              aria-label="Delete note"
-            >
-              <Trash size="24" />
-            </Note.Button>
+          <Note.Box active={showButtons} route={pathname}>
+            {matchSubpath(ROUTES.HOME) ? (
+              <>
+                <Note.Button
+                  onClick={handleEditClick}
+                  title="Edit note"
+                  aria-label="Edit note"
+                >
+                  <Edit size="24" />
+                </Note.Button>
+                <Note.Button
+                  onClick={() =>
+                    handleEnlargeClick(noteRef.current.getBoundingClientRect())
+                  }
+                  title="Enlarge note"
+                  aria-label="Enlarge note"
+                >
+                  <Fullscreen size="24" />
+                </Note.Button>
+                <Note.Button
+                  onClick={() => handleCopyClick(textValue)}
+                  title="Copy to clipboard"
+                  aria-label="Copy to clipboard"
+                >
+                  <Clipboard size="24" />
+                </Note.Button>
+                <Note.Button
+                  onClick={(e) => handleDeleteClick(e, id)}
+                  title="Delete note"
+                  aria-label="Delete note"
+                >
+                  <Trash size="24" />
+                </Note.Button>
+              </>
+            ) : (
+              <>
+                <Note.Button
+                  onClick={() => handleRecoverClick(id)}
+                  title="Recover note"
+                  aria-label="Recover note"
+                >
+                  <Recycle size="24" />
+                </Note.Button>
+                <Note.Button
+                  onClick={(e) => handlePermanentDeleteClick(e,id)}
+                  title="Delete permanently"
+                  aria-label="Delete permanently"
+                >
+                  <Trash size="24" />
+                </Note.Button>
+              </>
+            )}
           </Note.Box>
           <Note.ToggleButton
             active={showButtons}

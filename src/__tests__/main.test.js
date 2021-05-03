@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { v4 as uuidv4 } from 'uuid';
-import { MainContainer } from '.';
-import { DataProvider, ToastProvider } from '../providers';
+import { MainContainer } from '../containers';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { AllProviders } from '../__test-utils__/all-providers';
 
 test('renders notes', () => {
   const fakeNote = {
@@ -12,22 +12,18 @@ test('renders notes', () => {
     timestamp: new Date(),
     text: 'Testing note',
   };
-  const fakeDataState = {
+  const dataState = {
     results: [fakeNote],
     deleted: [],
     isLoading: false,
     isError: false,
   };
-  const dispatchData = jest.fn();
   const history = createMemoryHistory();
   render(
     <Router history={history}>
-      <DataProvider value={{ dataState: fakeDataState, dispatchData }}>
-        <ToastProvider>
-          <MainContainer data={fakeDataState.results} />
-        </ToastProvider>
-      </DataProvider>
-    </Router>
+      <MainContainer data={dataState.results} />
+    </Router>,
+    { wrapper: AllProviders }
   );
   const noteTextArea = screen.getByTestId('note-text-area');
   expect(noteTextArea).toHaveTextContent(/testing note/i);

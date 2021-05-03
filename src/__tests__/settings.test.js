@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { SettingsContainer } from '.';
+import { SettingsContainer } from '../containers';
 import { DialogProvider, DataProvider, ToastProvider } from '../providers';
 
 afterEach(cleanup);

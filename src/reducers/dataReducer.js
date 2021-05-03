@@ -5,11 +5,11 @@ export default function dataReducer(state, action) {
     case 'ADD': {
       const { id: dataId, text } = action.payload;
       const { results } = state;
-      const templateData = results.find(({ id }) => id === dataId);
+      const willAddedData = results.find(({ id }) => id === dataId);
       const filteredResults = results.filter(({ id }) => id !== dataId);
-      const lastModified = templateData.timestamp;
+      const lastModified = willAddedData.timestamp;
       const newData = {
-        ...templateData,
+        ...willAddedData,
         lastModified,
         text,
       };
@@ -48,10 +48,9 @@ export default function dataReducer(state, action) {
     }
 
     case 'PERMANENT_DELETE': {
-      const { results } = state;
-      const { deleteId } = action;
-      const newResults = results.filter(({ id }) => id !== deleteId);
-      return { ...state, results: newResults };
+      const { deleteId, store } = action.payload;
+      const newStore = state[store].filter(({ id }) => id !== deleteId);
+      return { ...state, [store]: newStore };
     }
 
     case 'MODIFY': {
@@ -65,6 +64,15 @@ export default function dataReducer(state, action) {
         ...results.filter(({ id }) => id !== modifyId),
       ];
       return { ...state, results: newResults };
+    }
+
+    case 'RECOVER': {
+      const { recoverId } = action.payload;
+      const { results, deleted } = state;
+      const willRecoveredData = deleted.find(({ id }) => id === recoverId);
+      const newDeleted = deleted.filter(({ id }) => id !== recoverId);
+      const newResults = [...results, willRecoveredData];
+      return { ...state, results: newResults, deleted: newDeleted };
     }
 
     case 'SORT_BY_DATE': {
