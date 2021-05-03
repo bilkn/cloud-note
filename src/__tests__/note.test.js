@@ -146,7 +146,7 @@ describe('Non dialog buttons are working correctly', () => {
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
-  test('Larger note is opened after enlarge button click', () => {
+  test('Large note is opened after enlarge button click', () => {
     const boxBtn = screen.getByLabelText('Toggle note menu');
     fireEvent.click(boxBtn);
     const enlargeBtn = screen.getByLabelText('Enlarge note');
@@ -155,3 +155,5 @@ describe('Non dialog buttons are working correctly', () => {
     expect(noteNodes.length).toBe(2); 
   });
 });
+
+

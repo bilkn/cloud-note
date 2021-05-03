@@ -30,7 +30,6 @@ function NoteContainer(props) {
   } = props;
   const noteRef = useRef(null);
   const { mouseClick, setMouseClick } = useMouseClick();
-
   const {
     handleToggleClick,
     handleEditClick,
@@ -66,7 +65,7 @@ function NoteContainer(props) {
     handlers: [() => setShowButtons(false)],
     condition: showButtons,
   });
-  const { matchSubpath } = useMatchLastSubpath();
+  const { matchSubpath, pathname } = useMatchLastSubpath();
 
   const handleMouseDown = () => {
     setMouseClick(true);
@@ -92,7 +91,7 @@ function NoteContainer(props) {
     >
       {lastModified && (
         <Note.ButtonWrapper>
-          <Note.Box active={showButtons}>
+          <Note.Box active={showButtons} route={pathname}>
             {matchSubpath(ROUTES.HOME) ? (
               <>
                 <Note.Button
