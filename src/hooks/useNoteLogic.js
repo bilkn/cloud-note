@@ -48,7 +48,6 @@ function useHandler(props) {
       type: 'NOTIFICATION',
       payload: 'Note has been copied to the clipboard.',
     });
-    setIsActive(false);
     setShowButtons(false);
   };
 
@@ -63,7 +62,6 @@ function useHandler(props) {
       },
       buttons: ['Cancel', 'Delete'],
     });
-    setIsActive(false);
   };
 
   const handleEnlargeClick = (rect) => {
@@ -74,7 +72,10 @@ function useHandler(props) {
 
   const handleRecoverClick = (id) => {
     Recover(id);
-    setIsActive(false);
+  };
+
+  const handlePermanentDeleteClick = (id) => {
+    DeletePermanently(id,"deleted");
   };
 
   const handleBlur = () => {
@@ -84,7 +85,7 @@ function useHandler(props) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
-    else DeletePermanently(id);
+    else DeletePermanently(id,"results",false);
     SortByDate();
     setIsActive(false);
     textArea.scroll({
@@ -131,6 +132,7 @@ function useHandler(props) {
     handleDeleteClick,
     handleEnlargeClick,
     handleRecoverClick,
+    handlePermanentDeleteClick,
     handleBlur,
     showButtons,
     setShowButtons,

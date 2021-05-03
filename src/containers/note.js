@@ -37,6 +37,7 @@ function NoteContainer(props) {
     handleDeleteClick,
     handleEnlargeClick,
     handleRecoverClick,
+    handlePermanentDeleteClick,
     handleBlur,
     showButtons,
     setShowButtons,
@@ -126,13 +127,22 @@ function NoteContainer(props) {
                 </Note.Button>
               </>
             ) : (
-              <Note.Button
-                onClick={() => handleRecoverClick(id)}
-                title="Recover note"
-                aria-label="Recover note"
-              >
-                <Recycle size="24" />
-              </Note.Button>
+              <>
+                <Note.Button
+                  onClick={() => handleRecoverClick(id)}
+                  title="Recover note"
+                  aria-label="Recover note"
+                >
+                  <Recycle size="24" />
+                </Note.Button>
+                <Note.Button
+                  onClick={() => handlePermanentDeleteClick(id)}
+                  title="Delete permanently"
+                  aria-label="Delete permanently"
+                >
+                  <Trash size="24" />
+                </Note.Button>
+              </>
             )}
           </Note.Box>
           <Note.ToggleButton

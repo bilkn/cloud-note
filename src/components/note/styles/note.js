@@ -92,7 +92,7 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   height: ${({ active, route }) =>
-    active ? (route === ROUTES.HOME ? '205px' : '105px') : '0'};
+    active ? (route === ROUTES.HOME ? '205px' : '125px') : '0'};
   padding-top: 150%;
   position: absolute;
   transform: translateY(5px);

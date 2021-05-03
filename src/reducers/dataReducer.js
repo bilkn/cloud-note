@@ -48,10 +48,9 @@ export default function dataReducer(state, action) {
     }
 
     case 'PERMANENT_DELETE': {
-      const { results } = state;
-      const { deleteId } = action;
-      const newResults = results.filter(({ id }) => id !== deleteId);
-      return { ...state, results: newResults };
+      const { deleteId, store } = action.payload;
+      const newStore = state[store].filter(({ id }) => id !== deleteId);
+      return { ...state, [store]: newStore };
     }
 
     case 'MODIFY': {

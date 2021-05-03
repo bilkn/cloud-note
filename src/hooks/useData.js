@@ -42,8 +42,17 @@ export default function useData() {
     });
   };
 
-  const DeletePermanently = (id) => {
-    dispatchData({ type: 'PERMANENT_DELETE', deleteId: id });
+  const DeletePermanently = (id, store, notification = true) => {
+    dispatchData({
+      type: 'PERMANENT_DELETE',
+      payload: { deleteId: id, store },
+    });
+    if (notification) {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been deleted permanently.',
+      });
+    }
   };
 
   const Modify = (id, text) => {
