@@ -8,6 +8,26 @@ import { AllProviders } from '../__test-utils__/all-providers';
 import { DataProvider, DialogProvider, ToastProvider } from '../providers';
 import { useData } from '../hooks';
 import { act } from 'react-dom/test-utils';
+import * as ROUTES from '../constants/routes';
+
+const createFakeNote = () => {
+  return {
+    id: uuidv4(),
+    color: 'orange',
+    timestamp: new Date('1995-12-17T03:24:00'),
+    text: 'Testing note',
+    lastModified: true,
+  };
+};
+
+const defineScroll = () => {
+  Object.defineProperty(Element.prototype, 'scroll', {
+    value: jest.fn(),
+    writable: false,
+    configurable: false,
+  });
+};
+
 /* 
 beforeEach(() => {
   Object.defineProperty(Element.prototype, 'scroll', {
@@ -101,21 +121,11 @@ afterEach(() => {
   expect(note).toBeNull();
 }); */
 
-describe('Non dialog buttons are working correctly', () => {
-  Object.defineProperty(Element.prototype, 'scroll', {
-    value: jest.fn(),
-    writable: false,
-    configurable: false,
-  });
+describe('Home note non-dialog buttons are working correctly', () => {
+  defineScroll();
   beforeEach(() => {
     const history = createMemoryHistory();
-    const fakeNote = {
-      id: uuidv4(),
-      color: 'orange',
-      timestamp: new Date('1995-12-17T03:24:00'),
-      text: 'Testing note',
-      lastModified: true,
-    };
+    const fakeNote = createFakeNote();
     const fakeData = [fakeNote];
     render(
       <>
@@ -151,9 +161,30 @@ describe('Non dialog buttons are working correctly', () => {
     fireEvent.click(boxBtn);
     const enlargeBtn = screen.getByLabelText('Enlarge note');
     fireEvent.click(enlargeBtn);
-    const noteNodes = screen.getAllByTestId("note"); 
-    expect(noteNodes.length).toBe(2); 
+    const noteNodes = screen.getAllByTestId('note');
+    expect(noteNodes.length).toBe(2);
   });
 });
 
-
+describe('Deleted page note buttons are working correctly', () => {
+  test('Note is recovered after recover button click', () => {
+    const history = createMemoryHistory();
+    const fakeNote = createFakeNote();
+    const fakeData = [fakeNote];
+    history.push(ROUTES.DELETED);
+    const { rerender, debug } = render(
+      <>
+        <Router history={history}>
+          <MainContainer data={fakeData} />
+        </Router>
+        <DialogContainer />
+      </>,
+      { wrapper: AllProviders }
+    );
+    const boxBtn = screen.getByLabelText('Toggle note menu');
+    fireEvent.click(boxBtn);
+    const recoverBtn = screen.getByLabelText('Recover note');
+    fireEvent.click(recoverBtn);
+    debug();
+  });
+});
