@@ -45,6 +45,7 @@ function NoteContainer(props) {
     textValue,
     setTextValue,
     textAreaRef,
+    btnRef,
   } = useNoteLogic({
     setCurrentId,
     setShowEnlargedNote,
@@ -81,6 +82,8 @@ function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
+
+  const checkTabIndex = showButtons ? '1' : '-1';
   return (
     <Note
       color={color}
@@ -99,6 +102,8 @@ function NoteContainer(props) {
                   onClick={handleEditClick}
                   title="Edit note"
                   aria-label="Edit note"
+                  tabIndex={checkTabIndex}
+                  ref={btnRef}
                 >
                   <Edit size="24" />
                 </Note.Button>
@@ -108,6 +113,7 @@ function NoteContainer(props) {
                   }
                   title="Enlarge note"
                   aria-label="Enlarge note"
+                  tabIndex={checkTabIndex}
                 >
                   <Fullscreen size="24" />
                 </Note.Button>
@@ -115,6 +121,7 @@ function NoteContainer(props) {
                   onClick={() => handleCopyClick(textValue)}
                   title="Copy to clipboard"
                   aria-label="Copy to clipboard"
+                  tabIndex={checkTabIndex}
                 >
                   <Clipboard size="24" />
                 </Note.Button>
@@ -122,6 +129,7 @@ function NoteContainer(props) {
                   onClick={(e) => handleDeleteClick(e, id)}
                   title="Delete note"
                   aria-label="Delete note"
+                  tabIndex={checkTabIndex}
                 >
                   <Trash size="24" />
                 </Note.Button>
@@ -132,13 +140,15 @@ function NoteContainer(props) {
                   onClick={() => handleRecoverClick(id)}
                   title="Recover note"
                   aria-label="Recover note"
+                  tabIndex={checkTabIndex}
                 >
                   <Recycle size="24" />
                 </Note.Button>
                 <Note.Button
-                  onClick={(e) => handlePermanentDeleteClick(e,id)}
+                  onClick={(e) => handlePermanentDeleteClick(e, id)}
                   title="Delete permanently"
                   aria-label="Delete permanently"
+                  tabIndex={checkTabIndex}
                 >
                   <Trash size="24" />
                 </Note.Button>

@@ -27,6 +27,8 @@ export default function PaletteContainer({ palette, setPalette }) {
   const handleExtraAnimationEnd = () =>
     setPalette({ active: false, extraAnimation: false });
 
+  const checkTabIndex = palette.active ? '0' : '-1';
+
   return (
     <Palette
       active={palette.active}
@@ -49,6 +51,7 @@ export default function PaletteContainer({ palette, setPalette }) {
         `}
         onClick={() => handleColorClick(colors.red_2)}
         data-testid="color-btn"
+        tabIndex={checkTabIndex}
       />
       <Palette.ColorButton
         color={colors.orange}
@@ -59,6 +62,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.orange)}
+        tabIndex={checkTabIndex}
       />
       <Palette.ColorButton
         color={colors.purple}
@@ -66,6 +70,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           top: 10px;
         `}
         onClick={() => handleColorClick(colors.purple)}
+        tabIndex={checkTabIndex}
       />
       <Palette.ColorButton
         color={colors.blue}
@@ -76,6 +81,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.blue)}
+        tabIndex={checkTabIndex}
       />
       <Palette.ColorButton
         color={colors.green}
@@ -89,6 +95,7 @@ export default function PaletteContainer({ palette, setPalette }) {
           }
         `}
         onClick={() => handleColorClick(colors.green)}
+        tabIndex={checkTabIndex}
       />
     </Palette>
   );
