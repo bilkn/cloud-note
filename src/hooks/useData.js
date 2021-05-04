@@ -1,21 +1,27 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
-  const { dispatchData } = useContext(DataContext);
+  const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
+  const { setItem } = useLocalStorage();
 
   const Add = (id, text) => {
     const type = 'ADD';
-    dispatchData({
-      type,
-      payload: { id, text },
-    });
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Note has been added.',
-    });
+    try {
+      dispatchData({
+        type,
+        payload: { id, text },
+      });
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been added.',
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const AddTemplate = (color) => {
@@ -60,8 +66,7 @@ export default function useData() {
     if (dialog) {
       setDialog({
         isOpen: true,
-        text:
-          'Are you sure you want to delete this note? This will permanently erase your note.',
+        text: 'Are you sure you want to delete this note permanently?',
         handler: deleteHandler,
         buttons: ['Cancel', 'Delete'],
       });
@@ -90,6 +95,11 @@ export default function useData() {
   const SortByDate = () => {
     dispatchData({ type: 'SORT_BY_DATE' });
   };
+
+  useEffect(() => {
+    setItem('results', dataState.results);
+    setItem('deleted', dataState.deleted);
+  }, [dataState, setItem]);
 
   return {
     Add,

@@ -21,6 +21,7 @@ function useHandler(props) {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
+  const btnRef = useRef(null);
   const {
     Add,
     Delete,
@@ -34,6 +35,10 @@ function useHandler(props) {
     e.stopPropagation();
     setShowButtons(!showButtons);
     setCurrentId(id);
+  };
+
+  const handleToggleKeyDown = (e) => {
+    if (e.key === 'Enter') setTimeout(() => btnRef.current?.focus(), 150);
   };
 
   const handleEditClick = () => {
@@ -68,15 +73,17 @@ function useHandler(props) {
     setShowEnlargedNote(true);
     setRect(rect);
     scrollToBottom(textAreaRef.current);
+    const { body } = document;
+    body.style.overflow = 'hidden';
   };
 
   const handleRecoverClick = (id) => {
     Recover(id);
   };
 
-  const handlePermanentDeleteClick = (e,id) => {
+  const handlePermanentDeleteClick = (e, id) => {
     e.stopPropagation();
-    DeletePermanently(id,"deleted");
+    DeletePermanently(id, 'deleted');
   };
 
   const handleBlur = () => {
@@ -86,7 +93,7 @@ function useHandler(props) {
       if (!lastModified) Add(id, textValue);
       else Modify(id, textValue);
     } else if (lastModified) Delete(id);
-    else DeletePermanently(id,"results",false,false);
+    else DeletePermanently(id, 'results', false, false);
     SortByDate();
     setIsActive(false);
     textArea.scroll({
@@ -128,6 +135,7 @@ function useHandler(props) {
 
   return {
     handleToggleClick,
+    handleToggleKeyDown,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
@@ -142,6 +150,7 @@ function useHandler(props) {
     isActive,
     setIsActive,
     textAreaRef,
+    btnRef,
   };
 }
 

@@ -39,7 +39,7 @@ export default function Account() {
         >
           <Navigation>
             <Navigation.Breadcrumb>
-              <Navigation.Link to="/name">Codebee</Navigation.Link>{' '}
+              <Navigation.Link to="/name">Codebee</Navigation.Link>
               {/* !!! Change "to" prop */}
               <Navigation.Span>/</Navigation.Span>
               <Navigation.Text>Account Settings</Navigation.Text>

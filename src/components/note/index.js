@@ -8,7 +8,7 @@ import {
   ToggleButton,
   Title,
   Dot,
-  Date
+  Date,
 } from './styles/note';
 
 const Note = React.forwardRef(({ children, ...restProps }, ref) => {
@@ -31,9 +31,9 @@ Note.ButtonWrapper = function NoteButtonWrapper({ children, ...restProps }) {
   return <ButtonWrapper {...restProps}>{children}</ButtonWrapper>;
 };
 
-Note.Button = function NoteButton({ children, ...restProps }) {
-  return <Button {...restProps}>{children}</Button>;
-};
+Note.Button = React.forwardRef(({ children, ...restProps },ref) => (
+  <Button {...restProps} ref={ref}>{children}</Button>
+));
 
 Note.ToggleButton = function NoteToggleButton({ active, ...restProps }) {
   return (

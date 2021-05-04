@@ -24,9 +24,11 @@ export const Input = styled.input`
   transition-duration: 200ms;
   transition-property: border-color, box-shadow;
   transition-timing-function: ease;
+  outline: none;
   vertical-align: baseline;
   width: 100%;
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 0 4px #49494917;
   }
@@ -51,21 +53,18 @@ export const Text = styled.p`
 export const Textarea = styled(Input)``;
 
 export const Button = styled.button`
-  background: ${colors.gray_2};
+  background: ${({ variant }) =>
+    variant === 'red' ? colors.red : colors.gray_2};
   border-radius: 5px;
+  color: ${({ variant }) => (variant === 'red' ? 'white' : 'inherit')};
   margin-top: 1.5em;
   padding: 0.625em 1em;
   transition: background 50ms;
-  &:hover {
-    background: ${colors.gray_2_hover};
-  }
-`;
-
-export const ButtonRed = styled(Button)`
-  background: ${colors.red};
-  color: white;
-  &:hover {
-    background: ${colors.red_hover_2};
+  outline: none;
+  &:hover,
+  &:focus {
+    background: ${({ variant }) =>
+      variant === 'red' ? colors.red_hover_2 : colors.gray_2_hover};
   }
 `;
 

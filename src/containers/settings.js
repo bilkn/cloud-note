@@ -8,7 +8,7 @@ function SettingsContainer() {
   const [usernameValue, setUsernameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [, setDialog] = useContext(DialogContext);
-  const {DeleteAll} =  useData()
+  const { DeleteAll } = useData();
 
   const handleUsernameChange = (e) => {
     setUsernameValue(e.target.value);
@@ -17,8 +17,6 @@ function SettingsContainer() {
   const handleEmailChange = (e) => {
     setEmailValue(e.target.value);
   };
-
-  
 
   const handleDeleteAllNotes = () => {
     setDialog({
@@ -77,10 +75,12 @@ function SettingsContainer() {
       <Form.Wrapper>
         <Form.Subtitle>danger zone</Form.Subtitle>
         <Form.Line />
-        <Form.ButtonRed type="button" onClick={handleDeleteAllNotes}>
+        <Form.Button variant="red" type="button" onClick={handleDeleteAllNotes}>
           Delete all notes
-        </Form.ButtonRed>
-        <Form.ButtonRed type="button" onClick={handleDeleteAccount}>Delete account</Form.ButtonRed>
+        </Form.Button>
+        <Form.Button variant="red" type="button" onClick={handleDeleteAccount}>
+          Delete account
+        </Form.Button>
       </Form.Wrapper>
     </Form>
   );

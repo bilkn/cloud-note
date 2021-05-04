@@ -1,13 +1,9 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { MainContainer, DialogContainer } from '../containers';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { AllProviders } from '../__test-utils__/all-providers';
-import { DataProvider, DialogProvider, ToastProvider } from '../providers';
-import { useData } from '../hooks';
-import { act } from 'react-dom/test-utils';
 import * as ROUTES from '../constants/routes';
 
 const createFakeNote = () => {
@@ -172,7 +168,7 @@ describe('Deleted page note buttons are working correctly', () => {
     const fakeNote = createFakeNote();
     const fakeData = [fakeNote];
     history.push(ROUTES.DELETED);
-    const { rerender, debug } = render(
+    const { debug } = render(
       <>
         <Router history={history}>
           <MainContainer data={fakeData} />

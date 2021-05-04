@@ -1,18 +1,13 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { SettingsContainer } from '../containers';
-import { DialogProvider, DataProvider, ToastProvider } from '../providers';
+import { AllProviders } from '../__test-utils__/all-providers';
 
 afterEach(cleanup);
 
 const renderSettings = () =>
   render(
-    <ToastProvider>
-      <DataProvider>
-        <DialogProvider>
-          <SettingsContainer />
-        </DialogProvider>
-      </DataProvider>
-    </ToastProvider>
+    <SettingsContainer />,
+    { wrapper: AllProviders }
   );
 
 test('Username input value changes after change event', () => {

@@ -63,7 +63,8 @@ export default function HeaderContainer() {
           >
             Sign In
           </Form.Button>
-          <Form.ButtonRed
+          <Form.Button
+          variant="red"
             to={ROUTES.SIGN_UP}
             forwardedAs={ReactRouterLink}
             css={`
@@ -71,7 +72,7 @@ export default function HeaderContainer() {
             `}
           >
             Sign Up
-          </Form.ButtonRed>
+          </Form.Button>
         </Header.Wrapper> */}
         <Avatar.Button
           size="40"
