@@ -35,7 +35,10 @@ function useHandler(props) {
     e.stopPropagation();
     setShowButtons(!showButtons);
     setCurrentId(id);
-    setTimeout(() => btnRef.current?.focus(), 150); // !!! add this focus only for keyboard
+  };
+
+  const handleToggleKeyDown = (e) => {
+    if (e.key === 'Enter') setTimeout(() => btnRef.current?.focus(), 150);
   };
 
   const handleEditClick = () => {
@@ -132,6 +135,7 @@ function useHandler(props) {
 
   return {
     handleToggleClick,
+    handleToggleKeyDown,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,

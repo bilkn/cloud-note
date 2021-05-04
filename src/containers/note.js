@@ -6,7 +6,6 @@ import {
   useWindowKey,
   useWindowEvent,
   useNoteLogic,
-  useMouseClick,
   useMatchLastSubpath,
 } from '../hooks';
 import { Edit, Fullscreen } from '@styled-icons/boxicons-regular';
@@ -29,9 +28,9 @@ function NoteContainer(props) {
     activate,
   } = props;
   const noteRef = useRef(null);
-  const { mouseClick, setMouseClick } = useMouseClick();
   const {
     handleToggleClick,
+    handleToggleKeyDown,
     handleEditClick,
     handleCopyClick,
     handleDeleteClick,
@@ -68,10 +67,6 @@ function NoteContainer(props) {
     condition: showButtons,
   });
   const { matchSubpath, pathname } = useMatchLastSubpath();
-
-  const handleMouseDown = () => {
-    setMouseClick(true);
-  };
 
   const handleNoteClick = (e) => {
     activate && e.stopPropagation(); // If note is initially activated, it stops propagation.
@@ -157,9 +152,8 @@ function NoteContainer(props) {
           </Note.Box>
           <Note.ToggleButton
             active={showButtons}
-            mouseClick={mouseClick}
             onClick={(e) => handleToggleClick(e, id)}
-            onMouseDown={handleMouseDown}
+            onKeyDown={handleToggleKeyDown}
             title="Toggle note menu"
             aria-label="Toggle note menu"
           />
