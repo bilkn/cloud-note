@@ -6,3 +6,4 @@ export { default as useQuery } from './useQuery';
 export { default as useWindowEvent } from './useWindowEvent';
 export { default as useWindowKey } from './useWindowKey';
 export { default as useNoteLogic } from './useNoteLogic';
+export { default as useLocalStorage } from './useLocalStorage';
