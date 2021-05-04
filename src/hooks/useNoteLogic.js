@@ -70,6 +70,8 @@ function useHandler(props) {
     setShowEnlargedNote(true);
     setRect(rect);
     scrollToBottom(textAreaRef.current);
+    const { body } = document;
+    body.style.overflow = 'hidden';
   };
 
   const handleRecoverClick = (id) => {

@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Main, Backdrop } from '../components';
 import { NoteContainer } from '../containers';
 import 'styled-components/macro';
@@ -14,7 +14,10 @@ export default function MainContainer({ data }) {
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
 
-  const handleBackdropClick = () => setShowEnlargedNote(false);
+  const handleBackdropClick = () => {
+    setShowEnlargedNote(false);
+    document.body.style.overflow = 'auto';
+  };
 
   const getCurrentNoteData = displayedData.find(({ id }) => id === currentId);
 
@@ -48,7 +51,12 @@ export default function MainContainer({ data }) {
         </Main.Grid>
       </Main>
       {showEnlargedNote && (
-        <Backdrop onClick={handleBackdropClick}>
+        <Backdrop
+          onClick={handleBackdropClick}
+          css={`
+            overflow: auto;
+          `}
+        >
           <NoteContainer
             {...getCurrentNoteData}
             isCurrentId={currentId === data.id}
