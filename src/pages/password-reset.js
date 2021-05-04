@@ -31,14 +31,15 @@ export default function PasswordReset() {
           <Form.Fieldset>
             <Form.Label htmlFor="email">Email Address</Form.Label>
             <Form.Input id="email" name="email" type="email" />
-            <Form.ButtonRed
+            <Form.Button
+              variant="red"
               type="submit"
               css={`
                 width: 100%;
               `}
             >
               Send Reset Instructions
-            </Form.ButtonRed>
+            </Form.Button>
           </Form.Fieldset>
         </Form>
       </Form.Wrapper>

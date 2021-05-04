@@ -47,7 +47,8 @@ export default function ProfileContainer() {
         <Form>
           <Form.Box>
             {!showFileInput && (
-              <Form.ButtonRed
+              <Form.Button
+                variant="red"
                 css={`
                   margin: 22px 16px 16px 0;
                 `}
@@ -55,7 +56,7 @@ export default function ProfileContainer() {
                 onClick={handleUploadPictureClick}
               >
                 Upload new picture
-              </Form.ButtonRed>
+              </Form.Button>
             )}
             {showFileInput && (
               <Form.Fieldset
@@ -83,7 +84,9 @@ export default function ProfileContainer() {
             >
               Delete
             </Form.Button>
-            {showFileInput && <Form.ButtonRed>Upload Now</Form.ButtonRed>}
+            {showFileInput && (
+              <Form.Button variant="red">Upload Now</Form.Button>
+            )}
           </Form.Box>
         </Form>
       </FlexWrapper>
@@ -131,7 +134,8 @@ export default function ProfileContainer() {
           />
         </Form.Fieldset>
         <Form.Box>
-          <Form.ButtonRed
+          <Form.Button
+            variant="red"
             css={`
               width: 100%;
               @media ${devices.mobile} {
@@ -140,7 +144,7 @@ export default function ProfileContainer() {
             `}
           >
             Save Profile
-          </Form.ButtonRed>
+          </Form.Button>
         </Form.Box>
       </Form>
     </>

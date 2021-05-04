@@ -46,7 +46,7 @@ export default function PasswordContainer() {
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
         <Form.Box>
-          <Form.ButtonRed>Change</Form.ButtonRed>
+          <Form.Button variant="red">Change</Form.Button>
         </Form.Box>
       </Form.Wrapper>
     </Form>

@@ -66,13 +66,14 @@ export default function Signin() {
               autocomplete="new-password"
             />
           </Form.Fieldset>
-          <Form.ButtonRed
+          <Form.Button
+            variant="red"
             css={`
               width: 100%;
             `}
           >
             Sign In
-          </Form.ButtonRed>
+          </Form.Button>
           <Form.Text
             css={`
               font-size: 0.9rem;

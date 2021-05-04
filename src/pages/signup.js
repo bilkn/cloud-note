@@ -56,13 +56,14 @@ export default function Signup() {
               placeholder="6+ characters"
             />
           </Form.Fieldset>
-          <Form.ButtonRed
+          <Form.Button
+            variant="red"
             css={`
               width: 100%;
             `}
           >
             Sign In
-          </Form.ButtonRed>
+          </Form.Button>
           <Form.Text
             css={`
               font-size: 0.9rem;
