@@ -3,7 +3,7 @@ import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
 import { Form, FlexWrapper } from '../components';
 import * as ROUTES from '../constants/routes';
-import useFirebaseAuth from '../hooks/useFirebaseAuth';
+import { useFirebaseAuth, usePasswordStrength } from '../hooks';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -11,8 +11,8 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ state: false, message: '' });
-  const [errors, setErrors] = useState({});
   const { signup } = useFirebaseAuth();
+  const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
@@ -20,7 +20,6 @@ export default function Signup() {
 
   const handleEmailSignInSubmit = async (e) => {
     e.preventDefault();
-    
     setIsLoading(true);
     setError({ state: false, message: '' });
     try {
@@ -30,7 +29,7 @@ export default function Signup() {
       setError({ state: true, message: 'An error occurred.' });
       console.log(err);
       console.log(error.message);
-    } 
+    }
     console.log('final');
     setIsLoading(false);
   };
@@ -84,7 +83,17 @@ export default function Signup() {
             />
           </Form.Fieldset>
           <Form.Fieldset>
-            <Form.Label htmlFor="user_password">Password</Form.Label>
+            <Form.Label
+              htmlFor="user_password"
+              css={`
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+              `}
+            >
+              Password{' '}
+              {password && <Form.PasswordStrength strength={strength} />}
+            </Form.Label>
             <Form.Input
               id="user_password"
               name="user[password]"

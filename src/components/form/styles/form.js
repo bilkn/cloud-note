@@ -129,3 +129,23 @@ export const Span = styled.span`
   display: inline-block;
   padding-left: 3px;
 `;
+
+export const PasswordStrength = styled.div`
+  height: 3px;
+  width: 100px;
+
+  &::after {
+    background: ${({ strength }) =>
+      strength === 'strong'
+        ? colors.strongPassword
+        : strength === 'medium'
+        ? colors.mediumPassword
+        : colors.weakPassword};
+    content: '';
+    display: block;
+    height: 100%;
+    transition: width 300ms;
+    width: ${({ strength }) =>
+      strength === 'strong' ? '100%' : strength === 'medium' ? '50%' : '25%'};
+  }
+`;
