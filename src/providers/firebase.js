@@ -5,9 +5,20 @@ import { auth } from '../lib/firebase.dev';
 export default function FirebaseProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
-  };
+
+  const signup = (email, password) =>
+    auth.createUserWithEmailAndPassword(email, password);
+
+  const login = (email, password) =>
+    auth.signInWithEmailAndPassword(email, password);
+
+  const logout = () => auth.signOut();
+
+  const resetPassword = (email) => auth.sendPasswordResetEmail(email);
+
+  const updateEmail = (email) => currentUser.updateEmail(email);
+
+  const updatePassword = (password) => currentUser.updatePassword(password);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -20,7 +31,11 @@ export default function FirebaseProvider({ children, ...restProps }) {
   const value = {
     currentUser,
     signup,
-    loading,
+    login,
+    logout,
+    resetPassword,
+    updateEmail,
+    updatePassword,
   };
   return (
     <FirebaseContext.Provider value={value} {...restProps}>
