@@ -14,3 +14,4 @@ export { default as Toast } from './toast';
 export { default as Palette } from './palette';
 export { default as Note } from './note';
 export { default as Heading } from './heading';
+export { default as Avatar } from './avatar';

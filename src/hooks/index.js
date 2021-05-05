@@ -7,3 +7,4 @@ export { default as useWindowEvent } from './useWindowEvent';
 export { default as useWindowKey } from './useWindowKey';
 export { default as useNoteLogic } from './useNoteLogic';
 export { default as useLocalStorage } from './useLocalStorage';
+export { default as useFirebaseAuth } from './useFirebaseAuth';

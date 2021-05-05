@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Main, Backdrop } from '../components';
 import { NoteContainer } from '../containers';
+import createFakeData from '../__test-utils__/createFakeData';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';

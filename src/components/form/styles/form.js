@@ -83,6 +83,12 @@ export const ButtonBlue = styled(Button)`
 export const ButtonLink = styled(ReactRouterLink)`
   color: #4f3cc9;
   margin-top: 1.5em;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 `;
 
 export const Title = styled.h2``;
