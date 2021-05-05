@@ -14,7 +14,6 @@ export default function DataProvider(props) {
       setItem('results', []);
       setItem('deleted', []);
     }
-    console.log(data);
   }, [getItem, setItem]);
 
   // !!! If user is online don't map the dates.
@@ -25,7 +24,6 @@ export default function DataProvider(props) {
     const deleted = getItem('deleted')
       ? mapDataListWithDate(getItem('deleted'))
       : [];
-      console.log(results)
     return {
       results,
       deleted,
