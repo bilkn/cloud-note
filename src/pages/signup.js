@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
-import { Form, FlexWrapper } from '../components';
+import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth, usePasswordStrength } from '../hooks';
 
@@ -10,29 +10,39 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState({ state: false, message: '' });
+  const [errors, setErrors] = useState({ email: '', password: '' });
   const { signup } = useFirebaseAuth();
   const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+  const resetErrors = () => setErrors({ email: '', password: '' });
 
   const handleEmailSignInSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError({ state: false, message: '' });
     try {
       await signup(email, password);
-      console.log('succesful');
+      resetErrors();
     } catch (err) {
-      setError({ state: true, message: 'An error occurred.' });
-      console.log(err);
-      console.log(error.message);
+      handleErrors(err);
     }
-    console.log('final');
     setIsLoading(false);
   };
+
+  const handleErrors = useCallback(
+    (err) => {
+      const { code, message } = err;
+      console.log(err);
+
+      if (code === 'auth/email-already-in-use')
+        setErrors({ ...errors, email: message });
+      if (code === 'auth/weak-password')
+        setErrors({ ...errors, password: message });
+    },
+    [errors]
+  );
 
   return (
     <FlexWrapper
@@ -49,6 +59,15 @@ export default function Signup() {
         `}
       >
         <Form.Title>Sign up to NoteCloud</Form.Title>
+        <Message>
+          <Message.List>
+            {Object.keys(errors)
+              .filter((key) => errors[key] !== '')
+              .map((error) => (
+                <Message.Item key={error}>{errors[error]}</Message.Item>
+              ))}
+          </Message.List>
+        </Message>
         <Form>
           <Form.ButtonBlue>
             <Google
@@ -91,7 +110,7 @@ export default function Signup() {
                 justify-content: space-between;
               `}
             >
-              Password{' '}
+              Password
               {password && <Form.PasswordStrength strength={strength} />}
             </Form.Label>
             <Form.Input
