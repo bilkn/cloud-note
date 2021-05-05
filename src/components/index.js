@@ -15,3 +15,4 @@ export { default as Palette } from './palette';
 export { default as Note } from './note';
 export { default as Heading } from './heading';
 export { default as Avatar } from './avatar';
+export { default as Message } from './message';

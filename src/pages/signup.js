@@ -9,18 +9,30 @@ export default function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState({ state: false, message: '' });
+  const [errors, setErrors] = useState({});
   const { signup } = useFirebaseAuth();
+
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleEmailSignInSubmit = async (e) => {
     e.preventDefault();
+    
+    setIsLoading(true);
+    setError({ state: false, message: '' });
     try {
-      signup(email, password);
+      await signup(email, password);
+      console.log('succesful');
     } catch (err) {
+      setError({ state: true, message: 'An error occurred.' });
       console.log(err);
-    }
+      console.log(error.message);
+    } 
+    console.log('final');
+    setIsLoading(false);
   };
 
   return (
@@ -84,6 +96,7 @@ export default function Signup() {
             />
           </Form.Fieldset>
           <Form.Button
+            disabled={isLoading}
             variant="red"
             css={`
               width: 100%;
