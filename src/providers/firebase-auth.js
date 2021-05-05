@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FirebaseContext } from '../context';
+import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
 
-export default function FirebaseProvider({ children, ...restProps }) {
+export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,8 +38,8 @@ export default function FirebaseProvider({ children, ...restProps }) {
     updatePassword,
   };
   return (
-    <FirebaseContext.Provider value={value} {...restProps}>
-      {!loading && children}
-    </FirebaseContext.Provider>
+    <FirebaseAuthContext.Provider value={value} {...restProps}>
+      {children}
+    </FirebaseAuthContext.Provider>
   );
 }
