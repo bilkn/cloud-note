@@ -22,6 +22,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log(user)
       setCurrentUser(user);
       setLoading(false);
     });

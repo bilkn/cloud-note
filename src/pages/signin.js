@@ -3,6 +3,7 @@ import { FlexWrapper, Form } from '../components';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import { colors } from '../styles/variables';
+import * as ROUTES from '../constants/routes';
 
 export default function Signin() {
   return (
@@ -52,6 +53,7 @@ export default function Signin() {
             >
               Password
               <Form.ButtonLink
+                to={ROUTES.PASSWORD_RESET}
                 css={`
                   margin: 0;
                 `}
@@ -81,7 +83,8 @@ export default function Signin() {
               text-align: center;
             `}
           >
-            Not a member? <Form.ButtonLink>Sign Up Now</Form.ButtonLink>
+            Not a member?{' '}
+            <Form.ButtonLink to={ROUTES.SIGN_UP}>Sign Up Now</Form.ButtonLink>
           </Form.Text>
         </Form>
       </Form.Wrapper>

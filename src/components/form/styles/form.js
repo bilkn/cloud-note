@@ -75,7 +75,8 @@ export const ButtonBlue = styled(Button)`
   display: flex;
   justify-content: center;
   width: 100%;
-  &:hover {
+  &:hover,
+  &:focus {
     background: ${colors.blue_2_hover};
   }
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FlexWrapper } from '../components';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
-import { colors } from '../styles/variables';
+import * as ROUTES from '../constants/routes';
 
 export default function Signup() {
   return (
@@ -71,7 +71,8 @@ export default function Signup() {
               text-align: center;
             `}
           >
-            Already a member? <Form.ButtonLink>Sign In</Form.ButtonLink>
+            Already a member?{' '}
+            <Form.ButtonLink to={ROUTES.SIGN_IN}>Sign In</Form.ButtonLink>
           </Form.Text>
         </Form>
       </Form.Wrapper>
