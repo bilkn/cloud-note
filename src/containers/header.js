@@ -72,9 +72,6 @@ export default function HeaderContainer() {
                   color: black;
                   margin: 0;
                   margin-right: 0.5em;
-                  &:hover {
-                    background: none;
-                  }
                 `}
               >
                 Sign In

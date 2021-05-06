@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
+import firebase from 'firebase';
 
 export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -9,6 +10,25 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
+ /*  const signUpWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result)
+        const credential = result.credential;
+        const token = credential.accessToken;
+        const user = result.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = error.credential;
+      });
+  };
+ */
   const login = (email, password) =>
     auth.signInWithEmailAndPassword(email, password);
 

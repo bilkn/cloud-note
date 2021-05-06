@@ -11,7 +11,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
-  const { signup } = useFirebaseAuth();
+  const { signup, signUpWithGoogle } = useFirebaseAuth();
   const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
@@ -19,7 +19,7 @@ export default function Signup() {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const resetErrors = () => setErrors({ email: '', password: '' });
 
-  const handleEmailSignInSubmit = async (e) => {
+  const handleEmailSignUpSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
@@ -29,6 +29,10 @@ export default function Signup() {
       handleErrors(err);
     }
     setIsLoading(false);
+  };
+
+  const handleGoogleSignUp = () => {
+    signUpWithGoogle();
   };
 
   const handleErrors = useCallback(
@@ -69,7 +73,7 @@ export default function Signup() {
           </Message.List>
         </Message>
         <Form>
-          <Form.ButtonBlue>
+          <Form.ButtonBlue onClick={handleGoogleSignUp}>
             <Google
               size="18px"
               css={`
@@ -80,7 +84,7 @@ export default function Signup() {
           </Form.ButtonBlue>
         </Form>
         <Form.Divider />
-        <Form onSubmit={handleEmailSignInSubmit}>
+        <Form onSubmit={handleEmailSignUpSubmit}>
           <Form.Fieldset>
             <Form.Label htmlFor="user_login">Username</Form.Label>
             <Form.Input
