@@ -75,7 +75,8 @@ export const ButtonBlue = styled(Button)`
   display: flex;
   justify-content: center;
   width: 100%;
-  &:hover {
+  &:hover,
+  &:focus {
     background: ${colors.blue_2_hover};
   }
 `;
@@ -127,4 +128,24 @@ export const Span = styled.span`
   color: ${colors.red};
   display: inline-block;
   padding-left: 3px;
+`;
+
+export const PasswordStrength = styled.div`
+  height: 3px;
+  width: 100px;
+
+  &::after {
+    background: ${({ strength }) =>
+      strength === 'strong'
+        ? colors.strongPassword
+        : strength === 'medium'
+        ? colors.mediumPassword
+        : colors.weakPassword};
+    content: '';
+    display: block;
+    height: 100%;
+    transition: width 300ms;
+    width: ${({ strength }) =>
+      strength === 'strong' ? '100%' : strength === 'medium' ? '50%' : '25%'};
+  }
 `;

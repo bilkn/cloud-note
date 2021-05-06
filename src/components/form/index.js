@@ -15,6 +15,7 @@ import {
   Subtitle,
   Line,
   Divider,
+  PasswordStrength,
   Span,
 } from './styles/form';
 
@@ -54,7 +55,6 @@ Form.Button = function FormButton({ children, ...restProps }) {
   return <Button {...restProps}>{children}</Button>;
 };
 
-
 Form.ButtonBlue = function FormButtonBlue({ children, ...restProps }) {
   return <ButtonBlue {...restProps}>{children}</ButtonBlue>;
 };
@@ -81,5 +81,9 @@ Form.Divider = function FormDivider({ ...restProps }) {
 
 Form.Span = function FormSpan({ children, ...restProps }) {
   return <Span {...restProps}>{children}</Span>;
+};
+
+Form.PasswordStrength = function FormPasswordStrength({ ...restProps }) {
+  return <PasswordStrength {...restProps} />;
 };
 

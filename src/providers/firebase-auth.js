@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
+import firebase from 'firebase';
 
 export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(null);
@@ -9,10 +10,20 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
-  const login = (email, password) =>
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const signin = (email, password) =>
     auth.signInWithEmailAndPassword(email, password);
 
-  const logout = () => auth.signOut();
+  const signout = () => auth.signOut();
 
   const resetPassword = (email) => auth.sendPasswordResetEmail(email);
 
@@ -31,8 +42,9 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const value = {
     currentUser,
     signup,
-    login,
-    logout,
+    signInWithGoogle,
+    signin,
+    signout,
     resetPassword,
     updateEmail,
     updatePassword,

@@ -51,11 +51,14 @@ export const Input = styled.input`
     border-color: rgb(241 85 76 / 50%);
     box-shadow: 0 0 0 4px #f1554c40;
   }
+  &:focus + i {
+    display: none;
+  }
 `;
 
 export const Icon = styled.i`
   display: inline-block;
   left: 10px;
   position: absolute;
-  top: 6px;
+  top: 7px;
 `;

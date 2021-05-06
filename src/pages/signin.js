@@ -1,10 +1,47 @@
-import React from 'react';
-import { FlexWrapper, Form } from '../components';
+import React, { useState } from 'react';
+import { FlexWrapper, Form, Message } from '../components';
+import { useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import { colors } from '../styles/variables';
+import * as ROUTES from '../constants/routes';
 
 export default function Signin() {
+  const [loginValue, setLoginValue] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { signin, signInWithGoogle } = useFirebaseAuth();
+
+  const handleLoginChange = (e) => setLoginValue(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    try {
+      await signin(loginValue, password);
+    } catch (err) {
+      const { message } = err;
+      setError(message);
+    }
+    setIsLoading(false);
+  };
+
+  const handleSignInWithGoogle = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    try {
+      await signInWithGoogle(loginValue, password);
+    } catch (err) {
+      const { message } = err;
+      setError(message);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <FlexWrapper
       align="center"
@@ -20,7 +57,14 @@ export default function Signin() {
         `}
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
-        <Form>
+        {error && (
+          <Message>
+            <Message.List>
+              <Message.Item>{error}</Message.Item>
+            </Message.List>
+          </Message>
+        )}
+        <Form onSubmit={handleSignInWithGoogle}>
           <Form.ButtonBlue>
             <Google
               size="20px"
@@ -32,7 +76,7 @@ export default function Signin() {
           </Form.ButtonBlue>
         </Form>
         <Form.Divider />
-        <Form>
+        <Form onSubmit={handleSignIn}>
           <Form.Fieldset>
             <Form.Label htmlFor="login">Username or Email Address</Form.Label>
             <Form.Input
@@ -40,6 +84,7 @@ export default function Signin() {
               type="text"
               autocorrect="off"
               autocapitalize="off"
+              onChange={handleLoginChange}
             />
           </Form.Fieldset>
           <Form.Fieldset>
@@ -52,6 +97,7 @@ export default function Signin() {
             >
               Password
               <Form.ButtonLink
+                to={ROUTES.PASSWORD_RESET}
                 css={`
                   margin: 0;
                 `}
@@ -64,9 +110,11 @@ export default function Signin() {
               name="user[password]"
               type="password"
               autocomplete="new-password"
+              onChange={handlePasswordChange}
             />
           </Form.Fieldset>
           <Form.Button
+            disabled={isLoading}
             variant="red"
             css={`
               width: 100%;
@@ -81,7 +129,8 @@ export default function Signin() {
               text-align: center;
             `}
           >
-            Not a member? <Form.ButtonLink>Sign Up Now</Form.ButtonLink>
+            Not a member?{' '}
+            <Form.ButtonLink to={ROUTES.SIGN_UP}>Sign Up Now</Form.ButtonLink>
           </Form.Text>
         </Form>
       </Form.Wrapper>

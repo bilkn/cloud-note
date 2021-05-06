@@ -11,7 +11,8 @@
         ".vscode": true,
         "node_modules": true,
         "netlify.toml": true,
-        ".netlify": true
+        ".netlify": true,
+        ".env.local": true
     },
     "explorerExclude.backup": null
 }

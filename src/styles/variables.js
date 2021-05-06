@@ -7,7 +7,7 @@ export const colors = {
   gray_4: '#515255',
   gray_4_hover: '#515255c2',
   gray_5_hover: '#eaeaea',
-  gray_6: "#727272",
+  gray_6: '#727272',
   red: '#f1554c',
   red_hover: '#e7483f',
   red_hover_2: '#f1554cb8',
@@ -21,6 +21,9 @@ export const colors = {
   blue_2: '#4285f4',
   blue_2_hover: '#2a75f3',
   green: '#E4EE90',
+  weakPassword: '#EC5840',
+  mediumPassword: '#F7A61E',
+  strongPassword: '#39C16C',
 };
 
 export const indexes = {

@@ -5,7 +5,7 @@ import 'styled-components/macro';
 export default function PasswordReset() {
   return (
     <FlexWrapper
-      align="flex-start"
+      align="center"
       css={`
         justify-content: center;
         min-height: 100vh;

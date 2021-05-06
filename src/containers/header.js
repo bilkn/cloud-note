@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Form, Header, Popover, Avatar } from '../components';
+import React, { useState } from 'react';
+import { Form, Header, Avatar } from '../components';
 import { FirebaseAuthContext } from '../context';
 import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
@@ -72,9 +72,6 @@ export default function HeaderContainer() {
                   color: black;
                   margin: 0;
                   margin-right: 0.5em;
-                  &:hover {
-                    background: none;
-                  }
                 `}
               >
                 Sign In
