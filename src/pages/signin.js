@@ -11,11 +11,10 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const { signin } = useFirebaseAuth();
 
-  const handleSignInSubmit = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     try {
       await signin(loginValue, password);
-      console.log(signin);
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +39,7 @@ export default function Signin() {
         `}
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
-        <Form onSubmit={handleSignInSubmit}>
+        <Form>
           <Form.ButtonBlue>
             <Google
               size="20px"
@@ -52,7 +51,7 @@ export default function Signin() {
           </Form.ButtonBlue>
         </Form>
         <Form.Divider />
-        <Form>
+        <Form onSubmit={handleSignIn}>
           <Form.Fieldset>
             <Form.Label htmlFor="login">Username or Email Address</Form.Label>
             <Form.Input
