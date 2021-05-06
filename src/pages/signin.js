@@ -11,7 +11,7 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signin } = useFirebaseAuth();
+  const { signin, signInWithGoogle } = useFirebaseAuth();
 
   const handleLoginChange = (e) => setLoginValue(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -22,6 +22,19 @@ export default function Signin() {
     setError('');
     try {
       await signin(loginValue, password);
+    } catch (err) {
+      const { message } = err;
+      setError(message);
+    }
+    setIsLoading(false);
+  };
+
+  const handleSignInWithGoogle = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+    try {
+      await signInWithGoogle(loginValue, password);
     } catch (err) {
       const { message } = err;
       setError(message);
@@ -51,7 +64,7 @@ export default function Signin() {
             </Message.List>
           </Message>
         )}
-        <Form>
+        <Form onSubmit={handleSignInWithGoogle}>
           <Form.ButtonBlue>
             <Google
               size="20px"

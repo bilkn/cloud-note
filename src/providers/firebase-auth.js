@@ -10,22 +10,13 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
-  const signUpWithGoogle = () => {
+  const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result)
-        const credential = result.credential;
-        const token = credential.accessToken;
-        const user = result.user;
-      })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = error.credential;
+        console.log(error);
       });
   };
 
@@ -51,7 +42,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const value = {
     currentUser,
     signup,
-    signUpWithGoogle,
+    signInWithGoogle,
     signin,
     signout,
     resetPassword,

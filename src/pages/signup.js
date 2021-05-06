@@ -11,7 +11,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { signup, signUpWithGoogle } = useFirebaseAuth();
+  const { signup, signInWithGoogle } = useFirebaseAuth();
   const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
@@ -34,7 +34,7 @@ export default function Signup() {
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signUpWithGoogle();
+      await signInWithGoogle();
     } catch (err) {
       const { message } = err;
       setError(message);
