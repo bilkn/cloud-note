@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlexWrapper, Form } from '../components';
+import { useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import { colors } from '../styles/variables';
 import * as ROUTES from '../constants/routes';
 
 export default function Signin() {
+  const [loginValue, setLoginValue] = useState('');
+  const [password, setPassword] = useState('');
+  const { signin } = useFirebaseAuth();
+
+  const handleSignInSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signin(loginValue, password);
+      console.log(signin);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleLoginChange = (e) => setLoginValue(e.target.value);
+
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
   return (
     <FlexWrapper
       align="center"
@@ -21,7 +40,7 @@ export default function Signin() {
         `}
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
-        <Form>
+        <Form onSubmit={handleSignInSubmit}>
           <Form.ButtonBlue>
             <Google
               size="20px"
@@ -41,6 +60,7 @@ export default function Signin() {
               type="text"
               autocorrect="off"
               autocapitalize="off"
+              onChange={handleLoginChange}
             />
           </Form.Fieldset>
           <Form.Fieldset>
@@ -66,6 +86,7 @@ export default function Signin() {
               name="user[password]"
               type="password"
               autocomplete="new-password"
+              onChange={handlePasswordChange}
             />
           </Form.Fieldset>
           <Form.Button

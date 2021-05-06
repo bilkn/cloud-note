@@ -4,11 +4,10 @@ import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth } from '../hooks';
 
 export default function PopoverContainer({ ...restProps }) {
-  const { logout } = useFirebaseAuth();
+  const { signout } = useFirebaseAuth();
 
   const handleSignOut = () => {
-    console.log("log out")
-    logout();
+    signout();
   };
 
   return (

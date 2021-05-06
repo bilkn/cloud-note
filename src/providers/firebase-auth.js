@@ -10,7 +10,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
- /*  const signUpWithGoogle = () => {
+  const signUpWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
@@ -28,11 +28,11 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
         const credential = error.credential;
       });
   };
- */
-  const login = (email, password) =>
+
+  const signin = (email, password) =>
     auth.signInWithEmailAndPassword(email, password);
 
-  const logout = () => auth.signOut();
+  const signout = () => auth.signOut();
 
   const resetPassword = (email) => auth.sendPasswordResetEmail(email);
 
@@ -51,8 +51,9 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const value = {
     currentUser,
     signup,
-    login,
-    logout,
+    signUpWithGoogle,
+    signin,
+    signout,
     resetPassword,
     updateEmail,
     updatePassword,

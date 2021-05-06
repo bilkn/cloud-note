@@ -31,8 +31,13 @@ export default function Signup() {
     setIsLoading(false);
   };
 
-  const handleGoogleSignUp = () => {
-    signUpWithGoogle();
+  const handleGoogleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      await signUpWithGoogle();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleErrors = useCallback(
@@ -72,8 +77,8 @@ export default function Signup() {
               ))}
           </Message.List>
         </Message>
-        <Form>
-          <Form.ButtonBlue onClick={handleGoogleSignUp}>
+        <Form onSubmit={handleGoogleSignUp}>
+          <Form.ButtonBlue>
             <Google
               size="18px"
               css={`
