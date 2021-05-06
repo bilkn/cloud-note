@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlexWrapper, Form } from '../components';
+import { FlexWrapper, Form, Message } from '../components';
 import { useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
@@ -9,20 +9,25 @@ import * as ROUTES from '../constants/routes';
 export default function Signin() {
   const [loginValue, setLoginValue] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const { signin } = useFirebaseAuth();
+
+  const handleLoginChange = (e) => setLoginValue(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError('');
     try {
       await signin(loginValue, password);
     } catch (err) {
-      console.log(err);
+      const { message } = err;
+      setError(message);
     }
+    setIsLoading(false);
   };
-
-  const handleLoginChange = (e) => setLoginValue(e.target.value);
-
-  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   return (
     <FlexWrapper
@@ -39,6 +44,13 @@ export default function Signin() {
         `}
       >
         <Form.Title>Sign in to NoteCloud</Form.Title>
+        {error && (
+          <Message>
+            <Message.List>
+              <Message.Item>{error}</Message.Item>
+            </Message.List>
+          </Message>
+        )}
         <Form>
           <Form.ButtonBlue>
             <Google
@@ -89,6 +101,7 @@ export default function Signin() {
             />
           </Form.Fieldset>
           <Form.Button
+            disabled={isLoading}
             variant="red"
             css={`
               width: 100%;

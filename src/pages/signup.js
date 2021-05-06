@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
 import { Form, FlexWrapper, Message } from '../components';
@@ -17,16 +17,15 @@ export default function Signup() {
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  const resetError = () => setError('');
 
   const handleEmailSignUpSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    resetError();
+    setError('');
     try {
       await signup(email, password);
     } catch (err) {
-      const {message} = err;
+      const { message } = err;
       setError(message);
     }
     setIsLoading(false);
@@ -37,7 +36,8 @@ export default function Signup() {
     try {
       await signUpWithGoogle();
     } catch (err) {
-      console.log(err);
+      const { message } = err;
+      setError(message);
     }
   };
 
