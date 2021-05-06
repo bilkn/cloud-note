@@ -10,23 +10,24 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
   const { signup, signUpWithGoogle } = useFirebaseAuth();
   const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  const resetErrors = () => setErrors({ email: '', password: '' });
+  const resetError = () => setError('');
 
   const handleEmailSignUpSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    resetError();
     try {
       await signup(email, password);
-      resetErrors();
     } catch (err) {
-      handleErrors(err);
+      const {message} = err;
+      setError(message);
     }
     setIsLoading(false);
   };
@@ -39,19 +40,6 @@ export default function Signup() {
       console.log(err);
     }
   };
-
-  const handleErrors = useCallback(
-    (err) => {
-      const { code, message } = err;
-      console.log(err);
-
-      if (code === 'auth/email-already-in-use')
-        setErrors({ ...errors, email: message });
-      if (code === 'auth/weak-password')
-        setErrors({ ...errors, password: message });
-    },
-    [errors]
-  );
 
   return (
     <FlexWrapper
@@ -68,15 +56,13 @@ export default function Signup() {
         `}
       >
         <Form.Title>Sign up to NoteCloud</Form.Title>
-        <Message>
-          <Message.List>
-            {Object.keys(errors)
-              .filter((key) => errors[key] !== '')
-              .map((error) => (
-                <Message.Item key={error}>{errors[error]}</Message.Item>
-              ))}
-          </Message.List>
-        </Message>
+        {error && (
+          <Message>
+            <Message.List>
+              <Message.Item>{error}</Message.Item>
+            </Message.List>
+          </Message>
+        )}
         <Form onSubmit={handleGoogleSignUp}>
           <Form.ButtonBlue>
             <Google
