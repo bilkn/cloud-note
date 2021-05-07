@@ -39,6 +39,10 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     return unsubscribe;
   }, []);
 
+  useEffect(()=> {
+    console.log(currentUser, "provider")
+  })
+
   const value = {
     currentUser,
     signup,

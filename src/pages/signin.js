@@ -3,7 +3,6 @@ import { FlexWrapper, Form, Message } from '../components';
 import { useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
-import { colors } from '../styles/variables';
 import * as ROUTES from '../constants/routes';
 
 export default function Signin() {
@@ -12,6 +11,7 @@ export default function Signin() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { signin, signInWithGoogle } = useFirebaseAuth();
+
 
   const handleLoginChange = (e) => setLoginValue(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
