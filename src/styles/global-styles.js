@@ -14,7 +14,7 @@ body {
         font-size: 16px;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
-        -webkit-overflow-scrolling: touch;k
+        -webkit-overflow-scrolling: touch;
     }
    
     #root {

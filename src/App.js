@@ -13,14 +13,15 @@ import {
   FirebaseAuthProvider,
 } from './providers';
 import * as ROUTES from './constants/routes';
+import { IsUserRedirect } from './helpers/routes';
 
 function App() {
   return (
     <>
-      <DialogProvider>
-        <ToastProvider>
-          <DataProvider>
-            <FirebaseAuthProvider>
+      <FirebaseAuthProvider>
+        <DialogProvider>
+          <ToastProvider>
+            <DataProvider>
               <Router>
                 <HeaderContainer />
                 <Switch>
@@ -33,9 +34,12 @@ function App() {
                   <Route path={ROUTES.ACCOUNT}>
                     <Account />
                   </Route>
-                  <Route path={ROUTES.SIGN_IN}>
+                  <IsUserRedirect
+                    loggedInPath={ROUTES.HOME}
+                    path={ROUTES.SIGN_IN}
+                  >
                     <Signin />
-                  </Route>
+                  </IsUserRedirect>
                   <Route path={ROUTES.SIGN_UP}>
                     <Signup />
                   </Route>
@@ -46,11 +50,11 @@ function App() {
                 <SidebarContainer />
               </Router>
               <DialogContainer />
-            </FirebaseAuthProvider>
-          </DataProvider>
-          <ToastContainer />
-        </ToastProvider>
-      </DialogProvider>
+            </DataProvider>
+            <ToastContainer />
+          </ToastProvider>
+        </DialogProvider>
+      </FirebaseAuthProvider>
     </>
   );
 }
