@@ -40,7 +40,6 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   }, []);
 
   useEffect(()=> {
-    console.log(currentUser, "provider")
   })
 
   const value = {
