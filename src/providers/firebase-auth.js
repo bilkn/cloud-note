@@ -31,6 +31,9 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const updatePassword = (password) => currentUser.updatePassword(password);
 
+  const updateProfile = (displayName, photoURL) =>
+    currentUser.updateProfile({ displayName, photoURL });
+    
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -38,6 +41,10 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    console.log(currentUser);
+  });
 
   const value = {
     currentUser,

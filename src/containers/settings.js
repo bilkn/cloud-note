@@ -1,21 +1,66 @@
 import React, { useState, useContext } from 'react';
 import { Form } from '../components';
 import { DialogContext } from '../context';
-import { useData } from '../hooks';
+import { useData, useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
+import firebase from 'firebase';
 
 function SettingsContainer() {
-  const [usernameValue, setUsernameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
+  const { currentUser, updateEmail, updateProfile } = useFirebaseAuth();
+  const [username, setUsername] = useState(currentUser?.displayName || '');
+  const [email, setEmail] = useState(currentUser.email);
+  const [password, setPassword] = useState('');
   const [, setDialog] = useContext(DialogContext);
   const { DeleteAll } = useData();
 
   const handleUsernameChange = (e) => {
-    setUsernameValue(e.target.value);
+    setUsername(e.target.value);
   };
 
   const handleEmailChange = (e) => {
-    setEmailValue(e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!password)
+      return console.log(
+        'Please type your password in order to save your settings.'
+      );
+    console.log('submit');
+    if (currentUser.displayName !== username) {
+      try {
+        await updateProfile(username);
+        console.log('Username has been updated succesfully.');
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    if (currentUser.email !== email) {
+      try {
+        await updateEmail(email);
+        console.log('email change succesful');
+      } catch (err) {
+        console.log(err);
+        if (err.code === 'auth/requires-recent-login') {
+          const credential = firebase.auth.EmailAuthProvider.credential(
+            currentUser.email,
+            '' + password
+          );
+          try {
+            await currentUser.reauthenticateWithCredential(credential);
+            await updateEmail(email);
+            console.log('email change succesful');
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      }
+    }
   };
 
   const handleDeleteAllNotes = () => {
@@ -39,7 +84,7 @@ function SettingsContainer() {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Wrapper>
         <Form.Fieldset
           name=""
@@ -52,7 +97,7 @@ function SettingsContainer() {
             type="text"
             id="user_login"
             name="user[login]"
-            value={usernameValue}
+            value={username}
             autocorrect="username"
             onChange={handleUsernameChange}
             data-testid="username-input"
@@ -65,9 +110,19 @@ function SettingsContainer() {
             id="user_email"
             name="user[email]"
             autocomplete="email"
-            value={emailValue}
+            value={email}
             onChange={handleEmailChange}
             data-testid="email-input"
+          />
+        </Form.Fieldset>
+        <Form.Fieldset>
+          <Form.Label htmlFor="user_password">Password</Form.Label>
+          <Form.Input
+            type="password"
+            id="user_password"
+            name="user[password]"
+            value={password}
+            onChange={handlePasswordChange}
           />
         </Form.Fieldset>
       </Form.Wrapper>
