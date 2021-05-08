@@ -13,7 +13,7 @@ import {
   FirebaseAuthProvider,
 } from './providers';
 import * as ROUTES from './constants/routes';
-import { IsUserRedirect } from './helpers/routes';
+import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 
 function App() {
   return (
@@ -31,21 +31,27 @@ function App() {
                   <Route path={ROUTES.DELETED}>
                     <Deleted />
                   </Route>
-                  <Route path={ROUTES.ACCOUNT}>
+                  <ProtectedRoute path={ROUTES.ACCOUNT}>
                     <Account />
-                  </Route>
+                  </ProtectedRoute>
                   <IsUserRedirect
                     loggedInPath={ROUTES.HOME}
                     path={ROUTES.SIGN_IN}
                   >
                     <Signin />
                   </IsUserRedirect>
-                  <Route path={ROUTES.SIGN_UP}>
+                  <IsUserRedirect
+                    loggedInPath={ROUTES.HOME}
+                    path={ROUTES.SIGN_UP}
+                  >
                     <Signup />
-                  </Route>
-                  <Route path={ROUTES.PASSWORD_RESET}>
+                  </IsUserRedirect>
+                  <IsUserRedirect
+                    loggedInPath={ROUTES.HOME}
+                    path={ROUTES.PASSWORD_RESET}
+                  >
                     <PasswordReset />
-                  </Route>
+                  </IsUserRedirect>
                 </Switch>
                 <SidebarContainer />
               </Router>

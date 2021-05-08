@@ -4,7 +4,7 @@ import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
 
 export default function FirebaseAuthProvider({ children, ...restProps }) {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(true);
 
   const signup = (email, password) =>
@@ -38,9 +38,6 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     });
     return unsubscribe;
   }, []);
-
-  useEffect(()=> {
-  })
 
   const value = {
     currentUser,
