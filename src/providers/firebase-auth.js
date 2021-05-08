@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
-import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function FirebaseAuthProvider({ children, ...restProps }) {
-  const { getItem, setItem, removeItem } = useLocalStorage();
-  const [currentUser, setCurrentUser] = useState(getItem('auth'));
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(true);
 
   const signup = (email, password) =>
@@ -36,16 +34,10 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      if (user) setItem('auth', 'true');
-      else removeItem('auth');
       setLoading(false);
     });
     return unsubscribe;
-  }, [setItem,removeItem]);
-
-  useEffect(() => {
-    console.log(currentUser);
-  });
+  }, []);
 
   const value = {
     currentUser,

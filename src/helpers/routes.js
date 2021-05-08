@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useFirebaseAuth } from '../hooks';
+import * as ROUTES from '../constants/routes';
 
 export function IsUserRedirect({ loggedInPath, children, ...rest }) {
   const { currentUser } = useFirebaseAuth();
@@ -28,20 +29,21 @@ export function IsUserRedirect({ loggedInPath, children, ...rest }) {
   );
 }
 
-export function ProtectedRoute({ user, children, ...rest }) {
+export function ProtectedRoute({ children, ...rest }) {
+  const { currentUser } = useFirebaseAuth();
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        if (user) {
+        if (currentUser) {
           return children;
         }
 
-        if (!user) {
+        if (!currentUser) {
           return (
             <Redirect
               to={{
-                pathname: 'signin',
+                pathname: ROUTES.SIGN_IN,
                 state: { from: location },
               }}
             />
