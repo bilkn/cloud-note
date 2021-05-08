@@ -3,7 +3,6 @@ import { Form } from '../components';
 import { DialogContext } from '../context';
 import { useData, useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
-import firebase from 'firebase';
 
 function SettingsContainer() {
   const { currentUser, updateEmail, updateProfile } = useFirebaseAuth();
@@ -31,34 +30,18 @@ function SettingsContainer() {
       return console.log(
         'Please type your password in order to save your settings.'
       );
-    console.log('submit');
-    if (currentUser.displayName !== username) {
+
+    const promises = [];
+    if (currentUser.displayName !== username)
+      promises.push(updateProfile(username));
+    if (currentUser.email !== email) promises.push(updateEmail(email,password));
+    if (promises.length) {
       try {
-        await updateProfile(username);
-        console.log('Username has been updated succesfully.');
+        await Promise.all(promises);
+        console.log('Changes have been saved.');
       } catch (err) {
+        console.log('An error occurred.');
         console.log(err);
-      }
-    }
-    if (currentUser.email !== email) {
-      try {
-        await updateEmail(email);
-        console.log('email change succesful');
-      } catch (err) {
-        console.log(err);
-        if (err.code === 'auth/requires-recent-login') {
-          const credential = firebase.auth.EmailAuthProvider.credential(
-            currentUser.email,
-            '' + password
-          );
-          try {
-            await currentUser.reauthenticateWithCredential(credential);
-            await updateEmail(email);
-            console.log('email change succesful');
-          } catch (err) {
-            console.log(err);
-          }
-        }
       }
     }
   };
