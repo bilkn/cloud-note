@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+import 'styled-components/macro';
+import { ReactComponent as Spinner } from '../assets/spinner.svg';
 import { Form } from '../components';
 import { DialogContext } from '../context';
 import { useData, useFormLogic } from '../hooks';
-import 'styled-components/macro';
 
 function SettingsContainer() {
   const {
@@ -14,6 +15,7 @@ function SettingsContainer() {
     setPassword,
     handleSubmit,
     errors,
+    loading,
   } = useFormLogic();
   const [, setDialog] = useContext(DialogContext);
   const { DeleteAll } = useData();
@@ -96,7 +98,9 @@ function SettingsContainer() {
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
       </Form.Wrapper>
-      <Form.Button>Save</Form.Button>
+      <Form.Button disabled={loading}>
+        {loading ? <Spinner /> : 'Save'}
+      </Form.Button>
       <Form.Wrapper>
         <Form.Subtitle>danger zone</Form.Subtitle>
         <Form.Line />

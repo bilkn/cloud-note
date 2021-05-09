@@ -7,16 +7,18 @@ export default function useFormLogic() {
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     setErrors(null);
     console.log('submit');
-    if (!password)
-      return console.log(
-        'Please type your password in order to save your settings.'
-      );
     const promises = [];
+    if (!password)
+      return setErrors({
+        password: 'Please type your password in order to save your settings.',
+      });
     if (currentUser.displayName !== username)
       promises.push(updateProfile(username));
     if (currentUser.email !== email)
@@ -30,6 +32,7 @@ export default function useFormLogic() {
         handleErrors(err);
       }
     }
+    setLoading(false);
   };
 
   const handleErrors = (err) => {
@@ -53,7 +56,7 @@ export default function useFormLogic() {
         errorObj.general = 'Your password is incorrect. Please try again.';
         break;
     }
-    setErrors({...errors, ...errorObj});
+    setErrors({ ...errors, ...errorObj });
   };
 
   return {
@@ -66,5 +69,6 @@ export default function useFormLogic() {
     errors,
     setErrors,
     handleSubmit,
+    loading
   };
 }
