@@ -28,16 +28,14 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const resetPassword = (email) => auth.sendPasswordResetEmail(email);
 
   const updateEmail = async (email, password) => {
-    try {
-      const credential = getUserCredential(password);
-      await currentUser.reauthenticateWithCredential(credential);
-      await currentUser.updateEmail(email);
-    } catch (err) {
-      throw err
-    }
+    await reauth(password);
+    await currentUser.updateEmail(email);
   };
 
-  const updatePassword = (password) => currentUser.updatePassword(password);
+  const updatePassword = async (oldPassword, newPassword) => {
+    await reauth(oldPassword);
+    await currentUser.updatePassword(newPassword);
+  };
 
   const updateProfile = (displayName, photoURL) =>
     currentUser.updateProfile({ displayName, photoURL });
@@ -47,6 +45,11 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
       currentUser.email,
       '' + password
     );
+
+  const reauth = async (password) => {
+    const credential = getUserCredential(password);
+    await currentUser.reauthenticateWithCredential(credential);
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

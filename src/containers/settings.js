@@ -32,9 +32,9 @@ function SettingsContainer() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await submit();
+    submit();
   };
 
   const handleDeleteAllNotes = () => {

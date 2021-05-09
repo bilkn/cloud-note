@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from '../components';
+import { useFormLogic } from '../hooks';
 import 'styled-components/macro';
 
 export default function PasswordContainer() {
-  const [oldPasswordValue, setOldPasswordValue] = useState('');
-  const [newPasswordValue, setNewPasswordValue] = useState('');
-
+  const { password, setPassword, newPassword, setNewPassword,submit } = useFormLogic();
+  
   const handleOldPasswordChange = (e) => {
-    setOldPasswordValue(e.target.value);
+    setPassword(e.target.value);
   };
 
   const handleNewPasswordChange = (e) => {
-    setNewPasswordValue(e.target.value);
+    setNewPassword(e.target.value);
   };
 
+  const handleSubmit =  (e) => {
+    e.preventDefault()
+    submit()
+  }
+
   return (
-    <Form>
+    <Form onSubmit ={handleSubmit}>
       <Form.Wrapper>
         <Form.Fieldset
           css={`
@@ -27,7 +32,7 @@ export default function PasswordContainer() {
             type="password"
             id="user_old_password"
             name="user[old_password]"
-            value={oldPasswordValue}
+            value={password}
             onChange={handleOldPasswordChange}
             data-testid="old-password-input"
           />
@@ -39,7 +44,7 @@ export default function PasswordContainer() {
             id="user_password"
             name="user[password]"
             autocomplete="new-password"
-            value={newPasswordValue}
+            value={newPassword}
             onChange={handleNewPasswordChange}
             data-testid="new-password-input"
           />

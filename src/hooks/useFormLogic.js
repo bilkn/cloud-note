@@ -3,10 +3,16 @@ import { useFirebaseAuth } from '.';
 import { ToastContext } from '../context';
 
 export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail } = useFirebaseAuth();
+  const {
+    currentUser,
+    updateProfile,
+    updateEmail,
+    updatePassword,
+  } = useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
   const { dispatchToast } = useContext(ToastContext);
@@ -15,31 +21,51 @@ export default function useFormLogic() {
     setLoading(true);
     setErrors(null);
     const promises = [];
-    if (!password) {
+
+    if (
+      !password &&
+      (currentUser.email !== email || currentUser.displayName !== username)
+    ) {
       setErrors({
-        password: 'Please type your password in order to save your settings.',
+        password: 'Please enter your password in order to save your settings.',
       });
       setLoading(false);
       return;
     }
-    if (currentUser.displayName !== username)
+
+    handlePasswords(promises);
+
+    if (currentUser.displayName !== username && username)
       promises.push(updateProfile(username));
-    if (currentUser.email !== email)
+    if (currentUser.email !== email && email)
       promises.push(updateEmail(email, password));
+
     if (promises.length) {
       try {
         await Promise.all(promises);
         dispatchToast({
           type: 'NOTIFICATION',
-          payload: 'Changes have been saved.',
+          payload: newPassword
+            ? 'Password has been changed.'
+            : 'Changes have been saved.',
         });
       } catch (err) {
         handleErrors(err);
-        setLoading(false);
-        setPassword('');
+        resetPasswordAndLoadingStates();
       }
     }
+    resetPasswordAndLoadingStates();
+  };
+
+  const handlePasswords = (promises) => {
+    if (password && newPassword) {
+      promises.push(updatePassword(password, newPassword));
+    }
+  };
+
+  const resetPasswordAndLoadingStates = () => {
     setPassword('');
+    setNewPassword('');
     setLoading(false);
   };
 
@@ -77,6 +103,8 @@ export default function useFormLogic() {
     setEmail,
     password,
     setPassword,
+    newPassword,
+    setNewPassword,
     errors,
     setErrors,
     loading,
