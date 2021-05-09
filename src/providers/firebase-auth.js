@@ -29,17 +29,11 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const updateEmail = async (email, password) => {
     try {
+      const credential = getUserCredential(password);
+      await currentUser.reauthenticateWithCredential(credential);
       await currentUser.updateEmail(email);
     } catch (err) {
-      if (err.code === 'auth/requires-recent-login') {
-        try {
-          const credential = getUserCredential(password);
-          await currentUser.reauthenticateWithCredential(credential);
-          await currentUser.updateEmail(email);
-        } catch (err) {
-          throw Error(err);
-        }
-      } else throw Error(err);
+      throw Error(err);
     }
   };
 

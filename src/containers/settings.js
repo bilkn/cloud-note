@@ -30,7 +30,6 @@ function SettingsContainer() {
       return console.log(
         'Please type your password in order to save your settings.'
       );
-
     const promises = [];
     if (currentUser.displayName !== username)
       promises.push(updateProfile(username));
@@ -105,6 +104,7 @@ function SettingsContainer() {
             id="user_password"
             name="user[password]"
             value={password}
+            autocomplete="current-password"
             onChange={handlePasswordChange}
           />
         </Form.Fieldset>
