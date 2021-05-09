@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Main, Backdrop } from '../components';
 import { NoteContainer } from '../containers';
-import createFakeData from '../__test-utils__/createFakeData';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import { scaleUpToCenter } from '../styles/animations';
 import { css } from 'styled-components/macro';
+import { useWindowKey } from '../hooks';
 
 export default function MainContainer({ data }) {
   const { search: searchProp } = useLocation();
@@ -14,7 +14,12 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
-
+  useWindowKey({
+    keys: ['Escape'],
+    handlers: [() => setShowEnlargedNote(false)],
+    condition: true,
+  });
+  
   const handleBackdropClick = () => {
     setShowEnlargedNote(false);
     document.body.style.overflow = 'auto';

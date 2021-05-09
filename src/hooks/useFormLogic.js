@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useFirebaseAuth } from '.';
+import { ToastContext } from '../context';
 
 export default function useFormLogic() {
   const { currentUser, updateProfile, updateEmail } = useFirebaseAuth();
@@ -8,30 +9,37 @@ export default function useFormLogic() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { dispatchToast } = useContext(ToastContext);
 
-  const handleSubmit = async (e) => {
+  const submit = async () => {
     setLoading(true);
-    e.preventDefault();
     setErrors(null);
-    console.log('submit');
     const promises = [];
-    if (!password)
-      return setErrors({
+    if (!password) {
+      setErrors({
         password: 'Please type your password in order to save your settings.',
       });
+      setLoading(false);
+      return;
+    }
     if (currentUser.displayName !== username)
       promises.push(updateProfile(username));
     if (currentUser.email !== email)
       promises.push(updateEmail(email, password));
     if (promises.length) {
       try {
-        console.log('try');
         await Promise.all(promises);
-        console.log('Changes have been saved.');
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'Changes have been saved.',
+        });
       } catch (err) {
         handleErrors(err);
+        setLoading(false);
+        setPassword('');
       }
     }
+    setPassword('');
     setLoading(false);
   };
 
@@ -52,9 +60,12 @@ export default function useFormLogic() {
       case 'auth/wrong-password':
         errorObj.password = 'Your password is incorrect. Please try again.';
         break;
-      default:
-        errorObj.general = 'Your password is incorrect. Please try again.';
-        break;
+      default: {
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'An error occurred.',
+        });
+      }
     }
     setErrors({ ...errors, ...errorObj });
   };
@@ -68,7 +79,7 @@ export default function useFormLogic() {
     setPassword,
     errors,
     setErrors,
-    handleSubmit,
-    loading
+    loading,
+    submit,
   };
 }
