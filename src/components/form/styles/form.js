@@ -149,3 +149,8 @@ export const PasswordStrength = styled.div`
       strength === 'strong' ? '100%' : strength === 'medium' ? '50%' : '25%'};
   }
 `;
+
+export const Error = styled.p`
+  color: red;
+  line-height: 2;
+`

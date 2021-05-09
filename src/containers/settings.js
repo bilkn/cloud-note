@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Form, Message } from '../components';
+import { Form } from '../components';
 import { DialogContext } from '../context';
 import { useData, useFormLogic } from '../hooks';
 import 'styled-components/macro';
@@ -82,11 +82,7 @@ function SettingsContainer() {
             data-testid="email-input"
           />
         </Form.Fieldset>
-        {errors?.email && (
-          <Message>
-            <Message.Text>{errors.email}</Message.Text>
-          </Message>
-        )}
+        {errors?.email ? <Form.Error>{errors.email}</Form.Error> : null}
         <Form.Fieldset>
           <Form.Label htmlFor="user_password">Password</Form.Label>
           <Form.Input
@@ -98,11 +94,7 @@ function SettingsContainer() {
             onChange={handlePasswordChange}
           />
         </Form.Fieldset>
-        {errors?.password && (
-          <Message>
-            <Message.Text>{errors.password}</Message.Text>
-          </Message>
-        )}
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
       </Form.Wrapper>
       <Form.Button>Save</Form.Button>
       <Form.Wrapper>

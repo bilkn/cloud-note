@@ -27,24 +27,33 @@ export default function useFormLogic() {
         await Promise.all(promises);
         console.log('Changes have been saved.');
       } catch (err) {
-        console.log('An error occurred.');
-        const { code, message } = err;
-        console.log(code);
-        switch (code) {
-          case 'auth/email-already-exists':
-          case 'auth/invalid-email':
-            setErrors({ ...errors, email: message });
-            break;
-          case 'auth/invalid-password':
-          case 'auth/wrong-password':
-            setErrors({ ...errors, password: message });
-            break;
-          default:
-            setErrors({ general: 'An error occurred.' });
-            break;
-        }
+        handleErrors(err);
       }
     }
+  };
+
+  const handleErrors = (err) => {
+    const { code } = err;
+    const errorObj = {};
+    switch (code) {
+      case 'auth/email-already-exists':
+        errorObj.email =
+          'This email address is already being used. Please provide different email.';
+        break;
+      case 'auth/invalid-email':
+        errorObj.email = 'Please provide valid email.';
+        break;
+      case 'auth/invalid-password':
+        errorObj.password = 'Password must be at least 6 characters.';
+        break;
+      case 'auth/wrong-password':
+        errorObj.password = 'Your password is incorrect. Please try again.';
+        break;
+      default:
+        errorObj.general = 'Your password is incorrect. Please try again.';
+        break;
+    }
+    setErrors({...errors, ...errorObj});
   };
 
   return {
