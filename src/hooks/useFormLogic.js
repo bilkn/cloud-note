@@ -27,7 +27,7 @@ export default function useFormLogic() {
       (currentUser.email !== email || currentUser.displayName !== username)
     ) {
       setErrors({
-        password: 'Please enter your password in order to save your settings.',
+        password: 'Please enter your password to save your settings.',
       });
       setLoading(false);
       return;

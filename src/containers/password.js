@@ -4,8 +4,15 @@ import { useFormLogic } from '../hooks';
 import 'styled-components/macro';
 
 export default function PasswordContainer() {
-  const { password, setPassword, newPassword, setNewPassword,submit } = useFormLogic();
-  
+  const {
+    password,
+    setPassword,
+    newPassword,
+    setNewPassword,
+    errors,
+    submit,
+  } = useFormLogic();
+
   const handleOldPasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -14,20 +21,22 @@ export default function PasswordContainer() {
     setNewPassword(e.target.value);
   };
 
-  const handleSubmit =  (e) => {
-    e.preventDefault()
-    submit()
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
+  };
 
   return (
-    <Form onSubmit ={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Form.Wrapper>
         <Form.Fieldset
           css={`
             margin: 0;
           `}
         >
-          <Form.Label htmlhtmlFor="user_old_password">Old password</Form.Label>
+          <Form.Label htmlhtmlFor="user_old_password">
+            Current password
+          </Form.Label>
           <Form.Input
             type="password"
             id="user_old_password"
@@ -37,6 +46,7 @@ export default function PasswordContainer() {
             data-testid="old-password-input"
           />
         </Form.Fieldset>
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Fieldset>
           <Form.Label htmlhtmlFor="user_password">New Password</Form.Label>
           <Form.Input
