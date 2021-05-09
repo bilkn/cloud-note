@@ -4,7 +4,7 @@ import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
 
 export default function FirebaseAuthProvider({ children, ...restProps }) {
-  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  const [currentUser, setCurrentUser] = useState(auth?.currentUser || null);
   const [loading, setLoading] = useState(true);
 
   const signup = (email, password) =>
@@ -27,9 +27,26 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const resetPassword = (email) => auth.sendPasswordResetEmail(email);
 
-  const updateEmail = (email) => currentUser.updateEmail(email);
+  const updateEmail = async (email, password) => {
+    try {
+      const credential = getUserCredential(password);
+      await currentUser.reauthenticateWithCredential(credential);
+      await currentUser.updateEmail(email);
+    } catch (err) {
+      throw err
+    }
+  };
 
   const updatePassword = (password) => currentUser.updatePassword(password);
+
+  const updateProfile = (displayName, photoURL) =>
+    currentUser.updateProfile({ displayName, photoURL });
+
+  const getUserCredential = (password) =>
+    firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      '' + password
+    );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -48,6 +65,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     resetPassword,
     updateEmail,
     updatePassword,
+    updateProfile,
   };
   return (
     <FirebaseAuthContext.Provider value={value} {...restProps}>

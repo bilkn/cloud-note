@@ -9,3 +9,4 @@ export { default as useNoteLogic } from './useNoteLogic';
 export { default as useLocalStorage } from './useLocalStorage';
 export { default as useFirebaseAuth } from './useFirebaseAuth';
 export { default as usePasswordStrength } from './usePasswordStrength';
+export { default as useFormLogic } from './useFormLogic';

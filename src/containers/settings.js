@@ -1,21 +1,35 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
+import 'styled-components/macro';
+import { ReactComponent as Spinner } from '../assets/spinner.svg';
 import { Form } from '../components';
 import { DialogContext } from '../context';
-import { useData } from '../hooks';
-import 'styled-components/macro';
+import { useData, useFormLogic } from '../hooks';
 
 function SettingsContainer() {
-  const [usernameValue, setUsernameValue] = useState('');
-  const [emailValue, setEmailValue] = useState('');
+  const {
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSubmit,
+    errors,
+    loading,
+  } = useFormLogic();
   const [, setDialog] = useContext(DialogContext);
   const { DeleteAll } = useData();
 
   const handleUsernameChange = (e) => {
-    setUsernameValue(e.target.value);
+    setUsername(e.target.value);
   };
 
   const handleEmailChange = (e) => {
-    setEmailValue(e.target.value);
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleDeleteAllNotes = () => {
@@ -39,7 +53,7 @@ function SettingsContainer() {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Wrapper>
         <Form.Fieldset
           name=""
@@ -52,7 +66,7 @@ function SettingsContainer() {
             type="text"
             id="user_login"
             name="user[login]"
-            value={usernameValue}
+            value={username}
             autocorrect="username"
             onChange={handleUsernameChange}
             data-testid="username-input"
@@ -65,13 +79,28 @@ function SettingsContainer() {
             id="user_email"
             name="user[email]"
             autocomplete="email"
-            value={emailValue}
+            value={email}
             onChange={handleEmailChange}
             data-testid="email-input"
           />
         </Form.Fieldset>
+        {errors?.email ? <Form.Error>{errors.email}</Form.Error> : null}
+        <Form.Fieldset>
+          <Form.Label htmlFor="user_password">Password</Form.Label>
+          <Form.Input
+            type="password"
+            id="user_password"
+            name="user[password]"
+            value={password}
+            autocomplete="current-password"
+            onChange={handlePasswordChange}
+          />
+        </Form.Fieldset>
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
       </Form.Wrapper>
-      <Form.Button>Save</Form.Button>
+      <Form.Button disabled={loading}>
+        {loading ? <Spinner /> : 'Save'}
+      </Form.Button>
       <Form.Wrapper>
         <Form.Subtitle>danger zone</Form.Subtitle>
         <Form.Line />

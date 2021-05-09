@@ -78,7 +78,7 @@ export default function Signin() {
         <Form.Divider />
         <Form onSubmit={handleSignIn}>
           <Form.Fieldset>
-            <Form.Label htmlFor="login">Username or Email Address</Form.Label>
+            <Form.Label htmlFor="login">Email Address</Form.Label>
             <Form.Input
               id="login"
               type="text"

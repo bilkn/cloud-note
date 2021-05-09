@@ -17,6 +17,7 @@ import {
   Divider,
   PasswordStrength,
   Span,
+  Error
 } from './styles/form';
 
 export default function Form({ children, ...restProps }) {
@@ -87,3 +88,6 @@ Form.PasswordStrength = function FormPasswordStrength({ ...restProps }) {
   return <PasswordStrength {...restProps} />;
 };
 
+Form.Error = function FormError({ children, ...restProps }) {
+  return <Error {...restProps}>{children}</Error>;
+};
