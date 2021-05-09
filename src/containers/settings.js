@@ -1,14 +1,20 @@
-import React, { useState, useContext } from 'react';
-import { Form } from '../components';
+import React, { useContext } from 'react';
+import { Form, Message } from '../components';
 import { DialogContext } from '../context';
-import { useData, useFirebaseAuth } from '../hooks';
+import { useData, useFormLogic } from '../hooks';
 import 'styled-components/macro';
 
 function SettingsContainer() {
-  const { currentUser, updateEmail, updateProfile } = useFirebaseAuth();
-  const [username, setUsername] = useState(currentUser?.displayName || '');
-  const [email, setEmail] = useState(currentUser.email);
-  const [password, setPassword] = useState('');
+  const {
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSubmit,
+    errors,
+  } = useFormLogic();
   const [, setDialog] = useContext(DialogContext);
   const { DeleteAll } = useData();
 
@@ -22,27 +28,6 @@ function SettingsContainer() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!password)
-      return console.log(
-        'Please type your password in order to save your settings.'
-      );
-    const promises = [];
-    if (currentUser.displayName !== username)
-      promises.push(updateProfile(username));
-    if (currentUser.email !== email) promises.push(updateEmail(email,password));
-    if (promises.length) {
-      try {
-        await Promise.all(promises);
-        console.log('Changes have been saved.');
-      } catch (err) {
-        console.log('An error occurred.');
-        console.log(err);
-      }
-    }
   };
 
   const handleDeleteAllNotes = () => {
@@ -97,6 +82,11 @@ function SettingsContainer() {
             data-testid="email-input"
           />
         </Form.Fieldset>
+        {errors?.email && (
+          <Message>
+            <Message.Text>{errors.email}</Message.Text>
+          </Message>
+        )}
         <Form.Fieldset>
           <Form.Label htmlFor="user_password">Password</Form.Label>
           <Form.Input
@@ -108,6 +98,11 @@ function SettingsContainer() {
             onChange={handlePasswordChange}
           />
         </Form.Fieldset>
+        {errors?.password && (
+          <Message>
+            <Message.Text>{errors.password}</Message.Text>
+          </Message>
+        )}
       </Form.Wrapper>
       <Form.Button>Save</Form.Button>
       <Form.Wrapper>

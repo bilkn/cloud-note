@@ -33,7 +33,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
       await currentUser.reauthenticateWithCredential(credential);
       await currentUser.updateEmail(email);
     } catch (err) {
-      throw Error(err);
+      throw err
     }
   };
 
