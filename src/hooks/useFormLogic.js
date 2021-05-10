@@ -1,37 +1,71 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useFirebaseAuth } from '.';
+import { ToastContext } from '../context';
 
 export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail } = useFirebaseAuth();
+  const {
+    currentUser,
+    updateProfile,
+    updateEmail,
+    updatePassword,
+  } = useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { dispatchToast } = useContext(ToastContext);
 
-  const handleSubmit = async (e) => {
+  const submit = async () => {
     setLoading(true);
-    e.preventDefault();
     setErrors(null);
-    console.log('submit');
     const promises = [];
-    if (!password)
-      return setErrors({
-        password: 'Please type your password in order to save your settings.',
+
+    if (
+      !password &&
+      (currentUser.email !== email || currentUser.displayName !== username)
+    ) {
+      setErrors({
+        password: 'Please enter your password to save your settings.',
       });
-    if (currentUser.displayName !== username)
+      setLoading(false);
+      return;
+    }
+
+    handlePasswords(promises);
+
+    if (currentUser.displayName !== username && username)
       promises.push(updateProfile(username));
-    if (currentUser.email !== email)
+    if (currentUser.email !== email && email)
       promises.push(updateEmail(email, password));
+
     if (promises.length) {
       try {
-        console.log('try');
         await Promise.all(promises);
-        console.log('Changes have been saved.');
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: newPassword
+            ? 'Password has been changed.'
+            : 'Changes have been saved.',
+        });
       } catch (err) {
         handleErrors(err);
+        resetPasswordAndLoadingStates();
       }
     }
+    resetPasswordAndLoadingStates();
+  };
+
+  const handlePasswords = (promises) => {
+    if (password && newPassword) {
+      promises.push(updatePassword(password, newPassword));
+    }
+  };
+
+  const resetPasswordAndLoadingStates = () => {
+    setPassword('');
+    setNewPassword('');
     setLoading(false);
   };
 
@@ -39,6 +73,7 @@ export default function useFormLogic() {
     const { code } = err;
     const errorObj = {};
     switch (code) {
+      // !!! Add weak password warning.
       case 'auth/email-already-exists':
         errorObj.email =
           'This email address is already being used. Please provide different email.';
@@ -52,9 +87,13 @@ export default function useFormLogic() {
       case 'auth/wrong-password':
         errorObj.password = 'Your password is incorrect. Please try again.';
         break;
-      default:
-        errorObj.general = 'Your password is incorrect. Please try again.';
-        break;
+      default: {
+        console.log(err)
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'An error occurred.',
+        });
+      }
     }
     setErrors({ ...errors, ...errorObj });
   };
@@ -66,9 +105,11 @@ export default function useFormLogic() {
     setEmail,
     password,
     setPassword,
+    newPassword,
+    setNewPassword,
     errors,
     setErrors,
-    handleSubmit,
-    loading
+    loading,
+    submit,
   };
 }

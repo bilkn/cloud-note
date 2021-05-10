@@ -38,7 +38,7 @@ function useHandler(props) {
   };
 
   const handleToggleKeyDown = (e) => {
-    if (e.key === 'Enter') setTimeout(() => btnRef.current?.focus(), 150);
+    if (e.key === 'Enter') setTimeout(() => btnRef.current?.focus(), 200);
   };
 
   const handleEditClick = () => {

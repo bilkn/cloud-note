@@ -13,9 +13,9 @@ function SettingsContainer() {
     setEmail,
     password,
     setPassword,
-    handleSubmit,
     errors,
     loading,
+    submit,
   } = useFormLogic();
   const [, setDialog] = useContext(DialogContext);
   const { DeleteAll } = useData();
@@ -30,6 +30,11 @@ function SettingsContainer() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
   };
 
   const handleDeleteAllNotes = () => {

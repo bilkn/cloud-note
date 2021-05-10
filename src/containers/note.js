@@ -136,6 +136,7 @@ function NoteContainer(props) {
                   title="Recover note"
                   aria-label="Recover note"
                   tabIndex={checkTabIndex}
+                  ref={btnRef}
                 >
                   <Recycle size="24" />
                 </Note.Button>

@@ -1,50 +1,77 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from '../components';
+import { useFormLogic, usePasswordStrength } from '../hooks';
 import 'styled-components/macro';
 
 export default function PasswordContainer() {
-  const [oldPasswordValue, setOldPasswordValue] = useState('');
-  const [newPasswordValue, setNewPasswordValue] = useState('');
+  const {
+    password,
+    setPassword,
+    newPassword,
+    setNewPassword,
+    errors,
+    submit,
+  } = useFormLogic();
+ const { strength } = usePasswordStrength(newPassword);
 
   const handleOldPasswordChange = (e) => {
-    setOldPasswordValue(e.target.value);
+    setPassword(e.target.value);
   };
 
   const handleNewPasswordChange = (e) => {
-    setNewPasswordValue(e.target.value);
+    setNewPassword(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submit();
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Wrapper>
         <Form.Fieldset
           css={`
             margin: 0;
           `}
         >
-          <Form.Label htmlhtmlFor="user_old_password">Old password</Form.Label>
+          <Form.Label htmlhtmlFor="user_old_password">
+            Current password
+          </Form.Label>
           <Form.Input
             type="password"
             id="user_old_password"
             name="user[old_password]"
-            value={oldPasswordValue}
+            value={password}
             onChange={handleOldPasswordChange}
             data-testid="old-password-input"
           />
         </Form.Fieldset>
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Fieldset>
-          <Form.Label htmlhtmlFor="user_password">New Password</Form.Label>
+          <Form.Label
+            htmlhtmlFor="user_password"
+            css={`
+              align-items: center;
+              display: flex;
+              justify-content: space-between;
+            `}
+          >
+            New Password{' '}
+            {newPassword && <Form.PasswordStrength strength={strength} />}
+          </Form.Label>
           <Form.Input
             type="password"
             id="user_password"
             name="user[password]"
             autocomplete="new-password"
-            value={newPasswordValue}
+            value={newPassword}
             onChange={handleNewPasswordChange}
             data-testid="new-password-input"
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Box>
           <Form.Button variant="red">Change</Form.Button>
         </Form.Box>

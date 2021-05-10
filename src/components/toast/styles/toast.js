@@ -26,7 +26,11 @@ export const Content = styled.div`
   align-items: center;
   animation: ${slideInFaded} 500ms forwards;
   background: ${({ type }) =>
-    type === 'notification' ? colors.purple_2 : 'gray'};
+    type === 'notification'
+      ? colors.purple_2
+      : 'error'
+      ? colors.red
+      : 'gray'};
   border-radius: 5px;
   box-shadow: 0 2px 10px #0000002e;
   display: flex;
