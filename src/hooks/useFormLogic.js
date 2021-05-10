@@ -73,6 +73,7 @@ export default function useFormLogic() {
     const { code } = err;
     const errorObj = {};
     switch (code) {
+      // !!! Add weak password warning.
       case 'auth/email-already-exists':
         errorObj.email =
           'This email address is already being used. Please provide different email.';
@@ -87,6 +88,7 @@ export default function useFormLogic() {
         errorObj.password = 'Your password is incorrect. Please try again.';
         break;
       default: {
+        console.log(err)
         dispatchToast({
           type: 'ERROR',
           payload: 'An error occurred.',

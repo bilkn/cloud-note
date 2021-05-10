@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from '../components';
-import { useFormLogic } from '../hooks';
+import { useFormLogic, usePasswordStrength } from '../hooks';
 import 'styled-components/macro';
 
 export default function PasswordContainer() {
@@ -12,6 +12,7 @@ export default function PasswordContainer() {
     errors,
     submit,
   } = useFormLogic();
+ const { strength } = usePasswordStrength(newPassword);
 
   const handleOldPasswordChange = (e) => {
     setPassword(e.target.value);
@@ -48,7 +49,17 @@ export default function PasswordContainer() {
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Fieldset>
-          <Form.Label htmlhtmlFor="user_password">New Password</Form.Label>
+          <Form.Label
+            htmlhtmlFor="user_password"
+            css={`
+              align-items: center;
+              display: flex;
+              justify-content: space-between;
+            `}
+          >
+            New Password{' '}
+            {newPassword && <Form.PasswordStrength strength={strength} />}
+          </Form.Label>
           <Form.Input
             type="password"
             id="user_password"
@@ -60,6 +71,7 @@ export default function PasswordContainer() {
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
+        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Box>
           <Form.Button variant="red">Change</Form.Button>
         </Form.Box>
