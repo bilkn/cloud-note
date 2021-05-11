@@ -8,7 +8,6 @@ import { DataContext } from '../context';
 
 export default function Home() {
   const { dataState } = useContext(DataContext);
-
   return (
     <Wrapper
       css={`
@@ -18,10 +17,10 @@ export default function Home() {
         }
       `}
     >
-      {!dataState.results.length && (
+      {!dataState?.results?.length && (
         <Heading>Looks like you don't have any notes</Heading>
       )}
-      <MainContainer data={dataState.results} />
+      {dataState.results && <MainContainer data={dataState.results} />}
     </Wrapper>
   );
 }

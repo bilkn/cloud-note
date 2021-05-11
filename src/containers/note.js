@@ -77,7 +77,7 @@ function NoteContainer(props) {
     e.preventDefault();
     setTextValue(e.target.value);
   };
-
+ 
   const checkTabIndex = showButtons ? '1' : '-1';
   return (
     <Note

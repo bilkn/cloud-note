@@ -97,8 +97,10 @@ export default function useData() {
   };
 
   useEffect(() => {
-    setItem('results', dataState.results);
-    setItem('deleted', dataState.deleted);
+    if (dataState.results && dataState.deleted) {
+      setItem('results', dataState.results);
+      setItem('deleted', dataState.deleted);
+    }
   }, [dataState, setItem]);
 
   return {

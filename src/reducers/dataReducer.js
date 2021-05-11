@@ -82,6 +82,15 @@ export default function dataReducer(state, action) {
       return { ...state, results: sortedResults };
     }
 
+    case 'SET': {
+      return { ...action.payload };
+    }
+
+    case 'SET_PROFILE': {
+      const { name, bio, picture } = action.payload;
+      return { ...state, profile: { name, bio, picture } };
+    }
+
     default:
       throw Error(`Unhandled action type: "${action.type}".`);
   }

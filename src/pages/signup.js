@@ -4,6 +4,7 @@ import 'styled-components/macro';
 import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth, usePasswordStrength } from '../hooks';
+import { initUser } from '../helpers/manageFirestore';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -18,13 +19,15 @@ export default function Signup() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleEmailSignUpSubmit = async (e) => {
+  const handleEmailSignUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
     try {
-      await signup(email, password);
+      const { user } = await signup(email, password);
+      await initUser(user.uid);
     } catch (err) {
+      console.log(err);
       const { message } = err;
       setError(message);
     }
@@ -34,7 +37,8 @@ export default function Signup() {
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signInWithGoogle();
+      const { user } = await signInWithGoogle();
+      await initUser(user.uid); // !!! New user data is created every time, after user sign in with the Google account.
     } catch (err) {
       const { message } = err;
       setError(message);
@@ -75,7 +79,7 @@ export default function Signup() {
           </Form.ButtonBlue>
         </Form>
         <Form.Divider />
-        <Form onSubmit={handleEmailSignUpSubmit}>
+        <Form onSubmit={handleEmailSignUp}>
           <Form.Fieldset>
             <Form.Label htmlFor="user_login">Username</Form.Label>
             <Form.Input
