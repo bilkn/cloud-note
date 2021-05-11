@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import { FlexWrapper, Form, Wrapper } from '../components';
-import { useProfileLogic } from '../hooks';
-import Avatar from '../components/avatar';
+import { ReactComponent as Spinner } from '../assets/spinner.svg';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
+import Avatar from '../components/avatar';
+import { useProfileLogic } from '../hooks';
+import { FlexWrapper, Form, Wrapper } from '../components';
 import devices from '../styles/devices';
 
 export default function ProfileContainer() {
-  const { bio, setBio, name, setName, handleBioAndNameSubmit } =
+  const { bio, setBio, name, setName, handleBioAndNameSubmit, loading } =
     useProfileLogic();
-
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
-    setName(e.target.value);  // !!! Add limit for name length.
+    setName(e.target.value); // !!! Add limit for name length.
   };
 
   const handleBioChange = (e) => {
@@ -137,6 +137,7 @@ export default function ProfileContainer() {
         </Form.Fieldset>
         <Form.Box>
           <Form.Button
+            disabled={loading}
             variant="red"
             css={`
               width: 100%;
@@ -145,7 +146,7 @@ export default function ProfileContainer() {
               }
             `}
           >
-            Save Profile
+            {loading ? <Spinner /> : 'Save Profile'} {/* !!! Change spinner color. */}
           </Form.Button>
         </Form.Box>
       </Form>

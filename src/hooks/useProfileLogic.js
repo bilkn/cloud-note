@@ -6,12 +6,14 @@ import { DataContext, ToastContext } from '../context';
 export default function useProfileLogic() {
   const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
-  const [name, setName] = useState(dataState?.profile0?.name || '');
+  const [name, setName] = useState(dataState?.profile?.name || '');
   const [bio, setBio] = useState(dataState?.profile?.bio || '');
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useFirebaseAuth();
 
   const handleBioAndNameSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (currentUser) {
       try {
         const docRef = getUserDocRef(currentUser.uid);
@@ -35,7 +37,8 @@ export default function useProfileLogic() {
         });
       }
     }
+    setLoading(false);
   };
 
-  return { name, setName, bio, setBio, handleBioAndNameSubmit };
+  return { name, setName, bio, setBio, handleBioAndNameSubmit,loading };
 }
