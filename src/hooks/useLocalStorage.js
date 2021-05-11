@@ -12,7 +12,7 @@ export default function useLocalStorage() {
 
   const removeItem = useCallback((key) => {
     localStorage.removeItem(key);
-  });
+  },[]);
 
   return { getItem, setItem, removeItem };
 }

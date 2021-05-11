@@ -82,6 +82,10 @@ export default function dataReducer(state, action) {
       return { ...state, results: sortedResults };
     }
 
+    case 'SET': {
+      return { ...action.payload };
+    }
+
     default:
       throw Error(`Unhandled action type: "${action.type}".`);
   }

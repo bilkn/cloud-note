@@ -114,6 +114,7 @@ function useHandler(props) {
     if (!isSecondsPassed(1, timestamp)) {
       setIsActive(true);
       setCurrentId(id);
+     
     }
   }, [timestamp, id, setCurrentId, isActive, setIsActive]);
 

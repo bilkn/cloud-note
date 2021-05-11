@@ -4,8 +4,7 @@ import 'styled-components/macro';
 import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth, usePasswordStrength } from '../hooks';
-import { getDoc, initUser } from '../helpers/manageFirestore';
-import { v4 as uuidv4 } from 'uuid';
+import { initUser } from '../helpers/manageFirestore';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -25,9 +24,10 @@ export default function Signup() {
     setIsLoading(true);
     setError('');
     try {
-      await signup(email, password);
-      await initUser(username); // !!! Prevent the user to use same username.
+      const { user } = await signup(email, password);
+      await initUser(user.uid);
     } catch (err) {
+      console.log(err);
       const { message } = err;
       setError(message);
     }
@@ -37,8 +37,8 @@ export default function Signup() {
   const handleGoogleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signInWithGoogle();
-      await initUser(uuidv4()); // !!! New user data is created every time, after user sign in with the Google account.
+      const { user } = await signInWithGoogle();
+      await initUser(user.uid); // !!! New user data is created every time, after user sign in with the Google account.
     } catch (err) {
       const { message } = err;
       setError(message);
