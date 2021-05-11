@@ -1,6 +1,6 @@
 import '@firebase/firestore';
 import { db } from '../lib/firebase.dev';
-import firebase from "firebase";
+import firebase from 'firebase';
 
 const createUserData = () => {
   const note = {
@@ -20,6 +20,10 @@ const createUserData = () => {
 
 export const initUser = async (id) => {
   await db.collection('users').doc(id).set(createUserData());
+};
+
+export const getUserDocRef = (id) => {
+  return db.collection('users').doc(id);
 };
 
 export const getDoc = async (id) => {

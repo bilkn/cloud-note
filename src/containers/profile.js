@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FlexWrapper, Form, Wrapper } from '../components';
+import { DataContext } from '../context';
+import { useFirebaseAuth } from '../hooks';
+import { getUserDocRef } from '../helpers/manageFirestore';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
 import devices from '../styles/devices';
 
 export default function ProfileContainer() {
-  const [nameValue, setNameValue] = useState('');
-  const [bioValue, setBioValue] = useState('');
+  const { dataState, dispatchData } = useContext(DataContext);
+  const { currentUser } = useFirebaseAuth();
+  const [name, setName] = useState(dataState?.profile?.name || '');
+  const [bio, setBio] = useState(dataState?.profile?.bio || '');
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
-    setNameValue(e.target.value);
+    setName(e.target.value);
   };
 
   const handleBioChange = (e) => {
-    setBioValue(e.target.value);
+    setBio(e.target.value);
   };
 
   const handleUploadPictureClick = () => {
@@ -24,6 +29,25 @@ export default function ProfileContainer() {
 
   const handleFileChange = (e) => {
     console.log(e.target.files);
+  };
+
+  const handleBioAndNameSubmit = async (e) => {
+    e.preventDefault();
+    if (currentUser) {
+      try {
+        const docRef = getUserDocRef(currentUser.uid);
+        await docRef.update({
+          'profile.name': name,
+          'profile.bio': bio,
+        });
+        dispatchData({
+          type: 'SET_PROFILE',
+          payload: { name, bio, picture: null }, // !!! Change picture.
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
@@ -90,7 +114,7 @@ export default function ProfileContainer() {
           </Form.Box>
         </Form>
       </FlexWrapper>
-      <Form>
+      <Form onSubmit={handleBioAndNameSubmit}>
         <Form.Fieldset>
           <Form.Label htmlhtmlFor="profile_name">
             Name<Form.Span>*</Form.Span>
@@ -100,7 +124,7 @@ export default function ProfileContainer() {
             id="profile_name"
             name="profile[name]"
             autocomplete="name"
-            value={nameValue}
+            value={name}
             onChange={handleNameChange}
             data-testid={'name-input'}
             required
@@ -128,7 +152,7 @@ export default function ProfileContainer() {
             name="profile[bio]"
             rows="10"
             maxlength="1200"
-            value={bioValue}
+            value={bio}
             onChange={handleBioChange}
             data-testid={'bio-input'}
           />
