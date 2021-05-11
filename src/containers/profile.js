@@ -1,22 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { FlexWrapper, Form, Wrapper } from '../components';
-import { DataContext } from '../context';
-import { useFirebaseAuth } from '../hooks';
-import { getUserDocRef } from '../helpers/manageFirestore';
+import { useProfileLogic } from '../hooks';
 import Avatar from '../components/avatar';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
 import devices from '../styles/devices';
 
 export default function ProfileContainer() {
-  const { dataState, dispatchData } = useContext(DataContext);
-  const { currentUser } = useFirebaseAuth();
-  const [name, setName] = useState(dataState?.profile?.name || '');
-  const [bio, setBio] = useState(dataState?.profile?.bio || '');
+  const { bio, setBio, name, setName, handleBioAndNameSubmit } =
+    useProfileLogic();
+
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setName(e.target.value);  // !!! Add limit for name length.
   };
 
   const handleBioChange = (e) => {
@@ -29,25 +26,6 @@ export default function ProfileContainer() {
 
   const handleFileChange = (e) => {
     console.log(e.target.files);
-  };
-
-  const handleBioAndNameSubmit = async (e) => {
-    e.preventDefault();
-    if (currentUser) {
-      try {
-        const docRef = getUserDocRef(currentUser.uid);
-        await docRef.update({
-          'profile.name': name,
-          'profile.bio': bio,
-        });
-        dispatchData({
-          type: 'SET_PROFILE',
-          payload: { name, bio, picture: null }, // !!! Change picture.
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }
   };
 
   return (
