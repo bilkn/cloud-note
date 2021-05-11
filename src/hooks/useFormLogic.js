@@ -3,12 +3,8 @@ import { useFirebaseAuth } from '.';
 import { ToastContext } from '../context';
 
 export default function useFormLogic() {
-  const {
-    currentUser,
-    updateProfile,
-    updateEmail,
-    updatePassword,
-  } = useFirebaseAuth();
+  const { currentUser, updateProfile, updateEmail, updatePassword } =
+    useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
@@ -36,7 +32,7 @@ export default function useFormLogic() {
     handlePasswords(promises);
 
     if (currentUser.displayName !== username && username)
-      promises.push(updateProfile(username));
+      promises.push(updateProfile({ displayName: username }));
     if (currentUser.email !== email && email)
       promises.push(updateEmail(email, password));
 
@@ -88,7 +84,7 @@ export default function useFormLogic() {
         errorObj.password = 'Your password is incorrect. Please try again.';
         break;
       default: {
-        console.log(err)
+        console.log(err);
         dispatchToast({
           type: 'ERROR',
           payload: 'An error occurred.',

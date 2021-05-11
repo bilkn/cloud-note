@@ -4,12 +4,22 @@ import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import { useProfileLogic } from '../hooks';
-import { FlexWrapper, Form, Wrapper } from '../components';
+import { FlexWrapper, Form, Message, Wrapper } from '../components';
 import devices from '../styles/devices';
 
 export default function ProfileContainer() {
-  const { bio, setBio, name, setName, handleBioAndNameSubmit, loading } =
-    useProfileLogic();
+  const {
+    bio,
+    setBio,
+    name,
+    setName,
+    loading,
+    pictureURL,
+    errors,
+    handleBioAndNameSubmit,
+    handlePictureSubmit,
+    handleFileChange,
+  } = useProfileLogic();
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
@@ -22,10 +32,6 @@ export default function ProfileContainer() {
 
   const handleUploadPictureClick = () => {
     setShowFileInput(true);
-  };
-
-  const handleFileChange = (e) => {
-    console.log(e.target.files);
   };
 
   return (
@@ -42,11 +48,10 @@ export default function ProfileContainer() {
           `}
         >
           <Avatar size="120">
-            {/* !!! Add username to the avatar */}
-            <Avatar.Picture src={Picture} alt={'Avatar'} />
+            <Avatar.Picture src={pictureURL} alt="Profile picture" />
           </Avatar>
         </Wrapper>
-        <Form>
+        <Form onSubmit={handlePictureSubmit}>
           <Form.Box>
             {!showFileInput && (
               <Form.Button
@@ -73,8 +78,22 @@ export default function ProfileContainer() {
                     margin: 0;
                   `}
                   type="file"
+                  accept="image/jpeg,image/png,image/gif"
                   onChange={handleFileChange}
                 />
+                {errors.length ? (
+                  <Message>
+                    <Message.List>
+                      {errors.map((message, i) => (
+                        <Message.Item key={i}>{message}</Message.Item>
+                      ))}
+                    </Message.List>
+                  </Message>
+                ) : (
+                  <Form.Text fontSize="0.75rem">
+                    JPG, GIF or PNG. Max size of 1MB
+                  </Form.Text>
+                )}
               </Form.Fieldset>
             )}
             <Form.Button
@@ -122,7 +141,7 @@ export default function ProfileContainer() {
               top: 0;
             `}
           >
-            1200
+            {1200 - bio.length}
           </Form.Span>
           <Form.Textarea
             as="textarea"
@@ -146,7 +165,8 @@ export default function ProfileContainer() {
               }
             `}
           >
-            {loading ? <Spinner /> : 'Save Profile'} {/* !!! Change spinner color. */}
+            {loading ? <Spinner /> : 'Save Profile'}{' '}
+            {/* !!! Change spinner color. */}
           </Form.Button>
         </Form.Box>
       </Form>

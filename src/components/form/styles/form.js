@@ -46,7 +46,7 @@ export const Fieldset = styled.fieldset`
 `;
 
 export const Text = styled.p`
-  font-size: 0.625rem;
+  font-size: ${({ fontSize }) => fontSize || '0.625rem'};
   margin: 4px 0;
 `;
 
@@ -153,4 +153,4 @@ export const PasswordStrength = styled.div`
 export const Error = styled.p`
   color: red;
   line-height: 2;
-`
+`;

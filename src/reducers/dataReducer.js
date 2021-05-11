@@ -87,8 +87,8 @@ export default function dataReducer(state, action) {
     }
 
     case 'SET_PROFILE': {
-      const { name, bio, picture } = action.payload;
-      return { ...state, profile: { name, bio, picture } };
+      const { name, bio } = action.payload;
+      return { ...state, profile: { name, bio } };
     }
 
     default:
