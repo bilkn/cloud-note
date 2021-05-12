@@ -15,10 +15,11 @@ export default function useProfileLogic() {
   const { currentUser, updateProfile } = useFirebaseAuth();
   const [name, setName] = useState(dataState?.profile?.name || '');
   const [bio, setBio] = useState(dataState?.profile?.bio || '');
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [picture, setPicture] = useState(null);
   const [pictureURL, setPictureURL] = useState(currentUser?.photoURL || ''); // !!! Add no picture.
   const [loading, setLoading] = useState(false);
+  const [showFileInput, setShowFileInput] = useState(false);
 
   const handlePictureSubmit = async (e) => {
     e.preventDefault();
@@ -48,13 +49,23 @@ export default function useProfileLogic() {
         });
       }
     }
+    setErrors({});
     setLoading(false);
+    setShowFileInput(false);
   };
 
   const handleBioAndNameSubmit = async (e) => {
     e.preventDefault();
-    if (bio.length > 1200)
-      return console.log('Maximum character limit is 1200'); // !!! Add error for character limit.
+
+    const errorObj = {};
+
+    if (bio.length > 1200) errorObj.bio = 'Maximum character limit is 1200.';
+    if (name.length > 100) errorObj.name = 'Maximum character limit is 100.';
+
+    if (Object.keys(errorObj).length) {
+      return setErrors({ ...errors, ...errorObj });
+    }
+
     setLoading(true);
     if (currentUser) {
       try {
@@ -79,6 +90,7 @@ export default function useProfileLogic() {
         });
       }
     }
+    setErrors({});
     setLoading(false);
   };
 
@@ -100,14 +112,14 @@ export default function useProfileLogic() {
         'image/gif',
       ])
     ) {
-      errorArr.push('Picture must be JPG/JPEG, PNG or GIF.');
+      errorArr.push('Picture must be in JPG/JPEG, PNG or GIF format.');
     }
 
     if (!errorArr.length) {
       setPictureURL(createFileURL(file));
       return setErrors([]);
     }
-    setErrors(errorArr);
+    setErrors({ picture: errorArr });
   };
 
   return {
@@ -116,6 +128,8 @@ export default function useProfileLogic() {
     bio,
     setBio,
     pictureURL,
+    showFileInput,
+    setShowFileInput,
     handleBioAndNameSubmit,
     loading,
     errors,

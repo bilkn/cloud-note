@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Spinner } from '../components';
 import 'styled-components/macro';
-import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import { useProfileLogic } from '../hooks';
 import { FlexWrapper, Form, Message, Wrapper } from '../components';
@@ -15,12 +14,13 @@ export default function ProfileContainer() {
     setName,
     loading,
     pictureURL,
+    showFileInput,
+    setShowFileInput,
     errors,
     handleBioAndNameSubmit,
     handlePictureSubmit,
     handleFileChange,
   } = useProfileLogic();
-  const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -81,10 +81,10 @@ export default function ProfileContainer() {
                   accept="image/jpeg,image/png,image/gif"
                   onChange={handleFileChange}
                 />
-                {errors.length ? (
+                {errors.picture?.length ? (
                   <Message>
                     <Message.List>
-                      {errors.map((message, i) => (
+                      {errors.picture.map((message, i) => (
                         <Message.Item key={i}>{message}</Message.Item>
                       ))}
                     </Message.List>
@@ -121,19 +121,19 @@ export default function ProfileContainer() {
       </FlexWrapper>
       <Form onSubmit={handleBioAndNameSubmit}>
         <Form.Fieldset>
-          <Form.Label htmlhtmlFor="profile_name">
-            Name<Form.Span>*</Form.Span>
-          </Form.Label>
+          <Form.Label htmlhtmlFor="profile_name">Name</Form.Label>
           <Form.Input
             type="text"
             id="profile_name"
             name="profile[name]"
             autocomplete="name"
+            maxlength="100"
             value={name}
             onChange={handleNameChange}
             data-testid={'name-input'}
             required
           />
+          {errors.name ? <Form.Error>{errors.name}</Form.Error> : null}
         </Form.Fieldset>
         <Form.Fieldset
           css={`
@@ -161,6 +161,7 @@ export default function ProfileContainer() {
             onChange={handleBioChange}
             data-testid={'bio-input'}
           />
+          {errors.bio ? <Form.Error>{errors.bio}</Form.Error> : null}
         </Form.Fieldset>
         <Form.Box>
           <Form.Button
