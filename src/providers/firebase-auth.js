@@ -4,7 +4,6 @@ import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
 export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(auth?.currentUser || null);
-  const [loading, setLoading] = useState(true);
 
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
@@ -52,7 +51,6 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setLoading(false);
     });
     return unsubscribe;
   }, []);
