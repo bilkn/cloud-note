@@ -48,13 +48,18 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     await currentUser.reauthenticateWithCredential(credential);
   };
 
+  const deleteAccount = async (password) => {
+    await reauth(password);
+    await currentUser.delete();
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
     return unsubscribe;
   }, []);
- 
+
   const value = {
     currentUser,
     signup,
@@ -65,6 +70,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     updateEmail,
     updatePassword,
     updateProfile,
+    deleteAccount
   };
   return (
     <FirebaseAuthContext.Provider value={value} {...restProps}>

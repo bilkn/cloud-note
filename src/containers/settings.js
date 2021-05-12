@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
-import { DialogContext, ToastContext } from '../context';
-import { useData, useFirebaseAuth, useSettingsLogic } from '../hooks';
+import { DialogContext } from '../context';
+import { useData, useSettingsLogic } from '../hooks';
 
 function SettingsContainer() {
   const {
@@ -16,11 +16,10 @@ function SettingsContainer() {
     errors,
     loading,
     submit,
+    handleDeleteAccount,
   } = useSettingsLogic();
   const [, setDialog] = useContext(DialogContext);
-  const { dispatchToast } = useContext(ToastContext);
   const { DeleteAll } = useData();
-  const { currentUser } = useFirebaseAuth();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -44,31 +43,6 @@ function SettingsContainer() {
       isOpen: true,
       text: 'Are you sure you want to delete all your notes? This will permanently erase your notes.',
       handler: DeleteAll,
-      buttons: ['Cancel', 'Delete'],
-    });
-  };
-
-  const handleDeleteAccount = (e) => {
-    e.stopPropagation();
-    const deleteAccount = async () => {
-      try {
-        await currentUser.delete();
-        dispatchToast({
-          type: 'NOTIFICATION',
-          payload: 'You account has been deleted successfully.',
-        });
-      } catch (err) {
-        dispatchToast({
-          type: 'ERROR',
-          payload: "We couldn't delete your account. Please try again.",
-        });
-        console.log(err);
-      }
-    };
-    setDialog({
-      isOpen: true,
-      text: 'Are you sure you want to delete your account? This will permanently erase your account and notes.',
-      handler: deleteAccount,
       buttons: ['Cancel', 'Delete'],
     });
   };

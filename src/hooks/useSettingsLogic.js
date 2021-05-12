@@ -1,14 +1,16 @@
 import { useContext, useState } from 'react';
 import { useFirebaseAuth } from '.';
-import { ToastContext } from '../context';
+import { DialogContext, ToastContext } from '../context';
 
 export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail } = useFirebaseAuth();
+  const { currentUser, updateProfile, updateEmail, deleteAccount } =
+    useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [, setDialog] = useContext(DialogContext);
   const { dispatchToast } = useContext(ToastContext);
 
   const submit = async () => {
@@ -48,6 +50,41 @@ export default function useFormLogic() {
     resetPasswordAndLoadingStates();
   };
 
+  const handleDeleteAccount = (e) => {
+    e.stopPropagation();
+    setErrors(null);
+
+    if (!password) {
+      setErrors({
+        password: 'Please enter your password to delete your account.',
+      });
+      return;
+    }
+
+    const deleteAccountHandler = async () => {
+      try {
+        setLoading(true);
+        await deleteAccount(password);
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'You account has been deleted successfully.',
+        });
+      } catch (err) {
+        console.log(err);
+        handleErrors(err);
+      }
+    };
+
+    setDialog({
+      isOpen: true,
+      text: 'Are you sure you want to delete your account? This will permanently erase your account and notes.',
+      handler: deleteAccountHandler,
+      buttons: ['Cancel', 'Delete'],
+    });
+
+    resetPasswordAndLoadingStates();
+  };
+
   const resetPasswordAndLoadingStates = () => {
     setPassword('');
     setLoading(false);
@@ -57,9 +94,13 @@ export default function useFormLogic() {
     const { code } = err;
     const errorObj = {};
     switch (code) {
+      case 'auth/email-already-in-use':
+        errorObj.email =
+          'This email address is already taken. Please provide different email.';
+        break;
       case 'auth/email-already-exists':
         errorObj.email =
-          'This email address is already being used. Please provide different email.';
+          'This email address is already exists. Please provide different email.';
         break;
       case 'auth/invalid-email':
         errorObj.email = 'Please provide valid email.';
@@ -87,5 +128,6 @@ export default function useFormLogic() {
     setErrors,
     loading,
     submit,
+    handleDeleteAccount,
   };
 }
