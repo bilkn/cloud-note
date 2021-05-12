@@ -50,7 +50,10 @@ export const Text = styled.p`
   margin: 4px 0;
 `;
 
-export const Textarea = styled(Input)``;
+export const Textarea = styled(Input)`
+  min-height: 108px;
+  resize: vertical;
+`;
 
 export const Button = styled.button`
   background: ${({ variant }) =>

@@ -5,6 +5,7 @@ import Avatar from '../components/avatar';
 import { useProfileLogic } from '../hooks';
 import { FlexWrapper, Form, Message, Wrapper } from '../components';
 import devices from '../styles/devices';
+import {colors} from '../styles/variables';
 
 export default function ProfileContainer() {
   const {
@@ -20,7 +21,7 @@ export default function ProfileContainer() {
     handleBioAndNameSubmit,
     handlePictureSubmit,
     handleFileChange,
-    handleDeleteClick
+    handleDeleteClick,
   } = useProfileLogic();
 
   const handleNameChange = (e) => {
@@ -145,7 +146,7 @@ export default function ProfileContainer() {
           <Form.Label htmlhtmlFor="profile_bio">Bio</Form.Label>
           <Form.Span
             css={`
-              color: #9e9ea7;
+              color: ${1200 - bio.length < 0 ? colors.red : '#9e9ea7'};
               position: absolute;
               right: 0;
               top: 0;
