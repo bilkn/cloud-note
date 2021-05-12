@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlexWrapper, Navigation, Wrapper } from '../../components';
 import 'styled-components/macro';
 import {
@@ -11,11 +11,19 @@ import {
 import devices from '../../styles/devices';
 import { sizes } from '../../styles/variables';
 import { Route, useRouteMatch } from 'react-router';
-import * as Routes from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
+import { useMatchLastSubpath } from '../../hooks';
 
 export default function Account() {
   const { path } = useRouteMatch();
   const [crumb, setCrumb] = useState('');
+  const { matchSubpath } = useMatchLastSubpath();
+
+  useEffect(() => {
+    if (matchSubpath(ROUTES.ACCOUNT)) setCrumb('Account Settings');
+    else if (matchSubpath(ROUTES.PROFILE)) setCrumb('Edit Profile');
+    else if (matchSubpath(ROUTES.PASSWORD)) setCrumb('Password');
+  }, [matchSubpath]);
 
   return (
     <>
@@ -56,8 +64,8 @@ export default function Account() {
               }
             `}
           >
-            <NavMenuContainer setCrumb={setCrumb} />
-            <MobileNavMenuContainer setCrumb={setCrumb} />
+            <NavMenuContainer />
+            <MobileNavMenuContainer />
             <FlexWrapper
               direction="column"
               css={`
@@ -68,13 +76,13 @@ export default function Account() {
                 }
               `}
             >
-              <Route exact path={`${Routes.ACCOUNT}`}>
+              <Route exact path={`${ROUTES.ACCOUNT}`}>
                 <SettingsContainer />
               </Route>
-              <Route path={`${path}${Routes.PROFILE}`}>
+              <Route path={`${path}${ROUTES.PROFILE}`}>
                 <ProfileContainer />
               </Route>
-              <Route path={`${path}${Routes.PASSWORD}`}>
+              <Route path={`${path}${ROUTES.PASSWORD}`}>
                 <PasswordContainer />
               </Route>
             </FlexWrapper>

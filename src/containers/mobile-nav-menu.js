@@ -6,7 +6,7 @@ import NavLinks from '../fixtures/navigation-links.json';
 import { useRouteMatch } from 'react-router';
 import { useMatchLastSubpath } from '../hooks';
 
-export default function MobileNavMenuContainer({ setCrumb }) {
+export default function MobileNavMenuContainer() {
   const { url } = useRouteMatch();
   const { matchSubpath } = useMatchLastSubpath();
   const [showMenu, setShowMenu] = useState(false);
@@ -14,7 +14,6 @@ export default function MobileNavMenuContainer({ setCrumb }) {
   const handleMenuClick = (e, name) => {
     e.stopPropagation();
     setShowMenu(!showMenu);
-    setCrumb(name);
   };
 
   return (
@@ -25,7 +24,7 @@ export default function MobileNavMenuContainer({ setCrumb }) {
             <MobileNav.MenuItem
               key={path}
               active={matchSubpath(path) ? 1 : 0}
-              onClick={(e) => handleMenuClick(e, name)}
+              onClick={(e) => handleMenuClick(e)}
             >
               <MobileNav.MenuLink to={`${url !== path ? url : ''}${path}`}>
                 {name}
