@@ -1,7 +1,7 @@
 import React from 'react';
 import 'styled-components/macro';
 import { Form, Spinner } from '../components';
-import { useFormLogic, usePasswordStrength } from '../hooks';
+import { usePasswordLogic, usePasswordStrength } from '../hooks';
 
 export default function PasswordContainer() {
   const {
@@ -12,7 +12,8 @@ export default function PasswordContainer() {
     errors,
     submit,
     loading,
-  } = useFormLogic();
+  } = usePasswordLogic();
+  
   const { strength } = usePasswordStrength(newPassword);
 
   const handleOldPasswordChange = (e) => {
@@ -72,7 +73,9 @@ export default function PasswordContainer() {
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
-        {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
+        {errors?.newPassword ? (
+          <Form.Error>{errors.newPassword}</Form.Error>
+        ) : null}
         <Form.Box>
           <Form.Button variant="red">
             {loading ? <Spinner color="white" /> : 'Change'}

@@ -3,7 +3,7 @@ import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
 import { DialogContext, ToastContext } from '../context';
-import { useData, useFirebaseAuth, useFormLogic } from '../hooks';
+import { useData, useFirebaseAuth, useSettingsLogic } from '../hooks';
 
 function SettingsContainer() {
   const {
@@ -16,7 +16,7 @@ function SettingsContainer() {
     errors,
     loading,
     submit,
-  } = useFormLogic();
+  } = useSettingsLogic();
   const [, setDialog] = useContext(DialogContext);
   const { dispatchToast } = useContext(ToastContext);
   const { DeleteAll } = useData();
