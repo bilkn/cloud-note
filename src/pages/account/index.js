@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlexWrapper, Navigation, Wrapper } from '../../components';
 import 'styled-components/macro';
 import {
@@ -15,6 +15,8 @@ import * as Routes from '../../constants/routes';
 
 export default function Account() {
   const { path } = useRouteMatch();
+  const [crumb, setCrumb] = useState('');
+
   return (
     <>
       <Wrapper
@@ -42,7 +44,7 @@ export default function Account() {
               <Navigation.Link to="/name">Codebee</Navigation.Link>
               {/* !!! Change "to" prop */}
               <Navigation.Span>/</Navigation.Span>
-              <Navigation.Text>Account Settings</Navigation.Text>
+              <Navigation.Text>{crumb}</Navigation.Text>
             </Navigation.Breadcrumb>
           </Navigation>
           <FlexWrapper
@@ -54,8 +56,8 @@ export default function Account() {
               }
             `}
           >
-            <NavMenuContainer />
-            <MobileNavMenuContainer />
+            <NavMenuContainer setCrumb={setCrumb} />
+            <MobileNavMenuContainer setCrumb={setCrumb} />
             <FlexWrapper
               direction="column"
               css={`
