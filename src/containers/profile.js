@@ -23,7 +23,7 @@ export default function ProfileContainer() {
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
-    setName(e.target.value); // !!! Add limit for name length.
+    setName(e.target.value); 
   };
 
   const handleBioChange = (e) => {

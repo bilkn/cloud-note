@@ -1,7 +1,7 @@
 import React from 'react';
+import 'styled-components/macro';
 import { Form } from '../components';
 import { useFormLogic, usePasswordStrength } from '../hooks';
-import 'styled-components/macro';
 
 export default function PasswordContainer() {
   const {
@@ -12,6 +12,7 @@ export default function PasswordContainer() {
     errors,
     submit,
   } = useFormLogic();
+
  const { strength } = usePasswordStrength(newPassword);
 
   const handleOldPasswordChange = (e) => {

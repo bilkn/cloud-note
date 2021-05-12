@@ -52,7 +52,7 @@ export default function useProfileLogic() {
   const handleBioAndNameSubmit = async (e) => {
     e.preventDefault();
     if (bio.length > 1200)
-    return console.log('Maximum character limit is 1200'); // !!! Add error for character limit.
+      return console.log('Maximum character limit is 1200'); // !!! Add error for character limit.
     setLoading(true);
     if (currentUser) {
       try {
@@ -88,7 +88,7 @@ export default function useProfileLogic() {
     const errorArr = [];
 
     if (!validateFileSize(file, 1))
-      errorArr.push('File size must be lower than 1MB.');
+      errorArr.push('Picture size must be lower than 1MB.');
 
     if (
       !validateFileFormat(file, [
@@ -98,14 +98,14 @@ export default function useProfileLogic() {
         'image/gif',
       ])
     ) {
-      errorArr.push('File must be JPG/JPEG, PNG or GIF.');
+      errorArr.push('Picture must be JPG/JPEG, PNG or GIF.');
     }
-    if (errorArr) setErrors(errorArr);
 
     if (!errorArr.length) {
       setPictureURL(createFileURL(file));
-      setErrors([]);
+      return setErrors([]);
     }
+    setErrors(errorArr);
   };
 
   return {

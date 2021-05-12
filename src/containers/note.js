@@ -69,7 +69,7 @@ function NoteContainer(props) {
   const { matchSubpath, pathname } = useMatchLastSubpath();
 
   const handleNoteClick = (e) => {
-    activate && e.stopPropagation(); // If note is initially activated, it stops propagation.
+    activate && e.stopPropagation(); // If note is initially activated, it stops the propagation.
     setCurrentId(id);
   };
 
@@ -78,7 +78,8 @@ function NoteContainer(props) {
     setTextValue(e.target.value);
   };
  
-  const checkTabIndex = showButtons ? '1' : '-1';
+  const checkTabIndex = showButtons ? '0' : '-1';
+
   return (
     <Note
       color={color}

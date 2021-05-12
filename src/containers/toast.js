@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Toast } from '../components';
-import { ReactComponent as CrossIcon } from '../assets/cross-icon.svg';
-import { ToastContext } from '../context';
 import 'styled-components/macro';
+import { ReactComponent as CrossIcon } from '../assets/cross-icon.svg';
+import { Toast } from '../components';
+import { ToastContext } from '../context';
 
 function ToastContainer() {
   const {toastState, dispatchToast} = useContext(ToastContext);

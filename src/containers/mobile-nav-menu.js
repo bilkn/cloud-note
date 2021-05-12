@@ -12,6 +12,7 @@ export default function MobileNavMenuContainer() {
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuClick = () => setShowMenu(!showMenu);
+
   return (
     <MobileNav.Menu onClick={handleMenuClick}>
       {NavLinks.map(
@@ -19,12 +20,14 @@ export default function MobileNavMenuContainer() {
           (matchSubpath(path) || showMenu) && (
             <MobileNav.MenuItem
               key={path}
-              active={matchSubpath(path) ? 1 : undefined}
+              active={matchSubpath(path) ? 1 : 0}
               onClick={handleMenuClick}
             >
               <MobileNav.MenuLink to={`${url !== path ? url : ''}${path}`}>
                 {name}
-                {showMenu && matchSubpath(path) && <Tick color="black" size="18" />}
+                {showMenu && matchSubpath(path) && (
+                  <Tick color="black" size="18" />
+                )}
                 {!showMenu && <ChevronDown color="#CFCFCF" size="18" />}
               </MobileNav.MenuLink>
             </MobileNav.MenuItem>

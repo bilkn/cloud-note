@@ -12,7 +12,8 @@ export default function usePasswordStrength(password) {
     );
     if (strongRegex.test(password)) setStrength('strong');
     else if (mediumRegex.test(password)) setStrength('medium');
-    else setStrength('weak');
+    return setStrength('weak');
   }, [password]);
+  
   return { strength };
 }

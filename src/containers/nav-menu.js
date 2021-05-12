@@ -9,7 +9,6 @@ export default function NavMenuContainer() {
   const { url } = useRouteMatch();
   const { matchSubpath } = useMatchLastSubpath();
 
-
   return (
     <Nav.Menu>
       {NavLinks.map(({ path, name }) => (

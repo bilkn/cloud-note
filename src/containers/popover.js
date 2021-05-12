@@ -1,7 +1,7 @@
 import React from 'react';
 import { Popover } from '../components';
-import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth } from '../hooks';
+import * as ROUTES from '../constants/routes';
 
 export default function PopoverContainer({ ...restProps }) {
   const { signout } = useFirebaseAuth();
