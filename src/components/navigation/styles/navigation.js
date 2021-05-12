@@ -56,6 +56,7 @@ export const MenuLink = styled(ReactRouterLink)`
 export const Text = styled.p`
   font-size: 1.875rem;
   display: inline;
+  text-transform: capitalize;
 `;
 
 export const Span = styled.span`

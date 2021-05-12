@@ -16,3 +16,4 @@ export { default as Note } from './note';
 export { default as Heading } from './heading';
 export { default as Avatar } from './avatar';
 export { default as Message } from './message';
+export { default as Spinner } from './spinner';

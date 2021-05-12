@@ -1,10 +1,10 @@
 import React from 'react';
-import { Palette } from '../components';
+import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import devices from '../styles/devices';
-import 'styled-components/macro';
-import { useData, useMatchLastSubpath, useResize } from '../hooks';
 import * as ROUTES from '../constants/routes';
+import { Palette } from '../components';
+import { useData, useMatchLastSubpath, useResize } from '../hooks';
 import { useHistory } from 'react-router';
 
 export default function PaletteContainer({ palette, setPalette }) {

@@ -33,6 +33,7 @@ export default function DialogContainer() {
   const handleNoClick = () => {
     resetDialog();
   };
+  
   useEffect(() => {
     if (isOpen) {
       const noBtn = ref.current;

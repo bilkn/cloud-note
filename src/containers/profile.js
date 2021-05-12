@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
-import { ReactComponent as Spinner } from '../assets/spinner.svg';
+import React from 'react';
+import { Spinner } from '../components';
 import 'styled-components/macro';
-import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
 import { useProfileLogic } from '../hooks';
-import { FlexWrapper, Form, Wrapper } from '../components';
+import { FlexWrapper, Form, Message, Wrapper } from '../components';
 import devices from '../styles/devices';
+import {colors} from '../styles/variables';
 
 export default function ProfileContainer() {
-  const { bio, setBio, name, setName, handleBioAndNameSubmit, loading } =
-    useProfileLogic();
-  const [showFileInput, setShowFileInput] = useState(false);
+  const {
+    bio,
+    setBio,
+    name,
+    setName,
+    loading,
+    pictureURL,
+    showFileInput,
+    setShowFileInput,
+    errors,
+    handleBioAndNameSubmit,
+    handlePictureSubmit,
+    handleFileChange,
+    handleDeleteClick,
+  } = useProfileLogic();
 
   const handleNameChange = (e) => {
-    setName(e.target.value); // !!! Add limit for name length.
+    setName(e.target.value);
   };
 
   const handleBioChange = (e) => {
@@ -22,10 +34,6 @@ export default function ProfileContainer() {
 
   const handleUploadPictureClick = () => {
     setShowFileInput(true);
-  };
-
-  const handleFileChange = (e) => {
-    console.log(e.target.files);
   };
 
   return (
@@ -42,11 +50,10 @@ export default function ProfileContainer() {
           `}
         >
           <Avatar size="120">
-            {/* !!! Add username to the avatar */}
-            <Avatar.Picture src={Picture} alt={'Avatar'} />
+            <Avatar.Picture src={pictureURL} alt="Profile picture" />
           </Avatar>
         </Wrapper>
-        <Form>
+        <Form onSubmit={handlePictureSubmit}>
           <Form.Box>
             {!showFileInput && (
               <Form.Button
@@ -73,11 +80,26 @@ export default function ProfileContainer() {
                     margin: 0;
                   `}
                   type="file"
+                  accept="image/jpeg,image/png,image/gif"
                   onChange={handleFileChange}
                 />
+                {errors.picture?.length ? (
+                  <Message>
+                    <Message.List>
+                      {errors.picture.map((message, i) => (
+                        <Message.Item key={i}>{message}</Message.Item>
+                      ))}
+                    </Message.List>
+                  </Message>
+                ) : (
+                  <Form.Text fontSize="0.75rem">
+                    JPG, GIF or PNG. Max size of 1MB
+                  </Form.Text>
+                )}
               </Form.Fieldset>
             )}
             <Form.Button
+              onClick={handleDeleteClick}
               css={`
                 margin: 22px 0 16px 0;
                 ${showFileInput ? 'margin-right: 16px' : ''}
@@ -87,26 +109,34 @@ export default function ProfileContainer() {
               Delete
             </Form.Button>
             {showFileInput && (
-              <Form.Button variant="red">Upload Now</Form.Button>
+              <Form.Button
+                disabled={loading}
+                variant="red"
+                css={`
+                  ${loading ? 'position:relative; top:7px;' : ''}
+                `}
+              >
+                {loading ? <Spinner color="white" /> : 'Upload Now '}
+              </Form.Button>
             )}
           </Form.Box>
         </Form>
       </FlexWrapper>
       <Form onSubmit={handleBioAndNameSubmit}>
         <Form.Fieldset>
-          <Form.Label htmlhtmlFor="profile_name">
-            Name<Form.Span>*</Form.Span>
-          </Form.Label>
+          <Form.Label htmlhtmlFor="profile_name">Name</Form.Label>
           <Form.Input
             type="text"
             id="profile_name"
             name="profile[name]"
             autocomplete="name"
+            maxlength="100"
             value={name}
             onChange={handleNameChange}
             data-testid={'name-input'}
             required
           />
+          {errors.name ? <Form.Error>{errors.name}</Form.Error> : null}
         </Form.Fieldset>
         <Form.Fieldset
           css={`
@@ -116,13 +146,13 @@ export default function ProfileContainer() {
           <Form.Label htmlhtmlFor="profile_bio">Bio</Form.Label>
           <Form.Span
             css={`
-              color: #9e9ea7;
+              color: ${1200 - bio.length < 0 ? colors.red : '#9e9ea7'};
               position: absolute;
               right: 0;
               top: 0;
             `}
           >
-            1200
+            {1200 - bio.length}
           </Form.Span>
           <Form.Textarea
             as="textarea"
@@ -134,6 +164,7 @@ export default function ProfileContainer() {
             onChange={handleBioChange}
             data-testid={'bio-input'}
           />
+          {errors.bio ? <Form.Error>{errors.bio}</Form.Error> : null}
         </Form.Fieldset>
         <Form.Box>
           <Form.Button
@@ -146,7 +177,7 @@ export default function ProfileContainer() {
               }
             `}
           >
-            {loading ? <Spinner /> : 'Save Profile'} {/* !!! Change spinner color. */}
+            {loading ? <Spinner color="white" /> : 'Save Profile'}
           </Form.Button>
         </Form.Box>
       </Form>

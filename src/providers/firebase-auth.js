@@ -6,7 +6,6 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(auth?.currentUser || null);
   const [loading, setLoading] = useState(true);
 
-
   const signup = (email, password) =>
     auth.createUserWithEmailAndPassword(email, password);
 
@@ -37,8 +36,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     await currentUser.updatePassword(newPassword);
   };
 
-  const updateProfile = (displayName, photoURL) =>
-    currentUser.updateProfile({ displayName, photoURL });
+  const updateProfile = (props) => currentUser.updateProfile({ ...props });
 
   const getUserCredential = (password) =>
     firebase.auth.EmailAuthProvider.credential(
@@ -58,7 +56,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     });
     return unsubscribe;
   }, []);
-
+ 
   const value = {
     currentUser,
     signup,

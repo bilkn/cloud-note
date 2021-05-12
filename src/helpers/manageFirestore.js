@@ -12,7 +12,7 @@ const createUserData = () => {
     text: 'Hello World!',
   };
   return {
-    profile: { name: '', picture: null, bio: '' },
+    profile: { name: '', bio: '' },
     results: [note],
     deleted: [],
   };

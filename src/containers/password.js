@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form } from '../components';
-import { useFormLogic, usePasswordStrength } from '../hooks';
 import 'styled-components/macro';
+import { Form, Spinner } from '../components';
+import { useFormLogic, usePasswordStrength } from '../hooks';
 
 export default function PasswordContainer() {
   const {
@@ -11,8 +11,9 @@ export default function PasswordContainer() {
     setNewPassword,
     errors,
     submit,
+    loading,
   } = useFormLogic();
- const { strength } = usePasswordStrength(newPassword);
+  const { strength } = usePasswordStrength(newPassword);
 
   const handleOldPasswordChange = (e) => {
     setPassword(e.target.value);
@@ -73,7 +74,9 @@ export default function PasswordContainer() {
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
         <Form.Box>
-          <Form.Button variant="red">Change</Form.Button>
+          <Form.Button variant="red">
+            {loading ? <Spinner color="white" /> : 'Change'}
+          </Form.Button>
         </Form.Box>
       </Form.Wrapper>
     </Form>

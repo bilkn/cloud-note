@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import 'styled-components/macro';
-import { ReactComponent as Spinner } from '../assets/spinner.svg';
-import { Form } from '../components';
+import {colors} from "../styles/variables";
+import { Form, Spinner } from '../components';
 import { DialogContext } from '../context';
 import { useData, useFormLogic } from '../hooks';
 
@@ -104,7 +104,7 @@ function SettingsContainer() {
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
       </Form.Wrapper>
       <Form.Button disabled={loading}>
-        {loading ? <Spinner /> : 'Save'}
+        {loading ? <Spinner color={colors.red_3} /> : 'Save'}
       </Form.Button>
       <Form.Wrapper>
         <Form.Subtitle>danger zone</Form.Subtitle>

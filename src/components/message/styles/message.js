@@ -12,6 +12,7 @@ export const Item = styled.li`
   color: ${colors.red};
   list-style: disc;
   list-style-position: inside;
+  margin-top: 5px;
 `;
 
 export const Text = styled.p``;
