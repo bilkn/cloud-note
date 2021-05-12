@@ -20,6 +20,7 @@ export default function ProfileContainer() {
     handleBioAndNameSubmit,
     handlePictureSubmit,
     handleFileChange,
+    handleDeleteClick
   } = useProfileLogic();
 
   const handleNameChange = (e) => {
@@ -97,6 +98,7 @@ export default function ProfileContainer() {
               </Form.Fieldset>
             )}
             <Form.Button
+              onClick={handleDeleteClick}
               css={`
                 margin: 22px 0 16px 0;
                 ${showFileInput ? 'margin-right: 16px' : ''}

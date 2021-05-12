@@ -87,7 +87,6 @@ export default function useFormLogic() {
         console.log(err);
         dispatchToast({
           type: 'ERROR',
-          payload: 'An error occurred.',
         });
       }
     }

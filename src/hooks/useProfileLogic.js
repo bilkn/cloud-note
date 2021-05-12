@@ -6,12 +6,13 @@ import {
   validateFileSize,
 } from '../helpers';
 import { getUserDocRef } from '../helpers/manageFirestore';
-import { DataContext, ToastContext } from '../context';
+import { DataContext, DialogContext, ToastContext } from '../context';
 import { storage } from '../lib/firebase.dev';
 
 export default function useProfileLogic() {
   const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
+  const [, setDialog] = useContext(DialogContext);
   const { currentUser, updateProfile } = useFirebaseAuth();
   const [name, setName] = useState(dataState?.profile?.name || '');
   const [bio, setBio] = useState(dataState?.profile?.bio || '');
@@ -45,7 +46,6 @@ export default function useProfileLogic() {
         console.log(err);
         dispatchToast({
           type: 'ERROR',
-          payload: 'An error occurred.',
         });
       }
     }
@@ -122,6 +122,33 @@ export default function useProfileLogic() {
     setErrors({ picture: errorArr });
   };
 
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    console.log('click');
+    const deleteUserPicture = async () => {
+      setLoading(true);
+      try {
+        await storage.refFromURL(currentUser.photoURL).delete();
+        await updateProfile({ photoURL: '' });
+        setPictureURL('');
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'Picture has been deleted successfully',
+        });
+      } catch (err) {
+        console.log(err);
+        dispatchToast({ type: 'ERROR' });
+      }
+      setLoading(false);
+    };
+    setDialog({
+      isOpen: true,
+      text: 'Are you sure you want to delete your picture?',
+      handler: deleteUserPicture,
+      buttons: ['Cancel', 'Delete'],
+    });
+  };
+
   return {
     name,
     setName,
@@ -135,5 +162,6 @@ export default function useProfileLogic() {
     errors,
     handlePictureSubmit,
     handleFileChange,
+    handleDeleteClick,
   };
 }

@@ -15,7 +15,7 @@ export default function toastReducer(state, action) {
       const newContent = {
         id: uuidv4(),
         type: 'error',
-        text: 'An error occurred.',
+        text: action.payload || 'An error occurred.',
       };
       return [newContent, ...state];
     }
