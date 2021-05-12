@@ -14,6 +14,7 @@ export const colors = {
   white_1: '#f7f9fa',
   white_1_hover: '#f4f3f3',
   red_2: '#FC9870',
+  red_3: "#e12f52",
   orange: '#FFC972',
   purple: '#B692FE',
   purple_2: '#7d6fcd',

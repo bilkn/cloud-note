@@ -22,6 +22,7 @@ export default function useProfileLogic() {
 
   const handlePictureSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!errors.length && picture) {
       const extension = picture.type.split('/')[1];
@@ -47,6 +48,7 @@ export default function useProfileLogic() {
         });
       }
     }
+    setLoading(false);
   };
 
   const handleBioAndNameSubmit = async (e) => {

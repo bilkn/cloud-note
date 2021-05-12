@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ReactComponent as Spinner } from '../assets/spinner.svg';
+import { Spinner } from '../components';
 import 'styled-components/macro';
 import Picture from '../assets/man-1.png';
 import Avatar from '../components/avatar';
@@ -23,7 +23,7 @@ export default function ProfileContainer() {
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handleNameChange = (e) => {
-    setName(e.target.value); 
+    setName(e.target.value);
   };
 
   const handleBioChange = (e) => {
@@ -106,7 +106,15 @@ export default function ProfileContainer() {
               Delete
             </Form.Button>
             {showFileInput && (
-              <Form.Button variant="red">Upload Now</Form.Button>
+              <Form.Button
+                disabled={loading}
+                variant="red"
+                css={`
+                  ${loading ? 'position:relative; top:7px;' : ''}
+                `}
+              >
+                {loading ? <Spinner color="white" /> : 'Upload Now '}
+              </Form.Button>
             )}
           </Form.Box>
         </Form>
@@ -165,8 +173,7 @@ export default function ProfileContainer() {
               }
             `}
           >
-            {loading ? <Spinner /> : 'Save Profile'}{' '}
-            {/* !!! Change spinner color. */}
+            {loading ? <Spinner color="white" /> : 'Save Profile'}
           </Form.Button>
         </Form.Box>
       </Form>

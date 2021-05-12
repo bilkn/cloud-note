@@ -46,5 +46,6 @@ body {
     [type="search"]::-webkit-search-decoration {
         -webkit-appearance: none;
         appearance: none;
+
 }
 `;
