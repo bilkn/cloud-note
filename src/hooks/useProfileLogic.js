@@ -34,6 +34,9 @@ export default function useProfileLogic() {
       );
 
       try {
+        if (currentUser.photoURL) {
+          await storage.refFromURL(currentUser.photoURL).delete();
+        }
         await pictureRef.put(picture);
         const photoURL = await pictureRef.getDownloadURL();
         await updateProfile({ photoURL });
@@ -124,7 +127,6 @@ export default function useProfileLogic() {
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
-    console.log('click');
     const deleteUserPicture = async () => {
       setLoading(true);
       try {
