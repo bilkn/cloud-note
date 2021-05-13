@@ -46,6 +46,8 @@ export default function useData() {
   const Delete = async (id) => {
     const type = 'DELETE';
     const data = findData('results', id);
+    const deletionDate = new Date();
+    const date = { type: 'deletionDate', value: deletionDate };
     const successMessage = () =>
       dispatchToast({
         type: 'NOTIFICATION',
@@ -54,8 +56,8 @@ export default function useData() {
 
     if (currentUser) {
       try {
-        await moveInDB('deleted', data);
-        dispatchData({ type, deleteId: id });
+        await moveInDB('deleted', data, date);
+        dispatchData({ type, payload: { deleteId: id, deletionDate } });
         successMessage();
       } catch (err) {
         console.log(err);
@@ -68,7 +70,7 @@ export default function useData() {
       return;
     }
 
-    dispatchData({ type, deleteId: id });
+    dispatchData({ type, payload: { deleteId: id, deletionDate } });
     successMessage();
   };
 

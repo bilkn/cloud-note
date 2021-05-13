@@ -34,8 +34,7 @@ export default function dataReducer(state, action) {
 
     case 'DELETE': {
       const { results, deleted } = state;
-      const { deleteId } = action;
-      const deletionDate = new Date();
+      const { deleteId, deletionDate } = action.payload;
       const willRemovedData = results.find(({ id }) => id === deleteId);
       const newData = { ...willRemovedData, deletionDate };
       const newResults = results.filter(({ id }) => id !== deleteId);
