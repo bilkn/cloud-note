@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import { useLocalStorage } from '.';
+import { useContext, useEffect, useCallback } from 'react';
+import { useFirebaseAuth, useFirestore, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
@@ -7,21 +7,32 @@ export default function useData() {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { setItem } = useLocalStorage();
+  const { setOperation, deleteFromDB, moveInDB } = useFirestore();
+  const { currentUser } = useFirebaseAuth();
 
+  const findData = useCallback(
+    (datalist, id) =>
+      dataState[datalist].find(({ id: dataId }) => id === dataId),
+    [dataState]
+  );
+
+  // If user is authenticated, datas will be operated on the firestore. Otherwise, datas will be operated on the local storage.
   const Add = (id, text) => {
     const type = 'ADD';
-    try {
-      dispatchData({
-        type,
-        payload: { id, text },
-      });
-      dispatchToast({
+    dispatchData({
+      type,
+      payload: {
+        id,
+        text,
+      },
+    });
+    if (!currentUser) {
+      return dispatchToast({
         type: 'NOTIFICATION',
         payload: 'Note has been added.',
       });
-    } catch (err) {
-      console.log(err);
     }
+    setOperation({ id, type });
   };
 
   const AddTemplate = (color) => {
@@ -31,17 +42,38 @@ export default function useData() {
     });
   };
 
-  const Delete = (id) => {
+  const Delete = async (id) => {
     const type = 'DELETE';
+    const data = findData('results', id);
+    const successMessage = () =>
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been deleted.',
+      });
+
+    if (currentUser) {
+      try {
+        await moveInDB('deleted', data);
+        dispatchData({ type, deleteId: id });
+        successMessage();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not be deleted.',
+        });
+        // !!! Add local storage backup.
+      }
+      return;
+    }
+
     dispatchData({ type, deleteId: id });
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Note has been deleted.',
-    });
+    successMessage();
   };
 
   const DeleteAll = () => {
     const type = 'DELETE_ALL';
+    setOperation({ id: '', type });
     dispatchData({ type });
     dispatchToast({
       type: 'NOTIFICATION',
@@ -50,17 +82,38 @@ export default function useData() {
   };
 
   const DeletePermanently = (id, store, notification = true, dialog = true) => {
-    const deleteHandler = () => {
-      dispatchData({
-        type: 'PERMANENT_DELETE',
-        payload: { deleteId: id, store },
-      });
-      if (notification) {
+    const deleteHandler = async () => {
+      const type = 'PERMANENT_DELETE';
+
+      const successMessage = () => {
         dispatchToast({
           type: 'NOTIFICATION',
           payload: 'Note has been deleted permanently.',
         });
+      };
+
+      if (currentUser) {
+        const data = findData('deleted', id);
+        try {
+          await deleteFromDB(data);
+          dispatchData({ type, payload: { deleteId: id, store } });
+          successMessage();
+        } catch (err) {
+          console.log(err);
+          dispatchToast({
+            type: 'ERROR',
+            payload: 'Note could not be deleted.',
+          });
+          // !!! Add local storage backup.
+        }
+        return;
       }
+
+      dispatchData({
+        type,
+        payload: { deleteId: id, store },
+      });
+      if (notification) successMessage();
     };
 
     if (dialog) {
@@ -75,6 +128,7 @@ export default function useData() {
 
   const Modify = (id, text) => {
     const type = 'MODIFY';
+    setOperation({ id, type });
     dispatchData({ type, payload: { modifyId: id, text } });
     dispatchToast({
       type: 'NOTIFICATION',
@@ -82,14 +136,36 @@ export default function useData() {
     });
   };
 
-  const Recover = (id) => {
+  const Recover = async (id) => {
     const type = 'RECOVER';
+
+    const successMessage = () => {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been recovered.',
+      });
+    };
+
+    if (currentUser) {
+      const data = findData('deleted', id);
+      try {
+        await moveInDB('results', data);
+        dispatchData({ type, payload: { recoverId: id } });
+        successMessage();
+        SortByDate();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not be recovered.',
+        });
+        // !!! Add local storage backup.
+      }
+      return;
+    }
     dispatchData({ type, payload: { recoverId: id } });
+    successMessage();
     SortByDate();
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Note has been recovered.',
-    });
   };
 
   const SortByDate = () => {

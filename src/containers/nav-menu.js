@@ -4,11 +4,11 @@ import { Navigation as Nav } from '../components';
 import { useMatchLastSubpath } from '../hooks';
 import NavLinks from '../fixtures/navigation-links.json';
 
-export default function NavMenuContainer({ setCrumb }) {
+export default function NavMenuContainer() {
   const { url } = useRouteMatch();
   const { matchSubpath } = useMatchLastSubpath();
 
-  const handleClick = (name) => setCrumb(name);
+
   
   return (
     <Nav.Menu>
@@ -17,7 +17,6 @@ export default function NavMenuContainer({ setCrumb }) {
           <Nav.MenuLink
             to={`${url !== path ? url : ''}${path}`}
             active={matchSubpath(path) ? 1 : undefined}
-            onClick={() => handleClick(name)}
           >
             {name}
           </Nav.MenuLink>

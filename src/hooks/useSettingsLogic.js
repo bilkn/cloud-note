@@ -1,16 +1,16 @@
 import { useContext, useState } from 'react';
 import { useFirebaseAuth } from '.';
-import { ToastContext } from '../context';
+import { DialogContext, ToastContext } from '../context';
 
 export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail, updatePassword } =
+  const { currentUser, updateProfile, updateEmail, deleteAccount } =
     useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [, setDialog] = useContext(DialogContext);
   const { dispatchToast } = useContext(ToastContext);
 
   const submit = async () => {
@@ -29,11 +29,9 @@ export default function useFormLogic() {
       return;
     }
 
-    handlePasswords(promises);
-
-    if (currentUser.displayName !== username && username)
+    if (username && currentUser.displayName !== username)
       promises.push(updateProfile({ displayName: username }));
-    if (currentUser.email !== email && email)
+    if (email && currentUser.email !== email)
       promises.push(updateEmail(email, password));
 
     if (promises.length) {
@@ -41,11 +39,10 @@ export default function useFormLogic() {
         await Promise.all(promises);
         dispatchToast({
           type: 'NOTIFICATION',
-          payload: newPassword
-            ? 'Password has been changed.'
-            : 'Changes have been saved.',
+          payload: 'Changes have been saved.',
         });
       } catch (err) {
+        console.log(err);
         handleErrors(err);
         resetPasswordAndLoadingStates();
       }
@@ -53,15 +50,43 @@ export default function useFormLogic() {
     resetPasswordAndLoadingStates();
   };
 
-  const handlePasswords = (promises) => {
-    if (password && newPassword) {
-      promises.push(updatePassword(password, newPassword));
+  const handleDeleteAccount = (e) => {
+    e.stopPropagation();
+    setErrors(null);
+
+    if (!password) {
+      setErrors({
+        password: 'Please enter your password to delete your account.',
+      });
+      return;
     }
+
+    const deleteAccountHandler = async () => {
+      try {
+        setLoading(true);
+        await deleteAccount(password);
+        dispatchToast({
+          type: 'NOTIFICATION',
+          payload: 'You account has been deleted successfully.',
+        });
+      } catch (err) {
+        console.log(err);
+        handleErrors(err);
+      }
+    };
+
+    setDialog({
+      isOpen: true,
+      text: 'Are you sure you want to delete your account? This will permanently erase your account and notes.',
+      handler: deleteAccountHandler,
+      buttons: ['Cancel', 'Delete'],
+    });
+
+    resetPasswordAndLoadingStates();
   };
 
   const resetPasswordAndLoadingStates = () => {
     setPassword('');
-    setNewPassword('');
     setLoading(false);
   };
 
@@ -69,22 +94,21 @@ export default function useFormLogic() {
     const { code } = err;
     const errorObj = {};
     switch (code) {
-      // !!! Add weak password warning.
+      case 'auth/email-already-in-use':
+        errorObj.email =
+          'This email address is already taken. Please provide different email.';
+        break;
       case 'auth/email-already-exists':
         errorObj.email =
-          'This email address is already being used. Please provide different email.';
+          'This email address is already exists. Please provide different email.';
         break;
       case 'auth/invalid-email':
         errorObj.email = 'Please provide valid email.';
-        break;
-      case 'auth/invalid-password':
-        errorObj.password = 'Password must be at least 6 characters.';
         break;
       case 'auth/wrong-password':
         errorObj.password = 'Your password is incorrect. Please try again.';
         break;
       default: {
-        console.log(err);
         dispatchToast({
           type: 'ERROR',
         });
@@ -100,11 +124,10 @@ export default function useFormLogic() {
     setEmail,
     password,
     setPassword,
-    newPassword,
-    setNewPassword,
     errors,
     setErrors,
     loading,
     submit,
+    handleDeleteAccount,
   };
 }

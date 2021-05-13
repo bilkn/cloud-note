@@ -3,17 +3,9 @@ import { db } from '../lib/firebase.dev';
 import firebase from 'firebase';
 
 const createUserData = () => {
-  const note = {
-    id: 4124214,
-    color: 'red',
-    timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
-    lastModified: null,
-    deletionDate: null,
-    text: 'Hello World!',
-  };
   return {
     profile: { name: '', bio: '' },
-    results: [note],
+    results: [],
     deleted: [],
   };
 };
@@ -35,3 +27,38 @@ export const get = async (id) => {
   const doc = await getDoc(id);
   return doc ? doc.data() : null;
 };
+
+export const addDataToDB = async (data, uid) => {
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      results: firebase.firestore.FieldValue.arrayUnion(data),
+    });
+};
+
+export const deleteDataFromDB = async (args) => {
+  const { field, data, uid } = args;
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      [field]: firebase.firestore.FieldValue.arrayRemove(data),
+    });
+};
+
+export const moveDataInDB = async (args) => {
+  const { oldField, newField, data, uid } = args;
+  const docRef = db.collection('users').doc(uid);
+
+  await docRef.update({
+    [newField]: firebase.firestore.FieldValue.arrayUnion(data),
+  });
+  
+  await docRef.update({
+    [oldField]: firebase.firestore.FieldValue.arrayRemove(data),
+  });
+};
+
+
+
