@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import { addDataToDB } from '../helpers/manageFirestore';
 
 export default function dataReducer(state, action) {
   switch (action.type) {
     case 'ADD': {
-      const { id: dataId, text } = action.payload;
+      const { id: dataId, uid, text } = action.payload;
       const { results } = state;
       const willAddedData = results.find(({ id }) => id === dataId);
       const filteredResults = results.filter(({ id }) => id !== dataId);
@@ -13,6 +14,14 @@ export default function dataReducer(state, action) {
         lastModified,
         text,
       };
+      const asyncFn = async () => {
+        try {
+          await addDataToDB(newData, uid);
+        } catch (err) {
+          throw err;
+        }
+      };
+      asyncFn();
       const newResults = [newData, ...filteredResults];
       return { ...state, results: newResults };
     }

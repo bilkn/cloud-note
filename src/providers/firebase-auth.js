@@ -13,8 +13,8 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 

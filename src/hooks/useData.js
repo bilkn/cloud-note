@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
-import { useLocalStorage } from '.';
+import { useFirebaseAuth, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
   const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
+  const { currentUser } = useFirebaseAuth();
   const { setItem } = useLocalStorage();
 
   const Add = (id, text) => {
@@ -13,7 +14,7 @@ export default function useData() {
     try {
       dispatchData({
         type,
-        payload: { id, text },
+        payload: { id, uid: currentUser.uid, text },
       });
       dispatchToast({
         type: 'NOTIFICATION',
@@ -21,6 +22,10 @@ export default function useData() {
       });
     } catch (err) {
       console.log(err);
+      dispatchToast({
+        type: 'ERROR',
+        payload: 'Note could not be saved.',
+      }); // !!! Add local storage backup.
     }
   };
 
