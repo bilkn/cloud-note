@@ -39,7 +39,6 @@ export const addDataToDB = async (data, uid) => {
 
 export const deleteDataFromDB = async (args) => {
   const { field, data, uid } = args;
-  console.log(data)
   await db
     .collection('users')
     .doc(uid)

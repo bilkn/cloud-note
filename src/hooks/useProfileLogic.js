@@ -130,12 +130,19 @@ export default function useProfileLogic() {
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
+
     const deleteUserPicture = async () => {
+      if (!currentUser.photoURL) {
+        return dispatchToast({
+          type: 'ERROR',
+          payload: "You don't have any picture to delete.",
+        });
+      }
       setLoading(true);
       try {
         await storage.refFromURL(currentUser.photoURL).delete();
         await updateProfile({ photoURL: '' });
-        setPictureURL('');
+        setPictureURL(NoAvatar);
         dispatchToast({
           type: 'NOTIFICATION',
           payload: 'Picture has been deleted successfully',

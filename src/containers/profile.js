@@ -35,7 +35,6 @@ export default function ProfileContainer() {
   const handleUploadPictureClick = () => {
     setShowFileInput(true);
   };
-
   return (
     <>
       <FlexWrapper
