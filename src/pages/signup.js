@@ -26,6 +26,7 @@ export default function Signup() {
     try {
       const { user } = await signup(email, password);
       await initUser(user.uid);
+      await user.updateProfile({ displayName: username || 'Anonymous' });
     } catch (err) {
       console.log(err);
       const { message } = err;

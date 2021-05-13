@@ -12,12 +12,13 @@ import devices from '../../styles/devices';
 import { sizes } from '../../styles/variables';
 import { Route, useRouteMatch } from 'react-router';
 import * as ROUTES from '../../constants/routes';
-import { useMatchLastSubpath } from '../../hooks';
+import { useFirebaseAuth, useMatchLastSubpath } from '../../hooks';
 
 export default function Account() {
   const { path } = useRouteMatch();
   const [crumb, setCrumb] = useState('');
   const { matchSubpath } = useMatchLastSubpath();
+  const { currentUser } = useFirebaseAuth();
 
   useEffect(() => {
     if (matchSubpath(ROUTES.ACCOUNT)) setCrumb('Account Settings');
@@ -49,8 +50,9 @@ export default function Account() {
         >
           <Navigation>
             <Navigation.Breadcrumb>
-              <Navigation.Link to="/name">Codebee</Navigation.Link>
-              {/* !!! Change "to" prop */}
+              <Navigation.Link to={ROUTES.ACCOUNT}>
+                {currentUser?.displayName}
+              </Navigation.Link>
               <Navigation.Span>/</Navigation.Span>
               <Navigation.Text>{crumb}</Navigation.Text>
             </Navigation.Breadcrumb>
