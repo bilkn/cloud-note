@@ -1,6 +1,7 @@
 import { useContext, useEffect, useCallback } from 'react';
 import { useFirebaseAuth, useFirestore, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
+import { db } from '../lib/firebase.dev';
 
 export default function useData() {
   const { dataState, dispatchData } = useContext(DataContext);
@@ -8,7 +9,7 @@ export default function useData() {
   const [, setDialog] = useContext(DialogContext);
   const { setItem } = useLocalStorage();
   const { setOperation, deleteFromDB, moveInDB } = useFirestore();
-  const { currentUser } = useFirebaseAuth();
+  const { currentUser, reauth } = useFirebaseAuth();
 
   const findData = useCallback(
     (datalist, id) =>
@@ -71,14 +72,34 @@ export default function useData() {
     successMessage();
   };
 
-  const DeleteAll = () => {
+  const DeleteAll = async (password) => {
     const type = 'DELETE_ALL';
-    setOperation({ id: '', type });
+    const { uid } = currentUser;
+
+    const successMessage = () => {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'All notes have been deleted permanently.',
+      });
+    };
+
+    if (currentUser) {
+      try {
+        await reauth(password);
+        await db.collection('users').doc(uid).update({
+          results: [],
+          deleted: [],
+        });
+        dispatchData({ type });
+        successMessage();
+      } catch (err) {
+        throw err;
+        // !!! Add local storage backup.
+      }
+      return;
+    }
     dispatchData({ type });
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'All notes have been deleted permanently.',
-    });
+    successMessage();
   };
 
   const DeletePermanently = (id, store, notification = true, dialog = true) => {

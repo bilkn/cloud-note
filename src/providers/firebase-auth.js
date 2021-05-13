@@ -66,6 +66,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     signInWithGoogle,
     signin,
     signout,
+    reauth,
     resetPassword,
     updateEmail,
     updatePassword,

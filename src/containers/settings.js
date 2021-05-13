@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
-import { DialogContext } from '../context';
-import { useData, useSettingsLogic } from '../hooks';
+import { useSettingsLogic } from '../hooks';
 
 function SettingsContainer() {
   const {
@@ -17,9 +16,8 @@ function SettingsContainer() {
     loading,
     submit,
     handleDeleteAccount,
+    handleDeleteAllNotes,
   } = useSettingsLogic();
-  const [, setDialog] = useContext(DialogContext);
-  const { DeleteAll } = useData();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -36,15 +34,6 @@ function SettingsContainer() {
   const handleSubmit = (e) => {
     e.preventDefault();
     submit();
-  };
-
-  const handleDeleteAllNotes = () => {
-    setDialog({
-      isOpen: true,
-      text: 'Are you sure you want to delete all your notes? This will permanently erase your notes.',
-      handler: DeleteAll,
-      buttons: ['Cancel', 'Delete'],
-    });
   };
 
   return (
