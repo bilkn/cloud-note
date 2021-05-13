@@ -54,18 +54,11 @@ export const moveDataInDB = async (args) => {
   await docRef.update({
     [newField]: firebase.firestore.FieldValue.arrayUnion(data),
   });
-
+  
   await docRef.update({
     [oldField]: firebase.firestore.FieldValue.arrayRemove(data),
   });
 };
 
-/* export const temporaryRemoveDataFromDB = async (data, uid) => {
-  await db
-    .collection('users')
-    .doc(uid)
-    .update({
-      results: firebase.firestore.FieldValue.arrayRemove(data),
-    });
-};
- */
+
+

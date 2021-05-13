@@ -45,7 +45,6 @@ export default function useData() {
   const Delete = async (id) => {
     const type = 'DELETE';
     const data = findData('results', id);
-
     const successMessage = () =>
       dispatchToast({
         type: 'NOTIFICATION',
@@ -158,7 +157,7 @@ export default function useData() {
         console.log(err);
         dispatchToast({
           type: 'ERROR',
-          payload: 'Note could not be deleted.',
+          payload: 'Note could not be recovered.',
         });
         // !!! Add local storage backup.
       }

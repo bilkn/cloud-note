@@ -70,6 +70,7 @@ export default function dataReducer(state, action) {
       const { recoverId } = action.payload;
       const { results, deleted } = state;
       const willRecoveredData = deleted.find(({ id }) => id === recoverId);
+      willRecoveredData.deletionDate = null;
       const newDeleted = deleted.filter(({ id }) => id !== recoverId);
       const newResults = [...results, willRecoveredData];
       return { ...state, results: newResults, deleted: newDeleted };
