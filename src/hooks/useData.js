@@ -8,7 +8,7 @@ export default function useData() {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { setItem } = useLocalStorage();
-  const { setOperation, deleteFromDB, moveInDB } = useFirestore();
+  const { setOperation, deleteFromDB, moveInDB, updateFromDB } = useFirestore();
   const { currentUser, reauth } = useFirebaseAuth();
 
   const findData = useCallback(
@@ -149,18 +149,43 @@ export default function useData() {
     } else deleteHandler();
   };
 
-  const Modify = (id, text) => {
+  const Modify = async (id, text) => {
     const type = 'MODIFY';
-    setOperation({ id, type });
-    dispatchData({ type, payload: { modifyId: id, text } });
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Changes have been saved.',
-    });
+    const lastModified = new Date();
+    const date = { type: 'lastModified', value: lastModified };
+
+    const successMessage = () => {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Changes have been saved.',
+      });
+    };
+
+    if (currentUser) {
+      const data = findData('results', id);
+      try {
+        await updateFromDB(data, date, text);
+        dispatchData({ type, payload: { modifyId: id, text, lastModified } });
+        successMessage();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not edited.',
+        });
+        // !!! Add local storage backup.
+      }
+      return;
+    }
+
+    dispatchData({ type, payload: { modifyId: id, text, lastModified } });
+    successMessage();
   };
 
   const Recover = async (id) => {
     const type = 'RECOVER';
+    const deletionDate = null;
+    const date = { type: 'deletionDate', value: deletionDate };
 
     const successMessage = () => {
       dispatchToast({
@@ -171,8 +196,9 @@ export default function useData() {
 
     if (currentUser) {
       const data = findData('deleted', id);
+
       try {
-        await moveInDB('results', data);
+        await moveInDB('results', data, date);
         dispatchData({ type, payload: { recoverId: id } });
         successMessage();
         SortByDate();

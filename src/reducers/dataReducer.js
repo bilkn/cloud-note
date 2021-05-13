@@ -53,9 +53,8 @@ export default function dataReducer(state, action) {
     }
 
     case 'MODIFY': {
-      const { modifyId, text } = action.payload;
+      const { modifyId, text,lastModified } = action.payload;
       const { results } = state;
-      const lastModified = new Date();
       const willModifiedData = results.find(({ id }) => id === modifyId);
       const newData = { ...willModifiedData, text, lastModified };
       const newResults = [
