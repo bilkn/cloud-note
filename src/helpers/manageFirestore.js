@@ -37,7 +37,8 @@ export const addDataToDB = async (data, uid) => {
     });
 };
 
-export const deleteDataFromDB = async (field, data, uid) => {
+export const deleteDataFromDB = async (args) => {
+  const { field, data, uid } = args;
   await db
     .collection('users')
     .doc(uid)
@@ -46,10 +47,10 @@ export const deleteDataFromDB = async (field, data, uid) => {
     });
 };
 
-export const moveDataInDB = async (props) => {
-  const { oldField, newField, data, uid } = props;
+export const moveDataInDB = async (args) => {
+  const { oldField, newField, data, uid } = args;
   const docRef = db.collection('users').doc(uid);
-  
+
   await docRef.update({
     [newField]: firebase.firestore.FieldValue.arrayUnion(data),
   });

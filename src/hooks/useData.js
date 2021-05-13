@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useCallback } from 'react';
 import { useFirebaseAuth, useFirestore, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
@@ -9,6 +9,12 @@ export default function useData() {
   const { setItem } = useLocalStorage();
   const { setOperation, deleteFromDB, moveInDB } = useFirestore();
   const { currentUser } = useFirebaseAuth();
+
+  const findData = useCallback(
+    (datalist, id) =>
+      dataState[datalist].find(({ id: dataId }) => id === dataId),
+    [dataState]
+  );
 
   // If user is authenticated, datas will be operated on the firestore. Otherwise, datas will be operated on the local storage.
   const Add = (id, text) => {
@@ -38,8 +44,8 @@ export default function useData() {
 
   const Delete = async (id) => {
     const type = 'DELETE';
-    const data = dataState.results.find(({ id: dataId }) => id === dataId);
-    
+    const data = findData('results', id);
+
     const successMessage = () =>
       dispatchToast({
         type: 'NOTIFICATION',
@@ -49,18 +55,21 @@ export default function useData() {
     if (currentUser) {
       try {
         await moveInDB(data);
+        dispatchData({ type, deleteId: id });
         successMessage();
       } catch (err) {
         console.log(err);
         dispatchToast({
           type: 'ERROR',
-          payload: 'Note could not be deleted from the server.',
+          payload: 'Note could not be deleted.',
         });
         // !!! Add local storage backup.
       }
+      return;
     }
+
     dispatchData({ type, deleteId: id });
-    if (!currentUser) successMessage();
+    successMessage();
   };
 
   const DeleteAll = () => {
@@ -74,19 +83,38 @@ export default function useData() {
   };
 
   const DeletePermanently = (id, store, notification = true, dialog = true) => {
-    const deleteHandler = () => {
+    const deleteHandler = async () => {
       const type = 'PERMANENT_DELETE';
-      setOperation({ id, type });
-      dispatchData({
-        type,
-        payload: { deleteId: id, store },
-      });
-      if (notification) {
+
+      const successMessage = () => {
         dispatchToast({
           type: 'NOTIFICATION',
           payload: 'Note has been deleted permanently.',
         });
+      };
+
+      if (currentUser) {
+        const data = findData('deleted', id);
+        try {
+          await deleteFromDB(data);
+          dispatchData({ type, payload: { deleteId: id, store } });
+          successMessage();
+        } catch (err) {
+          console.log(err);
+          dispatchToast({
+            type: 'ERROR',
+            payload: 'Note could not be deleted.',
+          });
+          // !!! Add local storage backup.
+        }
+        return;
       }
+
+      dispatchData({
+        type,
+        payload: { deleteId: id, store },
+      });
+      if (notification) successMessage();
     };
 
     if (dialog) {

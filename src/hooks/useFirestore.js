@@ -35,21 +35,10 @@ export default function useFirestore() {
 
   const deleteFromDB = useCallback(
     async (data) => {
-      try {
-        await deleteDataFromDB('results', data, currentUser.uid);
-        dispatchToast({
-          type: 'NOTIFICATION',
-          payload: 'Note has been deleted permanently.',
-        });
-      } catch (err) {
-        console.log(err);
-        dispatchToast({
-          type: 'ERROR',
-          payload: 'Note could not be deleted.',
-        });
-      }
+      const { uid } = currentUser;
+      await deleteDataFromDB({ field: 'deleted', data, uid });
     },
-    [currentUser?.uid, dispatchToast]
+    [currentUser]
   );
 
   const moveInDB = useCallback(
@@ -81,12 +70,6 @@ export default function useFirestore() {
           addToDb(data);
         }
         break;
-      /*   case 'MODIFY':
-        {
-          const data = dataState.results.find(({ id }) => id === operation.id);
-          addToDb(data);
-        }
-        break; */
       default:
         break;
     }
