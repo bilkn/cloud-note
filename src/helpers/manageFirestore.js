@@ -37,6 +37,28 @@ export const addDataToDB = async (data, uid) => {
     });
 };
 
+export const deleteDataFromDB = async (field, data, uid) => {
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      [field]: firebase.firestore.FieldValue.arrayRemove(data),
+    });
+};
+
+export const moveDataInDB = async (props) => {
+  const { oldField, newField, data, uid } = props;
+  const docRef = db.collection('users').doc(uid);
+  
+  await docRef.update({
+    [newField]: firebase.firestore.FieldValue.arrayUnion(data),
+  });
+
+  await docRef.update({
+    [oldField]: firebase.firestore.FieldValue.arrayRemove(data),
+  });
+};
+
 /* export const temporaryRemoveDataFromDB = async (data, uid) => {
   await db
     .collection('users')
@@ -46,4 +68,3 @@ export const addDataToDB = async (data, uid) => {
     });
 };
  */
-

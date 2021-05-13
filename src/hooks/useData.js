@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useFirestore, useLocalStorage } from '.';
+import { useFirebaseAuth, useFirestore, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
@@ -7,11 +7,12 @@ export default function useData() {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { setItem } = useLocalStorage();
-  const { setOperation } = useFirestore();
+  const { setOperation, deleteFromDB, moveInDB } = useFirestore();
+  const { currentUser } = useFirebaseAuth();
 
+  // If user is authenticated, datas will be operated on the firestore. Otherwise, datas will be operated on the local storage.
   const Add = (id, text) => {
     const type = 'ADD';
-    setOperation({ id, type });
     dispatchData({
       type,
       payload: {
@@ -19,8 +20,13 @@ export default function useData() {
         text,
       },
     });
-
-    // !!! Add local storage backup.
+    if (!currentUser) {
+      return dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been added.',
+      });
+    }
+    setOperation({ id, type });
   };
 
   const AddTemplate = (color) => {
@@ -30,14 +36,31 @@ export default function useData() {
     });
   };
 
-  const Delete = (id) => {
+  const Delete = async (id) => {
     const type = 'DELETE';
-    setOperation({ id, type });
+    const data = dataState.results.find(({ id: dataId }) => id === dataId);
+    
+    const successMessage = () =>
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been deleted.',
+      });
+
+    if (currentUser) {
+      try {
+        await moveInDB(data);
+        successMessage();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not be deleted from the server.',
+        });
+        // !!! Add local storage backup.
+      }
+    }
     dispatchData({ type, deleteId: id });
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Note has been deleted.',
-    });
+    if (!currentUser) successMessage();
   };
 
   const DeleteAll = () => {
