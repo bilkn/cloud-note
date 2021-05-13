@@ -1,32 +1,26 @@
 import { useContext, useEffect } from 'react';
-import { useFirebaseAuth, useLocalStorage } from '.';
+import { useFirestore, useLocalStorage } from '.';
 import { DataContext, DialogContext, ToastContext } from '../context';
 
 export default function useData() {
   const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
-  const { currentUser } = useFirebaseAuth();
   const { setItem } = useLocalStorage();
+  const { setOperation } = useFirestore();
 
   const Add = (id, text) => {
     const type = 'ADD';
-    try {
-      dispatchData({
-        type,
-        payload: { id, uid: currentUser.uid, text },
-      });
-      dispatchToast({
-        type: 'NOTIFICATION',
-        payload: 'Note has been added.',
-      });
-    } catch (err) {
-      console.log(err);
-      dispatchToast({
-        type: 'ERROR',
-        payload: 'Note could not be saved.',
-      }); // !!! Add local storage backup.
-    }
+    setOperation({ id, type });
+    dispatchData({
+      type,
+      payload: {
+        id,
+        text,
+      },
+    });
+
+    // !!! Add local storage backup.
   };
 
   const AddTemplate = (color) => {
@@ -38,6 +32,7 @@ export default function useData() {
 
   const Delete = (id) => {
     const type = 'DELETE';
+    setOperation({ id, type });
     dispatchData({ type, deleteId: id });
     dispatchToast({
       type: 'NOTIFICATION',
@@ -47,6 +42,7 @@ export default function useData() {
 
   const DeleteAll = () => {
     const type = 'DELETE_ALL';
+    setOperation({ id: '', type });
     dispatchData({ type });
     dispatchToast({
       type: 'NOTIFICATION',
@@ -56,8 +52,10 @@ export default function useData() {
 
   const DeletePermanently = (id, store, notification = true, dialog = true) => {
     const deleteHandler = () => {
+      const type = 'PERMANENT_DELETE';
+      setOperation({ id, type });
       dispatchData({
-        type: 'PERMANENT_DELETE',
+        type,
         payload: { deleteId: id, store },
       });
       if (notification) {
@@ -80,6 +78,7 @@ export default function useData() {
 
   const Modify = (id, text) => {
     const type = 'MODIFY';
+    setOperation({ id, type });
     dispatchData({ type, payload: { modifyId: id, text } });
     dispatchToast({
       type: 'NOTIFICATION',
@@ -89,6 +88,7 @@ export default function useData() {
 
   const Recover = (id) => {
     const type = 'RECOVER';
+    setOperation({ id, type });
     dispatchData({ type, payload: { recoverId: id } });
     SortByDate();
     dispatchToast({

@@ -36,3 +36,14 @@ export const addDataToDB = async (data, uid) => {
       results: firebase.firestore.FieldValue.arrayUnion(data),
     });
 };
+
+/* export const temporaryRemoveDataFromDB = async (data, uid) => {
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      results: firebase.firestore.FieldValue.arrayRemove(data),
+    });
+};
+ */
+
