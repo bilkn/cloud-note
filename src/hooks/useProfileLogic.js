@@ -8,7 +8,7 @@ import {
 import { getUserDocRef } from '../helpers/manageFirestore';
 import { DataContext, DialogContext, ToastContext } from '../context';
 import { storage } from '../lib/firebase.dev';
-import NoAvatar from "../assets/no-avatar.png"
+import NoAvatar from '../assets/no-avatar.png';
 
 export default function useProfileLogic() {
   const { dataState, dispatchData } = useContext(DataContext);
@@ -19,12 +19,15 @@ export default function useProfileLogic() {
   const [bio, setBio] = useState(dataState?.profile?.bio || '');
   const [errors, setErrors] = useState({});
   const [picture, setPicture] = useState(null);
-  const [pictureURL, setPictureURL] = useState(currentUser?.photoURL || NoAvatar); // !!! Add no picture.
+  const [pictureURL, setPictureURL] = useState(
+    currentUser?.photoURL || NoAvatar
+  ); // !!! Add no picture.
   const [loading, setLoading] = useState(false);
   const [showFileInput, setShowFileInput] = useState(false);
 
   const handlePictureSubmit = async (e) => {
     e.preventDefault();
+    if (currentUser.photoURL === pictureURL) return;
     setLoading(true);
 
     if (!errors.length && picture) {
@@ -60,7 +63,6 @@ export default function useProfileLogic() {
 
   const handleBioAndNameSubmit = async (e) => {
     e.preventDefault();
-
     const errorObj = {};
 
     if (bio.length > 1200) errorObj.bio = 'Maximum character limit is 1200.';
@@ -100,9 +102,9 @@ export default function useProfileLogic() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-
+    if (validateFileSize(file, 1)) setPicture(file);
     if (!file) return;
-    setPicture(file);
+
     const errorArr = [];
 
     if (!validateFileSize(file, 1))
