@@ -54,7 +54,7 @@ export default function useData() {
 
     if (currentUser) {
       try {
-        await moveInDB(data);
+        await moveInDB('deleted', data);
         dispatchData({ type, deleteId: id });
         successMessage();
       } catch (err) {
@@ -137,15 +137,36 @@ export default function useData() {
     });
   };
 
-  const Recover = (id) => {
+  const Recover = async (id) => {
     const type = 'RECOVER';
-    setOperation({ id, type });
+
+    const successMessage = () => {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been recovered.',
+      });
+    };
+
+    if (currentUser) {
+      const data = findData('deleted', id);
+      try {
+        await moveInDB('results', data);
+        dispatchData({ type, payload: { recoverId: id } });
+        successMessage();
+        SortByDate();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not be deleted.',
+        });
+        // !!! Add local storage backup.
+      }
+      return;
+    }
     dispatchData({ type, payload: { recoverId: id } });
+    successMessage();
     SortByDate();
-    dispatchToast({
-      type: 'NOTIFICATION',
-      payload: 'Note has been recovered.',
-    });
   };
 
   const SortByDate = () => {

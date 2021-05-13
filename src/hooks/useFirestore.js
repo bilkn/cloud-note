@@ -42,11 +42,11 @@ export default function useFirestore() {
   );
 
   const moveInDB = useCallback(
-    async (data) => {
+    async (targetField, data) => {
       const { uid } = currentUser;
       await moveDataInDB({
-        oldField: 'results',
-        newField: 'deleted',
+        oldField: targetField === 'results' ? 'deleted' : 'results',
+        newField: targetField,
         data,
         uid,
       });
