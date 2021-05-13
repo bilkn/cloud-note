@@ -22,14 +22,8 @@ function useHandler(props) {
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
   const btnRef = useRef(null);
-  const {
-    Add,
-    Delete,
-    DeletePermanently,
-    Modify,
-    Recover,
-    SortByDate,
-  } = useData();
+  const { Add, Delete, DeletePermanently, Modify, Recover, SortByDate } =
+    useData();
 
   const handleToggleClick = (e, id) => {
     e.stopPropagation();
@@ -70,7 +64,18 @@ function useHandler(props) {
   };
 
   const handleEnlargeClick = (rect) => {
-    setShowEnlargedNote(true);
+    const { innerWidth, innerHeight } = window;
+    const { width, height } = rect;
+
+    if (width * 1.5 >= innerWidth || height * 1.5 >= innerHeight) {
+      setShowButtons(false);
+      return dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Screen is too small to enlarge note',
+      });
+    }
+
+    if (rect) setShowEnlargedNote(true);
     setRect(rect);
     scrollToBottom(textAreaRef.current);
     const { body } = document;
@@ -114,7 +119,6 @@ function useHandler(props) {
     if (!isSecondsPassed(1, timestamp)) {
       setIsActive(true);
       setCurrentId(id);
-     
     }
   }, [timestamp, id, setCurrentId, isActive, setIsActive]);
 

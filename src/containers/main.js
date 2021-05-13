@@ -80,7 +80,6 @@ export default function MainContainer({ data }) {
             `}
             activate={true}
           />
-          {/* !!! Remove setState duplications. */}
         </Backdrop>
       )}
     </>
