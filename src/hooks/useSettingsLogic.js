@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useCallback } from 'react';
 import { useData, useFirebaseAuth } from '.';
 import { DialogContext, ToastContext } from '../context';
 import { getUserDocRef } from '../helpers/manageFirestore';
+import { storage } from '../lib/firebase.dev';
 
 export default function useSettingsLogic() {
   const {
@@ -19,6 +20,11 @@ export default function useSettingsLogic() {
   const [, setDialog] = useContext(DialogContext);
   const { dispatchToast } = useContext(ToastContext);
   const { DeleteAll } = useData();
+
+  const isPhotoURLFromGoogle = useCallback(
+    () => /googleusercontent/i.test(currentUser.photoURL),
+    [currentUser.photoURL]
+  );
 
   const submit = async () => {
     setErrors(null);
@@ -71,6 +77,9 @@ export default function useSettingsLogic() {
     const deleteAccountHandler = async () => {
       try {
         setLoading(true);
+        if (currentUser.photoURL && !isPhotoURLFromGoogle()) {
+          await storage.refFromURL(currentUser.photoURL).delete();
+        }
         await getUserDocRef(currentUser.uid).delete();
         await deleteAccount(password);
         dispatchToast({

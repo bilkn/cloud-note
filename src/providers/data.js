@@ -5,7 +5,6 @@ import {
   mapDataListWithDate,
   mapFirestoreDataListWithJSDate,
 } from '../helpers';
-import { dummyDataList } from '../fixtures/dummy-data';
 import { useFirebaseAuth, useLocalStorage } from '../hooks';
 import { get } from '../helpers/manageFirestore.js';
 
@@ -14,10 +13,11 @@ export default function DataProvider(props) {
   const { currentUser } = useFirebaseAuth();
 
   useEffect(() => {
-    const data = getItem('results');
+    const data = getItem('willBeAdded');
     if (!data) {
       setItem('results', []);
       setItem('deleted', []);
+      setItem('willBeAdded', []);
     }
   }, [getItem, setItem]);
 
@@ -56,14 +56,13 @@ export default function DataProvider(props) {
     }
   }, [currentUser?.uid, getUserDataFromLocalStorage]);
 
-  // !!! This file may be refactored in the future.
-
   useEffect(() => {
     const setUserData = async () => {
       const userData = await getUserDataFromFirestore();
       dispatchData({ type: 'SET', payload: userData });
     };
-    if (currentUser) setUserData(); // !!! Could lead to unnecessary rerender.
+    
+    if (currentUser) setUserData();
   }, [currentUser, getUserDataFromFirestore]);
 
   const [dataState, dispatchData] = useReducer(

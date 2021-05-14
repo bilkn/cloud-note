@@ -21,7 +21,7 @@ export default function useProfileLogic() {
   const [picture, setPicture] = useState(null);
   const [pictureURL, setPictureURL] = useState(
     currentUser?.photoURL || NoAvatar
-  ); // !!! Add no picture.
+  );
   const [loading, setLoading] = useState(false);
   const [showFileInput, setShowFileInput] = useState(false);
 
