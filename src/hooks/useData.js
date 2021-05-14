@@ -7,7 +7,7 @@ export default function useData() {
   const { dataState, dispatchData } = useContext(DataContext);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
-  const { setItem } = useLocalStorage();
+  const { setItem, pushItem } = useLocalStorage();
   const { addToDb, deleteFromDB, moveInDB, updateFromDB } = useFirestore();
   const { currentUser, reauth } = useFirebaseAuth();
 
@@ -31,7 +31,7 @@ export default function useData() {
 
     if (currentUser) {
       try {
-        await addToDb(data,text);
+        await addToDb(data, text);
         dispatchData({
           type,
           payload: {
@@ -49,6 +49,7 @@ export default function useData() {
       }
       return;
     }
+    pushItem('willBeAdded', { ...data, text,lastModified: data.timestamp });
     dispatchData({
       type,
       payload: {
@@ -92,7 +93,6 @@ export default function useData() {
       }
       return;
     }
-
     dispatchData({ type, payload: { deleteId: id, deletionDate } });
     successMessage();
   };

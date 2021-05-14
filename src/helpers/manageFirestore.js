@@ -42,6 +42,16 @@ export const addDataToDB = async (args) => {
     });
 };
 
+export const addDatasetToDB = async (args) => {
+  const { field, dataset, uid } = args;
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      [field]: firebase.firestore.FieldValue.arrayUnion(...dataset),
+    });
+};
+
 export const deleteDataFromDB = async (args) => {
   const { field, data, uid } = args;
   await db

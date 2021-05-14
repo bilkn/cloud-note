@@ -11,13 +11,15 @@ import { get } from '../helpers/manageFirestore.js';
 
 export default function DataProvider(props) {
   const { getItem, setItem } = useLocalStorage();
+
   const { currentUser } = useFirebaseAuth();
 
   useEffect(() => {
-    const data = getItem('results');
+    const data = getItem('willBeAdded');
     if (!data) {
       setItem('results', []);
       setItem('deleted', []);
+      setItem('willBeAdded', []);
     }
   }, [getItem, setItem]);
 

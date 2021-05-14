@@ -1,17 +1,20 @@
-import { useCallback } from 'react';
-import { useFirebaseAuth } from '.';
+import { useCallback, useEffect } from 'react';
+import { useFirebaseAuth, useLocalStorage } from '.';
+import { mapDataListWithDate } from '../helpers';
 import {
   addDataToDB,
   deleteDataFromDB,
   moveDataInDB,
   updateDataFromDB,
+  addDatasetToDB,
 } from '../helpers/manageFirestore';
 
 export default function useFirestore() {
   const { currentUser } = useFirebaseAuth();
+  const { getItem, setItem } = useLocalStorage();
 
   const addToDb = useCallback(
-    async (data,text) => {
+    async (data, text) => {
       const { uid } = currentUser;
       await addDataToDB({ field: 'results', data, text, uid });
     },
@@ -47,6 +50,24 @@ export default function useFirestore() {
     },
     [currentUser]
   );
+
+  useEffect(() => {
+    const syncLocalDataWithFirestore = async () => {
+      const willBeAdded = mapDataListWithDate(getItem('willBeAdded'));
+      const { uid } = currentUser;
+      if (willBeAdded.length) {
+        try {
+          await addDatasetToDB({ field: 'results', dataset: willBeAdded, uid });
+          setItem('willBeAdded', []);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    };
+    if (currentUser) {
+      syncLocalDataWithFirestore();
+    }
+  }, [currentUser, getItem, setItem]);
 
   return {
     addToDb,
