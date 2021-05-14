@@ -4,7 +4,7 @@ import 'styled-components/macro';
 import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth, usePasswordStrength } from '../hooks';
-import { initUser } from '../helpers/manageFirestore';
+import { getDoc, initUser } from '../helpers/manageFirestore';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -39,8 +39,11 @@ export default function Signup() {
     e.preventDefault();
     try {
       const { user } = await signInWithGoogle();
-      await initUser(user.uid); // !!! New user data is created every time, after user sign in with the Google account.
-      await user.updateProfile({ displayName: username || 'Anonymous' });
+      const userDoc = await getDoc(user.uid);
+      if (!userDoc) {
+        await initUser(user.uid);
+        await user.updateProfile({ displayName: username || 'Anonymous' });
+      }
     } catch (err) {
       console.log(err);
       const { message } = err;
