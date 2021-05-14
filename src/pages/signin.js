@@ -34,7 +34,7 @@ export default function Signin() {
     setIsLoading(true);
     setError('');
     try {
-      await signInWithGoogle(loginValue, password);
+      await signInWithGoogle();
     } catch (err) {
       const { message } = err;
       setError(message);

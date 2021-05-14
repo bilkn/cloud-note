@@ -40,7 +40,9 @@ export default function Signup() {
     try {
       const { user } = await signInWithGoogle();
       await initUser(user.uid); // !!! New user data is created every time, after user sign in with the Google account.
+      await user.updateProfile({ displayName: username || 'Anonymous' });
     } catch (err) {
+      console.log(err);
       const { message } = err;
       setError(message);
     }

@@ -10,12 +10,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .catch((err) => {
-        console.log(err);
-      });
+    return firebase.auth().signInWithPopup(provider);
   };
 
   const signin = (email, password) =>
@@ -71,7 +66,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     updateEmail,
     updatePassword,
     updateProfile,
-    deleteAccount
+    deleteAccount,
   };
   return (
     <FirebaseAuthContext.Provider value={value} {...restProps}>
