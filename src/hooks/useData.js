@@ -8,7 +8,7 @@ export default function useData() {
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const { setItem } = useLocalStorage();
-  const { setOperation, deleteFromDB, moveInDB, updateFromDB } = useFirestore();
+  const { addToDb, deleteFromDB, moveInDB, updateFromDB } = useFirestore();
   const { currentUser, reauth } = useFirebaseAuth();
 
   const findData = useCallback(
@@ -18,8 +18,37 @@ export default function useData() {
   );
 
   // If user is authenticated, datas will be operated on the firestore. Otherwise, datas will be operated on the local storage.
-  const Add = (id, text) => {
+  const Add = async (id, text) => {
     const type = 'ADD';
+    const data = findData('results', id);
+
+    const successMessage = () => {
+      dispatchToast({
+        type: 'NOTIFICATION',
+        payload: 'Note has been added.',
+      });
+    };
+
+    if (currentUser) {
+      try {
+        await addToDb(data,text);
+        dispatchData({
+          type,
+          payload: {
+            id,
+            text,
+          },
+        });
+        successMessage();
+      } catch (err) {
+        console.log(err);
+        dispatchToast({
+          type: 'ERROR',
+          payload: 'Note could not be added.',
+        });
+      }
+      return;
+    }
     dispatchData({
       type,
       payload: {
@@ -27,13 +56,7 @@ export default function useData() {
         text,
       },
     });
-    if (!currentUser) {
-      return dispatchToast({
-        type: 'NOTIFICATION',
-        payload: 'Note has been added.',
-      });
-    }
-    setOperation({ id, type });
+    successMessage();
   };
 
   const AddTemplate = (color) => {
@@ -226,7 +249,7 @@ export default function useData() {
       setItem('results', dataState.results);
       setItem('deleted', dataState.deleted);
     }
-  }, [dataState, setItem]);
+  }, [dataState, setItem, currentUser]);
 
   return {
     Add,

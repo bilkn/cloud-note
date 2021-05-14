@@ -28,12 +28,17 @@ export const get = async (id) => {
   return doc ? doc.data() : null;
 };
 
-export const addDataToDB = async (data, uid) => {
+export const addDataToDB = async (args) => {
+  const { field, data, text, uid } = args;
   await db
     .collection('users')
     .doc(uid)
     .update({
-      results: firebase.firestore.FieldValue.arrayUnion(data),
+      [field]: firebase.firestore.FieldValue.arrayUnion({
+        ...data,
+        text,
+        lastModified: data.timestamp,
+      }),
     });
 };
 

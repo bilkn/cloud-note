@@ -14,12 +14,14 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
+
+
   useWindowKey({
     keys: ['Escape'],
     handlers: [() => setShowEnlargedNote(false)],
     condition: true,
   });
-  
+
   const handleBackdropClick = () => {
     setShowEnlargedNote(false);
     document.body.style.overflow = 'auto';
@@ -38,6 +40,7 @@ export default function MainContainer({ data }) {
       setDisplayedData(data);
     }
   }, [searchProp, data]);
+
 
   return (
     <>
