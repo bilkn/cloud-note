@@ -32,7 +32,6 @@ export default function useProfileLogic() {
 
   const handlePictureSubmit = async (e) => {
     e.preventDefault();
-    console.log(currentUser.photoURL);
     if (currentUser.photoURL === pictureURL) return;
     setLoading(true);
 

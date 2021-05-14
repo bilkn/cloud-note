@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import { useData, useFirebaseAuth } from '.';
 import { DialogContext, ToastContext } from '../context';
+import { getUserDocRef } from '../helpers/manageFirestore';
 
 export default function useFormLogic() {
   const { currentUser, updateProfile, updateEmail, deleteAccount } =
@@ -14,6 +15,11 @@ export default function useFormLogic() {
   const { dispatchToast } = useContext(ToastContext);
   const { DeleteAll } = useData();
 
+  const isUserAuthWithGoogle = useMemo(
+    () => currentUser?.providerData[0].providerId === 'google.com',
+    [currentUser?.providerData]
+  );
+
   const submit = async () => {
     setLoading(true);
     setErrors(null);
@@ -23,9 +29,11 @@ export default function useFormLogic() {
       !password &&
       (currentUser.email !== email || currentUser.displayName !== username)
     ) {
-      setErrors({
-        password: 'Please enter your password to save your settings.',
-      });
+      if (!isUserAuthWithGoogle) {
+        setErrors({
+          password: 'Please enter your password to save your settings.',
+        });
+      }
       setLoading(false);
       return;
     }
@@ -55,7 +63,7 @@ export default function useFormLogic() {
     e.stopPropagation();
     setErrors(null);
 
-    if (!password) {
+    if (!password && !isUserAuthWithGoogle) {
       setErrors({
         password: 'Please enter your password to delete your account.',
       });
@@ -65,6 +73,7 @@ export default function useFormLogic() {
     const deleteAccountHandler = async () => {
       try {
         setLoading(true);
+        await getUserDocRef(currentUser.uid).delete();
         await deleteAccount(password);
         dispatchToast({
           type: 'NOTIFICATION',
@@ -161,5 +170,7 @@ export default function useFormLogic() {
     submit,
     handleDeleteAccount,
     handleDeleteAllNotes,
+    currentUser,
+    isUserAuthWithGoogle,
   };
 }

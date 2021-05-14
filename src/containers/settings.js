@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
@@ -17,6 +17,7 @@ function SettingsContainer() {
     submit,
     handleDeleteAccount,
     handleDeleteAllNotes,
+    isUserAuthWithGoogle,
   } = useSettingsLogic();
 
   const handleUsernameChange = (e) => {
@@ -35,6 +36,8 @@ function SettingsContainer() {
     e.preventDefault();
     submit();
   };
+
+  
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -66,6 +69,7 @@ function SettingsContainer() {
             value={email}
             onChange={handleEmailChange}
             data-testid="email-input"
+            disabled={isUserAuthWithGoogle}
           />
         </Form.Fieldset>
         {errors?.email ? <Form.Error>{errors.email}</Form.Error> : null}
@@ -78,6 +82,7 @@ function SettingsContainer() {
             value={password}
             autocomplete="current-password"
             onChange={handlePasswordChange}
+            disabled={isUserAuthWithGoogle}
           />
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}

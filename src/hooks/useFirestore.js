@@ -16,6 +16,7 @@ export default function useFirestore() {
 
   const addToDb = useCallback(
     async (data) => {
+      console.log(data)
       try {
         await addDataToDB(data, currentUser.uid);
         dispatchToast({

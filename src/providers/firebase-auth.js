@@ -39,6 +39,10 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     );
 
   const reauth = async (password) => {
+    if (currentUser?.providerData[0].providerId === 'google.com') {
+      const googleProvider = new firebase.auth.GoogleAuthProvider();
+      return await auth.signInWithPopup(googleProvider);
+    }
     const credential = getUserCredential(password);
     await currentUser.reauthenticateWithCredential(credential);
   };

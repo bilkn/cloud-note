@@ -15,6 +15,7 @@ export default function PasswordContainer() {
   } = usePasswordLogic();
   
   const { strength } = usePasswordStrength(newPassword);
+  
 
   const handleOldPasswordChange = (e) => {
     setPassword(e.target.value);
