@@ -47,7 +47,7 @@ export default function MainContainer({ data }) {
           {displayedData.map((data) => (
             <NoteContainer
               // Last modified date was used as key to fix no rerendering problem that occurs after editing the note on enlarged mode.
-              key={data.lastModified.getTime()}
+              key={data.lastModified?.getTime() || data.id}
               {...data}
               isCurrentId={currentId === data.id}
               setCurrentId={setCurrentId}
