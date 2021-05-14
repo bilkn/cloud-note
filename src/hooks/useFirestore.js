@@ -9,6 +9,7 @@ import {
   addDatasetToDB,
 } from '../helpers/manageFirestore';
 
+
 export default function useFirestore() {
   const { currentUser } = useFirebaseAuth();
   const { getItem, setItem } = useLocalStorage();

@@ -89,7 +89,6 @@ export default function useData() {
           type: 'ERROR',
           payload: 'Note could not be deleted.',
         });
-        // !!! Add local storage backup.
       }
       return;
     }
@@ -119,7 +118,6 @@ export default function useData() {
         successMessage();
       } catch (err) {
         throw err;
-        // !!! Add local storage backup.
       }
       return;
     }
@@ -150,7 +148,6 @@ export default function useData() {
             type: 'ERROR',
             payload: 'Note could not be deleted.',
           });
-          // !!! Add local storage backup.
         }
         return;
       }
@@ -196,7 +193,6 @@ export default function useData() {
           type: 'ERROR',
           payload: 'Note could not edited.',
         });
-        // !!! Add local storage backup.
       }
       return;
     }
@@ -231,7 +227,6 @@ export default function useData() {
           type: 'ERROR',
           payload: 'Note could not be recovered.',
         });
-        // !!! Add local storage backup.
       }
       return;
     }

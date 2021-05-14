@@ -58,14 +58,13 @@ export default function DataProvider(props) {
     }
   }, [currentUser?.uid, getUserDataFromLocalStorage]);
 
-  // !!! This file may be refactored in the future.
-
   useEffect(() => {
     const setUserData = async () => {
       const userData = await getUserDataFromFirestore();
       dispatchData({ type: 'SET', payload: userData });
     };
-    if (currentUser) setUserData(); // !!! Could lead to unnecessary rerender.
+    
+    if (currentUser) setUserData();
   }, [currentUser, getUserDataFromFirestore]);
 
   const [dataState, dispatchData] = useReducer(
