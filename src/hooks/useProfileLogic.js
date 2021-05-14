@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import { useFirebaseAuth } from '../hooks';
 import {
   createFileURL,
@@ -25,8 +25,14 @@ export default function useProfileLogic() {
   const [loading, setLoading] = useState(false);
   const [showFileInput, setShowFileInput] = useState(false);
 
+  const isPhotoURLFromGoogle = useCallback(
+    () => /googleusercontent/i.test(currentUser.photoURL),
+    [currentUser.photoURL]
+  );
+
   const handlePictureSubmit = async (e) => {
     e.preventDefault();
+    console.log(currentUser.photoURL);
     if (currentUser.photoURL === pictureURL) return;
     setLoading(true);
 
@@ -39,7 +45,10 @@ export default function useProfileLogic() {
 
       try {
         if (currentUser.photoURL) {
-          await storage.refFromURL(currentUser.photoURL).delete();
+          // If photoURL is taken from google, it won't try to delete the picture from the firebase storage.
+          if (!isPhotoURLFromGoogle()) {
+            await storage.refFromURL(currentUser.photoURL).delete();
+          }
         }
         await pictureRef.put(picture);
         const photoURL = await pictureRef.getDownloadURL();
@@ -140,7 +149,9 @@ export default function useProfileLogic() {
       }
       setLoading(true);
       try {
-        await storage.refFromURL(currentUser.photoURL).delete();
+        if (!isPhotoURLFromGoogle()) {
+          await storage.refFromURL(currentUser.photoURL).delete();
+        }
         await updateProfile({ photoURL: '' });
         setPictureURL(NoAvatar);
         dispatchToast({
