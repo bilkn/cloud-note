@@ -5,6 +5,7 @@ import {
   addDataToDB,
   deleteDataFromDB,
   moveDataInDB,
+  updateDataFromDB,
 } from '../helpers/manageFirestore';
 
 export default function useFirestore() {
@@ -42,14 +43,23 @@ export default function useFirestore() {
   );
 
   const moveInDB = useCallback(
-    async (targetField, data) => {
+    async (targetField, data, date) => {
       const { uid } = currentUser;
       await moveDataInDB({
         oldField: targetField === 'results' ? 'deleted' : 'results',
         newField: targetField,
         data,
+        date,
         uid,
       });
+    },
+    [currentUser]
+  );
+
+  const updateFromDB = useCallback(
+    async (data, date, text) => {
+      const { uid } = currentUser;
+      await updateDataFromDB({ field: 'results', data, date, text, uid });
     },
     [currentUser]
   );
@@ -76,5 +86,11 @@ export default function useFirestore() {
     if (operation.id) setOperation({ id: '', type: '' });
   }, [currentUser, dataState, operation, addToDb, findDataFromDatalist]);
 
-  return { setOperation, deleteFromDB, moveInDB, findDataFromDatalist };
+  return {
+    setOperation,
+    deleteFromDB,
+    moveInDB,
+    updateFromDB,
+    findDataFromDatalist,
+  };
 }

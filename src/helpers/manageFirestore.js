@@ -47,18 +47,38 @@ export const deleteDataFromDB = async (args) => {
     });
 };
 
-export const moveDataInDB = async (args) => {
-  const { oldField, newField, data, uid } = args;
-  const docRef = db.collection('users').doc(uid);
+export const updateDataFromDB = async (args) => {
+  const { field, data, date, text, uid } = args;
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      [field]: firebase.firestore.FieldValue.arrayRemove(data),
+    });
 
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({
+      [field]: firebase.firestore.FieldValue.arrayUnion({
+        ...data,
+        text,
+        [date.type]: date.value,
+      }),
+    });
+};
+
+export const moveDataInDB = async (args) => {
+  const { oldField, newField, data, date, uid } = args;
+  const docRef = db.collection('users').doc(uid);
   await docRef.update({
-    [newField]: firebase.firestore.FieldValue.arrayUnion(data),
+    [newField]: firebase.firestore.FieldValue.arrayUnion({
+      ...data,
+      [date.type]: date.value,
+    }),
   });
-  
+
   await docRef.update({
     [oldField]: firebase.firestore.FieldValue.arrayRemove(data),
   });
 };
-
-
-

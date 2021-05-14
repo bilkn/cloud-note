@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
-import { DialogContext } from '../context';
-import { useData, useSettingsLogic } from '../hooks';
+import { useFirebaseAuth, useSettingsLogic } from '../hooks';
 
 function SettingsContainer() {
+  const {isUserAuthWithGoogle} = useFirebaseAuth();
   const {
     username,
     setUsername,
@@ -17,9 +17,8 @@ function SettingsContainer() {
     loading,
     submit,
     handleDeleteAccount,
+    handleDeleteAllNotes,
   } = useSettingsLogic();
-  const [, setDialog] = useContext(DialogContext);
-  const { DeleteAll } = useData();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -36,15 +35,6 @@ function SettingsContainer() {
   const handleSubmit = (e) => {
     e.preventDefault();
     submit();
-  };
-
-  const handleDeleteAllNotes = () => {
-    setDialog({
-      isOpen: true,
-      text: 'Are you sure you want to delete all your notes? This will permanently erase your notes.',
-      handler: DeleteAll,
-      buttons: ['Cancel', 'Delete'],
-    });
   };
 
   return (
@@ -77,6 +67,7 @@ function SettingsContainer() {
             value={email}
             onChange={handleEmailChange}
             data-testid="email-input"
+            disabled={isUserAuthWithGoogle}
           />
         </Form.Fieldset>
         {errors?.email ? <Form.Error>{errors.email}</Form.Error> : null}
@@ -89,6 +80,7 @@ function SettingsContainer() {
             value={password}
             autocomplete="current-password"
             onChange={handlePasswordChange}
+            disabled={isUserAuthWithGoogle}
           />
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}

@@ -4,6 +4,7 @@ import { useFirebaseAuth } from '../hooks';
 import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import * as ROUTES from '../constants/routes';
+import { getDoc, initUser } from '../helpers/manageFirestore';
 
 export default function Signin() {
   const [loginValue, setLoginValue] = useState('');
@@ -11,7 +12,6 @@ export default function Signin() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { signin, signInWithGoogle } = useFirebaseAuth();
-
 
   const handleLoginChange = (e) => setLoginValue(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -34,7 +34,11 @@ export default function Signin() {
     setIsLoading(true);
     setError('');
     try {
-      await signInWithGoogle(loginValue, password);
+      const { user } = await signInWithGoogle();
+      const userDoc = await getDoc(user.uid);
+      if (!userDoc) {
+        await initUser(user.uid);
+      }
     } catch (err) {
       const { message } = err;
       setError(message);

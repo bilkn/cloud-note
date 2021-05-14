@@ -1,10 +1,16 @@
 import { useContext, useState } from 'react';
-import { useFirebaseAuth } from '.';
+import { useData, useFirebaseAuth } from '.';
 import { DialogContext, ToastContext } from '../context';
+import { getUserDocRef } from '../helpers/manageFirestore';
 
-export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail, deleteAccount } =
-    useFirebaseAuth();
+export default function useSettingsLogic() {
+  const {
+    currentUser,
+    updateProfile,
+    updateEmail,
+    deleteAccount,
+    isUserAuthWithGoogle,
+  } = useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
@@ -12,22 +18,23 @@ export default function useFormLogic() {
   const [loading, setLoading] = useState(false);
   const [, setDialog] = useContext(DialogContext);
   const { dispatchToast } = useContext(ToastContext);
+  const { DeleteAll } = useData();
 
   const submit = async () => {
-    setLoading(true);
     setErrors(null);
     const promises = [];
 
-    if (
-      !password &&
-      (currentUser.email !== email || currentUser.displayName !== username)
-    ) {
-      setErrors({
+    if (currentUser.email === email && currentUser.displayName === username)
+      return;
+
+    if (!password && !isUserAuthWithGoogle) {
+      setLoading(false);
+      return setErrors({
         password: 'Please enter your password to save your settings.',
       });
-      setLoading(false);
-      return;
     }
+
+    setLoading(true);
 
     if (username && currentUser.displayName !== username)
       promises.push(updateProfile({ displayName: username }));
@@ -54,7 +61,7 @@ export default function useFormLogic() {
     e.stopPropagation();
     setErrors(null);
 
-    if (!password) {
+    if (!password && !isUserAuthWithGoogle) {
       setErrors({
         password: 'Please enter your password to delete your account.',
       });
@@ -64,6 +71,7 @@ export default function useFormLogic() {
     const deleteAccountHandler = async () => {
       try {
         setLoading(true);
+        await getUserDocRef(currentUser.uid).delete();
         await deleteAccount(password);
         dispatchToast({
           type: 'NOTIFICATION',
@@ -83,6 +91,36 @@ export default function useFormLogic() {
     });
 
     resetPasswordAndLoadingStates();
+  };
+
+  const handleDeleteAllNotes = (e) => {
+    e.stopPropagation();
+    setErrors(null);
+
+    if (!password && !isUserAuthWithGoogle) {
+      setErrors({
+        password: 'Please enter your password to delete your notes.',
+      });
+      return;
+    }
+
+    const deleteAllNotesHandler = async () => {
+      try {
+        setLoading(true);
+        await DeleteAll(password);
+      } catch (err) {
+        console.log(err);
+        handleErrors(err);
+      }
+      setLoading(false);
+    };
+
+    setDialog({
+      isOpen: true,
+      text: 'Are you sure you want to delete all your notes? This will permanently erase all of your notes.',
+      handler: deleteAllNotesHandler,
+      buttons: ['Cancel', 'Delete'],
+    });
   };
 
   const resetPasswordAndLoadingStates = () => {
@@ -129,5 +167,7 @@ export default function useFormLogic() {
     loading,
     submit,
     handleDeleteAccount,
+    handleDeleteAllNotes,
+    currentUser,
   };
 }

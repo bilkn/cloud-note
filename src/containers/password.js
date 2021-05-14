@@ -1,9 +1,14 @@
 import React from 'react';
 import 'styled-components/macro';
 import { Form, Spinner } from '../components';
-import { usePasswordLogic, usePasswordStrength } from '../hooks';
+import {
+  usePasswordLogic,
+  usePasswordStrength,
+  useFirebaseAuth,
+} from '../hooks';
 
 export default function PasswordContainer() {
+  const {isUserAuthWithGoogle} = useFirebaseAuth()
   const {
     password,
     setPassword,
@@ -15,6 +20,7 @@ export default function PasswordContainer() {
   } = usePasswordLogic();
   
   const { strength } = usePasswordStrength(newPassword);
+  
 
   const handleOldPasswordChange = (e) => {
     setPassword(e.target.value);
@@ -47,6 +53,7 @@ export default function PasswordContainer() {
             value={password}
             onChange={handleOldPasswordChange}
             data-testid="old-password-input"
+            disabled={isUserAuthWithGoogle}
           />
         </Form.Fieldset>
         {errors?.password ? <Form.Error>{errors.password}</Form.Error> : null}
@@ -70,6 +77,7 @@ export default function PasswordContainer() {
             value={newPassword}
             onChange={handleNewPasswordChange}
             data-testid="new-password-input"
+            disabled={isUserAuthWithGoogle}
           />
           <Form.Text>Minimum 6 characters</Form.Text>
         </Form.Fieldset>
@@ -77,7 +85,7 @@ export default function PasswordContainer() {
           <Form.Error>{errors.newPassword}</Form.Error>
         ) : null}
         <Form.Box>
-          <Form.Button variant="red">
+          <Form.Button variant="red" disabled={isUserAuthWithGoogle}>
             {loading ? <Spinner color="white" /> : 'Change'}
           </Form.Button>
         </Form.Box>

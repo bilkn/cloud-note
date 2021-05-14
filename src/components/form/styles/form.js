@@ -32,6 +32,11 @@ export const Input = styled.input`
     border-color: rgba(0, 0, 0, 0.1);
     box-shadow: 0 0 0 4px #49494917;
   }
+
+  &:disabled {
+    box-shadow: none;
+    border: none;
+  }
 `;
 
 export const Label = styled.label`
@@ -68,6 +73,12 @@ export const Button = styled.button`
   &:focus {
     background: ${({ variant }) =>
       variant === 'red' ? colors.red_hover_2 : colors.gray_2_hover};
+  }
+
+  &:disabled {
+    background: ${({ variant }) =>
+      variant === 'red' ? colors.red : colors.gray_2};
+    cursor: not-allowed;
   }
 `;
 

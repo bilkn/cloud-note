@@ -34,8 +34,7 @@ export default function dataReducer(state, action) {
 
     case 'DELETE': {
       const { results, deleted } = state;
-      const { deleteId } = action;
-      const deletionDate = new Date();
+      const { deleteId, deletionDate } = action.payload;
       const willRemovedData = results.find(({ id }) => id === deleteId);
       const newData = { ...willRemovedData, deletionDate };
       const newResults = results.filter(({ id }) => id !== deleteId);
@@ -54,9 +53,8 @@ export default function dataReducer(state, action) {
     }
 
     case 'MODIFY': {
-      const { modifyId, text } = action.payload;
+      const { modifyId, text,lastModified } = action.payload;
       const { results } = state;
-      const lastModified = new Date();
       const willModifiedData = results.find(({ id }) => id === modifyId);
       const newData = { ...willModifiedData, text, lastModified };
       const newResults = [

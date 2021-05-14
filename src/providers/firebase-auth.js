@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
@@ -10,12 +10,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .catch((err) => {
-        console.log(err);
-      });
+    return firebase.auth().signInWithPopup(provider);
   };
 
   const signin = (email, password) =>
@@ -44,6 +39,10 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     );
 
   const reauth = async (password) => {
+    if (currentUser?.providerData[0].providerId === 'google.com') {
+      const googleProvider = new firebase.auth.GoogleAuthProvider();
+      return await auth.signInWithPopup(googleProvider);
+    }
     const credential = getUserCredential(password);
     await currentUser.reauthenticateWithCredential(credential);
   };
@@ -52,6 +51,11 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     await reauth(password);
     await currentUser.delete();
   };
+
+   const isUserAuthWithGoogle = useMemo(
+     () => currentUser?.providerData[0].providerId === 'google.com',
+     [currentUser?.providerData]
+   );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -66,11 +70,13 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     signInWithGoogle,
     signin,
     signout,
+    reauth,
     resetPassword,
     updateEmail,
     updatePassword,
     updateProfile,
-    deleteAccount
+    deleteAccount,
+    isUserAuthWithGoogle,
   };
   return (
     <FirebaseAuthContext.Provider value={value} {...restProps}>
