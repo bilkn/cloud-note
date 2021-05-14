@@ -15,7 +15,6 @@ export default function MainContainer({ data }) {
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
 
-
   useWindowKey({
     keys: ['Escape'],
     handlers: [() => setShowEnlargedNote(false)],
@@ -41,14 +40,14 @@ export default function MainContainer({ data }) {
     }
   }, [searchProp, data]);
 
-
   return (
     <>
       <Main>
         <Main.Grid>
           {displayedData.map((data) => (
             <NoteContainer
-              key={data.id}
+              // Last modified date was used as key to fix no rerendering problem that occurs after editing the note on enlarged mode.
+              key={data.lastModified.getTime()}
               {...data}
               isCurrentId={currentId === data.id}
               setCurrentId={setCurrentId}

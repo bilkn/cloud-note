@@ -5,13 +5,11 @@ import {
   mapDataListWithDate,
   mapFirestoreDataListWithJSDate,
 } from '../helpers';
-import { dummyDataList } from '../fixtures/dummy-data';
 import { useFirebaseAuth, useLocalStorage } from '../hooks';
 import { get } from '../helpers/manageFirestore.js';
 
 export default function DataProvider(props) {
   const { getItem, setItem } = useLocalStorage();
-
   const { currentUser } = useFirebaseAuth();
 
   useEffect(() => {

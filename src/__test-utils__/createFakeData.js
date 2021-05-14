@@ -1,4 +1,4 @@
-import MockData from '../fixtures/mock-data.json';
+import MockData from './mock-data.json';
 import { mapDataListWithDate } from '../helpers';
 
 export default function createFakeData() {
