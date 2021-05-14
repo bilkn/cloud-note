@@ -1,11 +1,16 @@
-import { useContext, useState, useMemo } from 'react';
+import { useContext, useState } from 'react';
 import { useData, useFirebaseAuth } from '.';
 import { DialogContext, ToastContext } from '../context';
 import { getUserDocRef } from '../helpers/manageFirestore';
 
-export default function useFormLogic() {
-  const { currentUser, updateProfile, updateEmail, deleteAccount } =
-    useFirebaseAuth();
+export default function useSettingsLogic() {
+  const {
+    currentUser,
+    updateProfile,
+    updateEmail,
+    deleteAccount,
+    isUserAuthWithGoogle,
+  } = useFirebaseAuth();
   const [username, setUsername] = useState(currentUser?.displayName || '');
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState('');
@@ -15,28 +20,21 @@ export default function useFormLogic() {
   const { dispatchToast } = useContext(ToastContext);
   const { DeleteAll } = useData();
 
-  const isUserAuthWithGoogle = useMemo(
-    () => currentUser?.providerData[0].providerId === 'google.com',
-    [currentUser?.providerData]
-  );
-
   const submit = async () => {
-    setLoading(true);
     setErrors(null);
     const promises = [];
 
-    if (
-      !password &&
-      (currentUser.email !== email || currentUser.displayName !== username)
-    ) {
-      if (!isUserAuthWithGoogle) {
-        setErrors({
-          password: 'Please enter your password to save your settings.',
-        });
-      }
-      setLoading(false);
+    if (currentUser.email === email && currentUser.displayName === username)
       return;
+
+    if (!password && !isUserAuthWithGoogle) {
+      setLoading(false);
+      return setErrors({
+        password: 'Please enter your password to save your settings.',
+      });
     }
+
+    setLoading(true);
 
     if (username && currentUser.displayName !== username)
       promises.push(updateProfile({ displayName: username }));
@@ -99,7 +97,7 @@ export default function useFormLogic() {
     e.stopPropagation();
     setErrors(null);
 
-    if (!password) {
+    if (!password && !isUserAuthWithGoogle) {
       setErrors({
         password: 'Please enter your password to delete your notes.',
       });
@@ -171,6 +169,5 @@ export default function useFormLogic() {
     handleDeleteAccount,
     handleDeleteAllNotes,
     currentUser,
-    isUserAuthWithGoogle,
   };
 }

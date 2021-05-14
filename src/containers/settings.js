@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import 'styled-components/macro';
 import { colors } from '../styles/variables';
 import { Form, Spinner } from '../components';
-import { useSettingsLogic } from '../hooks';
+import { useFirebaseAuth, useSettingsLogic } from '../hooks';
 
 function SettingsContainer() {
+  const {isUserAuthWithGoogle} = useFirebaseAuth();
   const {
     username,
     setUsername,
@@ -17,7 +18,6 @@ function SettingsContainer() {
     submit,
     handleDeleteAccount,
     handleDeleteAllNotes,
-    isUserAuthWithGoogle,
   } = useSettingsLogic();
 
   const handleUsernameChange = (e) => {
@@ -36,8 +36,6 @@ function SettingsContainer() {
     e.preventDefault();
     submit();
   };
-
-  
 
   return (
     <Form onSubmit={handleSubmit}>

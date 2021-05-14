@@ -74,6 +74,12 @@ export const Button = styled.button`
     background: ${({ variant }) =>
       variant === 'red' ? colors.red_hover_2 : colors.gray_2_hover};
   }
+
+  &:disabled {
+    background: ${({ variant }) =>
+      variant === 'red' ? colors.red : colors.gray_2};
+    cursor: not-allowed;
+  }
 `;
 
 export const ButtonBlue = styled(Button)`

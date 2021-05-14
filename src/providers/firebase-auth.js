@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
 import firebase from 'firebase';
@@ -52,6 +52,11 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     await currentUser.delete();
   };
 
+   const isUserAuthWithGoogle = useMemo(
+     () => currentUser?.providerData[0].providerId === 'google.com',
+     [currentUser?.providerData]
+   );
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -71,6 +76,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
     updatePassword,
     updateProfile,
     deleteAccount,
+    isUserAuthWithGoogle,
   };
   return (
     <FirebaseAuthContext.Provider value={value} {...restProps}>
