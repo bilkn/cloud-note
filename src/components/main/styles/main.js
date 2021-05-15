@@ -3,6 +3,7 @@ import devices from '../../../styles/devices';
 
 export const Container = styled.main`
   margin-top: 72px;
+  padding-bottom: 67px;
 `;
 
 export const Grid = styled.div`

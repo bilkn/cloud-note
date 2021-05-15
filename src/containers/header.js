@@ -12,7 +12,12 @@ import {
 } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import useQuery from '../hooks/useQuery';
-import { useWindowEvent, useWindowKey, useFirebaseAuth } from '../hooks';
+import {
+  useWindowEvent,
+  useWindowKey,
+  useFirebaseAuth,
+  useDocumentTitle,
+} from '../hooks';
 import devices from '../styles/devices';
 
 export default function HeaderContainer() {
@@ -21,7 +26,7 @@ export default function HeaderContainer() {
   const { query, setQuery } = useQuery('search');
   const { pathname } = useLocation();
   const history = useHistory();
-
+  useDocumentTitle();
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowPopover(false)],
