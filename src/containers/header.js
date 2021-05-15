@@ -13,6 +13,7 @@ import {
 import * as ROUTES from '../constants/routes';
 import useQuery from '../hooks/useQuery';
 import { useWindowEvent, useWindowKey, useFirebaseAuth } from '../hooks';
+import devices from '../styles/devices';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
@@ -81,6 +82,10 @@ export default function HeaderContainer() {
                   color: black;
                   margin: 0;
                   margin-right: 0.5em;
+                  display: none;
+                  @media ${devices.tablet} {
+                    display: block;
+                  }
                 `}
               >
                 Sign In
