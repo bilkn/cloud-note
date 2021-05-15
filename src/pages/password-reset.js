@@ -1,6 +1,8 @@
 import React from 'react';
 import { FlexWrapper, Form } from '../components';
 import 'styled-components/macro';
+import devices from '../styles/devices';
+import { sizes } from '../styles/variables';
 
 export default function PasswordReset() {
   return (
@@ -9,6 +11,9 @@ export default function PasswordReset() {
       css={`
         justify-content: center;
         min-height: 100vh;
+        @media ${devices.mobile} {
+          margin-left: ${sizes.sidebar_width};
+        }
       `}
     >
       <Form.Wrapper

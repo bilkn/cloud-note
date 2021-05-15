@@ -5,6 +5,8 @@ import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
 import { useFirebaseAuth, usePasswordStrength } from '../hooks';
 import { getDoc, initUser } from '../helpers/manageFirestore';
+import devices from '../styles/devices';
+import { sizes } from '../styles/variables';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -57,6 +59,9 @@ export default function Signup() {
       css={`
         justify-content: center;
         min-height: 100vh;
+        @media ${devices.mobile} {
+          margin-left: ${sizes.sidebar_width};
+        }
       `}
     >
       <Form.Wrapper
