@@ -64,7 +64,9 @@ export default function MainContainer({ data }) {
             ))}
           </Main.Grid>
         ) : (
-          <Heading>{`Your search for "${getSearchValue()}" did not have any matches.`}</Heading>
+          <Heading>{`Your search for "${
+            getSearchValue() || ''
+          }" did not have any matches.`}</Heading>
         )}
       </Main>
       {showEnlargedNote && (
