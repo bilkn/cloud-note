@@ -19,6 +19,7 @@ function useHandler(props) {
   const [showButtons, setShowButtons] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const [isActive, setIsActive] = useState(false);
+  const [isSelectionRangeActive, setIsSelectionRangeActive] = useState(false);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
@@ -38,6 +39,7 @@ function useHandler(props) {
 
   const handleEditClick = () => {
     setIsActive(true);
+    setIsSelectionRangeActive(true);
     setShowButtons(false);
   };
 
@@ -121,6 +123,7 @@ function useHandler(props) {
   useEffect(() => {
     if (!isSecondsPassed(1, timestamp)) {
       setIsActive(true);
+      setIsSelectionRangeActive(true);
       setCurrentId(id);
     }
   }, [timestamp, id, setCurrentId, isActive, setIsActive]);
@@ -131,13 +134,15 @@ function useHandler(props) {
     const length = textValue.length;
     if (isActive) {
       textArea.focus();
-      textArea.setSelectionRange(length, length);
+      isSelectionRangeActive && textArea.setSelectionRange(length, length);
     } else textArea.blur();
-  }, [isActive, textValue]);
+    return () => setIsSelectionRangeActive(false);
+  }, [isActive, textValue, isSelectionRangeActive]);
 
   useEffect(() => {
     if (activate) {
       setIsActive(true);
+      setIsSelectionRangeActive(true);
     }
   }, [activate]);
 
