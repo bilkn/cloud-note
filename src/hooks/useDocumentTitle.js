@@ -33,10 +33,10 @@ export default function useDocumentTitle() {
           title = 'Forgot Password';
           break;
         default:
-          title = 'Cloud Note';
+          title = 'CloudNote';
           break;
       }
-      if (title !== 'Cloud Note') return (document.title = title + prefix);
+      if (title !== 'CloudNote') return (document.title = title + prefix);
       document.title = title;
     };
     changeTitle();
