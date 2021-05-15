@@ -1,6 +1,6 @@
-import '@firebase/firestore';
+import 'firebase/firestore';
 import { db } from '../lib/firebase.dev';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 const createUserData = () => {
   return {

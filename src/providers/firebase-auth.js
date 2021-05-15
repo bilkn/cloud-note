@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { FirebaseAuthContext } from '../context';
 import { auth } from '../lib/firebase.dev';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+
 export default function FirebaseAuthProvider({ children, ...restProps }) {
   const [currentUser, setCurrentUser] = useState(auth?.currentUser || null);
 
