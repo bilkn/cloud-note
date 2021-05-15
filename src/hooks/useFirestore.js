@@ -7,8 +7,8 @@ import {
   moveDataInDB,
   updateDataFromDB,
   addDatasetToDB,
+  getDoc,
 } from '../helpers/manageFirestore';
-
 
 export default function useFirestore() {
   const { currentUser } = useFirebaseAuth();
@@ -52,10 +52,9 @@ export default function useFirestore() {
     [currentUser]
   );
 
-  useEffect(() => {
-    const syncLocalDataWithFirestore = async () => {
+  const syncLocalDataWithFirestore = useCallback(
+    async (uid) => {
       const willBeAdded = mapDataListWithDate(getItem('willBeAdded'));
-      const { uid } = currentUser;
       if (willBeAdded.length) {
         try {
           await addDatasetToDB({ field: 'results', dataset: willBeAdded, uid });
@@ -64,16 +63,20 @@ export default function useFirestore() {
           console.log(err);
         }
       }
-    };
-    if (currentUser) {
-      syncLocalDataWithFirestore();
-    }
-  }, [currentUser, getItem, setItem]);
+    },
+    [getItem, setItem]
+  );
+
+  useEffect(() => {
+    const uid = currentUser?.uid
+    if (uid) syncLocalDataWithFirestore(uid);
+  }, [currentUser, syncLocalDataWithFirestore]);
 
   return {
     addToDb,
     deleteFromDB,
     moveInDB,
     updateFromDB,
+    syncLocalDataWithFirestore,
   };
 }
