@@ -59,6 +59,10 @@ export const TextArea = styled.textarea`
     background: #d3d3d3;
   }
 
+  &:disabled {
+    color: #545454;
+  }
+
   @supports (aspect-ratio: 4/3) {
     aspect-ratio: 4/3;
     height: initial;

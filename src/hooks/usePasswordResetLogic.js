@@ -25,9 +25,9 @@ export default function usePasswordResetLogic() {
         payload: `Password reset instructions have been sent to "${email}".`,
       });
     } catch (err) {
+      console.log(err);
       const { message } = err;
       setError(message);
-      console.log(err);
     }
   };
 
