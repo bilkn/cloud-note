@@ -22,6 +22,7 @@ function NoteContainer(props) {
     lastModified,
     isCurrentId,
     setCurrentId,
+    showEnlargedNote,
     setShowEnlargedNote,
     setRect,
     cssStyle,
@@ -47,6 +48,7 @@ function NoteContainer(props) {
     btnRef,
   } = useNoteLogic({
     setCurrentId,
+    showEnlargedNote,
     setShowEnlargedNote,
     setRect,
     isCurrentId,

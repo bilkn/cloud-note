@@ -80,6 +80,7 @@ export default function MainContainer({ data }) {
             {...getCurrentNoteData}
             isCurrentId={currentId === data.id}
             setCurrentId={setCurrentId}
+            showEnlargedNote={showEnlargedNote}
             setShowEnlargedNote={setShowEnlargedNote}
             cssStyle={css`
               animation: ${scaleUpToCenter} 500ms forwards;

@@ -6,6 +6,7 @@ import { copyToClipboard, isSecondsPassed } from '../helpers';
 function useHandler(props) {
   const {
     setCurrentId,
+    showEnlargedNote,
     setShowEnlargedNote,
     setRect,
     id,
@@ -63,9 +64,14 @@ function useHandler(props) {
   };
 
   const handleEnlargeClick = (rect) => {
+    const { body } = document;
     const { innerWidth, innerHeight } = window;
-    const { width, height } = rect;
+    if (showEnlargedNote) {
+      body.style.overflow = 'auto';
+      return setShowEnlargedNote(false);
+    }
 
+    const { width, height } = rect;
     if (width * 1.5 >= innerWidth || height * 1.5 >= innerHeight) {
       setShowButtons(false);
       return dispatchToast({
@@ -76,7 +82,6 @@ function useHandler(props) {
 
     if (rect) setShowEnlargedNote(true);
     setRect(rect);
-    const { body } = document;
     body.style.overflow = 'hidden';
   };
 
