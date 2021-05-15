@@ -18,10 +18,11 @@ export default function Deleted() {
         }
       `}
     >
-      {!dataState?.deleted?.length && (
-        <Heading>You can recover your deleted notes here</Heading>
+      {dataState?.deleted?.length ? (
+        <MainContainer data={dataState.deleted} />
+      ) : (
+        <Heading>You can recover your deleted notes here.</Heading>
       )}
-      {dataState.deleted && <MainContainer data={dataState.deleted} />}
     </Wrapper>
   );
 }

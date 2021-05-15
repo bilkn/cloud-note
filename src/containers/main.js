@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Main, Backdrop } from '../components';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Main, Backdrop, Heading } from '../components';
 import { NoteContainer } from '../containers';
 import 'styled-components/macro';
 import { useLocation } from 'react-router';
@@ -14,6 +14,11 @@ export default function MainContainer({ data }) {
   const [displayedData, setDisplayedData] = useState([]);
   const [showEnlargedNote, setShowEnlargedNote] = useState(false);
   const [rect, setRect] = useState(null);
+
+  const getSearchValue = useCallback(
+    () => new URL(document.location).searchParams.get('search'),
+    []
+  );
 
   useWindowKey({
     keys: ['Escape'],
@@ -43,20 +48,24 @@ export default function MainContainer({ data }) {
   return (
     <>
       <Main>
-        <Main.Grid>
-          {displayedData.map((data) => (
-            <NoteContainer
-              // Last modified date was used as key to fix no rerendering problem that occurs after editing the note on enlarged mode.
-              key={data.lastModified?.getTime() || data.id}
-              {...data}
-              isCurrentId={currentId === data.id}
-              setCurrentId={setCurrentId}
-              setShowEnlargedNote={setShowEnlargedNote}
-              setRect={setRect}
-              cssStyle={''}
-            />
-          ))}
-        </Main.Grid>
+        {displayedData.length ? (
+          <Main.Grid>
+            {displayedData.map((data) => (
+              <NoteContainer
+                // Last modified date was used as key to fix no rerendering problem that occurs after editing the note on enlarged mode.
+                key={data.lastModified?.getTime() || data.id}
+                {...data}
+                isCurrentId={currentId === data.id}
+                setCurrentId={setCurrentId}
+                setShowEnlargedNote={setShowEnlargedNote}
+                setRect={setRect}
+                cssStyle={''}
+              />
+            ))}
+          </Main.Grid>
+        ) : (
+          <Heading>{`Your search for "${getSearchValue()}" did not have any matches.`}</Heading>
+        )}
       </Main>
       {showEnlargedNote && (
         <Backdrop

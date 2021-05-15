@@ -5,16 +5,28 @@ import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
 import Picture from '../assets/man-1.png';
 import 'styled-components/macro';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import {
+  Link as ReactRouterLink,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 import useQuery from '../hooks/useQuery';
-import { useWindowEvent, useWindowKey, useFirebaseAuth } from '../hooks';
+import {
+  useWindowEvent,
+  useWindowKey,
+  useFirebaseAuth,
+  useDocumentTitle,
+} from '../hooks';
+import devices from '../styles/devices';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
   const { currentUser } = useFirebaseAuth(FirebaseAuthContext);
   const { query, setQuery } = useQuery('search');
-
+  const { pathname } = useLocation();
+  const history = useHistory();
+  useDocumentTitle();
   useWindowEvent({
     events: [{ event: 'click' }],
     handlers: [() => setShowPopover(false)],
@@ -30,6 +42,9 @@ export default function HeaderContainer() {
 
   const handleSearchChange = (e) => {
     setQuery(e.target.value);
+    if (query && pathname !== ROUTES.HOME && pathname !== ROUTES.DELETED) {
+      history.push(ROUTES.HOME);
+    }
   };
 
   return (
@@ -56,6 +71,7 @@ export default function HeaderContainer() {
                 size="40"
                 onClick={handleAvatarClick}
                 data-testid="avatar"
+                aria-label="Toggle profile menu"
               >
                 <Avatar.Picture src={Picture} alt={currentUser.displayName} />
                 {showPopover && <PopoverContainer data-testid="popover" />}
@@ -71,6 +87,10 @@ export default function HeaderContainer() {
                   color: black;
                   margin: 0;
                   margin-right: 0.5em;
+                  display: none;
+                  @media ${devices.tablet} {
+                    display: block;
+                  }
                 `}
               >
                 Sign In

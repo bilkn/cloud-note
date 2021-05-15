@@ -185,5 +185,6 @@ export default function useProfileLogic() {
     handlePictureSubmit,
     handleFileChange,
     handleDeleteClick,
+    currentUser
   };
 }

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useData } from '.';
 import { DialogContext, ToastContext } from '../context';
-import { copyToClipboard, isSecondsPassed, scrollToBottom } from '../helpers';
+import { copyToClipboard, isSecondsPassed } from '../helpers';
 
 function useHandler(props) {
   const {
@@ -38,7 +38,6 @@ function useHandler(props) {
   const handleEditClick = () => {
     setIsActive(true);
     setShowButtons(false);
-    scrollToBottom(textAreaRef.current);
   };
 
   const handleCopyClick = (textValue) => {
@@ -77,7 +76,6 @@ function useHandler(props) {
 
     if (rect) setShowEnlargedNote(true);
     setRect(rect);
-    scrollToBottom(textAreaRef.current);
     const { body } = document;
     body.style.overflow = 'hidden';
   };
