@@ -18,7 +18,7 @@ export default function FirebaseAuthProvider({ children, ...restProps }) {
 
   const signout = () => auth.signOut();
 
-  const resetPassword = (email) => auth.sendPasswordResetEmail(email);
+  const resetPassword = (email,settings) => auth.sendPasswordResetEmail(email,settings);
 
   const updateEmail = async (email, password) => {
     await reauth(password);

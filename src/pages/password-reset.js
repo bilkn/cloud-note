@@ -3,8 +3,12 @@ import { FlexWrapper, Form } from '../components';
 import 'styled-components/macro';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
+import { usePasswordResetLogic } from '../hooks';
 
 export default function PasswordReset() {
+  const { handlePasswordResetSubmit, handleEmailChange, email, error } =
+    usePasswordResetLogic();
+
   return (
     <FlexWrapper
       align="center"
@@ -32,10 +36,17 @@ export default function PasswordReset() {
           Enter the email address you used when you joined and we’ll send you
           instructions to reset your password.
         </Form.Text>
-        <Form>
+        <Form onSubmit={handlePasswordResetSubmit}>
           <Form.Fieldset>
             <Form.Label htmlFor="email">Email Address</Form.Label>
-            <Form.Input id="email" name="email" type="email" />
+            <Form.Input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            {error && <Form.Error>{error}</Form.Error>}
             <Form.Button
               variant="red"
               type="submit"
