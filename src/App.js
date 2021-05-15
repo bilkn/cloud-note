@@ -1,3 +1,4 @@
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   DialogContainer,
@@ -5,7 +6,6 @@ import {
   SidebarContainer,
   ToastContainer,
 } from './containers';
-import { Home, Deleted, Account, Signin, Signup, PasswordReset } from './pages';
 import {
   DataProvider,
   DialogProvider,
@@ -15,6 +15,13 @@ import {
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 
+const Home = React.lazy(() => import('./pages/home'));
+const Deleted = React.lazy(() => import('./pages/deleted'));
+const Account = React.lazy(() => import('./pages/account'));
+const Signin = React.lazy(() => import('./pages/signin'));
+const Signup = React.lazy(() => import('./pages/signup'));
+const PasswordReset = React.lazy(() => import('./pages/password-reset'));
+
 function App() {
   return (
     <>
@@ -23,37 +30,39 @@ function App() {
           <ToastProvider>
             <DataProvider>
               <Router>
-                <HeaderContainer />
-                <Switch>
-                  <Route path={ROUTES.HOME} exact>
-                    <Home />
-                  </Route>
-                  <Route path={ROUTES.DELETED}>
-                    <Deleted />
-                  </Route>
-                  <ProtectedRoute path={ROUTES.ACCOUNT}>
-                    <Account />
-                  </ProtectedRoute>
-                  <IsUserRedirect
-                    loggedInPath={ROUTES.HOME}
-                    path={ROUTES.SIGN_IN}
-                  >
-                    <Signin />
-                  </IsUserRedirect>
-                  <IsUserRedirect
-                    loggedInPath={ROUTES.HOME}
-                    path={ROUTES.SIGN_UP}
-                  >
-                    <Signup />
-                  </IsUserRedirect>
-                  <IsUserRedirect
-                    loggedInPath={ROUTES.HOME}
-                    path={ROUTES.PASSWORD_RESET}
-                  >
-                    <PasswordReset />
-                  </IsUserRedirect>
-                </Switch>
-                <SidebarContainer />
+                  <HeaderContainer />
+                <Suspense fallback={'loading...'}>
+                  <Switch>
+                    <Route path={ROUTES.HOME} exact>
+                      <Home />
+                    </Route>
+                    <Route path={ROUTES.DELETED}>
+                      <Deleted />
+                    </Route>
+                    <ProtectedRoute path={ROUTES.ACCOUNT}>
+                      <Account />
+                    </ProtectedRoute>
+                    <IsUserRedirect
+                      loggedInPath={ROUTES.HOME}
+                      path={ROUTES.SIGN_IN}
+                    >
+                      <Signin />
+                    </IsUserRedirect>
+                    <IsUserRedirect
+                      loggedInPath={ROUTES.HOME}
+                      path={ROUTES.SIGN_UP}
+                    >
+                      <Signup />
+                    </IsUserRedirect>
+                    <IsUserRedirect
+                      loggedInPath={ROUTES.HOME}
+                      path={ROUTES.PASSWORD_RESET}
+                    >
+                      <PasswordReset />
+                    </IsUserRedirect>
+                  </Switch>
+                </Suspense>
+                  <SidebarContainer />
               </Router>
               <DialogContainer />
             </DataProvider>
