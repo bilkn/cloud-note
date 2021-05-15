@@ -65,7 +65,7 @@ export default function Signin() {
           padding: 1.3em;
         `}
       >
-        <Form.Title>Sign in to NoteCloud</Form.Title>
+        <Form.Title>Sign in to CloudNote</Form.Title>
         {error && (
           <Message>
             <Message.List>

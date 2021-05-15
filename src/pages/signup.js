@@ -73,7 +73,7 @@ export default function Signup() {
           padding: 1.3em;
         `}
       >
-        <Form.Title>Sign up to NoteCloud</Form.Title>
+        <Form.Title>Sign up to CloudNote</Form.Title>
         {error && (
           <Message>
             <Message.List>
