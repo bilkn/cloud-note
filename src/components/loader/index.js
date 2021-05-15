@@ -12,8 +12,8 @@ export default function Loader() {
             display: 'block',
             shapeRendering: 'auto',
           }}
-          width="200px"
-          height="200px"
+          width="130px"
+          height="130px"
           viewBox="0 0 100 100"
           preserveAspectRatio="xMidYMid"
         >

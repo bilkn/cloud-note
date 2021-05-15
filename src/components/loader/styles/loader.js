@@ -4,6 +4,7 @@ import { sizes } from '../../../styles/variables';
 
 export const Container = styled.div`
   display: flex;
+  min-height: 100vh;
   @media ${devices.mobile} {
     margin-left: ${sizes.sidebar_width};
   }

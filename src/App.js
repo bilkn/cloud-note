@@ -12,6 +12,7 @@ import {
   ToastProvider,
   FirebaseAuthProvider,
 } from './providers';
+import { Loader } from './components';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 
@@ -30,8 +31,8 @@ function App() {
           <ToastProvider>
             <DataProvider>
               <Router>
-                  <HeaderContainer />
-                <Suspense fallback={'loading...'}>
+                <HeaderContainer />
+                <Suspense fallback={<Loader />}>
                   <Switch>
                     <Route path={ROUTES.HOME} exact>
                       <Home />
@@ -62,7 +63,7 @@ function App() {
                     </IsUserRedirect>
                   </Switch>
                 </Suspense>
-                  <SidebarContainer />
+                <SidebarContainer />
               </Router>
               <DialogContainer />
             </DataProvider>
