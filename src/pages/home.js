@@ -17,10 +17,11 @@ export default function Home() {
         }
       `}
     >
-      {!dataState?.results?.length && (
-        <Heading>Looks like you don't have any notes</Heading>
+      {dataState?.results?.length ? (
+        <MainContainer data={dataState.results} />
+      ) : (
+        <Heading>Looks like you don't have any notes.</Heading>
       )}
-      {dataState.results && <MainContainer data={dataState.results} />}
     </Wrapper>
   );
 }

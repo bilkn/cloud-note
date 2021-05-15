@@ -22,6 +22,7 @@ export default function ProfileContainer() {
     handlePictureSubmit,
     handleFileChange,
     handleDeleteClick,
+    currentUser
   } = useProfileLogic();
 
   const handleNameChange = (e) => {
@@ -49,7 +50,7 @@ export default function ProfileContainer() {
           `}
         >
           <Avatar size="120">
-            <Avatar.Picture src={pictureURL} alt="Profile picture" />
+            <Avatar.Picture src={pictureURL} alt={currentUser?.displayName || "No avatar"} />
           </Avatar>
         </Wrapper>
         <Form onSubmit={handlePictureSubmit}>
