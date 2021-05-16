@@ -47,7 +47,7 @@ Have fun :)
 ## Built With
 * [React](https://reactjs.org/) - The JavaScript framework used
 * [Styled Components Library](https://styled-components.com/) - CSS in JS tool
-* [Firebase](https://firebase.google.com/) - Firestore (Cloud Database), Storage (Cloud Storage) and Authentication used.
+* [Firebase](https://firebase.google.com/) - Firestore (Cloud Database), Storage (Cloud Storage) and Authentication used
 * [Google Analytics](https://analytics.google.com/analytics/web/provision/#/provision) - Web Analytics service
 * [Jest](https://jestjs.io/) - JavaScript Testing Framework
 * [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) 
