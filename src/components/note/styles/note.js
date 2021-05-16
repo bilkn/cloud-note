@@ -116,7 +116,7 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   right: 25px;
   top: 10px;
-  width: 21px;
+  width: 22px;
   z-index: 1;
 `;
 
@@ -158,12 +158,10 @@ export const ToggleButton = styled.button`
   &::before {
     ${({ active }) => (active ? dotBeforeAnimationRule : '')};
     margin-right: 3px;
-    left: 20px;
   }
 
   &::after {
     ${({ active }) => (active ? dotAfterAnimationRule : '')};
-    right: 20px;
   }
 `;
 
@@ -173,12 +171,12 @@ export const Dot = styled.span`
   ${({ active }) =>
     active ? 'box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;' : ''};
   flex-shrink: 0;
-  height: 45px;
+  height: ${({ active }) => (active ? '46px' : '5px')};
   margin-right: 3px;
-  transform: ${({ active }) => (active ? 'scale(1)' : 'scale(0.111)')};
+  position: relative;
   transition: 300ms;
-  transition-property: transform, background;
-  width: 45px;
+  transition-property: width, height, transform, background;
+  width: ${({ active }) => (active ? '46px' : '5px')};
 `;
 
 export const Date = styled.p`

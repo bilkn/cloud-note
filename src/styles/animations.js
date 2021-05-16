@@ -71,7 +71,7 @@ export const dotBeforeAnimation = keyframes`
   to {
     ${dotToStyle}
     transform: rotateZ(-45deg);
-    left: 31px;
+    left: 32px;
   }
 `;
 
