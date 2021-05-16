@@ -141,6 +141,7 @@ export const ToggleButton = styled.button`
   justify-content: center;
   margin: auto;
   position: relative;
+  top: 2px;
   width: inherit;
 
   &::before,
