@@ -12,7 +12,7 @@
         "node_modules": true,
         "netlify.toml": true,
         ".netlify": true,
-        ".env.local": true
+        ".env.local": false
     },
     "explorerExclude.backup": null
 }

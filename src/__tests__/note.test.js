@@ -24,98 +24,10 @@ const defineScroll = () => {
   });
 };
 
-/* 
-beforeEach(() => {
-  Object.defineProperty(Element.prototype, 'scroll', {
-    value: jest.fn(),
-    writable: false,
-    configurable: false,
-  });
-}); */
 
 afterEach(() => {
   cleanup();
 });
-
-/* test('Note is deleted after clicking delete button', () => {
-  const { result } = renderHook(() => useData());
-  const history = createMemoryHistory();
-  const id = uuidv4();
-  const fakeNote = {
-    id,
-    color: 'orange',
-    timestamp: new Date('1995-12-17T03:24:00'),
-    text: 'Testing note',
-    lastModified: true,
-  };
-  const fakeData = [fakeNote];
-  const dataState = {
-    results: fakeData,
-    deleted: [],
-    isLoading: false,
-    isError: false,
-  };
-  const dialogState = {
-    isOpen: false,
-    handler: null,
-    text: '',
-    buttons: [],
-  };
-
-  const dispatchData = jest.fn();
-  const dispatchToast = jest.fn();
-  const setDialog = jest.fn();
-  const { rerender } = render(
-    <>
-      <DataProvider value={{ dataState: dataState, dispatchData }}>
-        <ToastProvider value={{ toastState: [], dispatchToast }}>
-          <DialogProvider value={[dialogState, setDialog]}>
-            <Router history={history}>
-              <MainContainer data={fakeData} />
-            </Router>
-            <DialogContainer />
-          </DialogProvider>
-        </ToastProvider>
-      </DataProvider>
-      <div id="portal" />
-    </>
-  );
-
-  const afterDialogState = {
-    isOpen: true,
-    handler: () => jest.fn(),
-    text: 'Are you sure to delete this note?',
-    buttons: ['Cancel', 'Delete'],
-  };
-  const note = screen.getByTestId('note');
-  const boxBtn = screen.getByLabelText('Toggle note menu');
-  fireEvent.click(boxBtn);
-  const deleteBtn = screen.getByLabelText('Delete note');
-
-  fireEvent.click(deleteBtn);
- act(() => {
-   result.current.Delete(id);
- });
-  rerender(
-    <>
-      <DataProvider value={{ dataState: dataState, dispatchData }}>
-        <ToastProvider value={{ toastState: [], dispatchToast }}>
-          <DialogProvider value={[afterDialogState, setDialog]}>
-            <Router history={history}>
-              <MainContainer data={fakeData} />
-            </Router>
-            <DialogContainer />
-          </DialogProvider>
-        </ToastProvider>
-      </DataProvider>
-      <div id="portal" />
-    </>
-  );
-  const dialog = screen.getByText('Are you sure to delete this note?');
-  const dialogDeleteBtn = screen.getByText('Delete');
-  fireEvent.click(dialogDeleteBtn);
-  expect(note).toBeNull();
-}); */
 
 describe('Home note non-dialog buttons are working correctly', () => {
   defineScroll();

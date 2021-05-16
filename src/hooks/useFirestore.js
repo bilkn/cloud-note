@@ -7,7 +7,6 @@ import {
   moveDataInDB,
   updateDataFromDB,
   addDatasetToDB,
-  getDoc,
 } from '../helpers/manageFirestore';
 
 export default function useFirestore() {
