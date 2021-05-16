@@ -5,7 +5,7 @@ import {
   dotAfterAnimation,
   scaleUp,
 } from '../../../styles/animations';
-import * as ROUTES from "../../../constants/routes"
+import * as ROUTES from '../../../constants/routes';
 
 const noteAnimation = () =>
   css`
@@ -97,11 +97,13 @@ export const Box = styled.div`
   flex-direction: column;
   height: ${({ active, route }) =>
     active ? (route === ROUTES.HOME ? '205px' : '125px') : '0'};
+  left: 50%;
   padding-top: 150%;
   position: absolute;
-  transform: translateY(5px);
+  transform: translateX(-50%);
   transition: 500ms;
   transition-property: height, border-radius;
+  top: 50%;
   overflow: hidden;
   width: ${({ active }) => (active ? '40px' : '0')};
 `;
@@ -111,7 +113,6 @@ export const ButtonWrapper = styled.div`
   cursor: pointer;
   display: flex;
   height: 26px;
-  justify-content: center;
   position: absolute;
   right: 25px;
   top: 10px;
@@ -133,34 +134,36 @@ export const Button = styled.button`
 `;
 
 export const ToggleButton = styled.button`
-  align-items: flex-end;
+  align-items: center;
   background: none;
   display: flex;
   height: inherit;
   justify-content: center;
   margin: auto;
+  position: relative;
   width: inherit;
 
   &::before,
   &::after {
     background: ${colors.gray_4};
     border-radius: 50%;
-    content: ' ';
+    content: '';
+    flex-shrink: 0;
     height: 5px;
-    position: absolute;
-    top: 13px;
+    position: relative;
     width: 5px;
     z-index: ${indexes.note_btn};
   }
 
   &::before {
     ${({ active }) => (active ? dotBeforeAnimationRule : '')};
-    left: 0;
+    margin-right: 3px;
+    left: 20px;
   }
 
   &::after {
     ${({ active }) => (active ? dotAfterAnimationRule : '')};
-    right: 0;
+    right: 20px;
   }
 `;
 
@@ -169,13 +172,13 @@ export const Dot = styled.span`
   border-radius: 50%;
   ${({ active }) =>
     active ? 'box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;' : ''};
-  height: ${({ active }) => (active ? '45px' : '5px')};
-  position: absolute;
-  transform: ${({ active }) =>
-    active ? ' translateY(12px)' : 'translateY(-8px)'};
+  flex-shrink: 0;
+  height: 45px;
+  margin-right: 3px;
+  transform: ${({ active }) => (active ? 'scale(1)' : 'scale(0.111)')};
   transition: 300ms;
-  transition-property: width, height, transform, background;
-  width: ${({ active }) => (active ? '45px' : '5px')};
+  transition-property: transform, background;
+  width: 45px;
 `;
 
 export const Date = styled.p`
