@@ -3,7 +3,6 @@ import { Form, Header, Avatar } from '../components';
 import { FirebaseAuthContext } from '../context';
 import { Search } from '@styled-icons/evil/Search';
 import { PopoverContainer } from './';
-import Picture from '../assets/man-1.png';
 import 'styled-components/macro';
 import {
   Link as ReactRouterLink,
@@ -19,6 +18,7 @@ import {
   useDocumentTitle,
 } from '../hooks';
 import devices from '../styles/devices';
+import NoAvatar from '../assets/no-avatar.png';
 
 export default function HeaderContainer() {
   const [showPopover, setShowPopover] = useState(false);
@@ -73,7 +73,10 @@ export default function HeaderContainer() {
                 data-testid="avatar"
                 aria-label="Toggle profile menu"
               >
-                <Avatar.Picture src={Picture} alt={currentUser.displayName} />
+                <Avatar.Picture
+                  src={currentUser.photoURL || NoAvatar}
+                  alt={currentUser.displayName}
+                />
                 {showPopover && <PopoverContainer data-testid="popover" />}
               </Avatar.Button>
             </>

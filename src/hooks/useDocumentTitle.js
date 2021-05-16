@@ -11,16 +11,19 @@ export default function useDocumentTitle() {
 
     const changeTitle = () => {
       switch (pathname) {
+        case ROUTES.HOME:
+          title = 'CloudNote';
+          break;
         case ROUTES.DELETED:
           title = 'Deleted Notes';
           break;
         case ROUTES.ACCOUNT:
           title = 'Account Settings';
           break;
-        case ROUTES.ACCOUNT+ROUTES.PROFILE:
+        case ROUTES.ACCOUNT + ROUTES.PROFILE:
           title = 'Edit Profile';
           break;
-        case ROUTES.ACCOUNT+ROUTES.PASSWORD:
+        case ROUTES.ACCOUNT + ROUTES.PASSWORD:
           title = 'Change Password';
           break;
         case ROUTES.SIGN_IN:
@@ -33,10 +36,12 @@ export default function useDocumentTitle() {
           title = 'Forgot Password';
           break;
         default:
-          title = 'CloudNote';
+          title = '404 Not Found';
           break;
       }
-      if (title !== 'CloudNote') return (document.title = title + prefix);
+      if (title !== 'CloudNote' && title !== '404 Not Found') {
+        return (document.title = title + prefix);
+      }
       document.title = title;
     };
     changeTitle();

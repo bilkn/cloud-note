@@ -34,9 +34,9 @@ export const Content = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 10px #0000002e;
   display: flex;
-  height: 50px;
+  min-height: 50px;
   justify-content: space-between;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   text-align: center;
   user-select: none;
   width: 100%;

@@ -6,6 +6,7 @@ import { copyToClipboard, isSecondsPassed } from '../helpers';
 function useHandler(props) {
   const {
     setCurrentId,
+    showEnlargedNote,
     setShowEnlargedNote,
     setRect,
     id,
@@ -18,6 +19,7 @@ function useHandler(props) {
   const [showButtons, setShowButtons] = useState(false);
   const [textValue, setTextValue] = useState(text);
   const [isActive, setIsActive] = useState(false);
+  const [isSelectionRangeActive, setIsSelectionRangeActive] = useState(false);
   const { dispatchToast } = useContext(ToastContext);
   const [, setDialog] = useContext(DialogContext);
   const textAreaRef = useRef(null);
@@ -37,6 +39,7 @@ function useHandler(props) {
 
   const handleEditClick = () => {
     setIsActive(true);
+    setIsSelectionRangeActive(true);
     setShowButtons(false);
   };
 
@@ -63,9 +66,14 @@ function useHandler(props) {
   };
 
   const handleEnlargeClick = (rect) => {
+    const { body } = document;
     const { innerWidth, innerHeight } = window;
-    const { width, height } = rect;
+    if (showEnlargedNote) {
+      body.style.overflow = 'auto';
+      return setShowEnlargedNote(false);
+    }
 
+    const { width, height } = rect;
     if (width * 1.5 >= innerWidth || height * 1.5 >= innerHeight) {
       setShowButtons(false);
       return dispatchToast({
@@ -76,7 +84,6 @@ function useHandler(props) {
 
     if (rect) setShowEnlargedNote(true);
     setRect(rect);
-    const { body } = document;
     body.style.overflow = 'hidden';
   };
 
@@ -116,6 +123,7 @@ function useHandler(props) {
   useEffect(() => {
     if (!isSecondsPassed(1, timestamp)) {
       setIsActive(true);
+      setIsSelectionRangeActive(true);
       setCurrentId(id);
     }
   }, [timestamp, id, setCurrentId, isActive, setIsActive]);
@@ -126,13 +134,15 @@ function useHandler(props) {
     const length = textValue.length;
     if (isActive) {
       textArea.focus();
-      textArea.setSelectionRange(length, length);
+      isSelectionRangeActive && textArea.setSelectionRange(length, length);
     } else textArea.blur();
-  }, [isActive, textValue]);
+    return () => setIsSelectionRangeActive(false);
+  }, [isActive, textValue, isSelectionRangeActive]);
 
   useEffect(() => {
     if (activate) {
       setIsActive(true);
+      setIsSelectionRangeActive(true);
     }
   }, [activate]);
 

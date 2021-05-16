@@ -14,3 +14,4 @@ export { default as useProfileLogic } from './useProfileLogic';
 export { default as usePasswordLogic } from './usePasswordLogic';
 export { default as useFirestore } from './useFirestore';
 export { default as useDocumentTitle } from './useDocumentTitle';
+export { default as usePasswordResetLogic } from './usePasswordResetLogic';

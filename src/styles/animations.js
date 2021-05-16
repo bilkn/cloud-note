@@ -70,7 +70,8 @@ export const dotBeforeAnimation = keyframes`
   }
   to {
     ${dotToStyle}
-    transform: rotateZ(-45deg) translate(2px, 5px);
+    transform: rotateZ(-45deg);
+    left: 32px;
   }
 `;
 
@@ -85,7 +86,8 @@ export const dotAfterAnimation = keyframes`
   }
   to {
     ${dotToStyle}
-    transform: rotateZ(45deg) translate(-2px, 5px);
+    transform:  rotateZ(45deg);
+     right: 31px;
   }
 `;
 

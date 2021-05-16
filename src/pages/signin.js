@@ -5,6 +5,8 @@ import 'styled-components/macro';
 import { Google } from '@styled-icons/boxicons-logos/Google';
 import * as ROUTES from '../constants/routes';
 import { getDoc, initUser } from '../helpers/manageFirestore';
+import devices from "../styles/devices";
+import {sizes} from "../styles/variables";
 
 export default function Signin() {
   const [loginValue, setLoginValue] = useState('');
@@ -52,6 +54,9 @@ export default function Signin() {
       css={`
         justify-content: center;
         min-height: 100vh;
+        @media ${devices.mobile} {
+          margin-left: ${sizes.sidebar_width};
+        }
       `}
     >
       <Form.Wrapper
@@ -60,7 +65,7 @@ export default function Signin() {
           padding: 1.3em;
         `}
       >
-        <Form.Title>Sign in to NoteCloud</Form.Title>
+        <Form.Title>Sign in to CloudNote</Form.Title>
         {error && (
           <Message>
             <Message.List>

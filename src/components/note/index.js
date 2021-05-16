@@ -6,7 +6,6 @@ import {
   ButtonWrapper,
   Button,
   ToggleButton,
-  Title,
   Dot,
   Date,
 } from './styles/note';
@@ -41,10 +40,6 @@ Note.ToggleButton = function NoteToggleButton({ active, ...restProps }) {
       <Dot active={active} />
     </ToggleButton>
   );
-};
-
-Note.Title = function NoteTitle({ children, ...restProps }) {
-  return <Title {...restProps}>{children}</Title>;
 };
 
 Note.Date = function NoteDate({ children, ...restProps }) {

@@ -14,6 +14,7 @@ import {
 } from './providers';
 import { Loader } from './components';
 import * as ROUTES from './constants/routes';
+import { NotFound } from './pages';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 
 const Home = React.lazy(() => import('./pages/home'));
@@ -61,6 +62,9 @@ function App() {
                     >
                       <PasswordReset />
                     </IsUserRedirect>
+                    <Route path="*">
+                      <NotFound />
+                    </Route>
                   </Switch>
                 </Suspense>
                 <SidebarContainer />

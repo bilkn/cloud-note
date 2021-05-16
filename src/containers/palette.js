@@ -5,7 +5,7 @@ import devices from '../styles/devices';
 import * as ROUTES from '../constants/routes';
 import { Palette } from '../components';
 import { useData, useMatchLastSubpath, useResize } from '../hooks';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 export default function PaletteContainer({ palette, setPalette }) {
   const history = useHistory();

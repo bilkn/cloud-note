@@ -3,8 +3,10 @@ import { Google } from '@styled-icons/boxicons-logos/Google';
 import 'styled-components/macro';
 import { Form, FlexWrapper, Message } from '../components';
 import * as ROUTES from '../constants/routes';
-import { useFirebaseAuth, usePasswordStrength } from '../hooks';
+import { useFirebaseAuth, useFirestore, usePasswordStrength } from '../hooks';
 import { getDoc, initUser } from '../helpers/manageFirestore';
+import devices from '../styles/devices';
+import { sizes } from '../styles/variables';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -13,6 +15,7 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { signup, signInWithGoogle } = useFirebaseAuth();
+  const { syncLocalDataWithFirestore } = useFirestore();
   const { strength } = usePasswordStrength(password);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
@@ -27,6 +30,7 @@ export default function Signup() {
       const { user } = await signup(email, password);
       await initUser(user.uid);
       await user.updateProfile({ displayName: username || 'Anonymous' });
+      await syncLocalDataWithFirestore(user.uid);
     } catch (err) {
       console.log(err);
       const { message } = err;
@@ -43,6 +47,7 @@ export default function Signup() {
       if (!userDoc) {
         await initUser(user.uid);
         await user.updateProfile({ displayName: username || 'Anonymous' });
+        await syncLocalDataWithFirestore(user.uid);
       }
     } catch (err) {
       console.log(err);
@@ -57,6 +62,9 @@ export default function Signup() {
       css={`
         justify-content: center;
         min-height: 100vh;
+        @media ${devices.mobile} {
+          margin-left: ${sizes.sidebar_width};
+        }
       `}
     >
       <Form.Wrapper
@@ -65,7 +73,7 @@ export default function Signup() {
           padding: 1.3em;
         `}
       >
-        <Form.Title>Sign up to NoteCloud</Form.Title>
+        <Form.Title>Sign up to CloudNote</Form.Title>
         {error && (
           <Message>
             <Message.List>

@@ -64,7 +64,9 @@ export default function MainContainer({ data }) {
             ))}
           </Main.Grid>
         ) : (
-          <Heading>{`Your search for "${getSearchValue()}" did not have any matches.`}</Heading>
+          <Heading>{`Your search for "${
+            getSearchValue() || ''
+          }" did not have any matches.`}</Heading>
         )}
       </Main>
       {showEnlargedNote && (
@@ -78,6 +80,7 @@ export default function MainContainer({ data }) {
             {...getCurrentNoteData}
             isCurrentId={currentId === data.id}
             setCurrentId={setCurrentId}
+            showEnlargedNote={showEnlargedNote}
             setShowEnlargedNote={setShowEnlargedNote}
             cssStyle={css`
               animation: ${scaleUpToCenter} 500ms forwards;
