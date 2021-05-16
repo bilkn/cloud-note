@@ -5,14 +5,14 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "*.json": false,
+        "*.json": true,
         "README.md": true,
         ".gitignore": true,
         ".vscode": true,
         "node_modules": true,
         "netlify.toml": true,
         ".netlify": true,
-        ".env.local": true
+        ".env.local": false
     },
     "explorerExclude.backup": null
 }
