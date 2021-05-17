@@ -3,7 +3,7 @@ import { Heading, FlexWrapper } from '../components';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
 import 'styled-components/macro';
-import { MainContainer } from '../containers';
+import { MainContainer, FooterContainer } from '../containers';
 import { DataContext } from '../context';
 
 export default function Deleted() {
@@ -27,6 +27,7 @@ export default function Deleted() {
       ) : (
         <Heading>You can recover your deleted notes here.</Heading>
       )}
+      <FooterContainer />
     </FlexWrapper>
   );
 }
