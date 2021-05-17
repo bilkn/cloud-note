@@ -4,6 +4,7 @@ import { colors } from '../../../styles/variables';
 export const Container = styled.footer`
   line-height: 1.4em;
   text-align: center;
+  margin-top: auto;
   padding: 1.3em 0.5em;
   position: relative;
   z-index: 1;
