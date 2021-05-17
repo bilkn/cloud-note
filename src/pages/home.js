@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Heading, Wrapper } from '../components';
-import { MainContainer } from '../containers';
+import { MainContainer, FooterContainer } from '../containers';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
 import 'styled-components/macro';
@@ -22,6 +22,7 @@ export default function Home() {
       ) : (
         <Heading>Looks like you don't have any notes.</Heading>
       )}
+      <FooterContainer />
     </Wrapper>
   );
 }
