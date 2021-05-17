@@ -75,7 +75,7 @@ export const Item = styled.li`
   background: none;
   color: ${(props) => (props.active ? colors.red : '#4949497a')};
   @media ${devices.mobile} {
-    background: ${(props) => (props.active ? colors.gray_1_active : 'none')};
+    background: ${(props) => (props.active ? "colors.gray_1_active" : 'none')};
     color: ${colors.red};
     height: 90px;
     transition: ${transitions.btnBgHover};
