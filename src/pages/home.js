@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Heading, Wrapper } from '../components';
+import { Heading, FlexWrapper } from '../components';
 import { MainContainer, FooterContainer } from '../containers';
 import devices from '../styles/devices';
 import { sizes } from '../styles/variables';
@@ -9,11 +9,15 @@ import { DataContext } from '../context';
 export default function Home() {
   const { dataState } = useContext(DataContext);
   return (
-    <Wrapper
+    <FlexWrapper
+      direction="column"
       css={`
+        padding-bottom: 100px;
         position: relative;
+        min-height: 100vh;
         @media ${devices.mobile} {
           margin-left: ${sizes.sidebar_width};
+          padding-bottom: 0;
         }
       `}
     >
@@ -23,6 +27,6 @@ export default function Home() {
         <Heading>Looks like you don't have any notes.</Heading>
       )}
       <FooterContainer />
-    </Wrapper>
+    </FlexWrapper>
   );
 }
