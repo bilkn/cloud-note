@@ -1,4 +1,4 @@
-# CloudNote - Cloud Based Note Application.
+# CloudNote - Cloud Based Note Application
 
 A React application where you can save and manage your notes in the cloud. 
 
