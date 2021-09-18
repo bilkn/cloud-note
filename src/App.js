@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {
   DialogContainer,
+  Greetings,
   HeaderContainer,
   SidebarContainer,
   ToastContainer,
@@ -27,6 +28,7 @@ const PasswordReset = React.lazy(() => import('./pages/password-reset'));
 function App() {
   return (
     <>
+    <Greetings text="selam tatlım" />
       <FirebaseAuthProvider>
         <DialogProvider>
           <ToastProvider>
