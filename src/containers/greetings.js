@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/macro";
 import "animate.css";
+import { db } from "../lib/firebase.dev";
+import { useParams } from "react-router";
+import { useWindowKey } from "../hooks";
 
 const Backdrop = styled.div`
   ${({ centerItem }) => centerItem && "align-items:center;"}
@@ -102,6 +105,12 @@ function Greetings(props) {
     ref?.current.classList.add("animate__fadeOutDownBig");
   };
 
+  useWindowKey({
+    keys: ["Escape"],
+    handlers: [handleCloseClick],
+    condition: true,
+  });
+
   const handleAnimationEnd = (e) => {
     if (e?.currentTarget?.classList?.contains("animate__fadeOutDownBig")) {
       setShowGreetingModal(false);
@@ -124,7 +133,7 @@ function Greetings(props) {
   }, [text]);
 
   return showGreetingModal ? (
-    <Backdrop centerItem>
+    <Backdrop centerItem onClick={handleCloseClick}>
       <Container
         ref={ref}
         className={`${className} animate__animated animate__fadeInDown`}
@@ -139,4 +148,24 @@ function Greetings(props) {
   ) : null;
 }
 
-export default Greetings;
+function GreetingsContainer() {
+  const [text, setText] = useState("");
+  const { greeting } = useParams();
+
+  useEffect(() => {
+    const getTextFromDB = async () => {
+      const res = await db.collection("greetings").doc(greeting).get();
+      setText(res.data().text);
+    };
+    try {
+      if (greeting) {
+        getTextFromDB();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [greeting]);
+  return text && <Greetings text={text} />;
+}
+
+export default GreetingsContainer;

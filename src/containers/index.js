@@ -12,4 +12,4 @@ export { default as PaletteContainer } from './palette';
 export { default as SettingsContainer } from './settings';
 export { default as NoteContainer } from './note';
 export { default as FooterContainer } from './footer';
-export { default as Greetings } from './greetings';
+export { default as GreetingsContainer } from './greetings';
