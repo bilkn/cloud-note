@@ -26,7 +26,6 @@ const PasswordReset = React.lazy(() => import("./pages/password-reset"));
 
 
 function App() {
-  console.log(`${ROUTES.HOME}greeting/:greeting`);
   return (
     <>
       <FirebaseAuthProvider>

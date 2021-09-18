@@ -4,6 +4,7 @@ import "animate.css";
 import { db } from "../lib/firebase.dev";
 import { useParams } from "react-router";
 import { useWindowKey } from "../hooks";
+import ReactDOM from 'react-dom';
 
 const Backdrop = styled.div`
   ${({ centerItem }) => centerItem && "align-items:center;"}
@@ -25,6 +26,7 @@ const Container = styled.div`
   display: flex;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
   min-height: 50vh;
+  min-width: 80vw;
   max-width: 640px;
   padding: 20px;
   text-align: center;
@@ -132,20 +134,23 @@ function Greetings(props) {
     };
   }, [text]);
 
-  return showGreetingModal ? (
-    <Backdrop centerItem onClick={handleCloseClick}>
-      <Container
-        ref={ref}
-        className={`${className} animate__animated animate__fadeInDown`}
-        onAnimationEnd={handleAnimationEnd}
-      >
-        <Button onClick={handleCloseClick}>
-          <CrossIcon />
-        </Button>
-        <Text>{displayedText}</Text>
-      </Container>
-    </Backdrop>
-  ) : null;
+  return showGreetingModal
+    ? ReactDOM.createPortal(
+        <Backdrop centerItem onClick={handleCloseClick}>
+          <Container
+            ref={ref}
+            className={`${className} animate__animated animate__fadeInDown`}
+            onAnimationEnd={handleAnimationEnd}
+          >
+            <Button onClick={handleCloseClick}>
+              <CrossIcon />
+            </Button>
+            <Text>{displayedText}</Text>
+          </Container>
+        </Backdrop>,
+        document.getElementById('portal')
+      )
+    : null;
 }
 
 function GreetingsContainer() {
