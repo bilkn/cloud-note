@@ -2,9 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/macro";
 import "animate.css";
 import { db } from "../lib/firebase.dev";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
+import { Redirect } from "react-router-dom";
 import { useWindowKey } from "../hooks";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
+import * as ROUTES from "../constants/routes";
 
 const Backdrop = styled.div`
   ${({ centerItem }) => centerItem && "align-items:center;"}
@@ -148,7 +150,7 @@ function Greetings(props) {
             <Text>{displayedText}</Text>
           </Container>
         </Backdrop>,
-        document.getElementById('portal')
+        document.getElementById("portal")
       )
     : null;
 }
@@ -156,11 +158,16 @@ function Greetings(props) {
 function GreetingsContainer() {
   const [text, setText] = useState("");
   const { greeting } = useParams();
+  const history = useHistory()
 
   useEffect(() => {
     const getTextFromDB = async () => {
       const res = await db.collection("greetings").doc(greeting).get();
-      setText(res.data().text);
+      const data = res.data();
+      if (data) {
+        return setText(data.text);
+      }
+      history.push(ROUTES.HOME)
     };
     try {
       if (greeting) {
@@ -169,7 +176,8 @@ function GreetingsContainer() {
     } catch (err) {
       console.log(err);
     }
-  }, [greeting]);
+  }, [greeting,history]);
+
   return text && <Greetings text={text} />;
 }
 
