@@ -1,8 +1,8 @@
-# CloudNote - Cloud Based Note Application
+# Bilkan's Portfolio - My personal portfolio website
 
-A React application where you can save and manage your notes in the cloud. 
+My personal portfolio website which built with NextJS. 
 
-[CloudNote](https://cloudnote.netlify.app/)
+[Portfolio](https://www.bilkankonus.com/)
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ npm install npm@latest -g
 1. Clone the repo
 
 ``` 
-git clone https://github.com/bilkn/cloud-note.git
+git clone https://github.com/bilkn/portfolio.git
 ```
 
 2. Run npm install inside project root
@@ -45,12 +45,10 @@ Have fun :)
 ```
 
 ## Built With
-* [React](https://reactjs.org/) - The JavaScript framework used
-* [Styled Components Library](https://styled-components.com/) - CSS in JS tool
-* [Firebase](https://firebase.google.com/) - Firestore (Cloud Database), Storage (Cloud Storage) and Authentication used
+* [NextJS](https://nextjs.org/) - Hybrid static & server side rendering React framework
 * [Google Analytics](https://analytics.google.com/analytics/web/provision/#/provision) - Web Analytics service
-* [Jest](https://jestjs.io/) - JavaScript Testing Framework
-* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) 
+* [Material UI](https://mui.com/) - UI library
+
 
 
 ## Contributors
